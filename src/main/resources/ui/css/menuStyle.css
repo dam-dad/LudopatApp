@@ -1,0 +1,44 @@
+.root{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 12pt;
+	-fx-text-fill: white;
+	-fx-background-image: url("../images/background6.png");
+}
+.button{
+	-fx-background-color: #C70E0E;
+	-fx-text-fill: white;
+
+	
+}
+.button:hover{
+	-fx-background-color: #9D1414;
+	-fx-effect: dropshadow(gaussian, #CECECE, 20, 0.5, 0, 0);
+	
+}
+
+.button:armed{
+	-fx-background-color: #CECECE;
+	-fx-text-fill: black;
+}
+
+#alternate{
+	-fx-background-color: black;
+	
+	
+}
+#alternate:hover{
+	-fx-background-color: #191919;
+	
+}
+#alternate:armed{
+	-fx-background-color: #CECECE;
+	-fx-text-fill: black;
+}
+#box{
+	-fx-background-color: #258D15;
+	-fx-border-radius: 10 10 10 10;
+	-fx-background-radius: 10 10 10 10;
+	-fx-border-style: line line line line;
+  	-fx-border-color: black;
+	
+}
