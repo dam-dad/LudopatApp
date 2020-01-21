@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox alignment="CENTER" layoutX="26.0" layoutY="124.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
+               <children>
+                  <Label text="Baraja:" />
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <RadioButton fx:id="espRadio" mnemonicParsing="false" text="ESPAÑOLA">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="deckGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="pokRadio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="POKER" toggleGroup="$deckGroup" />
+                        <RadioButton fx:id="dRadio" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="DOS" toggleGroup="$deckGroup" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
+               <children>
+                  <Label text="Número de cartas:" />
+                  <HBox alignment="CENTER_LEFT" spacing="20.0">
+                     <children>
+                        <RadioButton fx:id="oneRadio" mnemonicParsing="false" text="Una baraja">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="nDeckGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="twoRadio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Dos barajas" toggleGroup="$nDeckGroup" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets left="50.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>
