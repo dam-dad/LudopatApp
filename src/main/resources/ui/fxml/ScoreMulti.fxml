@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <TableView fx:id="resultsTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="298.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="75.0" text="C1" />
+          <TableColumn prefWidth="75.0" text="C2" />
+        </columns>
+      </TableView>
+   </top>
+   <center>
+      <HBox alignment="CENTER" prefHeight="147.0" prefWidth="800.0" spacing="90.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="goToMenuButton" mnemonicParsing="false" text="Volver al menu" />
+            <Button fx:id="playAgainButton" mnemonicParsing="false" text="Volver a Jugar" />
+            <Button fx:id="changeRulesButton" mnemonicParsing="false" text="Cambiar reglas" />
+         </children>
+      </HBox>
+   </center>
+   <padding>
+      <Insets top="15.0" />
+   </padding>
+</BorderPane>
