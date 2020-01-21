@@ -2,10 +2,6 @@ package games;
 
 import java.util.ArrayList;
 
-import ingame.Card;
-import ingame.Deck;
-import ingame.Player;
-
 /**
  * <b>Juego</b>
  * <br><br>
