@@ -2,7 +2,7 @@
 	-fx-font-family: segoe-ui;
 	-fx-font-size: 12pt;
 	-fx-text-fill: white;
-	-fx-background-image: url("../images/background6.png");
+	-fx-background-image: url("../images/background.png");
 }
 .button{
 	-fx-background-color: #C70E0E;
@@ -40,5 +40,7 @@
 	-fx-background-radius: 10 10 10 10;
 	-fx-border-style: line line line line;
   	-fx-border-color: black;
+		
 	
 }
+
