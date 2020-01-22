@@ -1,0 +1,32 @@
+#component{
+	-fx-background-color: #A5A5A8;
+}
+
+.label{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 20pt;
+}
+
+#index{
+	-fx-text-fill: #646466;
+}
+
+.button{
+	-fx-background-color: #C70E0E;
+	-fx-text-fill: white;
+	-fx-font-size: 12pt;
+}
+
+.button:hover{
+	-fx-background-color: #9D1414;
+	-fx-effect: dropshadow(gaussian, #CECECE, 20, 0.5, 0, 0);
+}
+
+.button:armed{
+	-fx-background-color: #CECECE;
+	-fx-text-fill: black;
+}
+
+#configPane{
+	-fx-background-color: #A5A5A8;
+}
