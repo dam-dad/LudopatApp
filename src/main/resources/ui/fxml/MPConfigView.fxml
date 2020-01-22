@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/ConfigMenuStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" BorderPane.alignment="CENTER">
          <children>
@@ -18,7 +18,7 @@
                   <Label id="tittle" text="LudopatApp" />
                </children>
             </HBox>
-            <Label fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
+            <Label id="index" fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
             <Label maxHeight="1.7976931348623157E308" text="/4" />
          </children>
          <BorderPane.margin>

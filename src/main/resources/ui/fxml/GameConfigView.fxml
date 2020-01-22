@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="component" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" stylesheets="@../css/ConfigMenuStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" layoutX="26.0" layoutY="124.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -17,12 +17,12 @@
                   <Label text="Números de jugadores:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="2">
+                        <RadioButton fx:id="p2Radio" mnemonicParsing="false" text="2">
                            <toggleGroup>
                               <ToggleGroup fx:id="playerGroup" />
                            </toggleGroup></RadioButton>
-                        <RadioButton layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="3" toggleGroup="$playerGroup" />
-                        <RadioButton layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="4" toggleGroup="$playerGroup" />
+                        <RadioButton fx:id="p3Radio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="3" toggleGroup="$playerGroup" />
+                        <RadioButton fx:id="p4Radio" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="4" toggleGroup="$playerGroup" />
                      </children>
                   </HBox>
                </children>
@@ -32,7 +32,7 @@
                   <Label text="Juegos:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="DOS">
+                        <RadioButton fx:id="dosRadio" mnemonicParsing="false" text="DOS">
                            <toggleGroup>
                               <ToggleGroup fx:id="gameGroup" />
                            </toggleGroup></RadioButton>
