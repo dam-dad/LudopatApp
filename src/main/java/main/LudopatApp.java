@@ -2,6 +2,7 @@ package main;
 
 import java.io.IOException;
 
+import games.GameRules;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -25,19 +26,33 @@ import ui.SplashController;
  */
 public class LudopatApp extends Application {
 
+	// Controladores
+	//---------------------------------------------------
+	
 	private MultiplayerController multiplayerController;
 	private MainMenuController mainMenuController;
-
+	
+	//---------------------------------------------------
+	
+	// Variables de la App
+	//---------------------------------------------------
+	
+	private GameRules gameRules;
 	private Stage mainStage;
+	
+	//-------- -------------------------------------------
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		mainStage = primaryStage;
-
 		mainStage.setResizable(false);
+		
+		// Inicamos la aplicación, el SplashScreen
 		initApp();
 		primaryStage.show();
+		
+		// Esperamos a mostrar el menú
 		waitSplash();
 	}
 
@@ -48,6 +63,7 @@ public class LudopatApp extends Application {
 
 		try {
 
+			gameRules = new GameRules();
 			multiplayerController = new MultiplayerController(this);
 
 			Scene scene = new Scene(multiplayerController.getView(), 800, 600);
@@ -59,6 +75,7 @@ public class LudopatApp extends Application {
 	}
 
 	public void initApp() {
+		
 		try {
 			SplashController splashController = new SplashController(this);
 
@@ -73,20 +90,6 @@ public class LudopatApp extends Application {
 	}
 
 	private void waitSplash() {
-		Platform.runLater(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(5000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				goMenu();
-
-			}
-		});
 		
 	}
 
@@ -106,6 +109,10 @@ public class LudopatApp extends Application {
 
 	// -------------------------------------------------------------------
 
+	public GameRules getGameRules() {
+		return gameRules;
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}

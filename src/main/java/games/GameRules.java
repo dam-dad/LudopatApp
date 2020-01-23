@@ -9,7 +9,7 @@ import javafx.scene.image.ImageView;
  * <br><br>
  * 
  * Reglas básicas del juego que se cargan a partir de un archivo XML propio
- * de cada juego.
+ * de cada juego y de las configuraciones de la partida.
  * 
  * @author David Fernández Nieves
  * @author Pablo Daniel Urtiaga Pinto
@@ -19,11 +19,28 @@ import javafx.scene.image.ImageView;
  */
 public class GameRules {
 
+	public enum e_deckType {
+		
+		DECK_DOS,
+		DECK_SPANISH,
+		DECK_POKER
+	}
+	
+	/**
+	 * Diferentes tipos de cartas, española, de póker,.....
+	 */
+	private e_deckType deckType;
+	
+	/**
+	 * Número de jugadores que va a haber en la partida
+	 */
+	private int numPlayers;
+
 	/**
 	 * Número de cartas total del juego
 	 */
-	
 	private int numCards;
+	
 	/**
 	 * Imágenes de cada carta en el juego
 	 */
@@ -35,12 +52,8 @@ public class GameRules {
 	 * su significado.
 	 */
 	private ArrayList<Integer> cardValues;
-	
-	public GameRules(int numCards, ArrayList<ImageView> cardImages, ArrayList<Integer> cardValues) {
-		this.numCards = numCards;
-		this.cardImages = cardImages;
-		this.cardValues = cardValues;
-	}
+
+	public GameRules() {}
 
 	public int getNumCards() {
 		return numCards;
@@ -66,4 +79,15 @@ public class GameRules {
 		this.cardValues = cardValues;
 	}
 	
+	public void setDeckType(e_deckType deckType) {
+		this.deckType = deckType;
+	}
+	
+	public int getNumPlayers() {
+		return numPlayers;
+	}
+
+	public void setNumPlayers(int numPlayers) {
+		this.numPlayers = numPlayers;
+	}
 }

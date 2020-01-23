@@ -7,7 +7,9 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 
 /**
  * 
@@ -26,6 +28,25 @@ import javafx.scene.layout.AnchorPane;
 
 public class GameConfigController extends AnchorPane implements Initializable {
 
+
+    @FXML
+    private RadioButton p2Radio;
+
+    @FXML
+    private ToggleGroup playerGroup;
+
+    @FXML
+    private RadioButton p3Radio;
+
+    @FXML
+    private RadioButton p4Radio;
+
+    @FXML
+    private RadioButton dosRadio;
+
+    @FXML
+    private ToggleGroup gameGroup;
+    
 	public GameConfigController() {
 		
 		try {
