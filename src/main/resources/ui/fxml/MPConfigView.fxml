@@ -16,11 +16,11 @@
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" HBox.hgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
-                  <Label id="tittle" text="LudopatApp" />
+                  <Label id="labelOne" text="LudopatApp" />
                </children>
             </HBox>
-            <Label id="index" fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
-            <Label maxHeight="1.7976931348623157E308" text="/4" />
+            <Label id="labelOne" fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
+            <Label id="labelOne" maxHeight="1.7976931348623157E308" text="/4" />
          </children>
          <BorderPane.margin>
             <Insets />

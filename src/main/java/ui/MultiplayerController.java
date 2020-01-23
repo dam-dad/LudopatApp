@@ -166,7 +166,6 @@ public class MultiplayerController implements Initializable {
     @FXML
     void onContinueAction(ActionEvent event) {
 		currentPage.setValue(currentPage.getValue()+1);
-		System.out.println(currentPage.get());
 		nextStage();
 	}
 	

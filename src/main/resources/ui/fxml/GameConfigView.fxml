@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
                <children>
-                  <Label text="Números de jugadores:" />
+                  <Label id="labelOne" text="Números de jugadores:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
                         <RadioButton fx:id="p2Radio" mnemonicParsing="false" text="2">
@@ -29,7 +29,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
                <children>
-                  <Label text="Juegos:" />
+                  <Label id="labelOne" text="Juegos:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
                         <RadioButton fx:id="dosRadio" mnemonicParsing="false" text="DOS">

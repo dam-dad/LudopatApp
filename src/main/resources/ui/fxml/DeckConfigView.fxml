@@ -14,7 +14,7 @@
          <children>
             <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
                <children>
-                  <Label text="Baraja:" />
+                  <Label id="labelOne" text="Baraja:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
                         <RadioButton fx:id="espRadio" mnemonicParsing="false" text="ESPAÑOLA">
@@ -30,7 +30,7 @@
             </VBox>
             <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0">
                <children>
-                  <Label text="Número de cartas:" />
+                  <Label id="labelOne" text="Número de cartas:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
                         <RadioButton fx:id="oneRadio" mnemonicParsing="false" text="Una baraja">
