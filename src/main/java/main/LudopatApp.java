@@ -5,6 +5,7 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import ui.MainMenuController;
 import ui.MultiplayerController;
 
 /**
@@ -23,7 +24,7 @@ import ui.MultiplayerController;
 public class LudopatApp extends Application {
 
 	private MultiplayerController multiplayerController;
-//	private MainMenuController mainMenuController; Not yet implemented
+	private MainMenuController mainMenuController; 
 	
 	private Stage mainStage;
 	
@@ -32,7 +33,8 @@ public class LudopatApp extends Application {
 		
 		mainStage = primaryStage;
 		
-		goMenu();
+		mainStage.setResizable(false);
+		goMultiplayerMenu();
 		primaryStage.show();
 	}
 
@@ -42,6 +44,7 @@ public class LudopatApp extends Application {
 	public void goMultiplayerMenu() {
 		
 		try {
+			
 			multiplayerController = new MultiplayerController(this);
 			
 			Scene scene = new Scene(multiplayerController.getView(), 800, 600);
@@ -52,17 +55,22 @@ public class LudopatApp extends Application {
 		}
 	}
 	
-	public void goMenu() {
+	public void initApp() {
+		
+	}
 	
-		/*
-		 * Not yet implemented
+	public void goMenu() {
 		 
-		mainMenuController = new MainMenuController();
+		try {
+			mainMenuController = new MainMenuController(this);
+			
+			Scene scene = new Scene(mainMenuController.getView(), 800, 600);
+			mainStage.setScene(scene);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
-		Scene scene = new Scene(mainMenuController.getView(), 800, 600);
-		mainStage.setScene(scene);
-		
-		*/
 	}
 	
 	//-------------------------------------------------------------------

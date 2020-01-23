@@ -17,6 +17,9 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import main.LudopatApp;
+import ui.config.DeckConfigController;
+import ui.config.GameConfigController;
+import ui.config.PlayerSelectionController;
 import ui.config.SummaryController;
 
 /**
@@ -41,7 +44,7 @@ public class MultiplayerController implements Initializable {
 	private BorderPane view;
 	
 	@FXML
-	private Button backBt, continueBt, menuBt;
+	private Button backButton, continueButton, menuButton;
 	
 	@FXML
 	private Label pageLabel;
@@ -64,19 +67,22 @@ public class MultiplayerController implements Initializable {
 	
 	private e_menuStages currentStage;
 	
+	private GameConfigController gameConfig;
+	private DeckConfigController deckConfig;
+	private PlayerSelectionController playerConfig;
 	private SummaryController summary;
 	
 	private LudopatApp ludopp;
 	
 	//--------------------------------------------------
 	
-	private IntegerProperty currentPage = new SimpleIntegerProperty(1);
+	private IntegerProperty currentPage = new SimpleIntegerProperty();
 	
 	public MultiplayerController(LudopatApp app) throws IOException {
 		
 		this.ludopp = app;
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(""));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/MPConfigView.fxml"));
 		loader.setController(this);
 		loader.load();
 	}
@@ -84,17 +90,28 @@ public class MultiplayerController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		// Al principio no está visible
-		backBt.setVisible(false);
-		
 		// Bindings
 		pageLabel.textProperty().bind( currentPage.asString() );
 		
-		// Precargamos los paneles y los ponemos en posición
-		configPane.setDividerPositions(0, 1, 1, 1);
-		
+		gameConfig = new GameConfigController();
+		deckConfig = new DeckConfigController();
+		playerConfig = new PlayerSelectionController();
 		summary = new SummaryController();
-		configPane.getItems().add(summary);
+		
+		configPane.getItems().setAll(gameConfig, deckConfig, playerConfig, summary);
+		configPane.getItems().set(0, gameConfig);
+		configPane.getItems().set(1, deckConfig);
+		configPane.getItems().set(2, playerConfig);
+		configPane.getItems().set(3, summary);
+		
+		// Precargamos los paneles y los ponemos en posición
+		configPane.setDividerPositions(1, 1, 1);
+		configPane.setMouseTransparent(true);
+		
+		backButton.disableProperty().bind( currentPage.isEqualTo(1));
+		
+		currentStage = e_menuStages.ST_CONFIG_GAME;
+		currentPage.setValue(1);
 	}
 	
 	private void nextStage() {
@@ -102,14 +119,13 @@ public class MultiplayerController implements Initializable {
 		switch (currentStage) {
 		
 			case ST_CONFIG_GAME:
-				backBt.setVisible(true); 
-				configPane.setDividerPositions(0, 0, 1, 1);
+				configPane.setDividerPositions(0, 1, 1);
 				break;
 			case ST_CONFIG_INGAME:
-				configPane.setDividerPositions(0, 0, 0, 1);
+				configPane.setDividerPositions(0, 0, 1);
 				break;
 			case ST_CONFIG_PLAYERS:
-				configPane.setDividerPositions(0, 0, 0, 0);
+				configPane.setDividerPositions(0, 0, 0);
 				break;
 			case ST_CONFIG_SUMMARY:
 				// Empezar la partida
@@ -126,14 +142,13 @@ public class MultiplayerController implements Initializable {
 		switch (currentStage) {
 		
 			case ST_CONFIG_INGAME:
-				backBt.setVisible(false);
-				configPane.setDividerPositions(0, 1, 1, 1); // A configuración partida
+				configPane.setDividerPositions(1, 1, 1);
 				break;
 			case ST_CONFIG_PLAYERS:
-				configPane.setDividerPositions(0, 0, 1, 1);
+				configPane.setDividerPositions(0, 1, 1);
 				break;
 			case ST_CONFIG_SUMMARY:
-				configPane.setDividerPositions(0, 0, 0, 1);
+				configPane.setDividerPositions(0, 0, 1);
 				break;
 			default:
 				break;
@@ -143,19 +158,20 @@ public class MultiplayerController implements Initializable {
 	}
 	
 	@FXML
-	private void onBackAction(ActionEvent event) {
-		currentPage.subtract(1);
+	void onBackAction(ActionEvent event) {
+		currentPage.setValue(currentPage.getValue()-1);
 		previousStage();
 	}
 	
-	@FXML
-	private void onContinueAction(ActionEvent event) {
-		currentPage.add(1);
+    @FXML
+    void onContinueAction(ActionEvent event) {
+		currentPage.setValue(currentPage.getValue()+1);
+		System.out.println(currentPage.get());
 		nextStage();
 	}
 	
 	@FXML
-	private void onMenuAction(ActionEvent event) {
+	void onMenuAction(ActionEvent event) {
 		ludopp.goMenu();
 	}
 

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
@@ -30,14 +31,20 @@
       </HBox>
    </top>
    <center>
-      <SplitPane fx:id="configPane" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+      <SplitPane fx:id="configPane" dividerPositions="1.0, 1.0, 1.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+         <items>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+         </items></SplitPane>
    </center>
    <bottom>
       <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT">
          <children>
             <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="menuButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" text="Menú" />
+                  <Button fx:id="menuButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onMenuAction" prefHeight="40.0" prefWidth="150.0" text="Menú" />
                </children>
                <padding>
                   <Insets left="35.0" />
@@ -45,8 +52,8 @@
             </HBox>
             <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" spacing="20.0" HBox.hgrow="NEVER">
                <children>
-                  <Button fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Atrás" />
-                  <Button fx:id="continueButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Continuar" />
+                  <Button fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackAction" prefHeight="40.0" prefWidth="100.0" text="Atrás" />
+                  <Button fx:id="continueButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onContinueAction" prefHeight="40.0" prefWidth="100.0" text="Continuar" />
                </children>
                <padding>
                   <Insets left="20.0" right="35.0" />

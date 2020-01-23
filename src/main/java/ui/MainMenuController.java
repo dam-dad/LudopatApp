@@ -68,6 +68,9 @@ public class MainMenuController implements Initializable{
 
     }
 
+    public BorderPane getView() {
+		return view;
+	}
 	
 
 }

@@ -8,26 +8,29 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 
+
 /**
  * 
- * <b>Controlador vista resumen ajustes</b>
+ * <b>Controlador configuración baraja</b>
  * <br><br>
  * 
- * Controlador para el resumen de los ajustes
- * multijugador
+ * Controlador para los ajustes de multijugador con
+ * opciones para elegir tipo de baraja y número de
+ * cartas
  * 
  * @author David Fernández Nieves
  * @author Pablo Daniel Urtiaga Pinto
  * @author Joel Rodriguez Martín
  * @author Kevin Rodriguez Morales
  */
-public class SummaryController extends AnchorPane implements Initializable {
 
-	public SummaryController() {
+public class DeckConfigController extends AnchorPane implements Initializable {
+
+	public DeckConfigController() {
 		
 		try {
 			
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/SummaryView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/DeckConfigView.fxml"));
 			loader.setController(this);
 			loader.setRoot(this);
 			loader.load();
@@ -40,7 +43,7 @@ public class SummaryController extends AnchorPane implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
