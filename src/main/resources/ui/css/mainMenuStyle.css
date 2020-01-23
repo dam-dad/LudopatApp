@@ -38,9 +38,7 @@
 	-fx-background-color: #1F7113;
 	-fx-border-radius: 10 10 10 10;
 	-fx-background-radius: 10 10 10 10;
-	-fx-border-style: line line line line;
+	-fx-border-style: line;
   	-fx-border-color: black;
-		
-	
 }
 

@@ -85,12 +85,37 @@ public class LudopatApp extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 
 	private void waitSplash() {
+<<<<<<< HEAD
 		
+=======
+		Thread t = new Thread() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(5000);
+					Platform.runLater(new Runnable() {
+
+						@Override
+						public void run() {
+							goMenu();
+
+						}
+					});
+
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		};
+		t.start();
+
+>>>>>>> 3943377036452b775a913d3186ec05c89ca14ac3
 	}
 
 	public void goMenu() {
