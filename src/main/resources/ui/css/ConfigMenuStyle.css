@@ -4,6 +4,11 @@
 
 .label{
 	-fx-font-family: segoe-ui;
+	-fx-font-size: 10pt;
+}
+
+#labelOne{
+	-fx-font-family: segoe-ui;
 	-fx-font-size: 20pt;
 }
 
