@@ -4,9 +4,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import games.GameRules;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import main.LudopatApp;
 
 /**
  * 
@@ -23,7 +28,20 @@ import javafx.scene.layout.AnchorPane;
  */
 public class SummaryController extends AnchorPane implements Initializable {
 
-	public SummaryController() {
+    @FXML
+    private Label playerNumberLabel, gameLabel, deckLabel, cardNumberLabel;
+
+    @FXML
+    private ImageView imagePlayer1, imagePlayer2, imagePlayer3, imagePlayer4;
+
+    @FXML
+    private Label player1Label, player2Label, player3Label, player4Label;
+    
+    private LudopatApp ludopp;
+    
+	public SummaryController(LudopatApp ludopp) {
+		
+		this.ludopp = ludopp;
 		
 		try {
 			
@@ -39,7 +57,20 @@ public class SummaryController extends AnchorPane implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
+	}
+	
+	public void initSummary() {
+		
+		// Ahora obtenemos los datos de las reglas de juego
+		GameRules rules = ludopp.getGameRules();
+		
+		playerNumberLabel.setText(String.valueOf(rules.getNumPlayers()));
+		gameLabel.setText(rules.getGameType());
+		
+		if( rules.getDeckType() != null ) {
+			deckLabel.setText(rules.getDeckType().toString());
+			cardNumberLabel.setText(String.valueOf(rules.getDeckType().getNumCards()));
+		}	
 		
 	}
 

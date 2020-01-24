@@ -101,7 +101,7 @@ public class MultiplayerController implements Initializable {
 		gameConfig = new GameConfigController(ludopp);
 		deckConfig = new DeckConfigController(ludopp);
 		playerConfig = new PlayerSelectionController();
-		summary = new SummaryController();
+		summary = new SummaryController(ludopp);
 		
 		// Para evitar que el usuario pueda arrastrar las ventanas
 		deckConfig.setMaxWidth(0);
@@ -149,6 +149,7 @@ public class MultiplayerController implements Initializable {
 				playerConfig.setMaxWidth(ANCHOR_WIDTH);
 				break;
 			case ST_CONFIG_PLAYERS:
+				summary.initSummary();
 				configPane.setDividerPositions(0, 0, 0);
 				playerConfig.setMaxWidth(0);
 				summary.setMaxWidth(ANCHOR_WIDTH);

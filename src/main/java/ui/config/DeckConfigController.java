@@ -2,8 +2,10 @@ package ui.config;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import games.Deck;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -76,7 +78,11 @@ public class DeckConfigController extends AnchorPane implements Initializable {
 	private void onDeckChanged(Toggle nv) {
 		
 		RadioButton btn = (RadioButton)nv;
-		ludopp.getGameRules().setDeckType(btn.getId());
+		Optional<Deck> deck = ludopp.getGameRules().getAvailableDecks().stream()
+				.filter( dk -> btn.getText().equals(dk.getDisplayName())).findFirst();
+		
+		if( deck.isPresent() )
+			ludopp.getGameRules().setDeckType(deck.get());
 	}
 
 	/**

@@ -27,7 +27,7 @@ public class GameRules {
 	 * Las barajas disponibles dependen del juego
 	 * seleccionado.
 	 */
-	private String deckType;
+	private Deck deckType;
 	
 	/**
 	 * Número de jugadores que va a haber en la partida
@@ -51,11 +51,11 @@ public class GameRules {
 	
 	public GameRules() {}
 	
-	public void setDeckType(String deckType) {
+	public void setDeckType(Deck deckType) {
 		this.deckType = deckType;
 	}
 	
-	public String getDeckType() {
+	public Deck getDeckType() {
 		return deckType;
 	}
 
@@ -71,6 +71,10 @@ public class GameRules {
 		this.gameType = gameType;
 	}
 	
+	public String getGameType() {
+		return gameType;
+	}
+
 	/**
 	 * Iniciamos los ajustes para el juego seleccionado
 	 * y los cargamos en las regas del juego.

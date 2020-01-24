@@ -29,11 +29,23 @@ public class Deck {
 	 */
 	private String deckType;
 	
+	/**
+	 * Nombre de la baraja a visualizar en
+	 * la interfaz.
+	 */
+	private String displayName;
+	
+	/**
+	 * Número de cartas en el juego
+	 */
+	private int numCards;
+	
 	public Deck() {}
 	
-	public Deck(String deckType, int numCards, String imgPrefix) {
-		super();
+	public Deck(String deckType, int numCards, String imgPrefix, String displayName) {
 		this.deckType = deckType;
+		this.displayName = displayName;
+		this.numCards = numCards;
 	}
 
 	/**
@@ -58,6 +70,25 @@ public class Deck {
 	public void setDeckType(String deckType) {
 		this.deckType = deckType;
 	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
 	
-	
+	@Override
+	public String toString() {
+		return displayName;
+	}
+
+	public int getNumCards() {
+		return numCards;
+	}
+
+	public void setNumCards(int numCards) {
+		this.numCards = numCards;
+	}
 }

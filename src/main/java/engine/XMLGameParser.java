@@ -59,7 +59,8 @@ public class XMLGameParser {
 		for( Node deck : decksNodes ) {
 			decks.add(new Deck(deck.valueOf("@name"), 
 					Integer.parseInt(deck.selectSingleNode("numCards").getText()),
-					deck.selectSingleNode("imgPrefix").getText()));
+					deck.selectSingleNode("imgPrefix").getText(),
+					deck.valueOf("@displayName")));
 		}
 		
 		return decks;

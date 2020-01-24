@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <decks>
-	<deck name="dosDeck">
+	<deck name="dosDeck" displayName="DOS">
 		<numCards>54</numCards>
 		<imgPrefix>dos_</imgPrefix>
 	</deck>
