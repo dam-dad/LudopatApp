@@ -1,12 +1,17 @@
 package main;
 
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import games.GameRules;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import ui.MainMenuController;
 import ui.MultiplayerController;
 import ui.SplashController;
@@ -48,14 +53,14 @@ public class LudopatApp extends Application {
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
 		
-		goMultiplayerMenu();
+		//goMultiplayerMenu();
 		
 		// Inicamos la aplicación, el SplashScreen
-		//initApp();
+		initApp();
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú
-	//	waitSplash();
+		
 	}
 
 	// Métodos llamados desde vistas
@@ -90,35 +95,9 @@ public class LudopatApp extends Application {
 
 	}
 
-	private void waitSplash() {
-		
-		Thread t = new Thread() {
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(5000);
-					Platform.runLater(new Runnable() {
-
-						@Override
-						public void run() {
-							goMenu();
-
-						}
-					});
-
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-			}
-		};
-		t.start();
-
-	}
+	
 
 	public void goMenu() {
-
 		try {
 			mainMenuController = new MainMenuController(this);
 
