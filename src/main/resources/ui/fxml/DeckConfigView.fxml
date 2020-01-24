@@ -17,13 +17,13 @@
                   <Label id="labelOne" text="Baraja:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton fx:id="espDeck" mnemonicParsing="false" text="ESPAÑOLA" visible="false">
+                        <RadioButton id="espDeck" fx:id="espDeck" disable="true" mnemonicParsing="false" text="ESPAÑOLA">
                            <toggleGroup>
                               <ToggleGroup fx:id="deckGroup" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="pokerDeck" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="POKER" toggleGroup="$deckGroup" visible="false" />
-                        <RadioButton fx:id="dosDeck" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="DOS" toggleGroup="$deckGroup" visible="false" />
+                        <RadioButton id="pokerDeck" fx:id="pokerDeck" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="POKER" toggleGroup="$deckGroup" />
+                        <RadioButton id="dosDeck" fx:id="dosDeck" disable="true" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="DOS" toggleGroup="$deckGroup" />
                      </children>
                   </HBox>
                </children>

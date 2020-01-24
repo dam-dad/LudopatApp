@@ -31,12 +31,17 @@ import javafx.scene.control.ToggleGroup;
 public class GameConfigController extends AnchorPane implements Initializable {
 
 
+	// FXML : View
+	//---------------------------------------------------------
+	
     @FXML
-    private RadioButton p2Radio, p3Radio, p4Radio, dosRadio;
+    private RadioButton p2Radio, p3Radio, p4Radio, dos;
 
     @FXML
     private ToggleGroup playerGroup, gameGroup;
 
+    //---------------------------------------------------------
+    
     private LudopatApp ludopp;
     
 	public GameConfigController(LudopatApp app) {
@@ -62,12 +67,12 @@ public class GameConfigController extends AnchorPane implements Initializable {
 		playerGroup.selectedToggleProperty().addListener( (o, ov, nv) -> onPlayersChanged(nv));
 		
 		// Cada vez que cambiamos el tipo de juego
-		playerGroup.selectedToggleProperty().addListener(( (o, ov, nv) -> onTypeChanged(nv)));
+		gameGroup.selectedToggleProperty().addListener(( (o, ov, nv) -> onTypeChanged(nv)));
 		
 
 		// Seleccionamos el primer elemento
 		p2Radio.setSelected(true);
-		dosRadio.setSelected(true);
+		dos.setSelected(true);
 	}
 
 	private void onTypeChanged(Toggle nv) {

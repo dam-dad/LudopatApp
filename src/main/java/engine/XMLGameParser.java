@@ -37,18 +37,23 @@ public class XMLGameParser {
 	private Element root;
 	
 	public XMLGameParser(String gameName) throws DocumentException {
-		
+
 		SAXReader reader = new SAXReader();
 		Document xml = reader.read(getClass().getResource("/games/"+gameName+".xml"));
 		
 		root = xml.getRootElement();
+
 	}
 	
+	/**
+	 * Las barajas disponibles para el juego seleccionado
+	 * @return Barajas disponibles
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Deck> getAvailableDecks() {
 			
 		List<Element> decksNodes = root.selectNodes("//deck");
-		
+
 		ArrayList<Deck> decks = new ArrayList<Deck>();
 		
 		for( Node deck : decksNodes ) {

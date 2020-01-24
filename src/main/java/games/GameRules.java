@@ -1,12 +1,10 @@
 package games;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import org.dom4j.DocumentException;
 
 import engine.XMLGameParser;
-import javafx.scene.image.ImageView;
 
 /**
  * <b>Reglas del juego</b>
@@ -57,6 +55,10 @@ public class GameRules {
 		this.deckType = deckType;
 	}
 	
+	public String getDeckType() {
+		return deckType;
+	}
+
 	public int getNumPlayers() {
 		return numPlayers;
 	}
@@ -76,12 +78,11 @@ public class GameRules {
 	 * @throws DocumentException
 	 */
 	public void initGameType() throws DocumentException {
-		
+
 		// Necesitamos cargar los elementos del XML para obtener la baraja
-		if( parser != null )
-			parser = new XMLGameParser(gameType);
+		parser = new XMLGameParser(gameType);
 		
-		availableDecks = new ArrayList<Deck>(parser.getAvailableDecks());
+		availableDecks = parser.getAvailableDecks();	
 	}
 
 	public ArrayList<Deck> getAvailableDecks() {

@@ -32,7 +32,7 @@
                   <Label id="labelOne" text="Juegos:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton fx:id="dosRadio" mnemonicParsing="false" text="DOS">
+                        <RadioButton fx:id="dos" mnemonicParsing="false" text="DOS">
                            <toggleGroup>
                               <ToggleGroup fx:id="gameGroup" />
                            </toggleGroup></RadioButton>

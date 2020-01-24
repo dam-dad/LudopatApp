@@ -1,17 +1,11 @@
 package main;
 
 import java.io.IOException;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import games.GameRules;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import ui.MainMenuController;
 import ui.MultiplayerController;
 import ui.SplashController;
@@ -53,10 +47,10 @@ public class LudopatApp extends Application {
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
 		
-		//goMultiplayerMenu();
+		goMultiplayerMenu();
 		
 		// Inicamos la aplicación, el SplashScreen
-		initApp();
+	//	initApp();
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú

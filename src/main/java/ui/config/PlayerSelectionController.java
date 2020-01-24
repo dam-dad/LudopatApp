@@ -43,7 +43,6 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-
 	}
 
 }

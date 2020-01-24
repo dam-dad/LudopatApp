@@ -2,14 +2,11 @@ package ui.config;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import games.Deck;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
@@ -34,22 +31,27 @@ import main.LudopatApp;
 
 public class DeckConfigController extends AnchorPane implements Initializable {
 
+	// FXML : View
+	//---------------------------------------------------------
+	
     @FXML
     private ToggleGroup deckGroup;
     
     @FXML
-    private RadioButton pokerDeck;
-
+    private RadioButton pokerDeck, dosDeck, espDesk;
+    
     @FXML
-    private RadioButton dosDeck;
+    private RadioButton oneRadio, twoRadio;
 
-    @FXML
-    private RadioButton espDeck;
+   //---------------------------------------------------------
+    
     
     private LudopatApp ludopp;
     
-	public DeckConfigController() {
+	public DeckConfigController(LudopatApp app) {
 		
+		this.ludopp = app;
+	
 		try {
 			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/DeckConfigView.fxml"));
@@ -65,8 +67,22 @@ public class DeckConfigController extends AnchorPane implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		// Seleccionamos el primer elemento por defecto
+		oneRadio.setSelected(true);
+		
+		deckGroup.selectedToggleProperty().addListener( (o, ov, nv ) -> onDeckChanged(nv));
 	}
 	
+	private void onDeckChanged(Toggle nv) {
+		
+		RadioButton btn = (RadioButton)nv;
+		ludopp.getGameRules().setDeckType(btn.getId());
+	}
+
+	/**
+	 * Cada vez que se cambia de juego y se pasa a su configuración,
+	 * ponemos las barajas disponibles.
+	 */
 	public void selectDecks() {
 		
 		// Hacemos visibles los botones que se corresponden
@@ -75,10 +91,14 @@ public class DeckConfigController extends AnchorPane implements Initializable {
 
 			RadioButton radio = (RadioButton) btn;
 			
-			if (ludopp.getGameRules().getAvailableDecks().stream()
-					.anyMatch(deck -> deck.getDeckType().equals(radio.getId()))) {
+			if (ludopp.getGameRules().getAvailableDecks() != null) {
 				
-				radio.setVisible(true);
+				if (ludopp.getGameRules().getAvailableDecks().stream()
+						.anyMatch(deck -> deck.getDeckType().equals(radio.getId()))) {
+
+					radio.setDisable(false);
+					radio.setSelected(true); // Se seleccionará el último
+				}
 			}
 		}
 	}

@@ -99,7 +99,7 @@ public class MultiplayerController implements Initializable {
 		pageLabel.textProperty().bind( currentPage.asString() );
 		
 		gameConfig = new GameConfigController(ludopp);
-		deckConfig = new DeckConfigController();
+		deckConfig = new DeckConfigController(ludopp);
 		playerConfig = new PlayerSelectionController();
 		summary = new SummaryController();
 		
@@ -129,24 +129,24 @@ public class MultiplayerController implements Initializable {
 		switch (currentStage) {
 		
 			case ST_CONFIG_GAME:
-				configPane.setDividerPositions(0, 1, 1);
-				gameConfig.setMaxWidth(0);
-				deckConfig.setMaxWidth(ANCHOR_WIDTH);
-				break;
-			case ST_CONFIG_INGAME:
 				
 				try {
 					// Cargamos los ajustes para el juego seleccionado
 					ludopp.getGameRules().initGameType();
 					
 				} catch (DocumentException e) {
-					// Ventana de error
+					e.printStackTrace();
 				}
 				
+				deckConfig.selectDecks();
+				configPane.setDividerPositions(0, 1, 1);
+				gameConfig.setMaxWidth(0);
+				deckConfig.setMaxWidth(ANCHOR_WIDTH);
+				break;
+			case ST_CONFIG_INGAME:
 				configPane.setDividerPositions(0, 0, 1);
 				deckConfig.setMaxWidth(0);
 				playerConfig.setMaxWidth(ANCHOR_WIDTH);
-				
 				break;
 			case ST_CONFIG_PLAYERS:
 				configPane.setDividerPositions(0, 0, 0);
