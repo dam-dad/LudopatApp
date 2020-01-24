@@ -1,7 +1,11 @@
 package games;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import org.dom4j.DocumentException;
+
+import engine.XMLGameParser;
 import javafx.scene.image.ImageView;
 
 /**
@@ -19,67 +23,37 @@ import javafx.scene.image.ImageView;
  */
 public class GameRules {
 
-	public enum e_deckType {
-		
-		DECK_DOS,
-		DECK_SPANISH,
-		DECK_POKER
-	}
 	
 	/**
 	 * Diferentes tipos de cartas, española, de póker,.....
+	 * Las barajas disponibles dependen del juego
+	 * seleccionado.
 	 */
-	private e_deckType deckType;
+	private String deckType;
 	
 	/**
 	 * Número de jugadores que va a haber en la partida
 	 */
 	private int numPlayers;
-
-	/**
-	 * Número de cartas total del juego
-	 */
-	private int numCards;
 	
 	/**
-	 * Imágenes de cada carta en el juego
+	 * Barajas soportadas para este juego
 	 */
-	private ArrayList<ImageView> cardImages;
+	private ArrayList<Deck> availableDecks;
+
+	/**
+	 * Modo de juego, solitario, dos, póker,....
+	 */
+	private String gameType;
 	
 	/**
-	 * Valores de las distintas cartas del juego,
-	 * cada juego interpretará este valor según
-	 * su significado.
+	 * Referencia al XML del juego
 	 */
-	private ArrayList<Integer> cardValues;
-
+	private XMLGameParser parser;
+	
 	public GameRules() {}
-
-	public int getNumCards() {
-		return numCards;
-	}
-
-	public void setNumCards(int numCards) {
-		this.numCards = numCards;
-	}
-
-	public ArrayList<ImageView> getCardImages() {
-		return cardImages;
-	}
-
-	public void setCardImages(ArrayList<ImageView> cardImages) {
-		this.cardImages = cardImages;
-	}
-
-	public ArrayList<Integer> getCardValues() {
-		return cardValues;
-	}
-
-	public void setCardValues(ArrayList<Integer> cardValues) {
-		this.cardValues = cardValues;
-	}
 	
-	public void setDeckType(e_deckType deckType) {
+	public void setDeckType(String deckType) {
 		this.deckType = deckType;
 	}
 	
@@ -89,5 +63,28 @@ public class GameRules {
 
 	public void setNumPlayers(int numPlayers) {
 		this.numPlayers = numPlayers;
+	}
+	
+	public void setGameType(String gameType)  {
+		this.gameType = gameType;
+	}
+	
+	/**
+	 * Iniciamos los ajustes para el juego seleccionado
+	 * y los cargamos en las regas del juego.
+	 * 
+	 * @throws DocumentException
+	 */
+	public void initGameType() throws DocumentException {
+		
+		// Necesitamos cargar los elementos del XML para obtener la baraja
+		if( parser != null )
+			parser = new XMLGameParser(gameType);
+		
+		availableDecks = new ArrayList<Deck>(parser.getAvailableDecks());
+	}
+
+	public ArrayList<Deck> getAvailableDecks() {
+		return availableDecks;
 	}
 }

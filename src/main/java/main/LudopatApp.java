@@ -48,12 +48,14 @@ public class LudopatApp extends Application {
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
 		
+		goMultiplayerMenu();
+		
 		// Inicamos la aplicación, el SplashScreen
-		initApp();
+		//initApp();
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú
-		waitSplash();
+	//	waitSplash();
 	}
 
 	// Métodos llamados desde vistas
@@ -89,9 +91,7 @@ public class LudopatApp extends Application {
 	}
 
 	private void waitSplash() {
-<<<<<<< HEAD
 		
-=======
 		Thread t = new Thread() {
 			@Override
 			public void run() {
@@ -115,7 +115,6 @@ public class LudopatApp extends Application {
 		};
 		t.start();
 
->>>>>>> 3943377036452b775a913d3186ec05c89ca14ac3
 	}
 
 	public void goMenu() {

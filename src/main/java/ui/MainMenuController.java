@@ -60,7 +60,7 @@ public class MainMenuController implements Initializable{
 
     @FXML
     void multiPlayerAction(ActionEvent event) {
-
+    	ludopp.goMultiplayerMenu();
     }
 
     @FXML

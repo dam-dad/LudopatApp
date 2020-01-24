@@ -5,6 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import org.dom4j.DocumentException;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -57,6 +59,8 @@ public class MultiplayerController implements Initializable {
 	// Variables
 	//--------------------------------------------------
 	
+	private static final int ANCHOR_WIDTH = 800;
+	
 	enum e_menuStages {
 		
 		ST_CONFIG_GAME, 
@@ -76,6 +80,7 @@ public class MultiplayerController implements Initializable {
 	
 	//--------------------------------------------------
 	
+	// Model
 	private IntegerProperty currentPage = new SimpleIntegerProperty();
 	
 	public MultiplayerController(LudopatApp app) throws IOException {
@@ -93,11 +98,17 @@ public class MultiplayerController implements Initializable {
 		// Bindings
 		pageLabel.textProperty().bind( currentPage.asString() );
 		
-		gameConfig = new GameConfigController();
+		gameConfig = new GameConfigController(ludopp);
 		deckConfig = new DeckConfigController();
 		playerConfig = new PlayerSelectionController();
 		summary = new SummaryController();
 		
+		// Para evitar que el usuario pueda arrastrar las ventanas
+		deckConfig.setMaxWidth(0);
+		playerConfig.setMaxWidth(0);
+		summary.setMaxWidth(0);
+		
+		// Añadimos los datos de configuración
 		configPane.getItems().setAll(gameConfig, deckConfig, playerConfig, summary);
 		configPane.getItems().set(0, gameConfig);
 		configPane.getItems().set(1, deckConfig);
@@ -106,7 +117,6 @@ public class MultiplayerController implements Initializable {
 		
 		// Precargamos los paneles y los ponemos en posición
 		configPane.setDividerPositions(1, 1, 1);
-		configPane.setMouseTransparent(true);
 		
 		backButton.disableProperty().bind( currentPage.isEqualTo(1));
 		
@@ -120,12 +130,28 @@ public class MultiplayerController implements Initializable {
 		
 			case ST_CONFIG_GAME:
 				configPane.setDividerPositions(0, 1, 1);
+				gameConfig.setMaxWidth(0);
+				deckConfig.setMaxWidth(ANCHOR_WIDTH);
 				break;
 			case ST_CONFIG_INGAME:
+				
+				try {
+					// Cargamos los ajustes para el juego seleccionado
+					ludopp.getGameRules().initGameType();
+					
+				} catch (DocumentException e) {
+					// Ventana de error
+				}
+				
 				configPane.setDividerPositions(0, 0, 1);
+				deckConfig.setMaxWidth(0);
+				playerConfig.setMaxWidth(ANCHOR_WIDTH);
+				
 				break;
 			case ST_CONFIG_PLAYERS:
 				configPane.setDividerPositions(0, 0, 0);
+				playerConfig.setMaxWidth(0);
+				summary.setMaxWidth(ANCHOR_WIDTH);
 				break;
 			case ST_CONFIG_SUMMARY:
 				// Empezar la partida
@@ -143,12 +169,18 @@ public class MultiplayerController implements Initializable {
 		
 			case ST_CONFIG_INGAME:
 				configPane.setDividerPositions(1, 1, 1);
+				gameConfig.setMaxWidth(ANCHOR_WIDTH);
+				deckConfig.setMaxWidth(0);
 				break;
 			case ST_CONFIG_PLAYERS:
 				configPane.setDividerPositions(0, 1, 1);
+				deckConfig.setMaxWidth(ANCHOR_WIDTH);
+				playerConfig.setMaxWidth(0);
 				break;
 			case ST_CONFIG_SUMMARY:
 				configPane.setDividerPositions(0, 0, 1);
+				playerConfig.setMaxWidth(ANCHOR_WIDTH);
+				summary.setMaxWidth(0);
 				break;
 			default:
 				break;

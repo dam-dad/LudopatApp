@@ -7,8 +7,10 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import main.LudopatApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 
 /**
@@ -30,24 +32,16 @@ public class GameConfigController extends AnchorPane implements Initializable {
 
 
     @FXML
-    private RadioButton p2Radio;
+    private RadioButton p2Radio, p3Radio, p4Radio, dosRadio;
 
     @FXML
-    private ToggleGroup playerGroup;
+    private ToggleGroup playerGroup, gameGroup;
 
-    @FXML
-    private RadioButton p3Radio;
-
-    @FXML
-    private RadioButton p4Radio;
-
-    @FXML
-    private RadioButton dosRadio;
-
-    @FXML
-    private ToggleGroup gameGroup;
+    private LudopatApp ludopp;
     
-	public GameConfigController() {
+	public GameConfigController(LudopatApp app) {
+	
+		this.ludopp = app;
 		
 		try {
 			
@@ -63,7 +57,37 @@ public class GameConfigController extends AnchorPane implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		// Cada vez que cambiamos los jugadores
+		playerGroup.selectedToggleProperty().addListener( (o, ov, nv) -> onPlayersChanged(nv));
+		
+		// Cada vez que cambiamos el tipo de juego
+		playerGroup.selectedToggleProperty().addListener(( (o, ov, nv) -> onTypeChanged(nv)));
+		
 
+		// Seleccionamos el primer elemento
+		p2Radio.setSelected(true);
+		dosRadio.setSelected(true);
+	}
+
+	private void onTypeChanged(Toggle nv) {
+		
+		RadioButton bt = (RadioButton)nv;
+		
+		if( bt != null ) {
+			ludopp.getGameRules().setGameType(bt.getId());
+		}
+	}
+
+	private void onPlayersChanged(Toggle nv) {
+		
+		if( nv.equals(p2Radio)) {
+			ludopp.getGameRules().setNumPlayers(2);
+		} else if( nv.equals(p3Radio))
+			ludopp.getGameRules().setNumPlayers(3);
+		else {
+			ludopp.getGameRules().setNumPlayers(4);
+		}
 	}
 
 }

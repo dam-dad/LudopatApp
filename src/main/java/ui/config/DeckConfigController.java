@@ -2,11 +2,19 @@ package ui.config;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import games.Deck;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import main.LudopatApp;
 
 
 /**
@@ -26,6 +34,20 @@ import javafx.scene.layout.AnchorPane;
 
 public class DeckConfigController extends AnchorPane implements Initializable {
 
+    @FXML
+    private ToggleGroup deckGroup;
+    
+    @FXML
+    private RadioButton pokerDeck;
+
+    @FXML
+    private RadioButton dosDeck;
+
+    @FXML
+    private RadioButton espDeck;
+    
+    private LudopatApp ludopp;
+    
 	public DeckConfigController() {
 		
 		try {
@@ -42,8 +64,22 @@ public class DeckConfigController extends AnchorPane implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
+		
 	}
+	
+	public void selectDecks() {
+		
+		// Hacemos visibles los botones que se corresponden
+		// con este juego de cartas
+		for (Toggle btn : deckGroup.getToggles()) {
 
+			RadioButton radio = (RadioButton) btn;
+			
+			if (ludopp.getGameRules().getAvailableDecks().stream()
+					.anyMatch(deck -> deck.getDeckType().equals(radio.getId()))) {
+				
+				radio.setVisible(true);
+			}
+		}
+	}
 }

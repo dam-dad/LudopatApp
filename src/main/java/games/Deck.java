@@ -23,11 +23,17 @@ public class Deck {
 	 */
 	private ArrayList<Card> cards;
 	
+	/**
+	 * Nombre identificativo de la baraja, usado
+	 * para la implementación con la interfaz.
+	 */
+	private String deckType;
+	
 	public Deck() {}
 	
-	public Deck(ArrayList<Card> cards) {
+	public Deck(String deckType, int numCards, String imgPrefix) {
 		super();
-		this.cards = cards;
+		this.deckType = deckType;
 	}
 
 	/**
@@ -43,6 +49,14 @@ public class Deck {
 
 	public void setCards(ArrayList<Card> cards) {
 		this.cards = cards;
+	}
+
+	public String getDeckType() {
+		return deckType;
+	}
+
+	public void setDeckType(String deckType) {
+		this.deckType = deckType;
 	}
 	
 	
