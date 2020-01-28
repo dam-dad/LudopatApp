@@ -53,35 +53,35 @@ public class Tres extends Game {
 	// Métodos personalizados
 	// -----------------------------------------------------
 	
-	private void ordenarJugadores() {
+	private void sortPlayers() {
 	}
 	
-	private void generarMano(int mumCartas) {
+	private void generateHand(int numCards) {
 		
 	}
 	
-	private void mostrarMano() {
+	private void showHand() {
 		
 	}
 	
-	private void ocultarMano() {
+	private void hideHand() {
 		
 	}
 	
-	private void pasarTurno() {
-		ocultarMano();
+	private void nextTurn() {
+		hideHand();
 	}
 	
-	private void robar() {
+	private void drawCard() {
 		
 	}
 	
 	private void iniciarTurno() {
-		mostrarMano();
-		comprobarMesa();
+		showHand();
+		checkTable();
 	}
 	
-	private void comprobarMesa() {
+	private void checkTable() {
 		
 
 	}
