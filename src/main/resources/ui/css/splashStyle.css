@@ -6,9 +6,10 @@
 	
 }
 	
-
-.label{
-	-fx-text-fill: linear-gradient(from 25% 25% to 100% 100%, black 0, red 100);
-	
+#ludopat{
+	-fx-text-fill: black;
+}
+#app{
+	-fx-text-fill: red;
 }
 

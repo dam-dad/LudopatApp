@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="view" minHeight="600.0" minWidth="800.0" onMouseClicked="#skipSplashClick" stylesheets="@../css/splashStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
@@ -16,14 +17,15 @@
                   <Insets />
                </VBox.margin>
                <image>
-                  <Image url="@../images/logo.gif" />
+                  <Image url="@../images/Frame.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" text="LudopatApp">
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin>
-            </Label>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label id="ludopat" alignment="CENTER" text="Ludopat" />
+                  <Label id="app" text="App" />
+               </children>
+            </HBox>
          </children>
       </VBox>
    </center>
