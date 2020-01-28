@@ -52,6 +52,8 @@ public class Tres extends Game {
 	public void endGame() {
 		// ordenar jugadores por numero de cartas, en caso de empate suma de valores,
 		// pasarselo a dialogo
+		Collections.sort(currentPlayers, new ComparePlayers());
+		// dialogo
 
 	}
 
@@ -87,8 +89,6 @@ public class Tres extends Game {
 
 		}
 	}
-
-
 
 	// -----------------------------------------------------
 
@@ -170,7 +170,7 @@ public class Tres extends Game {
 
 	@Override
 	public void dealCards() {
-		
+
 		int numCartas = gameRules.getDeckType().getNumCards();
 		/* Falta comprobar si es baraja doble */
 
@@ -185,6 +185,6 @@ public class Tres extends Game {
 				mano.add(card);
 			}
 		}
-		
+
 	}
 }
