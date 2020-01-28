@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Kevin Rodriguez Morales
  *
  */
-public class Game {
+public abstract class Game {
 
 	/**
 	 * Número máximo de jugadores, actualmente con valor 4
@@ -46,25 +46,25 @@ public class Game {
 	 * Se inicia el juego, se cargan los 
 	 * parámetros básicos de cada juego.
 	 */
-	public void initGame() {}
+	public abstract void initGame();
 	
 	/**
 	 * Finaliza el juego, normalmente
 	 * se saca un resumen de las distintas
 	 * puntuaciones.
 	 */
-	public void endGame() {}
+	public abstract void endGame();
 	
 	/**
 	 * Un jugador lanza una carta
 	 * @param card: Carta que ha jugado
 	 */
-	public void throwCard(Card card) {}
+	public abstract void throwCard(Card card);
 	
 	/**
 	 * Se reparten las cartas a los jugadores
 	 */
-	public void dealCards() {}
+	public abstract void dealCards();
 	
 	public Deck getDeck() {
 		return deck;

@@ -1,5 +1,7 @@
 package games;
 
+import java.util.ArrayList;
+
 import javafx.scene.image.ImageView;
 
 /**
@@ -30,7 +32,12 @@ public class Player {
 	/**
 	 * Icono del jugador en el juego
 	 */
-	ImageView playerIcon;
+	private ImageView playerIcon;
+	
+	/**
+	 * Actual mano del jugador
+	 */
+	private ArrayList<Card> mano;
 	
 	public Player() {}
 

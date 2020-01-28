@@ -24,7 +24,7 @@ public class Card {
 	private int cardValue;
 	
 	/**
-	 * Imagen de la caarta en el juego
+	 * Imagen de la carta en el juego
 	 */
 	private ImageView cardImage;
 	
