@@ -47,10 +47,10 @@ public class LudopatApp extends Application {
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
 		
-		goMultiplayerMenu();
+		//goMultiplayerMenu();
 		
 		// Inicamos la aplicación, el SplashScreen
-	//	initApp();
+		initApp();
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú
