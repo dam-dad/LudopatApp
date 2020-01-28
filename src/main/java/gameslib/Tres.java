@@ -4,6 +4,8 @@
 package gameslib;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import games.Card;
 import games.Deck;
@@ -36,7 +38,9 @@ public class Tres extends Game {
 	@Override
 	public void endGame() {
 		//ordenar jugadores por numero de cartas, en caso de empate suma de valores, pasarselo a dialogo
-
+		Collections.sort(currentPlayers, new ComparePlayers());
+		//dialogo
+		
 	}
 
 	@Override
