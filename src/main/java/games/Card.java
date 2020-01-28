@@ -33,6 +33,11 @@ public class Card {
 	 */
 	private int suit;
 
+	/**
+	 * Si la carta es jugable o no jugable
+	 */
+	private boolean playable;
+	
 	public Card() {}
 	
 	
@@ -72,6 +77,16 @@ public class Card {
 
 	public void setSuits(int suits) {
 		this.suit = suits;
+	}
+
+
+	public boolean isPlayable() {
+		return playable;
+	}
+
+
+	public void setPlayable(boolean playable) {
+		this.playable = playable;
 	}
 	
 	

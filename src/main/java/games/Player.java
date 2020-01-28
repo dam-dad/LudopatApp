@@ -39,6 +39,11 @@ public class Player {
 	 */
 	private ArrayList<Card> mano;
 	
+	/**
+	 * Identificación de turno del jugador
+	 */
+	private int id;
+	
 	public Player() {}
 
 	
@@ -71,6 +76,46 @@ public class Player {
 
 	public void setPlayerIcon(ImageView playerIcon) {
 		this.playerIcon = playerIcon;
+	}
+
+
+	public ArrayList<Card> getMano() {
+		return mano;
+	}
+
+
+	public void setMano(ArrayList<Card> mano) {
+		this.mano = mano;
+	}
+
+
+	public int getScore() {
+		return score;
+	}
+
+
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

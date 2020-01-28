@@ -24,18 +24,23 @@ public abstract class Game {
 	/**
 	 * Mazo del juego
 	 */
-	private Deck deck;
+	protected Deck deck;
 	
 	/**
 	 * Reglas en las que se basa el juego
 	 */
-	private GameRules gameRules;
+	protected GameRules gameRules;
 	
 	/**
 	 * Jugadores en la partida actual
 	 */
-	private ArrayList<Player> currentPlayers = new ArrayList<Player>(MAX_PLAYERS);
+	protected ArrayList<Player> currentPlayers = new ArrayList<Player>(MAX_PLAYERS);
 
+	/**
+	 * Cartas sobre la mesa
+	 */
+	protected ArrayList<Card> cartasMesa = new ArrayList<Card>();
+	
 	public Game(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
 		this.deck = deck;
 		this.gameRules = gameRules;
@@ -88,5 +93,13 @@ public abstract class Game {
 
 	public void setCurrentPlayers(ArrayList<Player> currentPlayers) {
 		this.currentPlayers = currentPlayers;
+	}
+
+	public ArrayList<Card> getCartasMesa() {
+		return cartasMesa;
+	}
+
+	public void setCartasMesa(ArrayList<Card> cartasMesa) {
+		this.cartasMesa = cartasMesa;
 	}
 }
