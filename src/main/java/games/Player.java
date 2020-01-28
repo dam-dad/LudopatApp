@@ -37,7 +37,7 @@ public class Player {
 	/**
 	 * Actual mano del jugador
 	 */
-	private ArrayList<Card> mano;
+	private ArrayList<Card> hand;
 	
 	/**
 	 * Identificación de turno del jugador
@@ -47,28 +47,12 @@ public class Player {
 	public Player() {}
 
 	
-	public Player(int puntuacion, String nombreJugador, ImageView playerIcon) {
+	public Player(int puntuacion, String playerName, ImageView playerIcon) {
 		this.score = puntuacion;
-		this.playerName = nombreJugador;
+		this.playerName = playerName;
 		this.playerIcon = playerIcon;
 	}
 
-
-	public int getPuntuacion() {
-		return score;
-	}
-
-	public void setPuntuacion(int puntuacion) {
-		this.score = puntuacion;
-	}
-
-	public String getNombreJugador() {
-		return playerName;
-	}
-
-	public void setNombreJugador(String nombreJugador) {
-		this.playerName = nombreJugador;
-	}
 
 	public ImageView getPlayerIcon() {
 		return playerIcon;
@@ -79,13 +63,13 @@ public class Player {
 	}
 
 
-	public ArrayList<Card> getMano() {
-		return mano;
+	public ArrayList<Card> getHand() {
+		return hand;
 	}
 
 
-	public void setMano(ArrayList<Card> mano) {
-		this.mano = mano;
+	public void setHand(ArrayList<Card> hand) {
+		this.hand = hand;
 	}
 
 
