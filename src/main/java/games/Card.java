@@ -71,11 +71,11 @@ public class Card {
 		this.cardImage = cardImage;
 	}
 
-	public int getSuits() {
+	public int getSuit() {
 		return suit;
 	}
 
-	public void setSuits(int suits) {
+	public void setSuit(int suits) {
 		this.suit = suits;
 	}
 
