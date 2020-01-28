@@ -36,7 +36,7 @@ public class Card {
 	/**
 	 * Si la carta es jugable o no jugable
 	 */
-	private boolean playable;
+	private boolean playable ;
 	
 	public Card() {}
 	
