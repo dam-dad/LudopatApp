@@ -17,6 +17,14 @@ import games.Player;
  */
 public class Tres extends Game {
 
+	private final static int MAX_CARDS = 10;
+	private final static int SPECIAL_CARDS = 11; // Empezamos por 11 las especiales
+	
+	/**
+	 * Actual valor de la carta en la mesa
+	 */
+	private Card currentCard;
+	
 	public Tres(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
 		super(deck, gameRules, currentPlayers);
 	}
@@ -26,8 +34,11 @@ public class Tres extends Game {
 	
 	@Override
 	public void initGame() {
-		// TODO Auto-generated method stub
 		
+		deck.shuffle(); // Barajamos
+		ordenarJugadores();
+		dealCards();
+		// Virar
 	}
 
 	@Override
@@ -38,13 +49,55 @@ public class Tres extends Game {
 
 	@Override
 	public void throwCard(Card card) {
-		// TODO Auto-generated method stub
 		
+		// ¿ Es especial ?
+		if( card.getCardValue() >= SPECIAL_CARDS ) {
+			
+			// 11 - Cambio verde, 12 - amarillo - 13 - azul, 14 - blanco
+			// 15 - Invertir
+			// 16 - Pasar turno
+			switch (card.getCardValue()) {
+
+			case 15:
+				inverse = true;
+				break;
+			case 16:
+				nextTurn = true;
+				break;
+			case 17:
+				nextDraw += 1;
+				break;
+			default:
+				break;
+			}
+		} else {
+			
+			// Mismo color o número
+			if( currentCard.getSuit() == card.getSuit() ||
+				currentCard.getCardValue() == card.getCardValue() ) {
+				// .........
+			}
+			
+		}
 	}
 
 	@Override
 	public void dealCards() {
-		// TODO Auto-generated method stub
+		
+		int numCartas = gameRules.getDeckType().getNumCards();
+		/* Falta comprobar si es baraja doble */
+		
+		for( Player p : currentPlayers ) {
+			
+			ArrayList<Card> mano = new ArrayList<Card>(numCartas);
+			
+			for( int i = 0; i < numCartas; i++ ) {
+				
+				// Añadimos carta al usuario y se lo quitamos a la baraja
+				Card card = deck.getCards().remove(deck.getCards().size()-1);
+				mano.add(card);
+			}
+		}
 		
 	}
 
@@ -56,9 +109,6 @@ public class Tres extends Game {
 	private void ordenarJugadores() {
 	}
 	
-	private void generarMano(int mumCartas) {
-		
-	}
 	
 	private void mostrarMano() {
 		
