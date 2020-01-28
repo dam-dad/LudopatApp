@@ -4,6 +4,7 @@
 package gameslib;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import games.Card;
 import games.Deck;
@@ -13,6 +14,9 @@ import games.Player;
 
 /**
  * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
  *
  */
 public class Tres extends Game {
@@ -21,7 +25,7 @@ public class Tres extends Game {
 	private Player activePlayer;
 	private boolean inverse = false;
 
-	private final static int SPECIAL_CARDS = 11; // Empezamos por 11 las especiales
+	private final int SPECIAL_CARDS = 11; // Empezamos por 11 las especiales
 
 	/**
 	 * Actual valor de la carta en la mesa
@@ -92,7 +96,7 @@ public class Tres extends Game {
 	// -----------------------------------------------------
 
 	private void sortPlayers() {
-		// despues de ordenarlo iguala currentPlayer a el que salga primero kartoffel
+		Collections.shuffle(this.currentPlayers);
 	}
 
 	private void mostrarMano() {
@@ -127,7 +131,6 @@ public class Tres extends Game {
 				activePlayer = currentPlayers.get(currentPlayers.indexOf(activePlayer) + 1);
 			}
 		}
-		showHand();
 	}
 
 	private void drawCard(Player player) {
@@ -140,12 +143,28 @@ public class Tres extends Game {
 	}
 
 	private void startTurn() {
+		//Comprobar carta a carta y reemplazarla.
+		for( Card card : activePlayer.getHand() ) {
+			checkTable(card);
+		}
 		showHand();
-		checkTable();
 	}
 
-	private void checkTable() {
-
+	private void checkTable(Card currentCard) {
+		
+		if (this.currentCard.getCardValue() != currentCard.getCardValue()) {
+			currentCard.setPlayable(true);
+		}else {
+			if (this.currentCard.getSuit() == currentCard.getSuit()) {
+				currentCard.setPlayable(true);
+			}else {
+				if (currentCard.getCardValue() >= this.SPECIAL_CARDS) {
+					currentCard.setPlayable(true);
+				}else {
+					currentCard.setPlayable(false);
+				}
+			}
+		}
 	}
 	// -----------------------------------------------------
 

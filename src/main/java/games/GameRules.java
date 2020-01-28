@@ -23,7 +23,7 @@ public class GameRules {
 
 	
 	/**
-	 * Diferentes tipos de cartas, española, de póker,.....
+	 * Diferentes tipos de cartas, española, de póker, ...
 	 * Las barajas disponibles dependen del juego
 	 * seleccionado.
 	 */
@@ -40,7 +40,7 @@ public class GameRules {
 	private ArrayList<Deck> availableDecks;
 
 	/**
-	 * Modo de juego, solitario, dos, póker,....
+	 * Modo de juego, solitario, dos, póker, ...
 	 */
 	private String gameType;
 	
