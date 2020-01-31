@@ -51,6 +51,7 @@ public class Tres extends Game {
 
 	}
 
+	
 	@Override
 	public void throwCard(Card card) {
 
