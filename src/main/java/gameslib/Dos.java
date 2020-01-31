@@ -19,7 +19,7 @@ import games.Player;
  * @author Kevin Rodriguez Morales
  *
  */
-public class Tres extends Game {
+public class Dos extends Game {
 
 	private int nextDraw = 1;
 	private Player activePlayer;
@@ -32,7 +32,7 @@ public class Tres extends Game {
 	 */
 	private Card currentCard;
 
-	public Tres(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
+	public Dos(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
 		super(deck, gameRules, currentPlayers);
 	}
 
