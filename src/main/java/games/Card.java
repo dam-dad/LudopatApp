@@ -1,5 +1,6 @@
 package games;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.image.ImageView;
 
 /**
@@ -36,7 +37,7 @@ public class Card {
 	/**
 	 * Si la carta es jugable o no jugable
 	 */
-	private boolean playable ;
+	private BooleanProperty playable ;
 	
 	public Card() {}
 	
@@ -80,16 +81,19 @@ public class Card {
 	}
 
 
-	public boolean isPlayable() {
-		return playable;
-	}
-
-
-	public void setPlayable(boolean playable) {
-		this.playable = playable;
+	public final BooleanProperty playableProperty() {
+		return this.playable;
 	}
 	
+
+	public final boolean isPlayable() {
+		return this.playableProperty().get();
+	}
 	
+
+	public final void setPlayable(final boolean playable) {
+		this.playableProperty().set(playable);
+	}
 	
 	
 }
