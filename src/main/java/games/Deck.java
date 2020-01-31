@@ -3,6 +3,9 @@ package games;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 /**
  * <b>Baraja</b>
  * <br><br>
@@ -40,12 +43,39 @@ public class Deck {
 	 */
 	private int numCards;
 	
-	public Deck() {}
+	/**
+	 * Prefijos de las cartas
+	 */
+	private ArrayList<Suit> suits;
 	
-	public Deck(String deckType, int numCards, String imgPrefix, String displayName) {
-		this.deckType = deckType;
-		this.displayName = displayName;
-		this.numCards = numCards;
+	/**
+	 * Número de cartas por palo
+	 */
+	private int cardsPerSuit;
+	
+	public Deck() {}
+
+	/**
+	 * Cargamos las imágenes en las cartas
+	 */
+	public void loadCards(String gameType) {
+	
+		cards = new ArrayList<Card>();
+		
+		for( Suit suit : suits ) {
+			
+			for( int i = 1; i <= cardsPerSuit; i++ ) {
+				
+				String urlImage = String.format("/ui/images/%s/%s/%s_%d.png", 
+						gameType, suit.getName(), suit.getImgPrefix(), i);
+				
+				System.out.println("Loading card con imagen; " + urlImage );
+				Card card = new Card();
+				card.setCardImage( new Image(getClass().getResource(urlImage).toString()));
+				card.setCardValue(i);
+				cards.add(card);
+			}
+		}
 	}
 
 	/**
@@ -90,5 +120,21 @@ public class Deck {
 
 	public void setNumCards(int numCards) {
 		this.numCards = numCards;
+	}
+
+	public ArrayList<Suit> getSuits() {
+		return suits;
+	}
+
+	public void setSuits(ArrayList<Suit> suits) {
+		this.suits = suits;
+	}
+
+	public int getCardsPerSuit() {
+		return cardsPerSuit;
+	}
+
+	public void setCardsPerSuit(int cardsPerSuit) {
+		this.cardsPerSuit = cardsPerSuit;
 	}
 }

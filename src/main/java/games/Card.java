@@ -1,6 +1,7 @@
 package games;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -27,12 +28,12 @@ public class Card {
 	/**
 	 * Imagen de la carta en el juego
 	 */
-	private ImageView cardImage;
+	private Image cardImage;
 	
 	/**
 	 * Palo o color de la carta
 	 */
-	private int suit;
+	private Suit suit;
 
 	/**
 	 * Si la carta es jugable o no jugable
@@ -42,14 +43,14 @@ public class Card {
 	public Card() {}
 	
 	
-	public Card(int cardValue, ImageView cardImage) {
+	public Card(int cardValue, Image cardImage) {
 		super();
 		this.cardValue = cardValue;
 		this.cardImage = cardImage;
 	}
 
 	
-	public Card(int cardValue, ImageView cardImage, int suit) {
+	public Card(int cardValue, Image cardImage, Suit suit) {
 		super();
 		this.cardValue = cardValue;
 		this.cardImage = cardImage;
@@ -64,20 +65,20 @@ public class Card {
 		this.cardValue = cardValue;
 	}
 
-	public ImageView getCardImage() {
+	public Image getCardImage() {
 		return cardImage;
 	}
 
-	public void setCardImage(ImageView cardImage) {
+	public void setCardImage(Image cardImage) {
 		this.cardImage = cardImage;
 	}
 
-	public int getSuit() {
+	public Suit getSuit() {
 		return suit;
 	}
 
-	public void setSuit(int suits) {
-		this.suit = suits;
+	public void setSuit(Suit suit) {
+		this.suit = suit;
 	}
 
 

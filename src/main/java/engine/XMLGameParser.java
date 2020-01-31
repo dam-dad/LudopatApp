@@ -10,6 +10,7 @@ import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
 import games.Deck;
+import games.Suit;
 
 
 /**
@@ -57,10 +58,29 @@ public class XMLGameParser {
 		ArrayList<Deck> decks = new ArrayList<Deck>();
 		
 		for( Node deck : decksNodes ) {
-			decks.add(new Deck(deck.valueOf("@name"), 
-					Integer.parseInt(deck.selectSingleNode("numCards").getText()),
-					deck.selectSingleNode("imgPrefix").getText(),
-					deck.valueOf("@displayName")));
+
+			Deck ourDeck = new Deck();
+			
+			ourDeck.setNumCards(Integer.parseInt(deck.selectSingleNode("numCards").getText()));
+			ourDeck.setDisplayName(deck.valueOf("@displayName"));
+			ourDeck.setCardsPerSuit(Integer.parseInt(deck.selectSingleNode("cardsPerSuit").getText()));
+			ourDeck.setDeckType(deck.valueOf("@name"));
+			
+			List<Element> suitNodes = deck.selectSingleNode("suits").selectNodes("suit");
+			
+			ArrayList<Suit> suits = new ArrayList<Suit>();
+			
+			for( Node suitNode : suitNodes ) {
+				Suit s = new Suit();
+				s.setImgPrefix(suitNode.selectSingleNode("imgPrefix").getText());
+				s.setName(suitNode.selectSingleNode("name").getText());
+				suits.add(s);
+			}
+			
+			ourDeck.setSuits(suits);
+			
+			
+			decks.add(ourDeck);
 		}
 		
 		return decks;

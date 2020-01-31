@@ -154,9 +154,6 @@ public class MultiplayerController implements Initializable {
 				playerConfig.setMaxWidth(0);
 				summary.setMaxWidth(ANCHOR_WIDTH);
 				break;
-			case ST_CONFIG_SUMMARY:
-				// Empezar la partida
-				break;
 			default:
 				break;
 		}
@@ -198,8 +195,13 @@ public class MultiplayerController implements Initializable {
 	
     @FXML
     void onContinueAction(ActionEvent event) {
-		currentPage.setValue(currentPage.getValue()+1);
-		nextStage();
+		
+		if( currentPage.getValue() == 4 ) {
+			ludopp.initGame();
+		} else {
+			currentPage.setValue(currentPage.getValue()+1);
+			nextStage();
+		}
 	}
 	
 	@FXML

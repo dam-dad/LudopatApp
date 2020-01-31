@@ -3,6 +3,24 @@
 <decks>
 	<deck name="dosDeck" displayName="DOS">
 		<numCards>54</numCards>
-		<imgPrefix>dos_</imgPrefix>
+		<cardsPerSuit>10</cardsPerSuit>
+		<suits>
+			<suit>
+				<name>blue</name>
+				<imgPrefix>dos_blue</imgPrefix>
+			</suit>
+			<suit>
+				<name>yellow</name>
+				<imgPrefix>dos_yellow</imgPrefix>
+			</suit>
+			<suit>
+				<name>white</name>
+				<imgPrefix>dos_white</imgPrefix>
+			</suit>
+			<suit>
+				<name>green</name>
+				<imgPrefix>dos_green</imgPrefix>
+			</suit>
+		</suits>
 	</deck>
 </decks>

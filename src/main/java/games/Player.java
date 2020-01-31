@@ -2,6 +2,7 @@ package games;
 
 import java.util.ArrayList;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -32,7 +33,7 @@ public class Player {
 	/**
 	 * Icono del jugador en el juego
 	 */
-	private ImageView playerIcon;
+	private Image playerIcon;
 	
 	/**
 	 * Actual mano del jugador
@@ -47,18 +48,18 @@ public class Player {
 	public Player() {}
 
 	
-	public Player(int puntuacion, String playerName, ImageView playerIcon) {
+	public Player(int puntuacion, String playerName, Image playerIcon) {
 		this.score = puntuacion;
 		this.playerName = playerName;
 		this.playerIcon = playerIcon;
 	}
 
 
-	public ImageView getPlayerIcon() {
+	public Image getPlayerIcon() {
 		return playerIcon;
 	}
 
-	public void setPlayerIcon(ImageView playerIcon) {
+	public void setPlayerIcon(Image playerIcon) {
 		this.playerIcon = playerIcon;
 	}
 

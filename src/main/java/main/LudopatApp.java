@@ -1,10 +1,16 @@
 package main;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import games.Card;
+import games.Deck;
 import games.GameRules;
+import games.Player;
+import gameslib.Dos;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import ui.MainMenuController;
 import ui.MultiplayerController;
@@ -104,11 +110,124 @@ public class LudopatApp extends Application {
 
 	}
 
+	public void initGame() {
+
+		String gameType = gameRules.getGameType();
+		
+		switch (gameType) {
+
+			case "dos":
+				initDosGame();
+				break;
+			default:
+				break;
+		}
+	}
+	
 	// -------------------------------------------------------------------
 
 	public GameRules getGameRules() {
 		return gameRules;
 	}
+	
+	// Lógica distintos juegos
+	//-----------------------------------------------------------
+	
+	public void initDosGame() {
+		System.out.println("He llegado");
+		Deck deck = gameRules.getDeckType();
+		deck.loadCards("dos");
+		
+		// Cargamos las cartas especiales
+		ArrayList<Card> deckCards = deck.getCards();
+		
+		for (int i = 0; i < 2; i++) {
+			
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_BLUE);
+			card.setCardImage(
+					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changeblue.png").toString()));
+			
+			deckCards.add(card);
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_GREEN);
+			card.setCardImage(
+					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changegreen.png").toString()));
+			
+			deckCards.add(card);
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_WHITE);
+			card.setCardImage(
+					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changewhite.png").toString()));
+			
+			deckCards.add(card);
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_YELLOW);
+			card.setCardImage(
+					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changeyellow.png").toString()));
+			
+			deckCards.add(card);
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_BLOCK);
+			card.setCardImage(
+					new Image(getClass().getResource("/ui/images/dos/special/dos_special_block.png").toString()));
+			
+			deckCards.add(card);
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_INVERSE);
+			card.setCardImage(
+					new Image(getClass().getResource("/ui/images/dos/special/dos_special_inverse.png").toString()));
+			
+			deckCards.add(card);
+		}
+		
+		for (int i = 0; i < 2; i++) {
+			
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_PLUSONE);
+			card.setCardImage(
+					new Image(getClass().getResource("/ui/images/dos/special/dos_special_plusone.png").toString()));
+			
+			deckCards.add(card);
+		}
+		
+		// TEST
+		ArrayList<Player> players = new ArrayList<Player>();
+		for( int i = 0; i < 4; i++ ) {
+			Player player = new Player();
+			player.setId(i);
+			player.setPlayerName("Player_"+i);
+			players.add(player);
+		}
+		
+		Dos dosGame = new Dos(deck, gameRules, players);
+		
+		//......se inicializa el controller primero
+		
+		dosGame.initGame();
+	}
+	
+	//-----------------------------------------------------------
 	
 	public static void main(String[] args) {
 		launch(args);

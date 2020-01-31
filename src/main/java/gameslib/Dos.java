@@ -27,6 +27,15 @@ public class Dos extends Game {
 
 	private final int SPECIAL_CARDS = 11; // Empezamos por 11 las especiales
 
+	public final static int SPECIAL_INVERSE = 15;
+	public final static int SPECIAL_BLOCK = 16;
+	public final static int SPECIAL_PLUSONE = 17;
+	public final static int SPECIAL_CHANGE_BLUE = 11;
+	public final static int SPECIAL_CHANGE_YELLOW = 12;
+	public final static int SPECIAL_CHANGE_WHITE = 13;
+	public final static int SPECIAL_CHANGE_GREEN = 14;
+	
+	
 	/**
 	 * Actual valor de la carta en la mesa
 	 */
