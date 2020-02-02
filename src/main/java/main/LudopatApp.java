@@ -5,10 +5,13 @@ import java.util.ArrayList;
 
 import games.Card;
 import games.Deck;
+import games.Game;
 import games.GameRules;
 import games.Player;
 import gameslib.Dos;
+import gameslib.GameControllerDos;
 import javafx.application.Application;
+
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -36,6 +39,7 @@ public class LudopatApp extends Application {
 	
 	private MultiplayerController multiplayerController;
 	private MainMenuController mainMenuController;
+	private GameControllerDos gameControllerDos;
 	
 	//---------------------------------------------------
 	
@@ -44,8 +48,10 @@ public class LudopatApp extends Application {
 	
 	private GameRules gameRules;
 	private Stage mainStage;
-	
+	private Game currentGame;
 	//-------- -------------------------------------------
+
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -223,12 +229,21 @@ public class LudopatApp extends Application {
 		Dos dosGame = new Dos(deck, gameRules, players);
 		
 		//......se inicializa el controller primero
-		
+		currentGame = dosGame;
+		gameControllerDos = new GameControllerDos(this);
+		Scene scene = new Scene(gameControllerDos.getView());
+		mainStage.setScene(scene);
 		dosGame.initGame();
 	}
 	
 	//-----------------------------------------------------------
-	
+	public Game getCurrentGame() {
+		return currentGame;
+	}
+
+	public void setCurrentGame(Game currentGame) {
+		this.currentGame = currentGame;
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}
