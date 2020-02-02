@@ -1,2 +1,54 @@
+.root{
+	-fx-font-family: segoe-ui;
+	-fx-background-color: #2B2B2B;
+}
 
+#appNameLabel{
+	-fx-background-color: #C70E0E;
+	-fx-font-size: 28pt;
+}
 
+#header{
+	-fx-background-color: #2B2B2B;
+	-fx-font-size: 14pt;
+}
+
+#exit{
+	-fx-text-fill: white;
+	-fx-background-color: #2B2B2B;
+	-fx-font-size: 18pt;
+}
+
+#exit:hover{
+	-fx-background-color: #1A1A1A;
+}
+
+#players{
+	-fx-text-fill: white;
+	-fx-background-color: #2B2B2B;
+	-fx-font-size: 10pt;
+}
+
+#player{
+	-fx-background-color: #C70E0E;
+	-fx-effect: dropshadow(gaussian, #1A1A1A, 20, 0.5, 0, 0);
+}
+
+#playerName{
+	-fx-font-weight: bold;
+	-fx-font-size: 14pt;
+}
+
+#table{
+	-fx-background-color: #1F7113;
+	-fx-font-size: 28pt;
+}
+
+#cards{
+	-fx-background-color: #C70E0E;
+	-fx-font-size: 28pt;
+}
+
+.label{
+	-fx-text-fill: white;
+}
