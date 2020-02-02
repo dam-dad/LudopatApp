@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1250.0" stylesheets="@../css/DosBoardStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="750.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="100.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="375.0" valignment="CENTER" vgrow="ALWAYS" />
+      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="150.0" valignment="CENTER" vgrow="ALWAYS" />
+  </rowConstraints>
+   <children>
+      <Label fx:id="appNameLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" text="LudopatApp" />
+      <HBox fx:id="header" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="750.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+         <children>
+            <Label fx:id="gameNameLabel" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="150.0" text="DOS" />
+            <HBox fx:id="actualColor" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" text="Color actual:">
+                     <padding>
+                        <Insets right="50.0" />
+                     </padding>
+                  </Label>
+                  <ImageView fx:id="color" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/dos/card_back.png" />
+                     </image></ImageView>
+               </children>
+            </HBox>
+            <HBox fx:id="actualNumber" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="300.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" text="Número actual:">
+                     <padding>
+                        <Insets right="50.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="numberLabel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="50.0" text="3" />
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <JFXButton id="exit" fx:id="exitButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" ripplerFill="#c70e0e" text="Abandonar partida" GridPane.columnIndex="2" />
+      <VBox id="players" fx:id="players" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="250.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <children>
+            <HBox id="player" fx:id="player1" alignment="CENTER" VBox.vgrow="NEVER">
+               <children>
+                  <ImageView fx:id="player1Image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Noframe.png" />
+                     </image></ImageView>
+                  <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="125.0">
+                     <children>
+                        <Label id="playerName" fx:id="player1Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 1" />
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0">
+                           <children>
+                              <Label text="Número de cartas:" />
+                              <Label fx:id="player1Cards" minHeight="-Infinity" minWidth="-Infinity" text="9">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="33.0" top="50.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox id="player" fx:id="player2" alignment="CENTER" layoutX="10.0" layoutY="235.0">
+               <children>
+                  <ImageView fx:id="player2Image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Noframe.png" />
+                     </image></ImageView>
+                  <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="125.0">
+                     <children>
+                        <Label id="playerName" fx:id="player2Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 2" />
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="125.0">
+                           <children>
+                              <Label text="Número de cartas:" />
+                              <Label fx:id="player2Cards" minHeight="-Infinity" minWidth="-Infinity" text="6">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="33.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox id="player" fx:id="player3" alignment="CENTER" layoutX="10.0" layoutY="310.0">
+               <children>
+                  <ImageView fx:id="player3Image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Noframe.png" />
+                     </image></ImageView>
+                  <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="125.0">
+                     <children>
+                        <Label id="playerName" fx:id="player3Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 3" />
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="125.0">
+                           <children>
+                              <Label text="Número de cartas:" />
+                              <Label fx:id="player3Cards" minHeight="-Infinity" minWidth="-Infinity" text="2">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="33.0" />
+               </VBox.margin>
+            </HBox>
+            <HBox id="player" fx:id="player4" alignment="CENTER" layoutX="10.0" layoutY="385.0">
+               <children>
+                  <ImageView fx:id="player4Image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Noframe.png" />
+                     </image></ImageView>
+                  <VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="125.0">
+                     <children>
+                        <Label id="playerName" fx:id="player4Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 4" />
+                        <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="125.0">
+                           <children>
+                              <Label text="Número de cartas:" />
+                              <Label fx:id="player4Cards" minHeight="-Infinity" minWidth="-Infinity" text="1">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox id="table" fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+         <children>
+            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1000.0" spacing="50.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <ImageView fx:id="currentCard" fitHeight="250.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+                     <image>
+                        <Image url="@../images/dos/blue/dos_blue_3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="currentCard1" fitHeight="250.0" fitWidth="150.0" layoutX="435.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/dos/card_back.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" spacing="10.0" VBox.vgrow="NEVER">
+               <children>
+                  <JFXButton id="exit" fx:id="nextButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Pasar turno" />
+                  <JFXButton id="exit" fx:id="drawButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Robar" />
+               </children>
+               <padding>
+                  <Insets right="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+      <HBox id="cards" fx:id="cards" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1000.0" spacing="20.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+         <children>
+            <ImageView fx:id="card1" fitHeight="125.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+               <image>
+                  <Image url="@../images/dos/green/dos_green_8.png" />
+               </image></ImageView>
+            <ImageView fx:id="card2" fitHeight="125.0" fitWidth="75.0" layoutX="472.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/green/dos_green_5.png" />
+               </image></ImageView>
+            <ImageView fx:id="card3" fitHeight="125.0" fitWidth="75.0" layoutX="510.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/blue/dos_blue_8.png" />
+               </image></ImageView>
+            <ImageView fx:id="card4" fitHeight="125.0" fitWidth="75.0" layoutX="548.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/blue/dos_blue_10.png" />
+               </image></ImageView>
+            <ImageView fx:id="card5" fitHeight="125.0" fitWidth="75.0" layoutX="585.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/white/dos_white_10.png" />
+               </image></ImageView>
+            <ImageView fx:id="card6" fitHeight="125.0" fitWidth="75.0" layoutX="623.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/special/dos_special_plusone.png" />
+               </image></ImageView>
+            <ImageView fx:id="card7" fitHeight="125.0" fitWidth="75.0" layoutX="660.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/special/dos_special_inverse.png" />
+               </image></ImageView>
+            <ImageView fx:id="card8" fitHeight="125.0" fitWidth="75.0" layoutX="698.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/special/dos_special_changegreen.png" />
+               </image></ImageView>
+            <ImageView fx:id="card9" fitHeight="125.0" fitWidth="75.0" layoutX="736.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/yellow/dos_yellow_8.png" />
+               </image></ImageView>
+            <ImageView fx:id="card10" fitHeight="125.0" fitWidth="75.0" layoutX="773.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/dos/blue/dos_blue_6.png" />
+               </image></ImageView>
+         </children>
+      </HBox>
+   </children>
+</GridPane>
