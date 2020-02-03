@@ -4,13 +4,12 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root fx:id="grid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" type="GridPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="grid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="600.0" type="GridPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <rowConstraints>
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" />
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="120.0" />
-      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="20.0" />
    </rowConstraints>
    <columnConstraints>
       <ColumnConstraints maxWidth="-Infinity" minWidth="-Infinity" prefWidth="40.0" />
