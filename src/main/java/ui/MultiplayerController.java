@@ -7,6 +7,9 @@ import java.util.ResourceBundle;
 
 import org.dom4j.DocumentException;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -18,6 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.util.Duration;
 import main.LudopatApp;
 import ui.config.DeckConfigController;
 import ui.config.GameConfigController;
@@ -78,6 +82,16 @@ public class MultiplayerController implements Initializable {
 	
 	private LudopatApp ludopp;
 	
+	//Hecho por KEVIN
+	
+	private final int TRANSITION_TIME = 500;
+	
+	private KeyValue key;
+	private Timeline timeline;
+	
+	private final String CONTINUE = "Continuar";
+	private final String PLAY = "Jugar";
+	
 	//--------------------------------------------------
 	
 	// Model
@@ -104,6 +118,7 @@ public class MultiplayerController implements Initializable {
 		summary = new SummaryController(ludopp);
 		
 		// Para evitar que el usuario pueda arrastrar las ventanas
+		gameConfig.setMaxWidth(ANCHOR_WIDTH);
 		deckConfig.setMaxWidth(0);
 		playerConfig.setMaxWidth(0);
 		summary.setMaxWidth(0);
@@ -139,20 +154,53 @@ public class MultiplayerController implements Initializable {
 				}
 				
 				deckConfig.selectDecks();
-				configPane.setDividerPositions(0, 1, 1);
-				gameConfig.setMaxWidth(0);
-				deckConfig.setMaxWidth(ANCHOR_WIDTH);
+				
+				//TODO TRANSICION ERRONEA
+				
+				key = new KeyValue(configPane.getDividers().get(0).positionProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(gameConfig.maxWidthProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(deckConfig.maxWidthProperty(), ANCHOR_WIDTH);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+				
 				break;
 			case ST_CONFIG_INGAME:
-				configPane.setDividerPositions(0, 0, 1);
-				deckConfig.setMaxWidth(0);
-				playerConfig.setMaxWidth(ANCHOR_WIDTH);
+				
+				key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(deckConfig.maxWidthProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(playerConfig.maxWidthProperty(), ANCHOR_WIDTH);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+				
 				break;
 			case ST_CONFIG_PLAYERS:
-				summary.initSummary();
-				configPane.setDividerPositions(0, 0, 0);
-				playerConfig.setMaxWidth(0);
-				summary.setMaxWidth(ANCHOR_WIDTH);
+				
+				key = new KeyValue(configPane.getDividers().get(2).positionProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(playerConfig.maxWidthProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(summary.maxWidthProperty(), ANCHOR_WIDTH);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+	            
+	            continueButton.setText(PLAY);
+	            
 				break;
 			default:
 				break;
@@ -166,19 +214,51 @@ public class MultiplayerController implements Initializable {
 		switch (currentStage) {
 		
 			case ST_CONFIG_INGAME:
-				configPane.setDividerPositions(1, 1, 1);
-				gameConfig.setMaxWidth(ANCHOR_WIDTH);
-				deckConfig.setMaxWidth(0);
+				
+				key = new KeyValue(configPane.getDividers().get(0).positionProperty(), 1);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(deckConfig.maxWidthProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(gameConfig.maxWidthProperty(), ANCHOR_WIDTH);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+				
 				break;
 			case ST_CONFIG_PLAYERS:
-				configPane.setDividerPositions(0, 1, 1);
-				deckConfig.setMaxWidth(ANCHOR_WIDTH);
-				playerConfig.setMaxWidth(0);
+				
+				key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 1);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(playerConfig.maxWidthProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(deckConfig.maxWidthProperty(), ANCHOR_WIDTH);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+	            
 				break;
 			case ST_CONFIG_SUMMARY:
-				configPane.setDividerPositions(0, 0, 1);
-				playerConfig.setMaxWidth(ANCHOR_WIDTH);
-				summary.setMaxWidth(0);
+				
+				key = new KeyValue(configPane.getDividers().get(2).positionProperty(), 1);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(summary.maxWidthProperty(), 0);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+
+				key = new KeyValue(playerConfig.maxWidthProperty(), ANCHOR_WIDTH);
+	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+	            timeline.play();
+	            
+	            continueButton.setText(CONTINUE);
+	            
 				break;
 			default:
 				break;
