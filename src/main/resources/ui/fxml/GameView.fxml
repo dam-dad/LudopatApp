@@ -52,7 +52,17 @@
             </HBox>
          </children>
       </HBox>
-      <JFXButton id="exit" fx:id="exitButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="250.0" ripplerFill="#c70e0e" text="Abandonar partida" GridPane.columnIndex="2" />
+      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+         <children>
+            <JFXButton id="exit" fx:id="exitButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Abandonar partida" />
+            <VBox prefHeight="100.0" prefWidth="50.0">
+               <children>
+                  <JFXButton id="actions" fx:id="closeButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2b2b2b" text="X" VBox.vgrow="NEVER" />
+                  <JFXButton id="actions" fx:id="fullScreenButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2b2b2b" text="F" VBox.vgrow="NEVER" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
       <VBox id="players" fx:id="players" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="250.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
          <children>
             <HBox id="player" fx:id="player1" alignment="CENTER" VBox.vgrow="NEVER">
@@ -182,7 +192,7 @@
                         <Image url="@../images/dos/blue/dos_blue_3.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="currentCard1" fitHeight="250.0" fitWidth="150.0" layoutX="435.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="deckCard" fitHeight="250.0" fitWidth="150.0" layoutX="435.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/dos/card_back.png" />
                      </image>
@@ -200,7 +210,7 @@
             </HBox>
          </children>
       </VBox>
-      <GridPane id="cards" fx:id="handGrid" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
+      <GridPane id="cards" fx:id="handGrid" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
          <columnConstraints>
             <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" />
             <ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />

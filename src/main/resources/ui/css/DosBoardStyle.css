@@ -16,11 +16,21 @@
 #exit{
 	-fx-text-fill: white;
 	-fx-background-color: #2B2B2B;
-	-fx-font-size: 18pt;
+	-fx-font-size: 14pt;
 }
 
 #exit:hover{
 	-fx-background-color: #1A1A1A;
+}
+
+#actions{
+	-fx-text-fill: white;
+	-fx-background-color: #C70E0E;
+	-fx-font-size: 14pt;
+}
+
+#actions:hover{
+	-fx-background-color: #A50E0E;
 }
 
 #players{
