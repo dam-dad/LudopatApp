@@ -2,6 +2,10 @@ package games;
 
 import java.util.ArrayList;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -23,12 +27,12 @@ public class Player {
 	/**
 	 * Puntuación del jugador
 	 */
-	private int score;
+	private IntegerProperty score = new SimpleIntegerProperty();
 	
 	/**
 	 * Nombre del jugador
 	 */
-	private String playerName;
+	private StringProperty playerName = new SimpleStringProperty();
 	
 	/**
 	 * Icono del jugador en el juego
@@ -46,13 +50,6 @@ public class Player {
 	private int id;
 	
 	public Player() {}
-
-	
-	public Player(int puntuacion, String playerName, Image playerIcon) {
-		this.score = puntuacion;
-		this.playerName = playerName;
-		this.playerIcon = playerIcon;
-	}
 
 
 	public Image getPlayerIcon() {
@@ -74,24 +71,6 @@ public class Player {
 	}
 
 
-	public int getScore() {
-		return score;
-	}
-
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-
-	public String getPlayerName() {
-		return playerName;
-	}
-
-
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
-	}
 
 
 	public int getId() {
@@ -102,6 +81,42 @@ public class Player {
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
+	public final IntegerProperty scoreProperty() {
+		return this.score;
+	}
+	
+
+
+	public final int getScore() {
+		return this.scoreProperty().get();
+	}
+	
+
+
+	public final void setScore(final int score) {
+		this.scoreProperty().set(score);
+	}
+	
+
+
+	public final StringProperty playerNameProperty() {
+		return this.playerName;
+	}
+	
+
+
+	public final String getPlayerName() {
+		return this.playerNameProperty().get();
+	}
+	
+
+
+	public final void setPlayerName(final String playerName) {
+		this.playerNameProperty().set(playerName);
+	}
+	
 	
 	
 }

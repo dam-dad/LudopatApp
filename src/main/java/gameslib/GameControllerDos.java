@@ -100,18 +100,33 @@ public class GameControllerDos implements Initializable {
 	private HBox hand;
 
 	LudopatApp ludopp;
+	Dos dosGame;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		player1Label.textProperty().bind(dosGame.getCurrentPlayers().get(0).playerNameProperty());
+		player2Label.textProperty().bind(dosGame.getCurrentPlayers().get(1).playerNameProperty());
+		if (dosGame.getCurrentPlayers().size() > 2) {
+			player3Label.textProperty().bind(dosGame.getCurrentPlayers().get(2).playerNameProperty());
+			if (dosGame.getCurrentPlayers().size() > 3) {
+				player4Label.textProperty().bind(dosGame.getCurrentPlayers().get(3).playerNameProperty());
+			}
+		}
 	}
 
-	public GameControllerDos(LudopatApp app) throws IOException {
-
+	public GameControllerDos(LudopatApp app) {
 		this.ludopp = app;
-
+		this.dosGame =(Dos)ludopp.getCurrentGame();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/GameView.fxml"));
 		loader.setController(this);
-		loader.load();
+		try {
+			loader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public GridPane getView() {
+		return view;
 	}
 }
