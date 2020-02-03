@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,99 +20,127 @@ import main.LudopatApp;
 public class GameControllerDos implements Initializable {
 
 	@FXML
-	private GridPane view;
+    private GridPane view;
 
-	@FXML
-	private Label ludopatApp;
+    @FXML
+    private Label appNameLabel;
 
-	@FXML
-	private HBox cabecera;
+    @FXML
+    private HBox header;
 
-	@FXML
-	private Label tres;
+    @FXML
+    private Label gameNameLabel;
 
-	@FXML
-	private Label actualColorLabel;
+    @FXML
+    private HBox actualColor;
 
-	@FXML
-	private ImageView colorImage;
+    @FXML
+    private ImageView color;
 
-	@FXML
-	private Label actualValueLabel;
+    @FXML
+    private HBox actualNumber;
 
-	@FXML
-	private Label valueLabel;
+    @FXML
+    private Label numberLabel;
 
-	@FXML
-	private JFXButton leaveButton;
+    @FXML
+    private JFXButton exitButton;
 
-	@FXML
-	private VBox players;
+    @FXML
+    private VBox players;
 
-	@FXML
-	private ImageView player1Image;
+    @FXML
+    private HBox player1;
 
-	@FXML
-	private Label player1Label;
+    @FXML
+    private ImageView player1Image;
 
-	@FXML
-	private Label handCardsLabel1;
+    @FXML
+    private Label player1Name;
 
-	@FXML
-	private Label cardNumberLabel1;
+    @FXML
+    private Label player1Cards;
 
-	@FXML
-	private ImageView player2Image;
+    @FXML
+    private HBox player2;
 
-	@FXML
-	private Label player2Label;
+    @FXML
+    private ImageView player2Image;
 
-	@FXML
-	private Label handCardsLabel2;
+    @FXML
+    private Label player2Name;
 
-	@FXML
-	private Label cardNumberLabel2;
+    @FXML
+    private Label player2Cards;
 
-	@FXML
-	private ImageView player3Image;
+    @FXML
+    private HBox player3;
 
-	@FXML
-	private Label player3Label;
+    @FXML
+    private ImageView player3Image;
 
-	@FXML
-	private Label handCardsLabel3;
+    @FXML
+    private Label player3Name;
 
-	@FXML
-	private Label cardNumberLabel3;
+    @FXML
+    private Label player3Cards;
 
-	@FXML
-	private ImageView player4Image;
+    @FXML
+    private HBox player4;
 
-	@FXML
-	private Label player4Label;
+    @FXML
+    private ImageView player4Image;
 
-	@FXML
-	private Label handCardsLabel4;
+    @FXML
+    private Label player4Name;
 
-	@FXML
-	private Label cardNumberLabel4;
+    @FXML
+    private Label player4Cards;
 
-	@FXML
-	private HBox hand;
+    @FXML
+    private VBox table;
 
+    @FXML
+    private ImageView currentCard;
+
+    @FXML
+    private ImageView currentCard1;
+
+    @FXML
+    private JFXButton nextButton;
+
+    @FXML
+    private JFXButton drawButton;
+
+    @FXML
+    private GridPane handGrid;
+    
 	LudopatApp ludopp;
 	Dos dosGame;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		player1Label.textProperty().bind(dosGame.getCurrentPlayers().get(0).playerNameProperty());
-		player2Label.textProperty().bind(dosGame.getCurrentPlayers().get(1).playerNameProperty());
+		String n = "Numero de cartas: ";
+		player1Name.textProperty().bind(dosGame.getCurrentPlayers().get(0).playerNameProperty());
+		player1Image.imageProperty().bind(dosGame.getCurrentPlayers().get(0).playerIconProperty());
+		player1Cards.textProperty().bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(0).getHand().size()));
+		player2Name.textProperty().bind(dosGame.getCurrentPlayers().get(1).playerNameProperty());
+		player2Image.imageProperty().bind(dosGame.getCurrentPlayers().get(1).playerIconProperty());
+		player2Cards.textProperty().bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(1).getHand().size()));
 		if (dosGame.getCurrentPlayers().size() > 2) {
-			player3Label.textProperty().bind(dosGame.getCurrentPlayers().get(2).playerNameProperty());
+			player3Name.textProperty().bind(dosGame.getCurrentPlayers().get(2).playerNameProperty());
+			player3Image.imageProperty().bind(dosGame.getCurrentPlayers().get(2).playerIconProperty());
+			player3Cards.textProperty().bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(2).getHand().size()));
 			if (dosGame.getCurrentPlayers().size() > 3) {
-				player4Label.textProperty().bind(dosGame.getCurrentPlayers().get(3).playerNameProperty());
+				player4Name.textProperty().bind(dosGame.getCurrentPlayers().get(3).playerNameProperty());
+				player4Image.imageProperty().bind(dosGame.getCurrentPlayers().get(3).playerIconProperty());
+				player4Cards.textProperty().bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(3).getHand().size()));
 			}
 		}
+	
+		appNameLabel.textProperty().bind(dosGame.getGameRules().gameTypeProperty());
+		
+		
 	}
 
 	public GameControllerDos(LudopatApp app) {

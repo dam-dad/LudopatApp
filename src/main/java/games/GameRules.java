@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.dom4j.DocumentException;
 
 import engine.XMLGameParser;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 /**
  * <b>Reglas del juego</b>
@@ -42,7 +44,7 @@ public class GameRules {
 	/**
 	 * Modo de juego, solitario, dos, póker, ...
 	 */
-	private String gameType;
+	private StringProperty gameType = new SimpleStringProperty();
 	
 	/**
 	 * Referencia al XML del juego
@@ -67,13 +69,7 @@ public class GameRules {
 		this.numPlayers = numPlayers;
 	}
 	
-	public void setGameType(String gameType)  {
-		this.gameType = gameType;
-	}
 	
-	public String getGameType() {
-		return gameType;
-	}
 
 	/**
 	 * Iniciamos los ajustes para el juego seleccionado
@@ -84,7 +80,7 @@ public class GameRules {
 	public void initGameType() throws DocumentException {
 
 		// Necesitamos cargar los elementos del XML para obtener la baraja
-		parser = new XMLGameParser(gameType);
+		parser = new XMLGameParser(gameType.get());
 		
 		availableDecks = parser.getAvailableDecks();	
 	}
@@ -92,4 +88,19 @@ public class GameRules {
 	public ArrayList<Deck> getAvailableDecks() {
 		return availableDecks;
 	}
+
+	public final StringProperty gameTypeProperty() {
+		return this.gameType;
+	}
+	
+
+	public final String getGameType() {
+		return this.gameTypeProperty().get();
+	}
+	
+
+	public final void setGameType(final String gameType) {
+		this.gameTypeProperty().set(gameType);
+	}
+	
 }
