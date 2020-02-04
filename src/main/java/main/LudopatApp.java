@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Desktop;
+import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -57,6 +59,9 @@ public class LudopatApp extends Application {
 		this.mainStage = mainStage;
 	}
 	private Game currentGame;
+	
+	private final int DOS_SCREEN_WIDTH_REQUIRED = 1250;
+	private final int DOS_SCREEN_HEIGHT_REQUIRED = 700;
 	//-------- -------------------------------------------
 
 
@@ -71,7 +76,7 @@ public class LudopatApp extends Application {
 		
 		// Inicamos la aplicación, el SplashScreen
 	//	initApp();
-//		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú
@@ -126,6 +131,8 @@ public class LudopatApp extends Application {
 	}
 
 	public void initGame() {
+		
+		alignScreen();
 
 		String gameType = gameRules.getGameType();
 		
@@ -139,6 +146,14 @@ public class LudopatApp extends Application {
 		}
 	}
 	
+	private void alignScreen() {
+		double screenWidthCenter = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
+		double screenHeightCenter = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
+		
+		mainStage.setX(screenWidthCenter - DOS_SCREEN_WIDTH_REQUIRED/2);
+		mainStage.setY(screenHeightCenter - DOS_SCREEN_HEIGHT_REQUIRED/2);
+	}
+
 	// -------------------------------------------------------------------
 
 	public GameRules getGameRules() {
