@@ -114,7 +114,7 @@ public class MultiplayerController implements Initializable {
 		
 		gameConfig = new GameConfigController(ludopp);
 		deckConfig = new DeckConfigController(ludopp);
-		playerConfig = new PlayerSelectionController();
+		playerConfig = new PlayerSelectionController(ludopp);
 		summary = new SummaryController(ludopp);
 		
 		// Para evitar que el usuario pueda arrastrar las ventanas
@@ -172,6 +172,8 @@ public class MultiplayerController implements Initializable {
 				break;
 			case ST_CONFIG_INGAME:
 				
+				playerConfig.refresh();
+				
 				key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 0);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
@@ -183,7 +185,7 @@ public class MultiplayerController implements Initializable {
 				key = new KeyValue(playerConfig.maxWidthProperty(), ANCHOR_WIDTH);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
-				
+			
 				break;
 			case ST_CONFIG_PLAYERS:
 				
