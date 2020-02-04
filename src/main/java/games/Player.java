@@ -9,7 +9,6 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -39,7 +38,8 @@ public class Player {
 	/**
 	 * Icono del jugador en el juego
 	 */
-	private ObjectProperty<Image> playerIcon = new SimpleObjectProperty<Image>();
+	private ObjectProperty<Image> playerIcon = new SimpleObjectProperty<Image>(
+			new Image(getClass().getResourceAsStream("/ui/images/userNull.png")));
 	
 	/**
 	 * Actual mano del jugador
@@ -54,9 +54,6 @@ public class Player {
 	public Player() {}
 
 
-	
-
-
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
@@ -65,8 +62,6 @@ public class Player {
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
-
-
 
 
 	public int getId() {

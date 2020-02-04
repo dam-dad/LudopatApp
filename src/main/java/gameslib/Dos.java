@@ -11,7 +11,6 @@ import games.Deck;
 import games.Game;
 import games.GameRules;
 import games.Player;
-import games.Suit;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -29,15 +28,7 @@ import javafx.beans.property.StringProperty;
 public class Dos extends Game {
 
 	private int nextDraw = 1;
-	private Player activePlayer;
-	public Player getActivePlayer() {
-		return activePlayer;
-	}
-
-	public void setActivePlayer(Player activePlayer) {
-		this.activePlayer = activePlayer;
-	}
-
+	private ObjectProperty<Player> activePlayer = new SimpleObjectProperty<Player>();
 
 	private boolean inverse = false;
 
@@ -51,6 +42,7 @@ public class Dos extends Game {
 	public final static int SPECIAL_CHANGE_WHITE = 13;
 	public final static int SPECIAL_CHANGE_GREEN = 14;
 	
+	private boolean isBlocked;
 	
 	/**
 	 * Actual valor de la carta en la mesa
@@ -84,37 +76,33 @@ public class Dos extends Game {
 		// dialogo
 
 	}
-
 	
 	@Override
 	public void throwCard(Card card) {
 		
 		// ¿ Es especial ?
 		if (card.getCardValue() >= SPECIAL_CARDS) {
-
-			// 11 - Cambio verde, 12 - amarillo - 13 - azul, 14 - blanco
-			// 15 - Invertir
-			// 16 - Pasar turno
+			
 			switch (card.getCardValue()) {
-			case 11:
-				setCurrentColor("green");
-				break;
-			case 12:
-				setCurrentColor("yellow");
-				break;
-			case 13:
+			case SPECIAL_CHANGE_BLUE:
 				setCurrentColor("blue");
 				break;
-			case 14:
+			case SPECIAL_CHANGE_GREEN:
+				setCurrentColor("green");
+				break;
+			case SPECIAL_CHANGE_WHITE:
 				setCurrentColor("white");
 				break;
-			case 15:
+			case SPECIAL_CHANGE_YELLOW:
+				setCurrentColor("yellow");
+				break;
+			case SPECIAL_INVERSE:
 				inverse = true;
 				break;
-			case 16:
-				nextTurn();
+			case SPECIAL_BLOCK:
+				isBlocked = true;
 				break;
-			case 17:
+			case SPECIAL_PLUSONE:
 				nextDraw += 1;
 				break;
 			default:
@@ -122,12 +110,15 @@ public class Dos extends Game {
 			}
 		} else {
 
-			// Mismo color o número
+			// Cambiamos las condiciones del tablero
 			setCurrentColor(card.getSuit().getName());
 			setCurrentValue(card.getCardValue());
 		}
 		
+		// Ajustamos la última carta
 		setLastCard(card);
+		
+		// Quitamos la carta de la mano del jugador
 		getActivePlayer().getHand().remove(card);
 	}
 
@@ -143,28 +134,38 @@ public class Dos extends Game {
 
 
 	public void nextTurn() {
+		
+		// Importante, comprobamos si hay un bloqueo
+		if( isBlocked ) {
+			isBlocked = false;
+			nextTurn();
+			return;
+		}
+		
 		if (inverse) {
-			if (currentPlayers.indexOf(activePlayer) < 1) {
-				activePlayer = currentPlayers.get(currentPlayers.size() - 1);
+			
+			if (currentPlayers.indexOf(getActivePlayer()) == 0) {
+				setActivePlayer( currentPlayers.get(currentPlayers.size() - 1));
 			} else {
-				activePlayer = currentPlayers.get(currentPlayers.indexOf(activePlayer) - 1);
+				setActivePlayer(currentPlayers.get(currentPlayers.indexOf(getActivePlayer()) - 1));
 			}
 
 		} else {
-			if (currentPlayers.indexOf(activePlayer) == currentPlayers.size() - 1) {
-				activePlayer = currentPlayers.get(0);
+			
+			if (currentPlayers.indexOf(getActivePlayer()) == currentPlayers.size() - 1) {
+				setActivePlayer(currentPlayers.get(0));
 			} else {
-				activePlayer = currentPlayers.get(currentPlayers.indexOf(activePlayer) + 1);
+				setActivePlayer(currentPlayers.get(currentPlayers.indexOf(getActivePlayer()) + 1));
 			}
 		}
 	}
 
 	public void drawCard() {
 		int i = 0;
-		while (deck.getCards().size() > 0 && activePlayer.getHand().size() < 10 && i < nextDraw) {
+		while (deck.getCards().size() > 0 && getActivePlayer().getHand().size() < 10 && i < nextDraw) {
 			Card card = deck.getCards().get(deck.getCards().size() - 1);
 			deck.getCards().remove(deck.getCards().size() - 1);
-			activePlayer.getHand().add(card);
+			getActivePlayer().getHand().add(card);
 			i++;
 		}
 		if (deck.getCards().size() <= 0){
@@ -174,7 +175,7 @@ public class Dos extends Game {
 
 	public void startTurn() {
 		//Comprobar carta a carta y reemplazarla.
-		for( Card card : activePlayer.getHand() ) {
+		for( Card card : getActivePlayer().getHand() ) {
 			checkTable(card);
 		}
 	}
@@ -228,6 +229,10 @@ public class Dos extends Game {
 		
 	}
 
+	public int getPlayerPosition(Player p) {
+		return currentPlayers.indexOf(p);
+	}
+	
 	public final StringProperty currentColorProperty() {
 		return this.currentColor;
 	}
@@ -268,6 +273,20 @@ public class Dos extends Game {
 
 	public final void setCurrentValue(final int currentValue) {
 		this.currentValueProperty().set(currentValue);
+	}
+
+	public final ObjectProperty<Player> activePlayerProperty() {
+		return this.activePlayer;
+	}
+	
+
+	public final Player getActivePlayer() {
+		return this.activePlayerProperty().get();
+	}
+	
+
+	public final void setActivePlayer(final Player activePlayer) {
+		this.activePlayerProperty().set(activePlayer);
 	}
 	
 	

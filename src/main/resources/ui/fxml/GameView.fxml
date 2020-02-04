@@ -76,7 +76,6 @@
                         <Label id="playerName" fx:id="player1Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 1" />
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0">
                            <children>
-                              <Label text="Número de cartas:" />
                               <Label fx:id="player1Cards" minHeight="-Infinity" minWidth="-Infinity" text="9">
                                  <HBox.margin>
                                     <Insets left="5.0" />
@@ -105,7 +104,6 @@
                         <Label id="playerName" fx:id="player2Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 2" />
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="125.0">
                            <children>
-                              <Label text="Número de cartas:" />
                               <Label fx:id="player2Cards" minHeight="-Infinity" minWidth="-Infinity" text="6">
                                  <HBox.margin>
                                     <Insets left="5.0" />
@@ -134,7 +132,6 @@
                         <Label id="playerName" fx:id="player3Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 3" />
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="125.0">
                            <children>
-                              <Label text="Número de cartas:" />
                               <Label fx:id="player3Cards" minHeight="-Infinity" minWidth="-Infinity" text="2">
                                  <HBox.margin>
                                     <Insets left="5.0" />
@@ -163,7 +160,6 @@
                         <Label id="playerName" fx:id="player4Name" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="120.0" text="Nombre 4" />
                         <HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="125.0">
                            <children>
-                              <Label text="Número de cartas:" />
                               <Label fx:id="player4Cards" minHeight="-Infinity" minWidth="-Infinity" text="1">
                                  <HBox.margin>
                                     <Insets left="5.0" />

@@ -2,15 +2,15 @@ package gameslib;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
-
-import org.dom4j.rule.NullAction;
 
 import com.jfoenix.controls.JFXButton;
 
 import games.Card;
+import games.Player;
 import javafx.application.Platform;
-import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +27,9 @@ import ui.CardComponent;
 
 public class GameControllerDos implements Initializable {
 
+	// FXML : View
+	// ----------------------------------------------------------
+	
 	@FXML
 	private GridPane view;
 
@@ -64,10 +67,7 @@ public class GameControllerDos implements Initializable {
 	private ImageView player1Image;
 
 	@FXML
-	private Label player1Name;
-
-	@FXML
-	private Label player1Cards;
+	private Label player1Name, player1Cards;
 
 	@FXML
 	private HBox player2;
@@ -76,10 +76,7 @@ public class GameControllerDos implements Initializable {
 	private ImageView player2Image;
 
 	@FXML
-	private Label player2Name;
-
-	@FXML
-	private Label player2Cards;
+	private Label player2Name, player2Cards;
 
 	@FXML
 	private HBox player3;
@@ -88,10 +85,7 @@ public class GameControllerDos implements Initializable {
 	private ImageView player3Image;
 
 	@FXML
-	private Label player3Name;
-
-	@FXML
-	private Label player3Cards;
+	private Label player3Name, player3Cards;
 
 	@FXML
 	private HBox player4;
@@ -100,10 +94,7 @@ public class GameControllerDos implements Initializable {
 	private ImageView player4Image;
 
 	@FXML
-	private Label player4Name;
-
-	@FXML
-	private Label player4Cards;
+	private Label player4Name, player4Cards;
 
 	@FXML
 	private VBox table;
@@ -123,49 +114,75 @@ public class GameControllerDos implements Initializable {
 	@FXML
 	private GridPane handGrid;
 
-	LudopatApp ludopp;
-	Dos dosGame;
+	// ----------------------------------------------------------
+	
+	// Variables used by controller
+	// ----------------------------------------------------------
+	
+	private ArrayList<HBox> playersBox;
+	private ArrayList<Label> playersName;
+	private ArrayList<Label> playersNumCards;
+	private ArrayList<ImageView> playersImage;
+	
+	private LudopatApp ludopp;
+	private Dos dosGame;
+	
+	// ----------------------------------------------------------
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		player1Name.textProperty().bind(dosGame.getCurrentPlayers().get(0).playerNameProperty());
-	//	player1Image.imageProperty().bind(dosGame.getCurrentPlayers().get(0).playerIconProperty());
-		player1Cards.textProperty()
-				.bind(Bindings.concat(dosGame.getCurrentPlayers().get(0).getHand().size()));
-		player2Name.textProperty().bind(dosGame.getCurrentPlayers().get(1).playerNameProperty());
-	//	player2Image.imageProperty().bind(dosGame.getCurrentPlayers().get(1).playerIconProperty());
-		player2Cards.textProperty()
-				.bind(Bindings.concat(dosGame.getCurrentPlayers().get(1).getHand().size()));
-		if (dosGame.getCurrentPlayers().size() > 2) {
-			player3Name.textProperty().bind(dosGame.getCurrentPlayers().get(2).playerNameProperty());
-		//	player3Image.imageProperty().bind(dosGame.getCurrentPlayers().get(2).playerIconProperty());
-			player3Cards.textProperty()
-					.bind(Bindings.concat(dosGame.getCurrentPlayers().get(2).getHand().size()));
-			if (dosGame.getCurrentPlayers().size() > 3) {
-				player4Name.textProperty().bind(dosGame.getCurrentPlayers().get(3).playerNameProperty());
-		//		player4Image.imageProperty().bind(dosGame.getCurrentPlayers().get(3).playerIconProperty());
-				player4Cards.textProperty()
-						.bind(Bindings.concat(dosGame.getCurrentPlayers().get(3).getHand().size()));
-			}
+		// Añadimos los datos de los jugadores
+		playersBox = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
+		playersName = new ArrayList<>(Arrays.asList(player1Name, player2Name, player3Name, player4Name));
+		playersNumCards = new ArrayList<>(Arrays.asList(player1Cards, player2Cards, player3Cards, player4Cards));
+		playersImage = new ArrayList<>(Arrays.asList(player1Image, player2Image, player3Image, player4Image));
+		
+		for( int p = 0; p < dosGame.getCurrentPlayers().size(); p++ ) {
+			
+			Player player = dosGame.getCurrentPlayers().get(p);
+			
+			playersNumCards.get(p).setText(String.format("Número de cartas: %d", player.getHand().size()));
+			playersName.get(p).textProperty().bind(player.playerNameProperty());
+			playersImage.get(p).imageProperty().bind(player.playerIconProperty());
 		}
 		
+		// Bindings 
 		numberLabel.setText(String.valueOf(dosGame.getCurrentValue()));
 		currentCard.setImage(dosGame.getLastCard().getCardImage());
 		appNameLabel.textProperty().bind(dosGame.getGameRules().gameTypeProperty());
 		numberLabel.textProperty().bindBidirectional(dosGame.currentValueProperty(), new NumberStringConverter());
-		dosGame.currentColorProperty().addListener((o, ov, nv) -> changeImageColor(nv));
-		dosGame.lastCardProperty().addListener((o, ov, nv) -> onChangeCard(nv));
-
 		
-		changeImageColor(dosGame.getCurrentColor());
+		// Cambios que suceden en el juego y se reflejan en la interfaz
+		dosGame.currentColorProperty().addListener((o, ov, nv) -> onChangedImageColor(nv));
+		dosGame.lastCardProperty().addListener((o, ov, nv) -> onChangeCard(nv));
+		dosGame.activePlayerProperty().addListener((o, ov, nv) -> onChangedPlayer(ov, nv));
+		
+		onChangedImageColor(dosGame.getCurrentColor());
+		onChangedPlayer(null, dosGame.getActivePlayer());
 		
 		//currentCard1.setImage(new Image(getClass().getResource("/ui/images/dos/card_back.png").toString()));
+		
+		// Visualizamos la primera mano del jugador
 		initHand();
 		showHand();
+	}
+
+	private void onChangedPlayer(Player ov, Player nv) {
+
+		// Quitamos el estilo a uno y se lo ponemos a otro
+		if( ov != null ) {
+			int lpIndex = dosGame.getPlayerPosition(ov);
+			playersBox.get(lpIndex).setStyle(null);
+		}
 		
-		
-	
+		if( nv != null ) {
+			int npIndex = dosGame.getPlayerPosition(nv);
+			playersBox.get(npIndex).setStyle("-fx-background-color : green");
+			initHand();
+			showHand();
+		}
 	}
 
 	private void onChangeCard(Card nv) {
@@ -177,7 +194,11 @@ public class GameControllerDos implements Initializable {
 
 	private void initHand() {
 		
+		// Desabilitamos el pasar turno del jugador
+		nextButton.setDisable(true);
+		// Limpiamos la mano actual del jugador
 		handGrid.getChildren().clear();
+		
 		int i = 0;
 		dosGame.startTurn();
 		for (Card card : dosGame.getActivePlayer().getHand()) {
@@ -193,13 +214,38 @@ public class GameControllerDos implements Initializable {
 
 	private void onSelectCard(Card card, CardComponent cmp) {
 		dosGame.throwCard(card);
+		
+		playersNumCards.get(dosGame.getPlayerPosition(dosGame.getActivePlayer()))
+		.setText(String.format("Número de cartas: %d", dosGame.getActivePlayer().getHand().size()));
+		
+		int ourCol = GridPane.getColumnIndex(cmp);
+		boolean needsReOrder = false;
+		
+		// Si no ha sido la última carta del jugador y
+		// no era la última de la mano, reordenamos el
+		// grid
+		if( dosGame.getActivePlayer().getHand().size() > 0 
+				&& ourCol != handGrid.getChildren().size() -1 )  {
+			
+			needsReOrder = true;
+		}
+		
+		// Eliminamos la carta
 		handGrid.getChildren().remove(cmp);
 		
+		// Si necesitamos reordenar
+		if( needsReOrder )
+			GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size()-1), ourCol);
+
+		// Desabilitamos las cartas del jugador
 		handGrid.getChildren().stream().forEach(node -> {
 			node.setDisable(true);
 		});
 		
+
+
 		drawButton.setDisable(true);
+		nextButton.setDisable(false);
 	}
 
 	private void showHand() {
@@ -213,7 +259,7 @@ public class GameControllerDos implements Initializable {
 	public void hideHand( ActionEvent event ) {
 		
 	}
-	private void changeImageColor(String nv) {
+	private void onChangedImageColor(String nv) {
 		switch (nv) {
 		case "white":
 			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/dos_white_1.png").toString()));
@@ -234,6 +280,12 @@ public class GameControllerDos implements Initializable {
 	void drawCardAction(ActionEvent event) {
 		if (!dosGame.getDeck().getCards().isEmpty()) {
 			dosGame.drawCard();
+			
+			// Volvemos a habilitar el pasar turno
+			nextButton.setDisable(false);
+			// Actualizamos el número de cartas del jugador
+			playersNumCards.get(dosGame.getPlayerPosition(dosGame.getActivePlayer()))
+								.setText(String.format("Número de cartas: %d", dosGame.getActivePlayer().getHand().size()));
 			
 			// Recargamos la última carta
 			int actualHandSize = dosGame.getActivePlayer().getHand().size()-1;
@@ -275,8 +327,6 @@ public class GameControllerDos implements Initializable {
 		drawButton.setDisable(false);
 		// aqui habria que esconder la mano (hidehand)
 		dosGame.nextTurn();// esto cambia el jugador activo
-		initHand();
-		showHand();
 	}
 
 	@FXML

@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Desktop;
 import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
