@@ -201,7 +201,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" spacing="10.0" VBox.vgrow="NEVER">
                <children>
-                  <JFXButton id="exit" fx:id="nextButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Pasar turno" />
+                  <JFXButton id="exit" fx:id="nextButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#hideHand" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Pasar turno" />
                   <JFXButton id="exit" fx:id="drawButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Robar" />
                </children>
                <padding>
