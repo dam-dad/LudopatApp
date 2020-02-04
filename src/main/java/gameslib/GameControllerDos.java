@@ -6,7 +6,13 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
+import games.Player;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -15,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import main.LudopatApp;
 
 public class GameControllerDos implements Initializable {
@@ -117,6 +124,11 @@ public class GameControllerDos implements Initializable {
     
 	LudopatApp ludopp;
 	Dos dosGame;
+	
+	private final int TRANSITION_TIME = 500;
+	private KeyValue key;
+	private Timeline timeline;
+	private Player activePlayer;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -148,14 +160,35 @@ public class GameControllerDos implements Initializable {
 		this.dosGame =(Dos)ludopp.getCurrentGame();
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/GameView.fxml"));
 		loader.setController(this);
+
+		
 		try {
+			
 			loader.load();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	
 	}
+	
+	private void hideHand() {
+		
+		handGrid.setStyle("-fx-background-color: green");
+		
+//		for (int i = 0; i <activePlayer.getHand().size() ; i++) {
+			key = new KeyValue(handGrid.scaleXProperty(), 0);
+            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+            timeline.play();
+//		}
+		
+
+	}
+	
 	public GridPane getView() {
 		return view;
 	}
+
+
+	
 }

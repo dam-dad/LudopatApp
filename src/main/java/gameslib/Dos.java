@@ -11,6 +11,13 @@ import games.Deck;
 import games.Game;
 import games.GameRules;
 import games.Player;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
+import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
+
 
 /**
  * @author David Fernández Nieves
@@ -24,6 +31,7 @@ public class Dos extends Game {
 	private int nextDraw = 1;
 	private Player activePlayer;
 	private boolean inverse = false;
+	
 
 	private final int SPECIAL_CARDS = 11; // Empezamos por 11 las especiales
 
@@ -34,6 +42,7 @@ public class Dos extends Game {
 	public final static int SPECIAL_CHANGE_YELLOW = 12;
 	public final static int SPECIAL_CHANGE_WHITE = 13;
 	public final static int SPECIAL_CHANGE_GREEN = 14;
+	
 	
 	
 	/**
@@ -109,24 +118,21 @@ public class Dos extends Game {
 		Collections.shuffle(this.currentPlayers);
 	}
 
-	private void mostrarMano() {
-
-	}
+	
 
 	private void generateHand(int numCards) {
 
 	}
 
 	private void showHand() {
-
+		
+	
 	}
 
-	private void hideHand() {
-
-	}
+	
 
 	private void nextTurn() {
-		hideHand();
+		
 		if (inverse) {
 			if (currentPlayers.indexOf(activePlayer) < 1) {
 				activePlayer = currentPlayers.get(currentPlayers.size() - 1);
