@@ -54,11 +54,11 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
          <children>
-            <JFXButton id="exit" fx:id="exitButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Abandonar partida" />
+            <JFXButton id="exit" fx:id="exitButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#returnMenuAction" prefHeight="100.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Abandonar partida" />
             <VBox prefHeight="100.0" prefWidth="50.0">
                <children>
-                  <JFXButton id="actions" fx:id="closeButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2b2b2b" text="X" VBox.vgrow="NEVER" />
-                  <JFXButton id="actions" fx:id="fullScreenButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2b2b2b" text="F" VBox.vgrow="NEVER" />
+                  <JFXButton id="actions" fx:id="closeButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#exitAction" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2b2b2b" text="X" VBox.vgrow="NEVER" />
+                  <JFXButton id="actions" fx:id="fullScreenButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#fullscreenAction" prefHeight="50.0" prefWidth="50.0" ripplerFill="#2b2b2b" text="F" VBox.vgrow="NEVER" />
                </children>
             </VBox>
          </children>
@@ -201,8 +201,8 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="1000.0" spacing="10.0" VBox.vgrow="NEVER">
                <children>
-                  <JFXButton id="exit" fx:id="nextButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#hideHand" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Pasar turno" />
-                  <JFXButton id="exit" fx:id="drawButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Robar" />
+                  <JFXButton id="exit" fx:id="nextButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#nextTurnAction" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Pasar turno" />
+                  <JFXButton id="exit" fx:id="drawButton" buttonType="RAISED" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#drawCardAction" prefHeight="50.0" prefWidth="200.0" ripplerFill="#c70e0e" text="Robar" />
                </children>
                <padding>
                   <Insets right="20.0" />
