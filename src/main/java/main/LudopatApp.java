@@ -64,7 +64,7 @@ public class LudopatApp extends Application {
 		
 		// Inicamos la aplicación, el SplashScreen
 	//	initApp();
-		primaryStage.initStyle(StageStyle.UNDECORATED);
+//		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú

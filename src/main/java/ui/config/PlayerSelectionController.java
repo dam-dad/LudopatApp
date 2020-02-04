@@ -100,7 +100,6 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 	private void addDefaultAvatars() {
 		
 		nPlayers = ludopatApp.getGameRules().getNumPlayers();
-		System.out.println(nPlayers);
 		
 		selectedAvatars[0] = 0;
 		selectedAvatars[1] = 1;
