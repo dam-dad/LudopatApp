@@ -27,7 +27,7 @@ import javafx.beans.property.StringProperty;
  */
 public class Dos extends Game {
 
-	private int nextDraw = 1;
+	private IntegerProperty cardsToDraw = new SimpleIntegerProperty(1);
 	private ObjectProperty<Player> activePlayer = new SimpleObjectProperty<Player>();
 
 	private boolean inverse = false;
@@ -65,7 +65,6 @@ public class Dos extends Game {
 		deck.shuffle(); // Barajamos
 		sortPlayers();
 		dealCards();
-		// Virar
 	}
 
 	@Override
@@ -97,13 +96,17 @@ public class Dos extends Game {
 				setCurrentColor("yellow");
 				break;
 			case SPECIAL_INVERSE:
-				inverse = true;
+				if( inverse ) {
+					inverse = false;
+				} else {
+					inverse = true;
+				}
 				break;
 			case SPECIAL_BLOCK:
 				isBlocked = true;
 				break;
 			case SPECIAL_PLUSONE:
-				nextDraw += 1;
+				setCardsToDraw(getCardsToDraw()+1);
 				break;
 			default:
 				break;
@@ -135,13 +138,6 @@ public class Dos extends Game {
 
 	public void nextTurn() {
 		
-		// Importante, comprobamos si hay un bloqueo
-		if( isBlocked ) {
-			isBlocked = false;
-			nextTurn();
-			return;
-		}
-		
 		if (inverse) {
 			
 			if (currentPlayers.indexOf(getActivePlayer()) == 0) {
@@ -162,12 +158,14 @@ public class Dos extends Game {
 
 	public void drawCard() {
 		int i = 0;
-		while (deck.getCards().size() > 0 && getActivePlayer().getHand().size() < 10 && i < nextDraw) {
-			Card card = deck.getCards().get(deck.getCards().size() - 1);
-			deck.getCards().remove(deck.getCards().size() - 1);
+		while (deck.getCards().size() > 0 && getActivePlayer().getHand().size() < 10 && i < getCardsToDraw()) {
+			Card card = deck.getCards().remove(deck.getCards().size() - 1);
 			getActivePlayer().getHand().add(card);
 			i++;
 		}
+		
+		setCardsToDraw(1);
+		
 		if (deck.getCards().size() <= 0){
 			endGame();
 		}
@@ -193,8 +191,7 @@ public class Dos extends Game {
 				currentCard.setPlayable(true);
 			} else {
 				currentCard.setPlayable(false);
-			}
-			
+			}	
 
 		}
 	}
@@ -288,6 +285,29 @@ public class Dos extends Game {
 	public final void setActivePlayer(final Player activePlayer) {
 		this.activePlayerProperty().set(activePlayer);
 	}
+
+	public final IntegerProperty cardsToDrawProperty() {
+		return this.cardsToDraw;
+	}
+	
+
+	public final int getCardsToDraw() {
+		return this.cardsToDrawProperty().get();
+	}
+	
+
+	public final void setCardsToDraw(final int cardsToDraw) {
+		this.cardsToDrawProperty().set(cardsToDraw);
+	}
+
+	public boolean isBlocked() {
+		return isBlocked;
+	}
+
+	public void setBlocked(boolean isBlocked) {
+		this.isBlocked = isBlocked;
+	}
+	
 	
 	
 	

@@ -192,11 +192,9 @@ public class GameControllerDos implements Initializable {
 		}
 	}
 
-	private void initHand() {
+	private void refreshHand() {
 		
-		// Desabilitamos el pasar turno del jugador
-		nextButton.setDisable(true);
-		// Limpiamos la mano actual del jugador
+		// Limpiamos la mano actual del jugador y la actualizamos
 		handGrid.getChildren().clear();
 		
 		int i = 0;
@@ -210,6 +208,14 @@ public class GameControllerDos implements Initializable {
 			}
 			i++;
 		}
+		
+	}
+	private void initHand() {
+		// Número de cartas a robar
+		drawButton.setText("Robar - " + dosGame.getCardsToDraw());
+		// Desabilitamos el pasar turno del jugador
+		nextButton.setDisable(true);
+		refreshHand();
 	}
 
 	private void onSelectCard(Card card, CardComponent cmp) {
@@ -242,7 +248,6 @@ public class GameControllerDos implements Initializable {
 			node.setDisable(true);
 		});
 		
-
 
 		drawButton.setDisable(true);
 		nextButton.setDisable(false);
@@ -287,23 +292,20 @@ public class GameControllerDos implements Initializable {
 			playersNumCards.get(dosGame.getPlayerPosition(dosGame.getActivePlayer()))
 								.setText(String.format("Número de cartas: %d", dosGame.getActivePlayer().getHand().size()));
 			
-			// Recargamos la última carta
-			int actualHandSize = dosGame.getActivePlayer().getHand().size()-1;
-			CardComponent cardCmp = new CardComponent(dosGame.getActivePlayer().getHand().get(actualHandSize).getCardImage());
-			
-			if (actualHandSize <= 10) {
-				handGrid.add(
-						cardCmp,
-						actualHandSize, 0);
-			}
-			
-			cardCmp.turn();
+			// Ahora tenemos que añadir las cartas robadas
+			refreshHand();
+			showHand();
 			
 			
 			if (!dosGame.getDeck().getCards().isEmpty()) {
 			//	currentCard1.setDisable(true);
 			}
 		}
+		
+		// El jugador no puede hacer nada más
+		handGrid.getChildren().stream().forEach(node -> {
+			node.setDisable(true);
+		});
 		drawButton.setDisable(true);
 	}
 
@@ -327,6 +329,12 @@ public class GameControllerDos implements Initializable {
 		drawButton.setDisable(false);
 		// aqui habria que esconder la mano (hidehand)
 		dosGame.nextTurn();// esto cambia el jugador activo
+		
+		// Si hay un bloqueo activo, saltamos al siguiente
+		if( dosGame.isBlocked() ) {
+			dosGame.setBlocked(false);
+			dosGame.nextTurn();
+		}
 	}
 
 	@FXML
