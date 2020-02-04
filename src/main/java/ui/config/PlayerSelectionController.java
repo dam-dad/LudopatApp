@@ -99,30 +99,6 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 
 	private void addDefaultAvatars() {
 		
-		grid.getChildren().clear();
-		grid.add(availableAvatars[selectedAvatars[0]], 0, 0);
-		grid.add(availableAvatars[selectedAvatars[1]], 1, 0);
-			
-	//	int nPlayers = ludopp.getGameRules().getNumPlayers();
-		
-		Avatar p3Avatar = availableAvatars[selectedAvatars[2]];
-		Avatar p4Avatar = availableAvatars[selectedAvatars[3]];
-		/*
-		if( nPlayers == 2 ) {
-			p3Avatar = availableAvatars[availableAvatars.length-2];
-			grid.getChildren().get(2).setDisable(true);
-			grid.getChildren().get(3).setDisable(true);
-			p4Avatar = availableAvatars[availableAvatars.length-1];
-		} else if( nPlayers == 3) {
-			p4Avatar = availableAvatars[availableAvatars.length-1];
-			grid.getChildren().get(3).setDisable(true);
-		} 
-*/
-		grid.add(p3Avatar, 0, 1);
-		grid.add(p4Avatar, 1, 1);
-	
-		// Ajustamos atendiendo a los jugadores que tenemos
-	
 		nPlayers = ludopatApp.getGameRules().getNumPlayers();
 		
 		selectedAvatars[0] = 0;
