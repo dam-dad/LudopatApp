@@ -167,11 +167,14 @@ public class Dos extends Game {
 
 	public void drawCard() {
 		int i = 0;
-		while (activePlayer.getHand().size() < 10 && i < nextDraw) {
+		while (deck.getCards().size() > 0 && activePlayer.getHand().size() < 10 && i < nextDraw) {
 			Card card = deck.getCards().get(deck.getCards().size() - 1);
 			deck.getCards().remove(deck.getCards().size() - 1);
 			activePlayer.getHand().add(card);
 			i++;
+		}
+		if (deck.getCards().size() <= 0){
+			endGame();
 		}
 	}
 
