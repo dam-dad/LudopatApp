@@ -1,8 +1,10 @@
 package games;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 
 /**
  * <b>Carta</b>
@@ -28,7 +30,7 @@ public class Card {
 	/**
 	 * Imagen de la carta en el juego
 	 */
-	private Image cardImage;
+	private ObjectProperty<Image> cardImage = new SimpleObjectProperty<Image>();
 	
 	/**
 	 * Palo o color de la carta
@@ -46,14 +48,14 @@ public class Card {
 	public Card(int cardValue, Image cardImage) {
 		super();
 		this.cardValue = cardValue;
-		this.cardImage = cardImage;
+		this.cardImage.set(cardImage);
 	}
 
 	
 	public Card(int cardValue, Image cardImage, Suit suit) {
 		super();
 		this.cardValue = cardValue;
-		this.cardImage = cardImage;
+		this.cardImage.set(cardImage);
 		this.suit = suit;
 	}
 	
@@ -65,13 +67,7 @@ public class Card {
 		this.cardValue = cardValue;
 	}
 
-	public Image getCardImage() {
-		return cardImage;
-	}
-
-	public void setCardImage(Image cardImage) {
-		this.cardImage = cardImage;
-	}
+	
 
 	public Suit getSuit() {
 		return suit;
@@ -95,6 +91,24 @@ public class Card {
 	public final void setPlayable(final boolean playable) {
 		this.playableProperty().set(playable);
 	}
+
+
+	public final ObjectProperty<Image> cardImageProperty() {
+		return this.cardImage;
+	}
+	
+
+
+	public final Image getCardImage() {
+		return this.cardImageProperty().get();
+	}
+	
+
+
+	public final void setCardImage(final Image cardImage) {
+		this.cardImageProperty().set(cardImage);
+	}
+	
 	
 	
 }

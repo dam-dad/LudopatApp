@@ -6,11 +6,10 @@ import javafx.scene.image.ImageView;
 public class CardComponent extends ImageView {
 	private Image cardImage;
 	
-	private Image cardBack;
+	private Image cardBack = new Image(getClass().getResource("ui/images/dos/card_back.png").toString());
 	
-	public CardComponent(Image cardImage, Image cardBack) {
+	public CardComponent(Image cardImage) {
 		this.cardImage = cardImage;
-		this.cardBack = cardBack;
 		this.setImage(cardBack);
 	}
 	
