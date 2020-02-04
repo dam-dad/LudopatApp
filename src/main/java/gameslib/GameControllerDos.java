@@ -150,7 +150,7 @@ public class GameControllerDos implements Initializable {
 		}
 		appNameLabel.textProperty().bind(dosGame.getGameRules().gameTypeProperty());
 		numberLabel.textProperty().bind(Bindings.concat(dosGame.getCurrentValue()));
-		dosGame.currentColorProperty().addListener(e -> changeImageColor());
+		dosGame.currentColorProperty().addListener((o, ov, nv) -> changeImageColor(nv));
 		currentCard.imageProperty().bind(dosGame.getLastCard().cardImageProperty());
 		//currentCard1.setImage(new Image(getClass().getResource("/ui/images/dos/card_back.png").toString()));
 		initHand();
@@ -185,8 +185,8 @@ public class GameControllerDos implements Initializable {
 	public void hideHand( ActionEvent event ) {
 		
 	}
-	private void changeImageColor() {
-		switch (dosGame.currentColorProperty().get()) {
+	private void changeImageColor(String nv) {
+		switch (nv) {
 		case "white":
 			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/dos_white_1.png").toString()));
 			break;

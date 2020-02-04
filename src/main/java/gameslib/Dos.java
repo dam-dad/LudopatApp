@@ -131,9 +131,9 @@ public class Dos extends Game {
 		} else {
 
 			// Mismo color o número
-			setCurrentColor(card.getSuit().getName());;
+			setCurrentColor(card.getSuit().getName());
 			currentValue = card.getCardValue();
-			System.out.println(currentColor.getName());
+			System.out.println(currentColor.get());
 			System.out.println(card.getSuit().getName());
 			System.out.println(currentValue);
 			
