@@ -15,6 +15,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import ui.MainMenuController;
 import ui.MultiplayerController;
 import ui.SplashController;
@@ -63,6 +64,7 @@ public class LudopatApp extends Application {
 		
 		// Inicamos la aplicación, el SplashScreen
 	//	initApp();
+		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú
