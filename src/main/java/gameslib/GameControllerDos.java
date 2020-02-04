@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.dom4j.rule.NullAction;
+
 import com.jfoenix.controls.JFXButton;
 
 import games.Card;
@@ -19,6 +21,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.converter.NumberStringConverter;
 import main.LudopatApp;
 import ui.CardComponent;
 
@@ -125,8 +128,6 @@ public class GameControllerDos implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		String n = "Numero de cartas: ";
-		
 		
 		player1Name.textProperty().bind(dosGame.getCurrentPlayers().get(0).playerNameProperty());
 	//	player1Image.imageProperty().bind(dosGame.getCurrentPlayers().get(0).playerIconProperty());
@@ -148,11 +149,17 @@ public class GameControllerDos implements Initializable {
 						.bind(Bindings.concat(dosGame.getCurrentPlayers().get(3).getHand().size()));
 			}
 		}
+		
+		numberLabel.setText(String.valueOf(dosGame.getCurrentValue()));
+		currentCard.setImage(dosGame.getLastCard().getCardImage());
 		appNameLabel.textProperty().bind(dosGame.getGameRules().gameTypeProperty());
-		numberLabel.textProperty().bind(Bindings.concat(dosGame.getCurrentValue()));
+		numberLabel.textProperty().bindBidirectional(dosGame.currentValueProperty(), new NumberStringConverter());
 		dosGame.currentColorProperty().addListener((o, ov, nv) -> changeImageColor(nv));
-		currentCard.imageProperty().bind(dosGame.getLastCard().cardImageProperty());
+		dosGame.lastCardProperty().addListener((o, ov, nv) -> onChangeCard(nv));
 
+		
+		changeImageColor(dosGame.getCurrentColor());
+		
 		//currentCard1.setImage(new Image(getClass().getResource("/ui/images/dos/card_back.png").toString()));
 		initHand();
 		showHand();
@@ -161,18 +168,38 @@ public class GameControllerDos implements Initializable {
 	
 	}
 
+	private void onChangeCard(Card nv) {
+		
+		if( nv != null ) {
+			currentCard.setImage(nv.getCardImage());
+		}
+	}
+
 	private void initHand() {
+		
+		handGrid.getChildren().clear();
 		int i = 0;
 		dosGame.startTurn();
 		for (Card card : dosGame.getActivePlayer().getHand()) {
 			CardComponent cardComp = new CardComponent(card.getCardImage());
 			handGrid.add(cardComp, i, 0);
 			if (card.isPlayable()) {
-				cardComp.setOnMouseClicked(e -> dosGame.throwCard(card));
+				cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
 				cardComp.getStyleClass().add("playable");
 			}
 			i++;
 		}
+	}
+
+	private void onSelectCard(Card card, CardComponent cmp) {
+		dosGame.throwCard(card);
+		handGrid.getChildren().remove(cmp);
+		
+		handGrid.getChildren().stream().forEach(node -> {
+			node.setDisable(true);
+		});
+		
+		drawButton.setDisable(true);
 	}
 
 	private void showHand() {
@@ -207,8 +234,22 @@ public class GameControllerDos implements Initializable {
 	void drawCardAction(ActionEvent event) {
 		if (!dosGame.getDeck().getCards().isEmpty()) {
 			dosGame.drawCard();
+			
+			// Recargamos la última carta
+			int actualHandSize = dosGame.getActivePlayer().getHand().size()-1;
+			CardComponent cardCmp = new CardComponent(dosGame.getActivePlayer().getHand().get(actualHandSize).getCardImage());
+			
+			if (actualHandSize <= 10) {
+				handGrid.add(
+						cardCmp,
+						actualHandSize, 0);
+			}
+			
+			cardCmp.turn();
+			
+			
 			if (!dosGame.getDeck().getCards().isEmpty()) {
-				currentCard1.setDisable(true);
+			//	currentCard1.setDisable(true);
 			}
 		}
 		drawButton.setDisable(true);

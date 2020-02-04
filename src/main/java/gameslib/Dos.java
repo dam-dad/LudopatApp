@@ -12,7 +12,9 @@ import games.Game;
 import games.GameRules;
 import games.Player;
 import games.Suit;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -53,18 +55,9 @@ public class Dos extends Game {
 	/**
 	 * Actual valor de la carta en la mesa
 	 */
-	private int currentValue;
+	private IntegerProperty currentValue = new SimpleIntegerProperty();
 	private StringProperty currentColor = new SimpleStringProperty();
 	private ObjectProperty<Card> lastCard = new SimpleObjectProperty<Card>();
-
-	public int getCurrentValue() {
-		return currentValue;
-	}
-
-	public void setCurrentValue(int currentValue) {
-		this.currentValue = currentValue;
-	}
-
 	
 
 	public Dos(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
@@ -95,7 +88,7 @@ public class Dos extends Game {
 	
 	@Override
 	public void throwCard(Card card) {
-		lastCard.set(card);
+		
 		// ¿ Es especial ?
 		if (card.getCardValue() >= SPECIAL_CARDS) {
 
@@ -131,8 +124,11 @@ public class Dos extends Game {
 
 			// Mismo color o número
 			setCurrentColor(card.getSuit().getName());
-			currentValue = card.getCardValue();
+			setCurrentValue(card.getCardValue());
 		}
+		
+		setLastCard(card);
+		getActivePlayer().getHand().remove(card);
 	}
 
 	// -----------------------------------------------------
@@ -187,9 +183,18 @@ public class Dos extends Game {
 		
 		if( currentCard.getCardValue() >= this.SPECIAL_CARDS ) {
 			currentCard.setPlayable(true);
+			
 		} else {
-			currentCard.setPlayable(!(currentValue != currentCard.getCardValue()
-					&& !currentColor.get().equals(currentCard.getSuit().getName())));
+			
+			if( currentCard.getCardValue() == getCurrentValue() ) {
+				currentCard.setPlayable(true);
+			} else if( currentCard.getSuit().getName().equals(getCurrentColor())) {
+				currentCard.setPlayable(true);
+			} else {
+				currentCard.setPlayable(false);
+			}
+			
+
 		}
 	}
 	// -----------------------------------------------------
@@ -197,8 +202,7 @@ public class Dos extends Game {
 	@Override
 	public void dealCards() {
 
-		int numCartas = gameRules.getDeckType().getCardsPerSuit();
-		/* Falta comprobar si es baraja doble */
+		int numCartas = 7;
 		
 		for (Player p : currentPlayers) {
 
@@ -217,7 +221,8 @@ public class Dos extends Game {
 		while ((card = deck.getCards().remove(deck.getCards().size()-1)).getCardValue() >= SPECIAL_CARDS) {
 			deck.getCards().add(0, card);
 		}		
-		currentValue = card.getCardValue();
+		
+		setCurrentValue(card.getCardValue());
 		currentColor.set(card.getSuit().getName());
 		lastCard.set(card);
 		
@@ -250,6 +255,21 @@ public class Dos extends Game {
 	public final void setLastCard(final Card lastCard) {
 		this.lastCardProperty().set(lastCard);
 	}
+
+	public final IntegerProperty currentValueProperty() {
+		return this.currentValue;
+	}
+	
+
+	public final int getCurrentValue() {
+		return this.currentValueProperty().get();
+	}
+	
+
+	public final void setCurrentValue(final int currentValue) {
+		this.currentValueProperty().set(currentValue);
+	}
+	
 	
 	
 }
