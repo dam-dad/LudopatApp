@@ -96,6 +96,7 @@ public class Dos extends Game {
 	@Override
 	public void throwCard(Card card) {
 		lastCard.set(card);
+		System.out.println("Throwing card: " + card.getCardValue());
 		// ¿ Es especial ?
 		if (card.getCardValue() >= SPECIAL_CARDS) {
 
@@ -130,10 +131,12 @@ public class Dos extends Game {
 		} else {
 
 			// Mismo color o número
-			if (currentColor.get() == card.getSuit().getName() || currentValue == card.getCardValue()) {
-				currentColor.set(card.getSuit().getName());;
-				currentValue = card.getCardValue();
-			}
+			setCurrentColor(card.getSuit().getName());;
+			currentValue = card.getCardValue();
+			System.out.println(currentColor.getName());
+			System.out.println(card.getSuit().getName());
+			System.out.println(currentValue);
+			
 
 		}
 	}
@@ -145,6 +148,7 @@ public class Dos extends Game {
 
 	private void sortPlayers() {
 		Collections.shuffle(this.currentPlayers);
+		setActivePlayer(currentPlayers.get(0));
 	}
 
 
@@ -187,18 +191,11 @@ public class Dos extends Game {
 
 	public void checkTable(Card currentCard) {
 		
-		if (currentValue != currentCard.getCardValue()) {
+		if( currentCard.getCardValue() >= this.SPECIAL_CARDS ) {
 			currentCard.setPlayable(true);
-		}else {
-			if (currentColor.get() == currentCard.getSuit().getName()) {
-				currentCard.setPlayable(true);
-			}else {
-				if (currentCard.getCardValue() >= this.SPECIAL_CARDS) {
-					currentCard.setPlayable(true);
-				}else {
-					currentCard.setPlayable(false);
-				}
-			}
+		} else {
+			currentCard.setPlayable(!(currentValue != currentCard.getCardValue()
+					&& !currentColor.get().equals(currentCard.getSuit().getName())));
 		}
 	}
 	// -----------------------------------------------------
@@ -206,9 +203,9 @@ public class Dos extends Game {
 	@Override
 	public void dealCards() {
 
-		int numCartas = gameRules.getDeckType().getNumCards();
+		int numCartas = gameRules.getDeckType().getCardsPerSuit();
 		/* Falta comprobar si es baraja doble */
-
+		
 		for (Player p : currentPlayers) {
 
 			ArrayList<Card> mano = new ArrayList<Card>(numCartas);
@@ -219,6 +216,8 @@ public class Dos extends Game {
 				Card card = deck.getCards().remove(deck.getCards().size() - 1);
 				mano.add(card);
 			}
+			
+			p.setHand(mano);
 		}
 		Card card;
 		while ((card = deck.getCards().remove(deck.getCards().size()-1)).getCardValue() >= SPECIAL_CARDS) {
@@ -226,6 +225,8 @@ public class Dos extends Game {
 		}		
 		currentValue = card.getCardValue();
 		currentColor.set(card.getSuit().getName());
+		lastCard.set(card);
+		
 	}
 
 	public final StringProperty currentColorProperty() {

@@ -126,22 +126,24 @@ public class GameControllerDos implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		String n = "Numero de cartas: ";
+		
+		
 		player1Name.textProperty().bind(dosGame.getCurrentPlayers().get(0).playerNameProperty());
-		player1Image.imageProperty().bind(dosGame.getCurrentPlayers().get(0).playerIconProperty());
+	//	player1Image.imageProperty().bind(dosGame.getCurrentPlayers().get(0).playerIconProperty());
 		player1Cards.textProperty()
 				.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(0).getHand().size()));
 		player2Name.textProperty().bind(dosGame.getCurrentPlayers().get(1).playerNameProperty());
-		player2Image.imageProperty().bind(dosGame.getCurrentPlayers().get(1).playerIconProperty());
+	//	player2Image.imageProperty().bind(dosGame.getCurrentPlayers().get(1).playerIconProperty());
 		player2Cards.textProperty()
 				.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(1).getHand().size()));
 		if (dosGame.getCurrentPlayers().size() > 2) {
 			player3Name.textProperty().bind(dosGame.getCurrentPlayers().get(2).playerNameProperty());
-			player3Image.imageProperty().bind(dosGame.getCurrentPlayers().get(2).playerIconProperty());
+		//	player3Image.imageProperty().bind(dosGame.getCurrentPlayers().get(2).playerIconProperty());
 			player3Cards.textProperty()
 					.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(2).getHand().size()));
 			if (dosGame.getCurrentPlayers().size() > 3) {
 				player4Name.textProperty().bind(dosGame.getCurrentPlayers().get(3).playerNameProperty());
-				player4Image.imageProperty().bind(dosGame.getCurrentPlayers().get(3).playerIconProperty());
+		//		player4Image.imageProperty().bind(dosGame.getCurrentPlayers().get(3).playerIconProperty());
 				player4Cards.textProperty()
 						.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(3).getHand().size()));
 			}
@@ -150,9 +152,12 @@ public class GameControllerDos implements Initializable {
 		numberLabel.textProperty().bind(Bindings.concat(dosGame.getCurrentValue()));
 		dosGame.currentColorProperty().addListener(e -> changeImageColor());
 		currentCard.imageProperty().bind(dosGame.getLastCard().cardImageProperty());
-		currentCard1.setImage(new Image(getClass().getResource("ui/images/dos/card_back.png").toString()));
+		//currentCard1.setImage(new Image(getClass().getResource("/ui/images/dos/card_back.png").toString()));
 		initHand();
 		showHand();
+		
+		
+	
 	}
 
 	private void initHand() {
@@ -160,7 +165,7 @@ public class GameControllerDos implements Initializable {
 		dosGame.startTurn();
 		for (Card card : dosGame.getActivePlayer().getHand()) {
 			CardComponent cardComp = new CardComponent(card.getCardImage());
-			handGrid.add(cardComp, 0, i);
+			handGrid.add(cardComp, i, 0);
 			if (card.isPlayable()) {
 				cardComp.setOnMouseClicked(e -> dosGame.throwCard(card));
 				cardComp.getStyleClass().add("playable");
@@ -177,19 +182,22 @@ public class GameControllerDos implements Initializable {
 
 	}
 
+	public void hideHand( ActionEvent event ) {
+		
+	}
 	private void changeImageColor() {
 		switch (dosGame.currentColorProperty().get()) {
 		case "white":
-			color.setImage(new Image(getClass().getResource("ui/images/dos/white/dos_white_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/dos_white_1.png").toString()));
 			break;
 		case "blue":
-			color.setImage(new Image(getClass().getResource("ui/images/dos/blue/dos_blue_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/blue/dos_blue_1.png").toString()));
 			break;
 		case "green":
-			color.setImage(new Image(getClass().getResource("ui/images/dos/green/dos_green_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/green/dos_green_1.png").toString()));
 			break;
 		case "yellow":
-			color.setImage(new Image(getClass().getResource("ui/images/dos/yellow/dos_yellow_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/yellow/dos_yellow_1.png").toString()));
 			break;
 		}
 	}
@@ -238,6 +246,7 @@ public class GameControllerDos implements Initializable {
 	public GameControllerDos(LudopatApp app) {
 		this.ludopp = app;
 		this.dosGame = (Dos) ludopp.getCurrentGame();
+		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/GameView.fxml"));
 		loader.setController(this);
 		try {

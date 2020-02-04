@@ -44,7 +44,7 @@ public class Player {
 	/**
 	 * Actual mano del jugador
 	 */
-	private ArrayList<Card> hand;
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	
 	/**
 	 * Identificación de turno del jugador
