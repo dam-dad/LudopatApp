@@ -221,7 +221,7 @@ public class GameControllerDos implements Initializable {
 
 	@FXML
 	void fullscreenAction(ActionEvent event) {
-
+		ludopp.getMainStage().setFullScreen(true);
 	}
 
 	@FXML
