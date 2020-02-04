@@ -63,6 +63,8 @@ public class LudopatApp extends Application {
 		
 		// Inicamos la aplicación, el SplashScreen
 	//	initApp();
+
+
 		primaryStage.show();
 		
 		// Esperamos a mostrar el menú
@@ -140,7 +142,7 @@ public class LudopatApp extends Application {
 	//-----------------------------------------------------------
 	
 	public void initDosGame() {
-		System.out.println("He llegado");
+
 		Deck deck = gameRules.getDeckType();
 		deck.loadCards("dos");
 		
@@ -214,6 +216,9 @@ public class LudopatApp extends Application {
 			card.setCardImage(
 					new Image(getClass().getResource("/ui/images/dos/special/dos_special_plusone.png").toString()));
 			
+			deckCards.stream().forEach(  node -> {
+			
+			});
 			deckCards.add(card);
 		}
 		
@@ -226,14 +231,15 @@ public class LudopatApp extends Application {
 			players.add(player);
 		}
 		
+		gameRules.setNumPlayers(4);
 		Dos dosGame = new Dos(deck, gameRules, players);
 		
 		//......se inicializa el controller primero
 		currentGame = dosGame;
+		dosGame.initGame();
 		gameControllerDos = new GameControllerDos(this);
 		Scene scene = new Scene(gameControllerDos.getView());
 		mainStage.setScene(scene);
-		dosGame.initGame();
 	}
 	
 	//-----------------------------------------------------------

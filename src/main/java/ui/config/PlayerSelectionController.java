@@ -87,11 +87,11 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 		grid.add(availableAvatars[selectedAvatars[0]], 0, 0);
 		grid.add(availableAvatars[selectedAvatars[1]], 1, 0);
 			
-		int nPlayers = ludopp.getGameRules().getNumPlayers();
+	//	int nPlayers = ludopp.getGameRules().getNumPlayers();
 		
 		Avatar p3Avatar = availableAvatars[selectedAvatars[2]];
 		Avatar p4Avatar = availableAvatars[selectedAvatars[3]];
-		
+		/*
 		if( nPlayers == 2 ) {
 			p3Avatar = availableAvatars[availableAvatars.length-2];
 			grid.getChildren().get(2).setDisable(true);
@@ -101,21 +101,12 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			p4Avatar = availableAvatars[availableAvatars.length-1];
 			grid.getChildren().get(3).setDisable(true);
 		} 
-
+*/
 		grid.add(p3Avatar, 0, 1);
 		grid.add(p4Avatar, 1, 1);
 	
 		// Ajustamos atendiendo a los jugadores que tenemos
 	
-		grid.getChildren().get(2).setDisable(false);
-		grid.getChildren().get(3).setDisable(false);
-		
-		if( nPlayers == 2 ) {
-			grid.getChildren().get(2).setDisable(true);
-			grid.getChildren().get(3).setDisable(true);
-		} else if( nPlayers == 3) {
-			grid.getChildren().get(3).setDisable(true);
-		} 
 
 		grid.getChildren().get(0).setOnMouseClicked(e -> changeAvatar(0));
 		grid.getChildren().get(1).setOnMouseClicked(e -> changeAvatar(1));

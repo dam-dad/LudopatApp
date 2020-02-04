@@ -2,6 +2,7 @@ package games;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.Image;
 
@@ -40,7 +41,7 @@ public class Card {
 	/**
 	 * Si la carta es jugable o no jugable
 	 */
-	private BooleanProperty playable ;
+	private BooleanProperty playable = new SimpleBooleanProperty() ;
 	
 	public Card() {}
 	

@@ -201,6 +201,7 @@ public class MultiplayerController implements Initializable {
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
 	            
+	            summary.initSummary();
 	            continueButton.setText(PLAY);
 	            
 				break;
@@ -258,6 +259,7 @@ public class MultiplayerController implements Initializable {
 				key = new KeyValue(playerConfig.maxWidthProperty(), ANCHOR_WIDTH);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
+	            
 	            
 	            continueButton.setText(CONTINUE);
 	            
