@@ -48,6 +48,13 @@ public class LudopatApp extends Application {
 	
 	private GameRules gameRules;
 	private Stage mainStage;
+	public Stage getMainStage() {
+		return mainStage;
+	}
+
+	public void setMainStage(Stage mainStage) {
+		this.mainStage = mainStage;
+	}
 	private Game currentGame;
 	//-------- -------------------------------------------
 
