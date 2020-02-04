@@ -96,7 +96,6 @@ public class Dos extends Game {
 	@Override
 	public void throwCard(Card card) {
 		lastCard.set(card);
-		System.out.println("Throwing card: " + card.getCardValue());
 		// ¿ Es especial ?
 		if (card.getCardValue() >= SPECIAL_CARDS) {
 
@@ -133,11 +132,6 @@ public class Dos extends Game {
 			// Mismo color o número
 			setCurrentColor(card.getSuit().getName());
 			currentValue = card.getCardValue();
-			System.out.println(currentColor.get());
-			System.out.println(card.getSuit().getName());
-			System.out.println(currentValue);
-			
-
 		}
 	}
 

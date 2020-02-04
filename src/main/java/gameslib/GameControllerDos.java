@@ -152,6 +152,7 @@ public class GameControllerDos implements Initializable {
 		numberLabel.textProperty().bind(Bindings.concat(dosGame.getCurrentValue()));
 		dosGame.currentColorProperty().addListener((o, ov, nv) -> changeImageColor(nv));
 		currentCard.imageProperty().bind(dosGame.getLastCard().cardImageProperty());
+
 		//currentCard1.setImage(new Image(getClass().getResource("/ui/images/dos/card_back.png").toString()));
 		initHand();
 		showHand();
