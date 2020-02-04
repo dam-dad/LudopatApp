@@ -131,21 +131,21 @@ public class GameControllerDos implements Initializable {
 		player1Name.textProperty().bind(dosGame.getCurrentPlayers().get(0).playerNameProperty());
 	//	player1Image.imageProperty().bind(dosGame.getCurrentPlayers().get(0).playerIconProperty());
 		player1Cards.textProperty()
-				.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(0).getHand().size()));
+				.bind(Bindings.concat(dosGame.getCurrentPlayers().get(0).getHand().size()));
 		player2Name.textProperty().bind(dosGame.getCurrentPlayers().get(1).playerNameProperty());
 	//	player2Image.imageProperty().bind(dosGame.getCurrentPlayers().get(1).playerIconProperty());
 		player2Cards.textProperty()
-				.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(1).getHand().size()));
+				.bind(Bindings.concat(dosGame.getCurrentPlayers().get(1).getHand().size()));
 		if (dosGame.getCurrentPlayers().size() > 2) {
 			player3Name.textProperty().bind(dosGame.getCurrentPlayers().get(2).playerNameProperty());
 		//	player3Image.imageProperty().bind(dosGame.getCurrentPlayers().get(2).playerIconProperty());
 			player3Cards.textProperty()
-					.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(2).getHand().size()));
+					.bind(Bindings.concat(dosGame.getCurrentPlayers().get(2).getHand().size()));
 			if (dosGame.getCurrentPlayers().size() > 3) {
 				player4Name.textProperty().bind(dosGame.getCurrentPlayers().get(3).playerNameProperty());
 		//		player4Image.imageProperty().bind(dosGame.getCurrentPlayers().get(3).playerIconProperty());
 				player4Cards.textProperty()
-						.bind(Bindings.concat(n).concat(dosGame.getCurrentPlayers().get(3).getHand().size()));
+						.bind(Bindings.concat(dosGame.getCurrentPlayers().get(3).getHand().size()));
 			}
 		}
 		appNameLabel.textProperty().bind(dosGame.getGameRules().gameTypeProperty());
