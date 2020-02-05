@@ -14,6 +14,9 @@ import javafx.scene.layout.HBox;
 
 public class PlayerEndGameController extends HBox implements Initializable {
 	
+	@FXML
+	private HBox view;
+	
     @FXML
     private Label posLabel;
 
@@ -28,30 +31,30 @@ public class PlayerEndGameController extends HBox implements Initializable {
 	
 	public PlayerEndGameController(int position, Image playerImage, String playerName, int cards) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/endGame/EndGameComponent.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/endGame/PlayerEndGameComponent.fxml"));
 			loader.setController(this);
 			loader.setRoot(this);
 			loader.load();
 			
 			switch (position) {
-			case 1:
+			case 0:
 				this.setId("first");
 				break;
-			case 2:
+			case 1:
 				this.setId("second");
 				break;
-			case 3:
+			case 2:
 				this.setId("third");
 				break;
-			case 4:
+			case 3:
 				this.setId("loser");
 				break;
 			}
 			
-			this.posLabel.setText(String.valueOf(position));	
+			posLabel.setText(String.valueOf(position));	
 			this.playerImage.setImage(playerImage);
-			this.playerNameLabel.setText(playerName);
-			this.cardLabel.setText(String.valueOf(cards));
+			playerNameLabel.setText(playerName);
+			cardLabel.setText(String.valueOf(cards));
 			
 		} catch (IOException e) {
 			e.printStackTrace();

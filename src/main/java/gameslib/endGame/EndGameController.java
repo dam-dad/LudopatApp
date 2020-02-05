@@ -13,16 +13,13 @@ import javafx.scene.layout.VBox;
 
 public class EndGameController extends VBox implements Initializable {
 	
-	@FXML
-	VBox root;
-	
 	private ArrayList<Player> players;
 	
 	public EndGameController(ArrayList<Player> players) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/endGame/EndGameComponent.fxml"));
 			loader.setController(this);
-			loader.setRoot(root);
+			loader.setRoot(this);
 			loader.load();
 			
 			this.players = players;
