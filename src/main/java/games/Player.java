@@ -31,15 +31,9 @@ public class Player {
 	private IntegerProperty score = new SimpleIntegerProperty();
 	
 	/**
-	 * Nombre del jugador
+	 * Información personal del jugador
 	 */
-	private StringProperty playerName = new SimpleStringProperty();
-	
-	/**
-	 * Icono del jugador en el juego
-	 */
-	private ObjectProperty<Image> playerIcon = new SimpleObjectProperty<Image>(
-			new Image(getClass().getResourceAsStream("/ui/images/userNull.png")));
+	private ObjectProperty<PlayerInfo> playerInfo = new SimpleObjectProperty<>();
 	
 	/**
 	 * Actual mano del jugador
@@ -73,66 +67,35 @@ public class Player {
 		this.id = id;
 	}
 
-
 	public final IntegerProperty scoreProperty() {
 		return this.score;
 	}
-	
-
 
 	public final int getScore() {
 		return this.scoreProperty().get();
 	}
-	
-
 
 	public final void setScore(final int score) {
 		this.scoreProperty().set(score);
 	}
-	
 
 
-	public final StringProperty playerNameProperty() {
-		return this.playerName;
+	public final ObjectProperty<PlayerInfo> playerInfoProperty() {
+		return this.playerInfo;
 	}
 	
 
 
-	public final String getPlayerName() {
-		return this.playerNameProperty().get();
+	public final PlayerInfo getPlayerInfo() {
+		return this.playerInfoProperty().get();
 	}
 	
 
 
-	public final void setPlayerName(final String playerName) {
-		this.playerNameProperty().set(playerName);
-	}
-
-
-
-
-
-	public final ObjectProperty<Image> playerIconProperty() {
-		return this.playerIcon;
+	public final void setPlayerInfo(final PlayerInfo playerInfo) {
+		this.playerInfoProperty().set(playerInfo);
 	}
 	
-
-
-
-
-
-	public final Image getPlayerIcon() {
-		return this.playerIconProperty().get();
-	}
-	
-
-
-
-
-
-	public final void setPlayerIcon(final Image playerIcon) {
-		this.playerIconProperty().set(playerIcon);
-	}
 	
 	
 	

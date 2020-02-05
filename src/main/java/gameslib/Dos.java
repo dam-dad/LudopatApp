@@ -17,6 +17,8 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.image.Image;
+import main.LudopatApp;
 
 /**
  * @author David Fernández Nieves
@@ -185,13 +187,18 @@ public class Dos extends Game {
 			
 		} else {
 			
-			if( currentCard.getCardValue() == getCurrentValue() ) {
-				currentCard.setPlayable(true);
-			} else if( currentCard.getSuit().getName().equals(getCurrentColor())) {
-				currentCard.setPlayable(true);
-			} else {
+			// Si queda pendiente robo de +1, entonces sólo podemos usar cartas especiales
+			if (getCardsToDraw() > 1) {
 				currentCard.setPlayable(false);
-			}	
+			} else {
+				if (currentCard.getCardValue() == getCurrentValue()) {
+					currentCard.setPlayable(true);
+				} else if (currentCard.getSuit().getName().equals(getCurrentColor())) {
+					currentCard.setPlayable(true);
+				} else {
+					currentCard.setPlayable(false);
+				}
+			}
 
 		}
 	}
@@ -308,7 +315,85 @@ public class Dos extends Game {
 		this.isBlocked = isBlocked;
 	}
 	
-	
+	public static void loadSpecialCards(Deck deck, Class<? extends LudopatApp> class1) {
+		
+		// Cargamos las cartas especiales
+		ArrayList<Card> deckCards = deck.getCards();
+
+		for (int i = 0; i < 2; i++) {
+
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_BLUE);
+			card.setCardImage(
+					new Image(class1.getResource("/ui/images/dos/special/dos_special_changeblue.png").toString()));
+
+			deckCards.add(card);
+		}
+
+		for (int i = 0; i < 2; i++) {
+
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_GREEN);
+			card.setCardImage(
+					new Image(class1.getResource("/ui/images/dos/special/dos_special_changegreen.png").toString()));
+
+			deckCards.add(card);
+		}
+
+		for (int i = 0; i < 2; i++) {
+
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_WHITE);
+			card.setCardImage(
+					new Image(class1.getResource("/ui/images/dos/special/dos_special_changewhite.png").toString()));
+
+			deckCards.add(card);
+		}
+
+		for (int i = 0; i < 2; i++) {
+
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_CHANGE_YELLOW);
+			card.setCardImage(new Image(
+					class1.getResource("/ui/images/dos/special/dos_special_changeyellow.png").toString()));
+
+			deckCards.add(card);
+		}
+
+		for (int i = 0; i < 2; i++) {
+
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_BLOCK);
+			card.setCardImage(
+					new Image(class1.getResource("/ui/images/dos/special/dos_special_block.png").toString()));
+
+			deckCards.add(card);
+		}
+
+		for (int i = 0; i < 2; i++) {
+
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_INVERSE);
+			card.setCardImage(
+					new Image(class1.getResource("/ui/images/dos/special/dos_special_inverse.png").toString()));
+
+			deckCards.add(card);
+		}
+
+		for (int i = 0; i < 2; i++) {
+
+			Card card = new Card();
+			card.setCardValue(Dos.SPECIAL_PLUSONE);
+			card.setCardImage(
+					new Image(class1.getResource("/ui/images/dos/special/dos_special_plusone.png").toString()));
+
+			deckCards.stream().forEach(node -> {
+
+			});
+			
+			deckCards.add(card);
+		}
+	}
 	
 	
 }

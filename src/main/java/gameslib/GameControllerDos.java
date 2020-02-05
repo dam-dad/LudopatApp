@@ -140,6 +140,11 @@ public class GameControllerDos implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		// En un principio desabilitamos los dos últimos jugadores, puesto
+		// que no siempre van a jugar
+		player3.setVisible(false);
+		player4.setVisible(false);
+		
 		// Añadimos los datos de los jugadores
 		playersBox = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
 		playersName = new ArrayList<>(Arrays.asList(player1Name, player2Name, player3Name, player4Name));
@@ -151,8 +156,9 @@ public class GameControllerDos implements Initializable {
 			Player player = dosGame.getCurrentPlayers().get(p);
 
 			playersNumCards.get(p).setText(String.format("Número de cartas: %d", player.getHand().size()));
-			playersName.get(p).textProperty().bind(player.playerNameProperty());
-			playersImage.get(p).imageProperty().bind(player.playerIconProperty());
+			playersName.get(p).textProperty().bind(player.getPlayerInfo().playerNameProperty());
+			playersImage.get(p).imageProperty().bind(player.getPlayerInfo().playerIconProperty());
+			playersBox.get(p).setVisible(true);
 		}
 
 		// Bindings
@@ -325,8 +331,8 @@ public class GameControllerDos implements Initializable {
 			refreshHand();
 			showHand();
 
-			if (!dosGame.getDeck().getCards().isEmpty()) {
-				// currentCard1.setDisable(true);
+			if (dosGame.getDeck().getCards().isEmpty()) {
+				endGame();
 			}
 		}
 

@@ -69,7 +69,12 @@ public class SummaryController extends AnchorPane implements Initializable {
 		
 		if( rules.getDeckType() != null ) {
 			deckLabel.setText(rules.getDeckType().toString());
-			cardNumberLabel.setText(String.valueOf(rules.getDeckType().getNumCards()));
+			
+			int nCards = rules.getDeckType().getNumCards();
+			if( rules.getDeckType().isDoubleDeck() ) {
+				nCards *= 2;
+			}
+			cardNumberLabel.setText(String.valueOf(nCards));
 		}	
 		
 	}
