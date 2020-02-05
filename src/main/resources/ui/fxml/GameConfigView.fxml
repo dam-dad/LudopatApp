@@ -17,12 +17,12 @@
                   <Label id="labelOne" text="Números de jugadores:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton fx:id="p2Radio" mnemonicParsing="false" text="2">
+                        <RadioButton fx:id="p2Radio" mnemonicParsing="false" text="2" textFill="WHITE">
                            <toggleGroup>
                               <ToggleGroup fx:id="playerGroup" />
                            </toggleGroup></RadioButton>
-                        <RadioButton fx:id="p3Radio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="3" toggleGroup="$playerGroup" />
-                        <RadioButton fx:id="p4Radio" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="4" toggleGroup="$playerGroup" />
+                        <RadioButton fx:id="p3Radio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="3" textFill="WHITE" toggleGroup="$playerGroup" />
+                        <RadioButton fx:id="p4Radio" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="4" textFill="WHITE" toggleGroup="$playerGroup" />
                      </children>
                   </HBox>
                </children>
@@ -32,7 +32,7 @@
                   <Label id="labelOne" text="Juegos:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton fx:id="dos" mnemonicParsing="false" text="DOS">
+                        <RadioButton fx:id="dos" mnemonicParsing="false" text="DOS" textFill="WHITE">
                            <toggleGroup>
                               <ToggleGroup fx:id="gameGroup" />
                            </toggleGroup></RadioButton>

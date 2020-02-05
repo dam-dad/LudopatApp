@@ -1,5 +1,13 @@
+.root{
+	-fx-background-color: #2B2B2B;
+}
+
 #component{
-	-fx-background-color: #A5A5A8;
+	-fx-background-color: #474747;
+}
+
+#content{
+	-fx-background-color: #474747;
 }
 
 .label{
@@ -10,6 +18,13 @@
 #labelOne{
 	-fx-font-family: segoe-ui;
 	-fx-font-size: 20pt;
+	-fx-text-fill: white;
+}
+
+#labelTwo{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 14pt;
+	-fx-text-fill: white;
 }
 
 #index{
@@ -24,12 +39,11 @@
 
 .button:hover{
 	-fx-background-color: #9D1414;
-	-fx-effect: dropshadow(gaussian, #CECECE, 20, 0.5, 0, 0);
+	-fx-effect: dropshadow(gaussian, #474747, 20, 0.5, 0, 0);
 }
 
 .button:armed{
-	-fx-background-color: #CECECE;
-	-fx-text-fill: black;
+	-fx-background-color: #EE0E0E;
 }
 
 #configPane{

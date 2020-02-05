@@ -37,3 +37,7 @@
 #button:hover{
 	-fx-background-color: #1A1A1A;
 }
+
+#bg{
+	-fx-background-color: #C70E0E;
+}

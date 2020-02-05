@@ -206,8 +206,7 @@ public class Dos extends Game {
 
 	@Override
 	public void dealCards() {
-		//TODO poner a 7
-		int numCartas = 1;
+		int numCartas = 7;
 		
 		for (Player p : currentPlayers) {
 
@@ -313,6 +312,10 @@ public class Dos extends Game {
 
 	public void setBlocked(boolean isBlocked) {
 		this.isBlocked = isBlocked;
+	}
+	
+	public boolean isInverse() {
+		return this.inverse;
 	}
 	
 	public static void loadSpecialCards(Deck deck, Class<? extends LudopatApp> class1) {

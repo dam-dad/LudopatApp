@@ -14,6 +14,9 @@ import com.jfoenix.controls.JFXDialog.DialogTransition;
 import games.Card;
 import games.Player;
 import gameslib.endGame.EndGameController;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,6 +30,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 import main.LudopatApp;
 import ui.CardComponent;
@@ -165,7 +169,7 @@ public class GameControllerDos implements Initializable {
 		// Bindings
 		numberLabel.setText(String.valueOf(dosGame.getCurrentValue()));
 		currentCard.setImage(dosGame.getLastCard().getCardImage());
-		appNameLabel.textProperty().bind(dosGame.getGameRules().gameTypeProperty());
+		gameNameLabel.textProperty().bind(dosGame.getGameRules().gameTypeProperty());
 		numberLabel.textProperty().bindBidirectional(dosGame.currentValueProperty(), new NumberStringConverter());
 
 		// Cambios que suceden en el juego y se reflejan en la interfaz
@@ -194,9 +198,23 @@ public class GameControllerDos implements Initializable {
 
 		if (nv != null) {
 			int npIndex = dosGame.getPlayerPosition(nv);
-			playersBox.get(npIndex).setStyle("-fx-background-color : green");
+			playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, #1FA113, 20, 0.5, 0, 0);");
 			initHand();
 			showHand();
+		}
+		
+		if (dosGame.isInverse()) {
+			if (dosGame.getPlayerPosition(nv) == 0) {
+				playersBox.get(dosGame.getCurrentPlayers().size() - 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+			}else {
+				playersBox.get(dosGame.getPlayerPosition(nv) - 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+			}
+		}else {
+			if (dosGame.getPlayerPosition(nv) == dosGame.getCurrentPlayers().size() - 1) {
+				playersBox.get(0).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+			}else {
+				playersBox.get(dosGame.getPlayerPosition(nv) + 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+			}
 		}
 	}
 
@@ -219,7 +237,9 @@ public class GameControllerDos implements Initializable {
 			handGrid.add(cardComp, i, 0);
 			if (card.isPlayable()) {
 				cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
-				cardComp.getStyleClass().add("playable");
+				cardComp.setId("playable");
+			}else {
+				cardComp.setId("notPlayable");
 			}
 			i++;
 		}
@@ -228,7 +248,7 @@ public class GameControllerDos implements Initializable {
 
 	private void initHand() {
 		// Número de cartas a robar
-		drawButton.setText("Robar - " + dosGame.getCardsToDraw());
+		drawButton.setText("Robar (" + dosGame.getCardsToDraw() + ")");
 		// Desabilitamos el pasar turno del jugador
 		nextButton.setDisable(true);
 		refreshHand();
@@ -279,8 +299,11 @@ public class GameControllerDos implements Initializable {
 
 	}
 
-	public void hideHand(ActionEvent event) {
-
+	public void hideHand() {
+		//TODO Transición
+		KeyValue key = new KeyValue(handGrid.prefWidthProperty(), 0);
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), key));
+		timeline.play();
 	}
 
 	private void onChangedImageColor(String nv) {
@@ -315,6 +338,9 @@ public class GameControllerDos implements Initializable {
 		JFXDialogLayout layout = new JFXDialogLayout();
 		layout.setBody(new EndGameController(dosGame.getCurrentPlayers()));
 		
+	    layout.setId("bg");
+	    layout.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
+		
 		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
 		dialog.setOverlayClose(false);
 		
@@ -340,19 +366,7 @@ public class GameControllerDos implements Initializable {
 	    exit.setId("button");
 	    exit.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
 		
-		JFXButton replay = new JFXButton("Jugar");
-	    replay.setOnAction(new EventHandler<ActionEvent>() {
-	        public void handle(ActionEvent event) {
-	            dialog.close();
-	            //TODO Hacer que se inicie otra partida con la misma configuracion
-//	            ludopp.initDosGame();
-	        }
-	    });
-	    
-	    replay.setId("button");
-	    replay.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
-		
-	    layout.setActions(menu, exit, replay);
+	    layout.setActions(menu, exit);
 	    dialog.show();
 	}
 
@@ -401,7 +415,10 @@ public class GameControllerDos implements Initializable {
 	@FXML
 	void nextTurnAction(ActionEvent event) {
 		drawButton.setDisable(false);
+		
 		// aqui habria que esconder la mano (hidehand)
+		hideHand();
+		
 		dosGame.nextTurn();// esto cambia el jugador activo
 
 		// Si hay un bloqueo activo, saltamos al siguiente
@@ -426,7 +443,6 @@ public class GameControllerDos implements Initializable {
 		try {
 			loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

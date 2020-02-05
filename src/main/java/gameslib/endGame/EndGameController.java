@@ -38,7 +38,7 @@ public class EndGameController extends VBox implements Initializable {
 	private void addPlayers() {
 		for (int i = 0; i < players.size(); i++) {
 			//TODO AÑADIR TANTOS COMPONENTES COMO JUGADORES
-			getChildren().add(new PlayerEndGameController(i, players.get(i).getPlayerInfo().getPlayerIcon(), players.get(i).getPlayerInfo().getPlayerName(), players.get(i).getHand().size()));
+			getChildren().add(new PlayerEndGameController(i + 1, players.get(i).getPlayerInfo().getPlayerIcon(), players.get(i).getPlayerInfo().getPlayerName(), players.get(i).getHand().size()));
 		}
 	}
 	

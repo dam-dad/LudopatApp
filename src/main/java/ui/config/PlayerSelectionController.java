@@ -41,10 +41,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 	private ArrayList<PlayerInfo> playersInfo = new ArrayList<PlayerInfo>();
 	
 	String[][] avatarsReferences = {
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 1" },
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 2" },
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 3" },
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 4" },
+			{ getClass().getResource("/ui/images/avatar_carpenter.png").toString(), "Carpintero" },
+			{ getClass().getResource("/ui/images/avatar_doctor.png").toString(), "Doctor" },
+			{ getClass().getResource("/ui/images/avatar_lawyer.png").toString(), "Abogado" },
+			{ getClass().getResource("/ui/images/avatar_programmer.png").toString(), "Programador" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 5" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 6" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 7" },

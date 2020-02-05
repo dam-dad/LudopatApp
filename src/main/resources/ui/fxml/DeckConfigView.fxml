@@ -17,13 +17,13 @@
                   <Label id="labelOne" text="Baraja:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton id="espDeck" fx:id="espDeck" disable="true" mnemonicParsing="false" text="ESPAÑOLA">
+                        <RadioButton id="espDeck" fx:id="espDeck" disable="true" mnemonicParsing="false" text="ESPAÑOLA" textFill="WHITE">
                            <toggleGroup>
                               <ToggleGroup fx:id="deckGroup" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton id="pokerDeck" fx:id="pokerDeck" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="POKER" toggleGroup="$deckGroup" />
-                        <RadioButton id="dosDeck" fx:id="dosDeck" disable="true" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="DOS" toggleGroup="$deckGroup" />
+                        <RadioButton id="pokerDeck" fx:id="pokerDeck" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="POKER" textFill="WHITE" toggleGroup="$deckGroup" />
+                        <RadioButton id="dosDeck" fx:id="dosDeck" disable="true" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="DOS" textFill="WHITE" toggleGroup="$deckGroup" />
                      </children>
                   </HBox>
                </children>
@@ -33,12 +33,12 @@
                   <Label id="labelOne" text="Número de cartas:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <RadioButton fx:id="oneRadio" mnemonicParsing="false" text="Una baraja">
+                        <RadioButton fx:id="oneRadio" mnemonicParsing="false" text="Una baraja" textFill="WHITE">
                            <toggleGroup>
                               <ToggleGroup fx:id="nDeckGroup" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton fx:id="twoRadio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Dos barajas" toggleGroup="$nDeckGroup" />
+                        <RadioButton fx:id="twoRadio" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Dos barajas" textFill="WHITE" toggleGroup="$nDeckGroup" />
                      </children>
                   </HBox>
                </children>

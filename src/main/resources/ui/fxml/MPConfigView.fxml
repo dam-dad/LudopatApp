@@ -33,7 +33,7 @@
    <center>
       <SplitPane fx:id="configPane" dividerPositions="1.0, 1.0, 1.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" BorderPane.alignment="CENTER">
          <items>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+            <AnchorPane id="content" prefHeight="200.0" prefWidth="200.0" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" />
             <AnchorPane prefHeight="200.0" prefWidth="200.0" />

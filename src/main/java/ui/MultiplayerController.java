@@ -156,8 +156,6 @@ public class MultiplayerController implements Initializable {
 				
 				deckConfig.selectDecks();
 				
-				//TODO TRANSICION ERRONEA
-				
 				key = new KeyValue(configPane.getDividers().get(0).positionProperty(), 0);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
