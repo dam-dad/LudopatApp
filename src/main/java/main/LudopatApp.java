@@ -50,6 +50,7 @@ public class LudopatApp extends Application {
 	
 	private GameRules gameRules;
 	private Stage mainStage;
+	
 	public Stage getMainStage() {
 		return mainStage;
 	}
@@ -57,10 +58,14 @@ public class LudopatApp extends Application {
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
 	}
+	
 	private Game currentGame;
 	
 	private final int DOS_SCREEN_WIDTH_REQUIRED = 1250;
 	private final int DOS_SCREEN_HEIGHT_REQUIRED = 700;
+	
+	private final int MENU_SCREEN_WIDTH_REQUIRED = 800;
+	private final int MENU_SCREEN_HEIGHT_REQUIRED = 600;
 	//-------- -------------------------------------------
 
 
@@ -96,6 +101,8 @@ public class LudopatApp extends Application {
 
 			Scene scene = new Scene(multiplayerController.getView(), 800, 600);
 			mainStage.setScene(scene);
+			
+			alignScreenMenu();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -109,6 +116,8 @@ public class LudopatApp extends Application {
 
 			Scene scene = new Scene(splashController.getView(), 800, 600);
 			mainStage.setScene(scene);
+			
+			alignScreenMenu();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -119,11 +128,14 @@ public class LudopatApp extends Application {
 	
 
 	public void goMenu() {
+		
 		try {
 			mainMenuController = new MainMenuController(this);
 
 			Scene scene = new Scene(mainMenuController.getView(), 800, 600);
 			mainStage.setScene(scene);
+			
+			alignScreenMenu();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -132,8 +144,6 @@ public class LudopatApp extends Application {
 	}
 
 	public void initGame() {
-		
-		alignScreen();
 
 		String gameType = gameRules.getGameType();
 		
@@ -145,6 +155,8 @@ public class LudopatApp extends Application {
 			default:
 				break;
 		}
+		
+		alignScreen();
 	}
 	
 	private void alignScreen() {
@@ -153,6 +165,14 @@ public class LudopatApp extends Application {
 		
 		mainStage.setX(screenWidthCenter - DOS_SCREEN_WIDTH_REQUIRED/2);
 		mainStage.setY(screenHeightCenter - DOS_SCREEN_HEIGHT_REQUIRED/2);
+	}
+	
+	private void alignScreenMenu() {
+		double screenWidthCenter = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
+		double screenHeightCenter = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
+		
+		mainStage.setX(screenWidthCenter - MENU_SCREEN_WIDTH_REQUIRED/2);
+		mainStage.setY(screenHeightCenter - MENU_SCREEN_HEIGHT_REQUIRED/2);
 	}
 
 	// -------------------------------------------------------------------

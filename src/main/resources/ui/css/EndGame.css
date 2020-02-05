@@ -26,3 +26,14 @@
 #nCards{
 	-fx-text-fill: #565756;
 }
+
+#button{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 15pt;
+	-fx-background-color: #2B2B2B;
+	-fx-text-fill: white;
+}
+
+#button:hover{
+	-fx-background-color: #1A1A1A;
+}

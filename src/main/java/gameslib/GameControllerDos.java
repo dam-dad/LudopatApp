@@ -16,6 +16,7 @@ import games.Player;
 import gameslib.endGame.EndGameController;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -283,6 +284,7 @@ public class GameControllerDos implements Initializable {
 	}
 
 	private void onChangedImageColor(String nv) {
+		//TODO Modificar las imagenes
 		switch (nv) {
 		case "white":
 			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/dos_white_1.png").toString()));
@@ -312,8 +314,46 @@ public class GameControllerDos implements Initializable {
 		
 		JFXDialogLayout layout = new JFXDialogLayout();
 		layout.setBody(new EndGameController(dosGame.getCurrentPlayers()));
+		
 		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
-		dialog.show();
+		dialog.setOverlayClose(false);
+		
+		JFXButton menu = new JFXButton("Menú");
+	    menu.setOnAction(new EventHandler<ActionEvent>() {
+	        public void handle(ActionEvent event) {
+	            dialog.close();
+	            ludopp.goMenu();
+	        }
+	    });
+	    
+	    menu.setId("button");
+	    menu.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
+		
+		JFXButton exit = new JFXButton("Salir");
+	    exit.setOnAction(new EventHandler<ActionEvent>() {
+	        public void handle(ActionEvent event) {
+	            dialog.close();
+	            exitAction(null);
+	        }
+	    });
+	    
+	    exit.setId("button");
+	    exit.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
+		
+		JFXButton replay = new JFXButton("Jugar");
+	    replay.setOnAction(new EventHandler<ActionEvent>() {
+	        public void handle(ActionEvent event) {
+	            dialog.close();
+	            //TODO Hacer que se inicie otra partida con la misma configuracion
+//	            ludopp.initDosGame();
+	        }
+	    });
+	    
+	    replay.setId("button");
+	    replay.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
+		
+	    layout.setActions(menu, exit, replay);
+	    dialog.show();
 	}
 
 	@FXML

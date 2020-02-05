@@ -206,8 +206,8 @@ public class Dos extends Game {
 
 	@Override
 	public void dealCards() {
-
-		int numCartas = 7;
+		//TODO poner a 7
+		int numCartas = 1;
 		
 		for (Player p : currentPlayers) {
 
