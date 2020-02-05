@@ -1,0 +1,28 @@
+.root{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 15pt;
+}
+
+#separator{
+	-fx-background-color: #696969;
+}
+
+#first{
+	-fx-background-color: #A39C56;
+}
+
+#second{
+	-fx-background-color: #919191;
+}
+
+#third{
+	-fx-background-color: #94794F;
+}
+
+#loser{
+	-fx-background-color: #4F412A;
+}
+
+#nCards{
+	-fx-text-fill: #565756;
+}
