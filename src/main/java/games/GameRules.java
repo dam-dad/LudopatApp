@@ -42,6 +42,11 @@ public class GameRules {
 	private ArrayList<Deck> availableDecks;
 
 	/**
+	 * Guardamos la información de los jugadores
+	 */
+	private ArrayList<PlayerInfo> playersInfo;
+	
+	/**
 	 * Modo de juego, solitario, dos, póker, ...
 	 */
 	private StringProperty gameType = new SimpleStringProperty();
@@ -101,6 +106,14 @@ public class GameRules {
 
 	public final void setGameType(final String gameType) {
 		this.gameTypeProperty().set(gameType);
+	}
+
+	public ArrayList<PlayerInfo> getPlayersInfo() {
+		return playersInfo;
+	}
+
+	public void setPlayersInfo(ArrayList<PlayerInfo> playersInfo) {
+		this.playersInfo = playersInfo;
 	}
 	
 }

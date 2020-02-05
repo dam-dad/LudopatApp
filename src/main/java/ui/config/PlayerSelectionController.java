@@ -2,11 +2,14 @@ package ui.config;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import games.PlayerInfo;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -35,6 +38,8 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 	@FXML
 	StackPane stack;
 
+	private ArrayList<PlayerInfo> playersInfo = new ArrayList<PlayerInfo>();
+	
 	String[][] avatarsReferences = {
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 1" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 2" },
@@ -151,6 +156,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// Creamos tantos PlayerInfo como necesitamos
+		for( int i = 0; i < 4; i++ ) {
+			playersInfo.add(new PlayerInfo());
+		}
 	}
 
 	private void changeAvatar(int posPlayer) {
@@ -165,6 +174,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 	private void closeDialog(int pos) {
 		selectedAvatars[pos] = selector.getSelected();
 
+		// Le añadimos esta información al playerInfo
+		playersInfo.get(pos).setPlayerIcon(new Image(allAvatars[selectedAvatars[pos]].getImgName()));
+		playersInfo.get(pos).setPlayerName(allAvatars[selectedAvatars[pos]].getPlayerName());
+		
 		stack.getChildren().remove(1);
 
 		Avatar[] aux = { new Avatar(avatarsReferences[0][0], avatarsReferences[0][1]),
@@ -186,6 +199,22 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 
 	public void refresh() {
 		addDefaultAvatars();
+		
+		// Ponemos información a los playerInfo
+		for( int i = 0; i < 4; i++ ) {
+			playersInfo.get(i).setPlayerIcon(new Image(allAvatars[selectedAvatars[i]].getImgName()));
+			playersInfo.get(i).setPlayerName(allAvatars[selectedAvatars[i]].getPlayerName());
+		}
+	}
+
+	public ArrayList<PlayerInfo> getPlayersInfo() {
+		
+		ArrayList<PlayerInfo> players = new ArrayList<PlayerInfo>();
+		// Devolvemos sólo lo correspondiente
+		for( int i = 0; i < ludopatApp.getGameRules().getNumPlayers(); i++ ) {
+			players.add(playersInfo.get(i));
+		}
+		return playersInfo;
 	}
 
 }

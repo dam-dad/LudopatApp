@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import org.dom4j.DocumentException;
 
+import games.PlayerInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -200,6 +201,9 @@ public class MultiplayerController implements Initializable {
 				key = new KeyValue(summary.maxWidthProperty(), ANCHOR_WIDTH);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
+	          
+	            // Ponemos los jugadores
+	            ludopp.getGameRules().setPlayersInfo(playerConfig.getPlayersInfo());
 	            
 	            summary.initSummary();
 	            continueButton.setText(PLAY);

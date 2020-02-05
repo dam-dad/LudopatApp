@@ -40,6 +40,9 @@ public class DeckConfigController extends AnchorPane implements Initializable {
     private ToggleGroup deckGroup;
     
     @FXML
+    private ToggleGroup nDeckGroup;
+
+    @FXML
     private RadioButton pokerDeck, dosDeck, espDesk;
     
     @FXML
@@ -73,8 +76,21 @@ public class DeckConfigController extends AnchorPane implements Initializable {
 		oneRadio.setSelected(true);
 		
 		deckGroup.selectedToggleProperty().addListener( (o, ov, nv ) -> onDeckChanged(nv));
+		nDeckGroup.selectedToggleProperty().addListener( (o, ov, nv) -> onChangedNumDeck(nv));
 	}
 	
+	private void onChangedNumDeck(Toggle nv) {
+		
+		RadioButton btn = (RadioButton)nv;
+		
+		// Es doble baraja?
+		if( btn.equals(twoRadio)) {
+			ludopp.getGameRules().getDeckType().setDoubleDeck(true);
+		} else {
+			ludopp.getGameRules().getDeckType().setDoubleDeck(false);
+		}
+	}
+
 	private void onDeckChanged(Toggle nv) {
 		
 		RadioButton btn = (RadioButton)nv;

@@ -169,88 +169,17 @@ public class LudopatApp extends Application {
 		Deck deck = gameRules.getDeckType();
 		deck.loadCards("dos");
 		
-		// Cargamos las cartas especiales
-		ArrayList<Card> deckCards = deck.getCards();
-		
-		for (int i = 0; i < 2; i++) {
-			
-			Card card = new Card();
-			card.setCardValue(Dos.SPECIAL_CHANGE_BLUE);
-			card.setCardImage(
-					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changeblue.png").toString()));
-			
-			deckCards.add(card);
+		Dos.loadSpecialCards(deck, this.getClass());
+		if( deck.isDoubleDeck() ) {
+			// Si hay doble baraja, cargamos más
+			Dos.loadSpecialCards(deck, this.getClass());
 		}
-		
-		for (int i = 0; i < 2; i++) {
-			
-			Card card = new Card();
-			card.setCardValue(Dos.SPECIAL_CHANGE_GREEN);
-			card.setCardImage(
-					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changegreen.png").toString()));
-			
-			deckCards.add(card);
-		}
-		
-		for (int i = 0; i < 2; i++) {
-			
-			Card card = new Card();
-			card.setCardValue(Dos.SPECIAL_CHANGE_WHITE);
-			card.setCardImage(
-					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changewhite.png").toString()));
-			
-			deckCards.add(card);
-		}
-		
-		for (int i = 0; i < 2; i++) {
-			
-			Card card = new Card();
-			card.setCardValue(Dos.SPECIAL_CHANGE_YELLOW);
-			card.setCardImage(
-					new Image(getClass().getResource("/ui/images/dos/special/dos_special_changeyellow.png").toString()));
-			
-			deckCards.add(card);
-		}
-		
-		for (int i = 0; i < 2; i++) {
-			
-			Card card = new Card();
-			card.setCardValue(Dos.SPECIAL_BLOCK);
-			card.setCardImage(
-					new Image(getClass().getResource("/ui/images/dos/special/dos_special_block.png").toString()));
-			
-			deckCards.add(card);
-		}
-		
-		for (int i = 0; i < 2; i++) {
-			
-			Card card = new Card();
-			card.setCardValue(Dos.SPECIAL_INVERSE);
-			card.setCardImage(
-					new Image(getClass().getResource("/ui/images/dos/special/dos_special_inverse.png").toString()));
-			
-			deckCards.add(card);
-		}
-		
-		for (int i = 0; i < 2; i++) {
-			
-			Card card = new Card();
-			card.setCardValue(Dos.SPECIAL_PLUSONE);
-			card.setCardImage(
-					new Image(getClass().getResource("/ui/images/dos/special/dos_special_plusone.png").toString()));
-			
-			deckCards.stream().forEach(  node -> {
-			
-			});
-			deckCards.add(card);
-		}
-		
-		// TEST
+		// Creamos los juugadores
 		ArrayList<Player> players = new ArrayList<Player>();
-		for( int i = 0; i < 4; i++ ) {
+		for( int i = 0; i < getGameRules().getNumPlayers(); i++ ) {
 			Player player = new Player();
 			player.setId(i);
-			player.setPlayerName("Player_"+i);
+			player.setPlayerInfo(getGameRules().getPlayersInfo().get(i));
 			players.add(player);
 		}
 		

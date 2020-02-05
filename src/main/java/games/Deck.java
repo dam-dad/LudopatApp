@@ -7,11 +7,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
- * <b>Baraja</b>
- * <br><br>
+ * <b>Baraja</b> <br>
+ * <br>
  * 
- * Baraja de cartas que contiene instancias de objetos carta y 
- * que sirve de contenedor para dichos objetos
+ * Baraja de cartas que contiene instancias de objetos carta y que sirve de
+ * contenedor para dichos objetos
  * 
  * @author David Fernández Nieves
  * @author Pablo Daniel Urtiaga Pinto
@@ -25,60 +25,71 @@ public class Deck {
 	 * Lista de cartas a jugar
 	 */
 	private ArrayList<Card> cards;
-	
+
 	/**
-	 * Nombre identificativo de la baraja, usado
-	 * para la implementación con la interfaz.
+	 * Nombre identificativo de la baraja, usado para la implementación con la
+	 * interfaz.
 	 */
 	private String deckType;
-	
+
 	/**
-	 * Nombre de la baraja a visualizar en
-	 * la interfaz.
+	 * Nombre de la baraja a visualizar en la interfaz.
 	 */
 	private String displayName;
-	
+
 	/**
 	 * Número de cartas en el juego
 	 */
 	private int numCards;
-	
+
 	/**
 	 * Prefijos de las cartas
 	 */
 	private ArrayList<Suit> suits;
-	
+
 	/**
 	 * Número de cartas por palo
 	 */
 	private int cardsPerSuit;
-	
-	public Deck() {}
+
+	/**
+	 * Si hay doble baraja
+	 */
+	private boolean doubleDeck;
+
+	public Deck() {
+	}
 
 	/**
 	 * Cargamos las imágenes en las cartas
 	 */
 	public void loadCards(String gameType) {
-	
-		cards = new ArrayList<Card>();
-		
-		for( Suit suit : suits ) {
-			
-			for( int i = 1; i <= cardsPerSuit; i++ ) {
-				
-				String urlImage = String.format("/ui/images/%s/%s/%s_%d.png", 
-						gameType, suit.getName(), suit.getImgPrefix(), i);
 
+		cards = new ArrayList<Card>();
+
+		// Si es doble baraja, añadimos otra baraja más
+		initCards(gameType);
+		if( isDoubleDeck() ) {
+			initCards(gameType);
+		}
+	}
+	
+	public void initCards(String gameType) {
+		
+		for (Suit suit : suits) {
+
+			for (int i = 1; i <= cardsPerSuit; i++) {
+
+				String urlImage = String.format("/ui/images/%s/%s/%s_%d.png", gameType, suit.getName(),
+						suit.getImgPrefix(), i);
 
 				Card card = new Card();
-				card.setCardImage( new Image(getClass().getResource(urlImage).toString()));
+				card.setCardImage(new Image(getClass().getResource(urlImage).toString()));
 				card.setCardValue(i);
 				card.setSuit(suit);
 				cards.add(card);
 			}
 		}
-		
-		// Cargamos las cartas espciales
 	}
 
 	/**
@@ -111,7 +122,7 @@ public class Deck {
 	public void setDisplayName(String displayName) {
 		this.displayName = displayName;
 	}
-	
+
 	@Override
 	public String toString() {
 		return displayName;
@@ -139,5 +150,13 @@ public class Deck {
 
 	public void setCardsPerSuit(int cardsPerSuit) {
 		this.cardsPerSuit = cardsPerSuit;
+	}
+
+	public boolean isDoubleDeck() {
+		return doubleDeck;
+	}
+
+	public void setDoubleDeck(boolean doubleDeck) {
+		this.doubleDeck = doubleDeck;
 	}
 }
