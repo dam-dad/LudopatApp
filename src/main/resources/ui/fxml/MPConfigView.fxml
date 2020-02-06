@@ -18,7 +18,7 @@
                <children>
                   <ImageView fx:id="appImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/Frame.png" />
+                        <Image url="@../images/noframe.png" />
                      </image></ImageView>
                   <Label id="labelOne" text="LudopatApp">
                      <HBox.margin>
