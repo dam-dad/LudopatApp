@@ -51,7 +51,7 @@ public class PlayerEndGameController extends HBox implements Initializable {
 				break;
 			}
 			
-			posLabel.setText(String.valueOf(position));	
+			posLabel.setText(String.valueOf(position + 1));	
 			this.playerImage.setImage(playerImage);
 			playerNameLabel.setText(playerName);
 			cardLabel.setText(String.valueOf(cards));

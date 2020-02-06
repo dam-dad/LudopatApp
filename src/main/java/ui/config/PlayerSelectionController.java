@@ -44,12 +44,12 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			{ getClass().getResource("/ui/images/avatar_carpenter.png").toString(), "Carpintero" },
 			{ getClass().getResource("/ui/images/avatar_doctor.png").toString(), "Doctor" },
 			{ getClass().getResource("/ui/images/avatar_lawyer.png").toString(), "Abogado" },
-			{ getClass().getResource("/ui/images/avatar_programmer.png").toString(), "Programador" },
+			{ getClass().getResource("/ui/images/avatar_programmer.png").toString(), "Hacker" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 5" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 6" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 7" },
 			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 8" },
-			{ getClass().getResource("/ui/images/Noframe.png").toString(), "" }
+			{ getClass().getResource("/ui/images/userNull.png").toString(), "" }
 	};
 
 	// TODO Añadir imagenes y nombres de avatar finales.
