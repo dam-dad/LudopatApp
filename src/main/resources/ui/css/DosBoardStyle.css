@@ -50,8 +50,8 @@
 }
 
 #table{
-	-fx-background-color: #1F7113;
 	-fx-font-size: 28pt;
+	-fx-background-image: url("../images/background2.png");
 }
 
 #cards{

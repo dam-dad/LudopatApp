@@ -28,11 +28,6 @@ public class PlayerEndGameController extends HBox implements Initializable {
 
     @FXML
     private Label cardLabel;
-    
-    private int position;
-    private Image playerImageIn;
-    private String playerName;
-    private int cards;
 	
 	public PlayerEndGameController(int position, Image playerImage, String playerName, int cards) {
 		try {
@@ -41,10 +36,25 @@ public class PlayerEndGameController extends HBox implements Initializable {
 			loader.setRoot(this);
 			loader.load();
 			
-			this.position = position;
-			this.playerImageIn = playerImage;
-			this.playerName = playerName;
-			this.cards = cards;
+			switch (position) {
+			case 0:
+				this.setId("first");
+				break;
+			case 1:
+				this.setId("second");
+				break;
+			case 2:
+				this.setId("third");
+				break;
+			case 3:
+				this.setId("loser");
+				break;
+			}
+			
+			posLabel.setText(String.valueOf(position + 1));	
+			this.playerImage.setImage(playerImage);
+			playerNameLabel.setText(playerName);
+			cardLabel.setText(String.valueOf(cards));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -52,25 +62,6 @@ public class PlayerEndGameController extends HBox implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		switch (position) {
-		case 0:
-			this.setId("first");
-			break;
-		case 1:
-			this.setId("second");
-			break;
-		case 2:
-			this.setId("third");
-			break;
-		case 3:
-			this.setId("loser");
-			break;
-		}
-		
-		posLabel.setText(String.valueOf(position + 1));	
-		playerImage.setImage(playerImageIn);
-		playerNameLabel.setText(playerName);
-		cardLabel.setText(String.valueOf(cards));
 	}
 
 }
