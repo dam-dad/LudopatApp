@@ -172,7 +172,7 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 	}
 
 	public void closeDialog(int pos) {
-		if (pos > 0) {
+		if (pos > -1) {
 			selectedAvatars[pos] = selector.getSelected();
 
 			// Le añadimos esta información al playerInfo
@@ -180,7 +180,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			playersInfo.get(pos).setPlayerName(allAvatars[selectedAvatars[pos]].getPlayerName());
 		}
 		
-		stack.getChildren().remove(1);
+		try {
+			stack.getChildren().remove(1);
+		} catch (IndexOutOfBoundsException e) {
+		}
 
 		Avatar[] aux = { new Avatar(avatarsReferences[0][0], avatarsReferences[0][1]),
 				new Avatar(avatarsReferences[1][0], avatarsReferences[1][1]),

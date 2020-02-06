@@ -11,12 +11,19 @@ import games.GameRules;
 import games.Player;
 import gameslib.Dos;
 import gameslib.GameControllerDos;
+import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.animation.Transition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import ui.MainMenuController;
 import ui.MultiplayerController;
 import ui.SplashController;
@@ -76,10 +83,8 @@ public class LudopatApp extends Application {
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
 		
-		goMultiplayerMenu();
-		
 		// Inicamos la aplicación, el SplashScreen
-	//	initApp();
+		initApp();
 
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 
@@ -98,9 +103,27 @@ public class LudopatApp extends Application {
 
 			gameRules = new GameRules();
 			multiplayerController = new MultiplayerController(this);
-
+			
 			Scene scene = new Scene(multiplayerController.getView(), 800, 600);
-			mainStage.setScene(scene);
+
+			FadeTransition fadeTransition = new FadeTransition();
+			fadeTransition.setFromValue(1);
+			fadeTransition.setToValue(0);
+			fadeTransition.setDuration(Duration.millis(375));
+			fadeTransition.setNode(mainMenuController.getView());
+			fadeTransition.setOnFinished(ae -> mainStage.setScene(scene));
+
+			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransition.play()));
+			timeline.play();
+
+			FadeTransition fadeTransitionOut = new FadeTransition();
+			fadeTransitionOut.setFromValue(1);
+			fadeTransitionOut.setToValue(0);
+			fadeTransitionOut.setDuration(Duration.millis(375));
+			fadeTransitionOut.setNode(mainMenuController.getView());
+
+			Timeline timelineOut = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransitionOut.play()));
+			timelineOut.play();
 			
 			alignScreenMenu();
 

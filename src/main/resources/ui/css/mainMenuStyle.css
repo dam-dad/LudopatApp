@@ -34,7 +34,7 @@
 }
 
 #box{
-	-fx-background-color: white;
+	-fx-background-color: #C9C9C980;
 	-fx-border-radius: 10 10 10 10;
 	-fx-background-radius: 10 10 10 10;
 	-fx-border-style: solid;
