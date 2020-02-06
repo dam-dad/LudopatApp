@@ -187,12 +187,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 				new Avatar(avatarsReferences[4][0], avatarsReferences[4][1]),
 				new Avatar(avatarsReferences[5][0], avatarsReferences[5][1]),
 				new Avatar(avatarsReferences[6][0], avatarsReferences[6][1]),
-				new Avatar(avatarsReferences[7][0], avatarsReferences[7][1]),
-				new Avatar(avatarsReferences[8][0], avatarsReferences[8][1]),
-				new Avatar(avatarsReferences[8][0], avatarsReferences[8][1])
+				new Avatar(avatarsReferences[7][0], avatarsReferences[7][1])
 				};
 		
-		allAvatars = aux;
+		availableAvatars = aux;
 
 		reloadImages();
 	}
