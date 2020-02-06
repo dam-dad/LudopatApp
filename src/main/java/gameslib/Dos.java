@@ -71,17 +71,15 @@ public class Dos extends Game {
 
 	@Override
 	public void endGame() {
-		// ordenar jugadores por numero de cartas, en caso de empate suma de valores,
-		// pasarselo a dialogo
+		// Ordenar jugadores por numero de cartas y
+		// lo pasa al dialogo.
 		Collections.sort(currentPlayers, new ComparePlayers());
-		// dialogo
-
 	}
 	
 	@Override
 	public void throwCard(Card card) {
 		
-		// ¿ Es especial ?
+		// ¿Es especial?
 		if (card.getCardValue() >= SPECIAL_CARDS) {
 			
 			switch (card.getCardValue()) {

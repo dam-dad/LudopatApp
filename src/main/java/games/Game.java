@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author Kevin Rodriguez Morales
  *
  */
+
 public abstract class Game {
 
 	/**
@@ -54,8 +55,8 @@ public abstract class Game {
 	public abstract void initGame();
 	
 	/**
-	 * Finaliza el juego, normalmente
-	 * se saca un resumen de las distintas
+	 * Finaliza el juego, se saca 
+	 * un resumen de las distintas
 	 * puntuaciones.
 	 */
 	public abstract void endGame();
@@ -64,11 +65,13 @@ public abstract class Game {
 	 * Un jugador lanza una carta
 	 * @param card: Carta que ha jugado
 	 */
+	
 	public abstract void throwCard(Card card);
 	
 	/**
 	 * Se reparten las cartas a los jugadores
 	 */
+	
 	public abstract void dealCards();
 	
 	public Deck getDeck() {

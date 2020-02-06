@@ -6,9 +6,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.scene.image.Image;
 
 /**
  * 
@@ -46,23 +43,19 @@ public class Player {
 	private int id;
 	
 	public Player() {}
-
-
+	
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
-
-
+	
 	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
-
-
+	
 	public int getId() {
 		return id;
 	}
-
-
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -78,26 +71,17 @@ public class Player {
 	public final void setScore(final int score) {
 		this.scoreProperty().set(score);
 	}
-
-
+	
 	public final ObjectProperty<PlayerInfo> playerInfoProperty() {
 		return this.playerInfo;
 	}
 	
-
-
 	public final PlayerInfo getPlayerInfo() {
 		return this.playerInfoProperty().get();
 	}
 	
-
-
 	public final void setPlayerInfo(final PlayerInfo playerInfo) {
 		this.playerInfoProperty().set(playerInfo);
 	}
-	
-	
-	
-	
 	
 }

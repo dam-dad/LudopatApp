@@ -57,7 +57,6 @@ public class MultiplayerController implements Initializable {
 	private SplitPane configPane;
 	
 	//--------------------------------------------------
-	
 	// Variables
 	//--------------------------------------------------
 	
@@ -79,8 +78,6 @@ public class MultiplayerController implements Initializable {
 	private SummaryController summary;
 	
 	private LudopatApp ludopp;
-	
-	//Hecho por KEVIN
 	
 	private final int TRANSITION_TIME = 500;
 	

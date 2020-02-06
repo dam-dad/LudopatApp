@@ -128,7 +128,6 @@ public class GameControllerDos implements Initializable {
 	private StackPane stack;
 
 	// ----------------------------------------------------------
-
 	// Variables used by controller
 	// ----------------------------------------------------------
 
@@ -179,9 +178,6 @@ public class GameControllerDos implements Initializable {
 
 		onChangedImageColor(dosGame.getCurrentColor());
 		onChangedPlayer(null, dosGame.getActivePlayer());
-
-		// currentCard1.setImage(new
-		// Image(getClass().getResource("/ui/images/dos/card_back.png").toString()));
 
 		// Visualizamos la primera mano del jugador
 		initHand();
@@ -253,7 +249,7 @@ public class GameControllerDos implements Initializable {
 	private void initHand() {
 		// Número de cartas a robar
 		drawButton.setText("Robar (" + dosGame.getCardsToDraw() + ")");
-		// Desabilitamos el pasar turno del jugador
+		// Deshabilitamos el pasar turno del jugador
 		nextButton.setDisable(true);
 		refreshHand();
 	}
@@ -311,7 +307,6 @@ public class GameControllerDos implements Initializable {
 	}
 
 	private void onChangedImageColor(String nv) {
-		//TODO Modificar las imagenes
 		switch (nv) {
 		case "white":
 			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/actualwhite.png").toString()));
@@ -420,7 +415,6 @@ public class GameControllerDos implements Initializable {
 	void nextTurnAction(ActionEvent event) {
 		drawButton.setDisable(false);
 		
-		// aqui habria que esconder la mano (hidehand)
 		hideHand();
 		
 		dosGame.nextTurn();// esto cambia el jugador activo
@@ -434,7 +428,6 @@ public class GameControllerDos implements Initializable {
 
 	@FXML
 	void returnMenuAction(ActionEvent event) {
-		// dialogo confirmacion
 		ludopp.goMenu();
 	}
 

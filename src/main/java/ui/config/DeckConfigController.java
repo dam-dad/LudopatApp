@@ -83,7 +83,7 @@ public class DeckConfigController extends AnchorPane implements Initializable {
 		
 		RadioButton btn = (RadioButton)nv;
 		
-		// Es doble baraja?
+		// ¿Es doble baraja?
 		if( btn.equals(twoRadio)) {
 			ludopp.getGameRules().getDeckType().setDoubleDeck(true);
 		} else {

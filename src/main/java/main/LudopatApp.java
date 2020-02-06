@@ -4,7 +4,6 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import games.Card;
 import games.Deck;
 import games.Game;
 import games.GameRules;
@@ -13,14 +12,9 @@ import gameslib.Dos;
 import gameslib.GameControllerDos;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.animation.Transition;
-import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -89,8 +83,6 @@ public class LudopatApp extends Application {
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 
 		primaryStage.show();
-		
-		// Esperamos a mostrar el menú
 		
 	}
 
