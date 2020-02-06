@@ -171,12 +171,14 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 		selector.getFinish().addListener(e -> closeDialog(posPlayer));
 	}
 
-	private void closeDialog(int pos) {
-		selectedAvatars[pos] = selector.getSelected();
+	public void closeDialog(int pos) {
+		if (pos > 0) {
+			selectedAvatars[pos] = selector.getSelected();
 
-		// Le añadimos esta información al playerInfo
-		playersInfo.get(pos).setPlayerIcon(new Image(allAvatars[selectedAvatars[pos]].getImgName()));
-		playersInfo.get(pos).setPlayerName(allAvatars[selectedAvatars[pos]].getPlayerName());
+			// Le añadimos esta información al playerInfo
+			playersInfo.get(pos).setPlayerIcon(new Image(allAvatars[selectedAvatars[pos]].getImgName()));
+			playersInfo.get(pos).setPlayerName(allAvatars[selectedAvatars[pos]].getPlayerName());
+		}
 		
 		stack.getChildren().remove(1);
 

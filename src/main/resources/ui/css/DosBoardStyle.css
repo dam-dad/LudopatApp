@@ -60,7 +60,7 @@
 }
 
 #playable{
-	-fx-effect: dropshadow(gaussian, #1FA113, 20, 0.5, 0, 0);
+	-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);
 }
 
 #notPlayable{

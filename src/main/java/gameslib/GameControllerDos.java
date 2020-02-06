@@ -198,22 +198,22 @@ public class GameControllerDos implements Initializable {
 
 		if (nv != null) {
 			int npIndex = dosGame.getPlayerPosition(nv);
-			playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, #1FA113, 20, 0.5, 0, 0);");
+			playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
 			initHand();
 			showHand();
 		}
 		
 		if (dosGame.isInverse()) {
 			if (dosGame.getPlayerPosition(nv) == 0) {
-				playersBox.get(dosGame.getCurrentPlayers().size() - 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(dosGame.getCurrentPlayers().size() - 1).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}else {
-				playersBox.get(dosGame.getPlayerPosition(nv) - 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(dosGame.getPlayerPosition(nv) - 1).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}
 		}else {
 			if (dosGame.getPlayerPosition(nv) == dosGame.getCurrentPlayers().size() - 1) {
-				playersBox.get(0).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(0).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}else {
-				playersBox.get(dosGame.getPlayerPosition(nv) + 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(dosGame.getPlayerPosition(nv) + 1).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}
 		}
 	}
@@ -238,8 +238,12 @@ public class GameControllerDos implements Initializable {
 			if (card.isPlayable()) {
 				cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
 				cardComp.setId("playable");
+				cardComp.setFitWidth(85);
+				cardComp.setFitHeight(135);
 			}else {
 				cardComp.setId("notPlayable");
+				cardComp.setFitWidth(75);
+				cardComp.setFitHeight(125);
 			}
 			i++;
 		}
@@ -310,16 +314,16 @@ public class GameControllerDos implements Initializable {
 		//TODO Modificar las imagenes
 		switch (nv) {
 		case "white":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/dos_white_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/actualwhite.png").toString()));
 			break;
 		case "blue":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/blue/dos_blue_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/blue/actualblue.png").toString()));
 			break;
 		case "green":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/green/dos_green_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/green/actualgreen.png").toString()));
 			break;
 		case "yellow":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/yellow/dos_yellow_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/yellow/actualyellow.png").toString()));
 			break;
 		}
 	}
