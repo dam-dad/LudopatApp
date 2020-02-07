@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * <b>Baraja</b> <br>

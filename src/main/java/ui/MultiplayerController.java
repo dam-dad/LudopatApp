@@ -2,12 +2,10 @@ package ui;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.dom4j.DocumentException;
 
-import games.PlayerInfo;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -20,9 +18,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import main.LudopatApp;
@@ -62,7 +57,6 @@ public class MultiplayerController implements Initializable {
 	private SplitPane configPane;
 	
 	//--------------------------------------------------
-	
 	// Variables
 	//--------------------------------------------------
 	
@@ -84,8 +78,6 @@ public class MultiplayerController implements Initializable {
 	private SummaryController summary;
 	
 	private LudopatApp ludopp;
-	
-	//Hecho por KEVIN
 	
 	private final int TRANSITION_TIME = 500;
 	
@@ -190,6 +182,8 @@ public class MultiplayerController implements Initializable {
 				break;
 			case ST_CONFIG_PLAYERS:
 				
+				playerConfig.closeDialog(-1);
+				
 				key = new KeyValue(configPane.getDividers().get(2).positionProperty(), 0);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
@@ -236,6 +230,7 @@ public class MultiplayerController implements Initializable {
 				
 				break;
 			case ST_CONFIG_PLAYERS:
+				playerConfig.closeDialog(-1);
 				
 				key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 1);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));

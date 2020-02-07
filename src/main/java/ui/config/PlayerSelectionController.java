@@ -45,10 +45,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			{ getClass().getResource("/ui/images/avatar_doctor.png").toString(), "Doctor" },
 			{ getClass().getResource("/ui/images/avatar_lawyer.png").toString(), "Abogado" },
 			{ getClass().getResource("/ui/images/avatar_programmer.png").toString(), "Hacker" },
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 5" },
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 6" },
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 7" },
-			{ getClass().getResource("/ui/images/Frame.png").toString(), "Avatar 8" },
+			{ getClass().getResource("/ui/images/avatar_dab.png").toString(), "Dab niño" },
+			{ getClass().getResource("/ui/images/avatar_potat.png").toString(), "Potat" },
+			{ getClass().getResource("/ui/images/avatar_travolta.png").toString(), "Travolta" },
+			{ getClass().getResource("/ui/images/avatar_davIA.png").toString(), "Dav_IA.sad" },
 			{ getClass().getResource("/ui/images/userNull.png").toString(), "" }
 	};
 
@@ -171,14 +171,19 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 		selector.getFinish().addListener(e -> closeDialog(posPlayer));
 	}
 
-	private void closeDialog(int pos) {
-		selectedAvatars[pos] = selector.getSelected();
+	public void closeDialog(int pos) {
+		if (pos > -1) {
+			selectedAvatars[pos] = selector.getSelected();
 
-		// Le añadimos esta información al playerInfo
-		playersInfo.get(pos).setPlayerIcon(new Image(allAvatars[selectedAvatars[pos]].getImgName()));
-		playersInfo.get(pos).setPlayerName(allAvatars[selectedAvatars[pos]].getPlayerName());
+			// Le añadimos esta información al playerInfo
+			playersInfo.get(pos).setPlayerIcon(new Image(allAvatars[selectedAvatars[pos]].getImgName()));
+			playersInfo.get(pos).setPlayerName(allAvatars[selectedAvatars[pos]].getPlayerName());
+		}
 		
-		stack.getChildren().remove(1);
+		try {
+			stack.getChildren().remove(1);
+		} catch (IndexOutOfBoundsException e) {
+		}
 
 		Avatar[] aux = { new Avatar(avatarsReferences[0][0], avatarsReferences[0][1]),
 				new Avatar(avatarsReferences[1][0], avatarsReferences[1][1]),
@@ -187,12 +192,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 				new Avatar(avatarsReferences[4][0], avatarsReferences[4][1]),
 				new Avatar(avatarsReferences[5][0], avatarsReferences[5][1]),
 				new Avatar(avatarsReferences[6][0], avatarsReferences[6][1]),
-				new Avatar(avatarsReferences[7][0], avatarsReferences[7][1]),
-				new Avatar(avatarsReferences[8][0], avatarsReferences[8][1]),
-				new Avatar(avatarsReferences[8][0], avatarsReferences[8][1])
+				new Avatar(avatarsReferences[7][0], avatarsReferences[7][1])
 				};
 		
-		allAvatars = aux;
+		availableAvatars = aux;
 
 		reloadImages();
 	}

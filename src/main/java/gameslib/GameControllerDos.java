@@ -26,6 +26,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -128,7 +130,6 @@ public class GameControllerDos implements Initializable {
 	private StackPane stack;
 
 	// ----------------------------------------------------------
-
 	// Variables used by controller
 	// ----------------------------------------------------------
 
@@ -144,7 +145,7 @@ public class GameControllerDos implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
 		// En un principio desabilitamos los dos últimos jugadores, puesto
 		// que no siempre van a jugar
 		player3.setVisible(false);
@@ -180,9 +181,6 @@ public class GameControllerDos implements Initializable {
 		onChangedImageColor(dosGame.getCurrentColor());
 		onChangedPlayer(null, dosGame.getActivePlayer());
 
-		// currentCard1.setImage(new
-		// Image(getClass().getResource("/ui/images/dos/card_back.png").toString()));
-
 		// Visualizamos la primera mano del jugador
 		initHand();
 		showHand();
@@ -198,22 +196,22 @@ public class GameControllerDos implements Initializable {
 
 		if (nv != null) {
 			int npIndex = dosGame.getPlayerPosition(nv);
-			playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, #1FA113, 20, 0.5, 0, 0);");
+			playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
 			initHand();
 			showHand();
 		}
 		
 		if (dosGame.isInverse()) {
 			if (dosGame.getPlayerPosition(nv) == 0) {
-				playersBox.get(dosGame.getCurrentPlayers().size() - 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(dosGame.getCurrentPlayers().size() - 1).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}else {
-				playersBox.get(dosGame.getPlayerPosition(nv) - 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(dosGame.getPlayerPosition(nv) - 1).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}
 		}else {
 			if (dosGame.getPlayerPosition(nv) == dosGame.getCurrentPlayers().size() - 1) {
-				playersBox.get(0).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(0).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}else {
-				playersBox.get(dosGame.getPlayerPosition(nv) + 1).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				playersBox.get(dosGame.getPlayerPosition(nv) + 1).setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}
 		}
 	}
@@ -238,8 +236,12 @@ public class GameControllerDos implements Initializable {
 			if (card.isPlayable()) {
 				cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
 				cardComp.setId("playable");
+				cardComp.setFitWidth(85);
+				cardComp.setFitHeight(135);
 			}else {
 				cardComp.setId("notPlayable");
+				cardComp.setFitWidth(75);
+				cardComp.setFitHeight(125);
 			}
 			i++;
 		}
@@ -249,7 +251,7 @@ public class GameControllerDos implements Initializable {
 	private void initHand() {
 		// Número de cartas a robar
 		drawButton.setText("Robar (" + dosGame.getCardsToDraw() + ")");
-		// Desabilitamos el pasar turno del jugador
+		// Deshabilitamos el pasar turno del jugador
 		nextButton.setDisable(true);
 		refreshHand();
 	}
@@ -307,19 +309,18 @@ public class GameControllerDos implements Initializable {
 	}
 
 	private void onChangedImageColor(String nv) {
-		//TODO Modificar las imagenes
 		switch (nv) {
 		case "white":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/dos_white_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/white/actualwhite.png").toString()));
 			break;
 		case "blue":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/blue/dos_blue_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/blue/actualblue.png").toString()));
 			break;
 		case "green":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/green/dos_green_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/green/actualgreen.png").toString()));
 			break;
 		case "yellow":
-			color.setImage(new Image(getClass().getResource("/ui/images/dos/yellow/dos_yellow_1.png").toString()));
+			color.setImage(new Image(getClass().getResource("/ui/images/dos/yellow/actualyellow.png").toString()));
 			break;
 		}
 	}
@@ -416,7 +417,6 @@ public class GameControllerDos implements Initializable {
 	void nextTurnAction(ActionEvent event) {
 		drawButton.setDisable(false);
 		
-		// aqui habria que esconder la mano (hidehand)
 		hideHand();
 		
 		dosGame.nextTurn();// esto cambia el jugador activo
@@ -430,7 +430,6 @@ public class GameControllerDos implements Initializable {
 
 	@FXML
 	void returnMenuAction(ActionEvent event) {
-		// dialogo confirmacion
 		ludopp.goMenu();
 	}
 

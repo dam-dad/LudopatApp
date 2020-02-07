@@ -35,6 +35,7 @@ public class XMLGameParser {
 	/**
 	 * Raiz del nodo, que en este caso va a ser las barajas
 	 */
+	
 	private Element root;
 	
 	public XMLGameParser(String gameName) throws DocumentException {
@@ -50,6 +51,7 @@ public class XMLGameParser {
 	 * Las barajas disponibles para el juego seleccionado
 	 * @return Barajas disponibles
 	 */
+	
 	@SuppressWarnings("unchecked")
 	public ArrayList<Deck> getAvailableDecks() {
 			

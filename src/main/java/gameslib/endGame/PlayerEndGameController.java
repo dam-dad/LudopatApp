@@ -55,7 +55,6 @@ public class PlayerEndGameController extends HBox implements Initializable {
 			this.playerImage.setImage(playerImage);
 			playerNameLabel.setText(playerName);
 			cardLabel.setText(String.valueOf(cards));
-			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,8 +62,6 @@ public class PlayerEndGameController extends HBox implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

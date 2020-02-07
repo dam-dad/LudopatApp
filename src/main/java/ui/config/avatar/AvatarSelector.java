@@ -31,10 +31,8 @@ public class AvatarSelector extends GridPane implements Initializable {
 			
 			this.selected = selectedPos;
 			
-			availableAvatars[selected].setSelected(true);
-			
 			for (int i = 0; i < selectedAvatarsPositions.length; i++) {
-				if (selectedAvatarsPositions[i] < 7) {
+				if (selectedAvatarsPositions[i] < 8) {
 					availableAvatars[selectedAvatarsPositions[i]].setSelected(true);
 				}
 			}

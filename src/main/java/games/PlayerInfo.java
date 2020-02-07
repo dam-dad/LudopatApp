@@ -1,13 +1,10 @@
 package games;
 
-import java.util.ArrayList;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -39,31 +36,23 @@ public class PlayerInfo {
 		return this.playerIcon;
 	}
 	
-
 	public final Image getPlayerIcon() {
 		return this.playerIconProperty().get();
 	}
 	
-
 	public final void setPlayerIcon(final Image playerIcon) {
 		this.playerIconProperty().set(playerIcon);
 	}
 	
-
 	public final StringProperty playerNameProperty() {
 		return this.playerName;
 	}
 	
-
 	public final String getPlayerName() {
 		return this.playerNameProperty().get();
 	}
 	
-
 	public final void setPlayerName(final String playerName) {
 		this.playerNameProperty().set(playerName);
 	}
-	
-	
-	
 }

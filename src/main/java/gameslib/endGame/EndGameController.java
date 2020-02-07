@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import games.Player;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
@@ -37,7 +36,6 @@ public class EndGameController extends VBox implements Initializable {
 	
 	private void addPlayers() {
 		for (int i = 0; i < players.size(); i++) {
-			//TODO AÑADIR TANTOS COMPONENTES COMO JUGADORES
 			getChildren().add(new PlayerEndGameController(i, players.get(i).getPlayerInfo().getPlayerIcon(), players.get(i).getPlayerInfo().getPlayerName(), players.get(i).getHand().size()));
 		}
 	}
