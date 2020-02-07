@@ -2,6 +2,12 @@
 	-fx-background-color: #2B2B2B;
 }
 
+.split-pane-divider{
+	-fx-border-color: #474747;
+	-fx-background-color: #474747;
+	-fx-background-insets: 0;
+}
+
 #component{
 	-fx-background-color: #474747;
 }
@@ -47,5 +53,5 @@
 }
 
 #configPane{
-	-fx-background-color: #A5A5A8;
+	-fx-background-color: #474747;
 }

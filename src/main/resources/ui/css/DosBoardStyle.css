@@ -15,12 +15,12 @@
 
 #exit{
 	-fx-text-fill: white;
-	-fx-background-color: #2B2B2B;
+	-fx-background-color: #1f1f1f;
 	-fx-font-size: 14pt;
 }
 
 #exit:hover{
-	-fx-background-color: #1A1A1A;
+	-fx-background-color: #0f0f0f;
 }
 
 #actions{
