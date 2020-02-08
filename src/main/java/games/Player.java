@@ -23,6 +23,11 @@ import javafx.beans.property.SimpleObjectProperty;
 public class Player {
 
 	/**
+	 * Jugador manejado por la inteligencia artificial
+	 */
+	private boolean isAI;
+	
+	/**
 	 * Puntuación del jugador
 	 */
 	private IntegerProperty score = new SimpleIntegerProperty();
@@ -82,6 +87,14 @@ public class Player {
 	
 	public final void setPlayerInfo(final PlayerInfo playerInfo) {
 		this.playerInfoProperty().set(playerInfo);
+	}
+
+	public boolean isAI() {
+		return isAI;
+	}
+
+	public void setAI(boolean isAI) {
+		this.isAI = isAI;
 	}
 	
 }
