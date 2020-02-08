@@ -64,13 +64,39 @@ public class Dos extends Game {
 	@Override
 	public void initGame() {
 
+		// Para la IA, necesitamos saber cuando se cambia de jugador
+		activePlayer.addListener( (o, ov, nv) -> onChangedPlayer(nv) );
+		
+		// Ahora inicilaizamos la IA
+		for( Player player : getCurrentPlayers() ) {
+			if( player.isAI() ) {
+				new Thread(player.getAIController()).start();
+			}
+		}
+		
 		deck.shuffle(); // Barajamos
 		sortPlayers();
 		dealCards();
+		
+	}
+
+	private void onChangedPlayer(Player nv) {
+
+		// Avisamos a la IA que es su turno
+		if( nv != null && nv.isAI() ) {
+			nv.getAIController().initTurn();
+		}
 	}
 
 	@Override
 	public void endGame() {
+		// Tenemos que desconectar a la IA
+		for( Player player : getCurrentPlayers() ) {
+			if( player.isAI() ) {
+				player.getAIController().setStopAI(true);
+			}
+		}
+		
 		// Ordenar jugadores por numero de cartas y
 		// lo pasa al dialogo.
 		Collections.sort(currentPlayers, new ComparePlayers());
@@ -204,7 +230,7 @@ public class Dos extends Game {
 
 	@Override
 	public void dealCards() {
-		int numCartas = 1;
+		int numCartas = 7;
 		
 		for (Player p : currentPlayers) {
 

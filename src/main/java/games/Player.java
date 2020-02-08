@@ -2,6 +2,7 @@ package games;
 
 import java.util.ArrayList;
 
+import gamesAI.Dav_AI;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -26,6 +27,11 @@ public class Player {
 	 * Jugador manejado por la inteligencia artificial
 	 */
 	private boolean isAI;
+	
+	/**
+	 * Controlador de la inteligencia artifical
+	 */
+	private Dav_AI AIController;
 	
 	/**
 	 * Puntuación del jugador
@@ -95,6 +101,14 @@ public class Player {
 
 	public void setAI(boolean isAI) {
 		this.isAI = isAI;
+	}
+
+	public Dav_AI getAIController() {
+		return AIController;
+	}
+
+	public void setAIController(Dav_AI aIController) {
+		AIController = aIController;
 	}
 	
 }

@@ -3,9 +3,9 @@ package gamesAI;
 import java.util.ArrayList;
 
 import games.Card;
-import games.Game;
 import games.Player;
 import gameslib.Dos;
+import javafx.application.Platform;
 
 /**
  * <b>IA</b>
@@ -20,45 +20,99 @@ import gameslib.Dos;
  * @author Kevin Rodriguez Morales
  *
  */
-public class Dav_IA_DOS {
+public class Dav_IA_DOS extends Dav_AI implements Runnable {
 
 	/**
 	 * Jugador que representa esta IA
 	 */
 	private Player player;
 	
-	/**
-	 * Juego base
-	 */
-	private Dos baseGame;
 	
-	public Dav_IA_DOS(Player player, Dos baseGame) {
+	public Dav_IA_DOS(Player player) {
 		this.player = player;
 	}
 	
-	public void initTurn() {
+	public void disconnectAI() {
+		setStopAI(true);
+	}
+	
+	@Override
+	public void run() {
 		
-		// Tenemos que añadir un retardo
-		ArrayList<Card> cards = new ArrayList<Card>();
+		Dos baseGame = (Dos)getBaseGame();
 		
-		// Comprobamos las cartas que puede jugar
-		for( Card card : player.getHand() ) {
+		while(!isStopAI()) {
 			
-			if( card.isPlayable() ) {
-				cards.add(card);
+			try {
+				
+				Thread.sleep(AI_SLEEP);
+				// Necesitamos el check de si es nuestro turno o no
+				if(isOurTurn()) {
+					// Tenemos que añadir un retardo
+					ArrayList<Card> cards = new ArrayList<Card>();
+					
+					// Comprobamos las cartas que puede jugar
+					for( Card card : player.getHand() ) {
+						
+						if( card.isPlayable() ) {
+							cards.add(card);
+						}
+					}
+					
+					// Vemos si tenemos cartas para jugar
+					if( cards.size() > 0 ) {
+						// Elegimos una aleatoria entre las jugables
+						int r = (int)(Math.random() * cards.size() );
+						Platform.runLater( new Runnable() {		
+							@Override
+							public void run() {
+								baseGame.throwCard(cards.get(r));	
+							}
+						});
+						
+						
+					} else {
+						
+						// Entonces tenemos que robar
+						Platform.runLater( new Runnable() {
+							@Override
+							public void run() {
+								baseGame.drawCard();
+							}
+						});
+					}
+					
+					// Antes de pasar turno, esperamos un tiempo
+					sleepAI();
+					
+					setOurTurn(false);
+					
+					// Pasamos turno
+					Platform.runLater( new Runnable() {
+						@Override
+						public void run() {
+							baseGame.nextTurn();			
+						}
+					});
+				}
+				
+			} catch (InterruptedException e) {
 			}
 		}
 		
-		// Vemos si tenemos cartas para jugar
-		if( cards.size() > 0 ) {
-			int r = (int)(Math.random() * cards.size() );
-			baseGame.throwCard(cards.get(r));
-			
-		} else {
-			
-			// Entonces tenemos que robar
-			baseGame.drawCard();
-		}
+	}
+	
+	public void initTurn() {
+		setOurTurn(true);
+	}
+
+	@Override
+	public void sleepAI() {
 		
+		try {
+			Thread.sleep((long)(Math.random()*3000 + 500));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

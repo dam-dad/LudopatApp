@@ -8,6 +8,7 @@ import games.Deck;
 import games.Game;
 import games.GameRules;
 import games.Player;
+import gamesAI.Dav_IA_DOS;
 import gameslib.Dos;
 import gameslib.GameControllerDos;
 import javafx.animation.FadeTransition;
@@ -78,8 +79,8 @@ public class LudopatApp extends Application {
 		mainStage.setResizable(false);
 		
 		// Inicamos la aplicación, el SplashScreen
-		initApp();
-
+		//initApp();
+		goMenu();
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 
 		primaryStage.show();
@@ -209,24 +210,48 @@ public class LudopatApp extends Application {
 			// Si hay doble baraja, cargamos más
 			Dos.loadSpecialCards(deck, this.getClass());
 		}
-		// Creamos los juugadores
+		
+		// Creamos los jugadores
 		ArrayList<Player> players = new ArrayList<Player>();
-		for( int i = 0; i < getGameRules().getNumPlayers(); i++ ) {
-			Player player = new Player();
-			player.setId(i);
-			player.setPlayerInfo(getGameRules().getPlayersInfo().get(i));
-			players.add(player);
+		// Primero creamos al jugador activo
+		Player player = new Player();
+		player.setId(0);
+		player.setPlayerInfo(getGameRules().getPlayersInfo().get(0));
+		players.add(player);
+		// Ahora añadimos a la IA
+		for( int i = 1; i < getGameRules().getNumPlayers(); i++ ) {
+			Player AIPlayer = new Player();
+			AIPlayer.setId(i);
+			AIPlayer.setAI(true);
+			AIPlayer.setAIController(new Dav_IA_DOS(AIPlayer));
+			AIPlayer.setPlayerInfo(getGameRules().getPlayersInfo().get(i));	
+			players.add(AIPlayer);
 		}
 		
-		gameRules.setNumPlayers(4);
 		Dos dosGame = new Dos(deck, gameRules, players);
 		
+		for( int i = 1; i < getGameRules().getNumPlayers(); i++ ) {
+			players.get(i).getAIController().setBaseGame(dosGame);
+		}
 		//......se inicializa el controller primero
 		currentGame = dosGame;
 		dosGame.initGame();
 		gameControllerDos = new GameControllerDos(this);
 		Scene scene = new Scene(gameControllerDos.getView());
 		mainStage.setScene(scene);
+	}
+	
+	@Override
+	public void stop() throws Exception {
+		
+		// Hay que asegurarse de eliminar todos los hilos
+		if( currentGame != null ) {
+			for( Player p : currentGame.getCurrentPlayers() ) {
+				if( p.isAI() ) {
+					p.getAIController().setStopAI(true);
+				}
+			}
+		}
 	}
 	
 	//-----------------------------------------------------------
