@@ -11,7 +11,6 @@ import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -35,8 +34,6 @@ public class Avatar extends VBox implements Initializable {
 	
 	@FXML
 	ImageView avatarImage;
-	@FXML
-	Label avatarName;
 	
 	StringProperty imgName = new SimpleStringProperty();
 	StringProperty playerName = new SimpleStringProperty();
@@ -56,8 +53,6 @@ public class Avatar extends VBox implements Initializable {
 			
 			//Asigna la imagen
 			this.avatarImage.setImage(new Image(this.imgName.get()));
-			//Asigna el nombre
-			this.avatarName.setText(this.playerName.get());
 			
 			selected();
 			
