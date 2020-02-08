@@ -6,6 +6,12 @@ import java.util.ResourceBundle;
 
 import org.dom4j.DocumentException;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+import com.jfoenix.controls.JFXDialog.DialogTransition;
+
+import help.HelpViewContoller;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -15,10 +21,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import main.LudopatApp;
 import ui.config.DeckConfigController;
@@ -56,6 +67,12 @@ public class MultiplayerController implements Initializable {
 	@FXML
 	private SplitPane configPane;
 	
+	@FXML
+	private ImageView helpImage;
+	
+	@FXML
+	private StackPane stack;
+	
 	//--------------------------------------------------
 	// Variables
 	//--------------------------------------------------
@@ -86,6 +103,8 @@ public class MultiplayerController implements Initializable {
 	
 	private final String CONTINUE = "Continuar";
 	private final String PLAY = "Jugar";
+
+	private HelpViewContoller help;
 	
 	//--------------------------------------------------
 	
@@ -292,8 +311,34 @@ public class MultiplayerController implements Initializable {
 		ludopp.goMenu();
 	}
 
-	public BorderPane getView() {
-		return view;
+    @FXML
+    void openHelp(MouseEvent event) {
+
+		Label helpLabel = new Label("Ayuda");
+		helpLabel.setMaxWidth(800);
+		helpLabel.setId("tittle");
+		
+		HBox tittleBox = new HBox(helpLabel);
+		tittleBox.setPrefWidth(800);
+		tittleBox.setAlignment(Pos.CENTER);
+		
+		help = new HelpViewContoller("Config");
+		
+		JFXDialogLayout layout = new JFXDialogLayout();
+		layout.setHeading(tittleBox);
+		layout.setBody(help.getView());
+		
+		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+		
+		layout.setId("content2");
+		
+		layout.maxHeight(200);
+		
+		dialog.show();
+    }
+
+	public StackPane getView() {
+		return stack;
 	}
 
 }

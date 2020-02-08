@@ -3,6 +3,16 @@
 	-fx-background-color: #2B2B2B;
 }
 
+#tittle{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 30pt;
+	-fx-text-fill: white;
+}
+
+#content{
+	-fx-background-color: #2B2B2B;
+}
+
 #appNameLabel{
 	-fx-background-color: #C70E0E;
 	-fx-font-size: 28pt;

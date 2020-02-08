@@ -9,64 +9,81 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
 
-<BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/ConfigMenuStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <top>
-      <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" HBox.hgrow="ALWAYS">
+
+<StackPane fx:id="stack" stylesheets="@../css/ConfigMenuStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane fx:id="view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="appImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/noframe.png" />
-                     </image></ImageView>
-                  <Label id="labelOne" text="LudopatApp">
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <ImageView fx:id="appImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/noframe.png" />
+                           </image>
+                        </ImageView>
+                        <Label id="labelOne" text="LudopatApp">
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <ImageView fx:id="helpImage" fitHeight="30.0" fitWidth="30.0" onMouseClicked="#openHelp" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin></Label>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                     <image>
+                        <Image url="@../images/help.png" />
+                     </image>
+                  </ImageView>
+                  <Label id="labelOne" fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
+                  <Label id="labelOne" maxHeight="1.7976931348623157E308" text="/4" />
                </children>
-            </HBox>
-            <Label id="labelOne" fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
-            <Label id="labelOne" maxHeight="1.7976931348623157E308" text="/4" />
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-         </padding>
-      </HBox>
-   </top>
-   <center>
-      <SplitPane fx:id="configPane" dividerPositions="1.0, 1.0, 1.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <items>
-            <AnchorPane id="content" prefHeight="200.0" prefWidth="200.0" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
-         </items></SplitPane>
-   </center>
-   <bottom>
-      <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT">
-         <children>
-            <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <Button fx:id="menuButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onMenuAction" prefHeight="40.0" prefWidth="150.0" text="Menú" />
-               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
                <padding>
-                  <Insets left="35.0" />
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" spacing="20.0" HBox.hgrow="NEVER">
+         </top>
+         <center>
+            <SplitPane fx:id="configPane" dividerPositions="1.0, 1.0, 1.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0">
+               <items>
+                  <AnchorPane id="content" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+               </items>
+            </SplitPane>
+         </center>
+         <bottom>
+            <HBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="800.0" BorderPane.alignment="CENTER_LEFT">
                <children>
-                  <Button fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackAction" prefHeight="40.0" prefWidth="100.0" text="Atrás" />
-                  <Button fx:id="continueButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onContinueAction" prefHeight="40.0" prefWidth="100.0" text="Continuar" />
+                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button fx:id="menuButton" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onMenuAction" prefHeight="40.0" prefWidth="150.0" text="Menú" />
+                     </children>
+                     <padding>
+                        <Insets left="35.0" />
+                     </padding>
+                  </HBox>
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" spacing="20.0" HBox.hgrow="NEVER">
+                     <children>
+                        <Button fx:id="backButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onBackAction" prefHeight="40.0" prefWidth="100.0" text="Atrás" />
+                        <Button fx:id="continueButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#onContinueAction" prefHeight="40.0" prefWidth="100.0" text="Continuar" />
+                     </children>
+                     <padding>
+                        <Insets left="20.0" right="35.0" />
+                     </padding>
+                  </HBox>
                </children>
-               <padding>
-                  <Insets left="20.0" right="35.0" />
-               </padding>
             </HBox>
-         </children>
-      </HBox>
-   </bottom>
-</BorderPane>
+         </bottom>
+      </BorderPane>
+   </children>
+</StackPane>

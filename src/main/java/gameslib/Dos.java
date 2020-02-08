@@ -83,7 +83,7 @@ public class Dos extends Game {
 	private void onChangedPlayer(Player nv) {
 
 		// Avisamos a la IA que es su turno
-		if( nv != null && nv.isAI() ) {
+		if( nv != null && nv.isAI() && !isBlocked() ) {
 			nv.getAIController().initTurn();
 		}
 	}

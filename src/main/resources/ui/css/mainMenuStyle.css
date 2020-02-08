@@ -4,12 +4,22 @@
 	-fx-text-fill: white;
 	-fx-background-image: url("../images/background.png");
 }
+
+#tittle{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 30pt;
+	-fx-text-fill: white;
+}
+
+#content{
+	-fx-background-color: #2B2B2B;
+}
+
 .button{
 	-fx-background-color: #C70E0E;
 	-fx-text-fill: white;
-
-	
 }
+
 .button:hover{
 	-fx-background-color: #9D1414;
 	-fx-effect: dropshadow(gaussian, #474747, 20, 0.5, 0, 0);

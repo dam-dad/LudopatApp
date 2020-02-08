@@ -2,6 +2,12 @@
 	-fx-background-color: #2B2B2B;
 }
 
+#tittle{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 30pt;
+	-fx-text-fill: white;
+}
+
 .split-pane-divider{
 	-fx-border-color: #474747;
 	-fx-background-color: #474747;
@@ -14,6 +20,10 @@
 
 #content{
 	-fx-background-color: #474747;
+}
+
+#content2{
+	-fx-background-color: #2B2B2B;
 }
 
 .label{
