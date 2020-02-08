@@ -21,7 +21,7 @@ public abstract class Dav_AI implements Runnable {
 	/**
 	 * Tiempo de decisión de la IA
 	 */
-	protected static final long AI_SLEEP = 1000;
+	protected static final long AI_SLEEP = 2000;
 	
 	/**
 	 * Valores de toma de decisión de la IA

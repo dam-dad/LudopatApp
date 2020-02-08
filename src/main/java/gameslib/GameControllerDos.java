@@ -226,7 +226,34 @@ public class GameControllerDos implements Initializable {
 	}
 
 	private void onChangedPlayer(Player ov, Player nv) {
-
+		
+		if (ov != null && ov.isAI()) {
+			//Actualizamos el número de cartas que tiene la IA
+			switch (dosGame.getPlayerPosition(ov)) {
+			case 0:
+				player1Cards.setText(String.format("Número de cartas: %d", ov.getHand().size()));
+				break;
+			case 1:
+				player2Cards.setText(String.format("Número de cartas: %d", ov.getHand().size()));
+				break;
+			case 2:
+				player3Cards.setText(String.format("Número de cartas: %d", ov.getHand().size()));
+				break;
+			case 3:
+				player4Cards.setText(String.format("Número de cartas: %d", ov.getHand().size()));
+				break;
+			}
+		}
+		
+		if (nv.isAI()) {
+			//Deshabilitamos los botones de acción
+			nextButton.setDisable(true);
+			drawButton.setDisable(true);
+		}else {
+			nextButton.setDisable(false);
+			drawButton.setDisable(false);
+		}
+		
 		// Quitamos el estilo a uno y se lo ponemos a otro
 		if (ov != null) {
 			int lpIndex = dosGame.getPlayerPosition(ov);
@@ -256,6 +283,11 @@ public class GameControllerDos implements Initializable {
 						.setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}
 		}
+		
+
+		if (ov != null && ov.getHand().size() == 0) {
+			endGame();
+		}
 	}
 
 	private void onChangeCard(Card nv) {
@@ -274,16 +306,23 @@ public class GameControllerDos implements Initializable {
 		dosGame.startTurn();
 		for (Card card : dosGame.getActivePlayer().getHand()) {
 			CardComponent cardComp = new CardComponent(card.getCardImage());
+			if (dosGame.getActivePlayer().isAI()) {
+				cardComp.turn();
+			}
+			
 			handGrid.add(cardComp, i, 0);
-			if (card.isPlayable()) {
-				cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
-				cardComp.setId("playable");
-				cardComp.setFitWidth(85);
-				cardComp.setFitHeight(135);
-			} else {
-				cardComp.setId("notPlayable");
-				cardComp.setFitWidth(75);
-				cardComp.setFitHeight(125);
+			
+			if (!dosGame.getActivePlayer().isAI()) { 
+				if (card.isPlayable()) {
+					cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
+					cardComp.setId("playable");
+					cardComp.setFitWidth(85);
+					cardComp.setFitHeight(135);
+				} else {
+					cardComp.setId("notPlayable");
+					cardComp.setFitWidth(75);
+					cardComp.setFitHeight(125);
+				}
 			}
 			i++;
 		}
