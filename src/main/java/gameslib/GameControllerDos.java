@@ -307,7 +307,7 @@ public class GameControllerDos implements Initializable {
 		for (Card card : dosGame.getActivePlayer().getHand()) {
 			CardComponent cardComp = new CardComponent(card.getCardImage());
 			if (dosGame.getActivePlayer().isAI()) {
-				cardComp.turn();
+//				cardComp.turn();
 			}
 			
 			handGrid.add(cardComp, i, 0);
