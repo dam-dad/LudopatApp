@@ -8,16 +8,13 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
-import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
+import com.jfoenix.controls.JFXDialogLayout;
 
 import games.Card;
 import games.Player;
 import gameslib.endGame.EndGameController;
 import help.HelpViewContoller;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,13 +26,10 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 import main.LudopatApp;
 import ui.CardComponent;
@@ -307,7 +301,7 @@ public class GameControllerDos implements Initializable {
 		for (Card card : dosGame.getActivePlayer().getHand()) {
 			CardComponent cardComp = new CardComponent(card.getCardImage());
 			if (dosGame.getActivePlayer().isAI()) {
-//				cardComp.turn();
+				cardComp.turn();
 			}
 			
 			handGrid.add(cardComp, i, 0);

@@ -55,7 +55,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 				// Necesitamos el check de si es nuestro turno o no
 				if (isOurTurn()) {
 					// Tenemos que añadir un retardo
-					Thread.sleep(3000);
+					Thread.sleep(500);
 					ArrayList<Card> cards = new ArrayList<Card>();
 					resetPlayableCards();
 
@@ -83,7 +83,6 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 							cards.add(card);
 						}
 					}
-					//TODO lanzar la carta lanzable del palo que más cartas tenga
 					// Vemos si tenemos cartas para jugar
 					if (cards.size() > 0) {
 						// Cartas del mismo palo de la IA
@@ -189,6 +188,65 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 
 	}
 
+	private void resetPlayableCards() {
+		this.playableBlueCards = false;
+		this.playableYellowCards = false;
+		this.playableWhiteCards = false;
+		this.playableGreenCards = false;
+	}
+
+	private int[] groupCards() {
+		int[] cardsPerSuit = {0, 0, 0, 0};
+
+		for (Card card : player.getHand()) {
+			if (card.getSuit() != null) {
+				switch (card.getSuit().getName()) {
+				case "blue":
+					cardsPerSuit[0]++;
+					break;
+				case "yellow":
+					cardsPerSuit[1]++;
+					break;
+				case "white":
+					cardsPerSuit[2]++;
+					break;
+				case "green":
+					cardsPerSuit[3]++;
+					break;
+				}
+			}
+		}
+
+		return cardsPerSuit;
+	}
+
+	private boolean onlySpecials(ArrayList<Card> cards) {
+		for (int i = 0; i < cards.size(); i++) {
+			if (cards.get(i).getCardValue() < SPECIALS_MIN_VALUE) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void throwRandomCard(ArrayList<Card> cards) {
+		// Cómo sólo dispone de especiales lanzamos una cualquiera
+		int r = (int) (Math.random() * cards.size());
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				baseGame.throwCard(cards.get(r));
+			}
+		});
+	}
+
+	private int[] checkNumberOfCards(int[] cardsPerSuit) {
+		SortArrays sortArrays = new SortArrays(cardsPerSuit);		// Nos creamos el objeto de la clase SortArray
+		sortArrays = sortArrays.decreasingOrderInt();				// Llamamos al método que ordena el array de mayor a menor
+		int codes [] = sortArrays.getIndexArray();					// Obtengo los indices del array tras ordenarlos
+		return codes;
+	}
+	
 	private void throwSuitCard(int throwableSuit, ArrayList<Card> cards) {
 
 		int i = 0;
@@ -221,65 +279,6 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 				baseGame.throwCard(cards.get(pos));
 			}
 		});
-	}
-
-	private void throwRandomCard(ArrayList<Card> cards) {
-		// Cómo sólo dispone de especiales lanzamos una cualquiera
-		int r = (int) (Math.random() * cards.size());
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				baseGame.throwCard(cards.get(r));
-			}
-		});
-	}
-
-	private int[] checkNumberOfCards(int[] cardsPerSuit) {
-		SortArrays sortArrays = new SortArrays(cardsPerSuit);		// Nos creamos el objeto de la clase SortArray
-		sortArrays = sortArrays.decreasingOrderInt();				// Llamamos al método que ordena el array de mayor a menor
-		int codes [] = sortArrays.getIndexArray();					// Obtengo los indices del array tras ordenarlos
-		return codes;
-	}
-
-	private void resetPlayableCards() {
-		this.playableBlueCards = false;
-		this.playableYellowCards = false;
-		this.playableWhiteCards = false;
-		this.playableGreenCards = false;
-	}
-
-	private boolean onlySpecials(ArrayList<Card> cards) {
-		for (int i = 0; i < cards.size(); i++) {
-			if (cards.get(i).getCardValue() < SPECIALS_MIN_VALUE) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private int[] groupCards() {
-		int[] cardsPerSuit = {0, 0, 0, 0};
-
-		for (Card card : player.getHand()) {
-			if (card.getSuit() != null) {
-				switch (card.getSuit().getName()) {
-				case "blue":
-					cardsPerSuit[0]++;
-					break;
-				case "yellow":
-					cardsPerSuit[1]++;
-					break;
-				case "white":
-					cardsPerSuit[2]++;
-					break;
-				case "green":
-					cardsPerSuit[3]++;
-					break;
-				}
-			}
-		}
-
-		return cardsPerSuit;
 	}
 
 	public void initTurn() {
