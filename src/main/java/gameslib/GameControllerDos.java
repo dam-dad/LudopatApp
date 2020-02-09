@@ -383,10 +383,6 @@ public class GameControllerDos implements Initializable {
 	}
 
 	public void hideHand() {
-		// TODO Transición
-		KeyValue key = new KeyValue(handGrid.prefWidthProperty(), 0);
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(5000), key));
-		timeline.play();
 	}
 
 	private void onChangedImageColor(String nv) {

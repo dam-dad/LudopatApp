@@ -55,6 +55,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 				// Necesitamos el check de si es nuestro turno o no
 				if (isOurTurn()) {
 					// Tenemos que añadir un retardo
+					Thread.sleep(3000);
 					ArrayList<Card> cards = new ArrayList<Card>();
 					resetPlayableCards();
 
@@ -77,6 +78,8 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 									}
 								}
 							}
+						}
+						if (card.isPlayable()) {
 							cards.add(card);
 						}
 					}
@@ -187,6 +190,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 	}
 
 	private void throwSuitCard(int throwableSuit, ArrayList<Card> cards) {
+
 		int i = 0;
 		String suitName = null;
 		
@@ -204,8 +208,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 			suitName = "green";
 			break;
 		}
-		
-		while (!cards.get(i).getSuit().getName().contentEquals(suitName)) {
+		while (cards.get(i).getCardValue() >= SPECIALS_MIN_VALUE || !cards.get(i).getSuit().getName().contentEquals(suitName)) {
 			i++;
 		}
 		
