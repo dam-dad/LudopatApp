@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import main.LudopatApp;
 
@@ -43,10 +44,13 @@ public class DeckConfigController extends AnchorPane implements Initializable {
     private ToggleGroup nDeckGroup;
 
     @FXML
-    private RadioButton pokerDeck, dosDeck, espDesk;
+    private RadioButton pokerDeck, dosDeck, espDeck;
     
     @FXML
     private RadioButton oneRadio, twoRadio;
+   
+    @FXML
+    private ImageView pokerDeckImage, dosDeckImage, espDeckImage;
 
    //---------------------------------------------------------
     
@@ -94,11 +98,26 @@ public class DeckConfigController extends AnchorPane implements Initializable {
 	private void onDeckChanged(Toggle nv) {
 		
 		RadioButton btn = (RadioButton)nv;
+
 		Optional<Deck> deck = ludopp.getGameRules().getAvailableDecks().stream()
 				.filter( dk -> btn.getText().equals(dk.getDisplayName())).findFirst();
 		
 		if( deck.isPresent() )
 			ludopp.getGameRules().setDeckType(deck.get());
+		
+		if(btn == pokerDeck) {
+			pokerDeckImage.setOpacity(1);
+			dosDeckImage.setOpacity(0.25);
+			espDeckImage.setOpacity(0.25);
+		}else if(btn == espDeck) {
+			pokerDeckImage.setOpacity(0.25);
+			dosDeckImage.setOpacity(0.25);
+			espDeckImage.setOpacity(1);
+		}else {
+			pokerDeckImage.setOpacity(0.25);
+			dosDeckImage.setOpacity(1);
+			espDeckImage.setOpacity(0.25);
+		}
 	}
 
 	/**
