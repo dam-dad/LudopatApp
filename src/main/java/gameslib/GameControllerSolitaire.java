@@ -13,4 +13,8 @@ public class GameControllerSolitaire implements Initializable{
 		
 	}
 
+	public void refreshHand() {
+		// TODO Auto-generated method stub
+	}
+
 }

@@ -28,6 +28,8 @@ import main.LudopatApp;
  *
  */
 public class Dos extends Game {
+	
+	GameControllerDos controller;
 
 	private IntegerProperty cardsToDraw = new SimpleIntegerProperty(1);
 	private ObjectProperty<Player> activePlayer = new SimpleObjectProperty<Player>();
@@ -420,6 +422,15 @@ public class Dos extends Game {
 			
 			deckCards.add(card);
 		}
+	}
+	
+	public void setController(GameControllerDos controller) {
+		this.controller = controller;
+	}
+
+	@Override
+	public void refreshHand() {
+		controller.refreshIAHand();
 	}
 	
 	

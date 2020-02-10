@@ -237,6 +237,7 @@ public class LudopatApp extends Application {
 		currentGame = dosGame;
 		dosGame.initGame();
 		gameControllerDos = new GameControllerDos(this);
+		dosGame.setController(gameControllerDos);
 		Scene scene = new Scene(gameControllerDos.getView());
 		mainStage.setScene(scene);
 	}

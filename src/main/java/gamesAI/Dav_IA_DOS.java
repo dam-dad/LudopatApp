@@ -236,6 +236,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 			@Override
 			public void run() {
 				baseGame.throwCard(cards.get(r));
+				refreshHand();
 			}
 		});
 	}
@@ -277,8 +278,13 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 			@Override
 			public void run() {
 				baseGame.throwCard(cards.get(pos));
+				refreshHand();
 			}
 		});
+	}
+	
+	private void refreshHand() {
+		baseGame.refreshHand();
 	}
 
 	public void initTurn() {

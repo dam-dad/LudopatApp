@@ -157,6 +157,19 @@ public class GameControllerDos implements Initializable {
 
 	// ----------------------------------------------------------
 
+	public GameControllerDos(LudopatApp app) {
+		this.ludopp = app;
+		this.dosGame = (Dos) ludopp.getCurrentGame();
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/GameView.fxml"));
+		loader.setController(this);
+		try {
+			loader.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
@@ -220,9 +233,9 @@ public class GameControllerDos implements Initializable {
 	}
 
 	private void onChangedPlayer(Player ov, Player nv) {
-		
+
 		if (ov != null && ov.isAI()) {
-			//Actualizamos el número de cartas que tiene la IA
+			// Actualizamos el número de cartas que tiene la IA
 			switch (dosGame.getPlayerPosition(ov)) {
 			case 0:
 				player1Cards.setText(String.format("Número de cartas: %d", ov.getHand().size()));
@@ -238,16 +251,16 @@ public class GameControllerDos implements Initializable {
 				break;
 			}
 		}
-		
+
 		if (nv.isAI()) {
-			//Deshabilitamos los botones de acción
+			// Deshabilitamos los botones de acción
 			nextButton.setDisable(true);
 			drawButton.setDisable(true);
-		}else {
+		} else {
 			nextButton.setDisable(false);
 			drawButton.setDisable(false);
 		}
-		
+
 		// Quitamos el estilo a uno y se lo ponemos a otro
 		if (ov != null) {
 			int lpIndex = dosGame.getPlayerPosition(ov);
@@ -277,7 +290,6 @@ public class GameControllerDos implements Initializable {
 						.setStyle("-fx-effect: dropshadow(gaussian, grey, 20, 0.5, 0, 0);");
 			}
 		}
-		
 
 		if (ov != null && ov.getHand().size() == 0) {
 			endGame();
@@ -291,7 +303,7 @@ public class GameControllerDos implements Initializable {
 		}
 	}
 
-	private void refreshHand() {
+	public void refreshHand() {
 
 		// Limpiamos la mano actual del jugador y la actualizamos
 		handGrid.getChildren().clear();
@@ -303,10 +315,10 @@ public class GameControllerDos implements Initializable {
 			if (dosGame.getActivePlayer().isAI()) {
 				cardComp.turn();
 			}
-			
+
 			handGrid.add(cardComp, i, 0);
-			
-			if (!dosGame.getActivePlayer().isAI()) { 
+
+			if (!dosGame.getActivePlayer().isAI()) {
 				if (card.isPlayable()) {
 					cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
 					cardComp.setId("playable");
@@ -321,6 +333,20 @@ public class GameControllerDos implements Initializable {
 			i++;
 		}
 
+	}
+
+	public void refreshIAHand() {
+		// Limpiamos la mano actual del jugador y la actualizamos
+		handGrid.getChildren().clear();
+		
+		int i = 0;
+
+		for (Card card : dosGame.getActivePlayer().getHand()) {
+			CardComponent cardComp = new CardComponent(card.getCardImage());
+
+			handGrid.add(cardComp, i, 0);
+			i++;
+		}
 	}
 
 	private void initHand() {
@@ -502,19 +528,6 @@ public class GameControllerDos implements Initializable {
 	@FXML
 	void returnMenuAction(ActionEvent event) {
 		ludopp.goMenu();
-	}
-
-	public GameControllerDos(LudopatApp app) {
-		this.ludopp = app;
-		this.dosGame = (Dos) ludopp.getCurrentGame();
-
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/GameView.fxml"));
-		loader.setController(this);
-		try {
-			loader.load();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@FXML

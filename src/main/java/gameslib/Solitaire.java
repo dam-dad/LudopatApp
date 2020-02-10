@@ -13,6 +13,8 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 public class Solitaire extends Game {
+	
+	GameControllerSolitaire controller;
 
 	private final static int PLAYERCARDS = 4;
 	
@@ -106,6 +108,15 @@ public class Solitaire extends Game {
 			player.getHand().add(deck.getCards().remove(c));
 		}
 
+	}
+	
+	public void setController(GameControllerSolitaire controller) {
+		this.controller = controller;
+	}
+
+	@Override
+	public void refreshHand() {
+		controller.refreshHand();
 	}
 
 }

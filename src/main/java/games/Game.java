@@ -69,6 +69,12 @@ public abstract class Game {
 	public abstract void throwCard(Card card);
 	
 	/**
+	 * Actualiza la mano
+	 */
+	
+	public abstract void refreshHand();
+	
+	/**
 	 * Se reparten las cartas a los jugadores
 	 */
 	
