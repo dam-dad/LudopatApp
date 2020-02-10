@@ -16,6 +16,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -82,6 +83,7 @@ public class LudopatApp extends Application {
 		//initApp();
 		goMenu();
 		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.getIcons().add(new Image(getClass().getResource("/ui/images/Noframe.png").toString()));
 
 		primaryStage.show();
 		
