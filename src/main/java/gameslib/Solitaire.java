@@ -105,6 +105,9 @@ public class Solitaire extends Game {
 				break;
 			}
 		}
+		for (Card card2 : player.getHand()) {
+			checkTable(card2);
+		}
 		if (isSaved) {
 			checkTable(savedCard);
 		}
@@ -123,7 +126,7 @@ public class Solitaire extends Game {
 		// Repartimos 4 cartas al jugador, o las que queden en el mazo
 		Card card;
 		int c = 0;
-		while (c < PLAYERCARDS || (deck.getCards().size() < PLAYERCARDS - c && discardedCards.size() < PLAYERCARDS - c)) {
+		while (c < PLAYERCARDS || (deck.getCards().size() != 0 && discardedCards.size() != 0)) {
 			if (deck.getCards().size() == 0) {
 				System.out.println("reshuffle");
 				System.out.println("deck" + deck.getCards().size());
@@ -137,7 +140,6 @@ public class Solitaire extends Game {
 				System.out.println("get");
 			}
 		}
-
 	}
 
 	public void reshuffle() {

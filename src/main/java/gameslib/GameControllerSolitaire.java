@@ -245,7 +245,6 @@ public class GameControllerSolitaire implements Initializable {
 			endGame();
 		}
 		refreshHand();
-
 	}
 	
 	private void showInitialHelp() {
