@@ -15,9 +15,13 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 
 import games.Card;
+import gameslib.endGame.EndGameController;
+import gameslib.endGame.SolitaireEndGameController;
 import help.HelpViewContoller;
+import help.InitialSolitaireHelp;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -142,6 +146,7 @@ public class GameControllerSolitaire implements Initializable {
 			i++;
 		}
 		refreshHand();
+		showInitialHelp();
 	}
 
 	private void onPlayedCard(Card nv, int i) {
@@ -235,15 +240,64 @@ public class GameControllerSolitaire implements Initializable {
 		refreshHand();
 
 	}
+	
+	private void showInitialHelp() {
+		InitialSolitaireHelp help = new InitialSolitaireHelp();
+		
+		JFXDialogLayout initialHelp = new JFXDialogLayout();
+		initialHelp.setBody(help.getView());
+		initialHelp.setStyle("/ui/css/DosBoardStyle.css");
+		initialHelp.setId("all");
+		
+		JFXDialog initialHelpDialog = new JFXDialog(stack, initialHelp, DialogTransition.CENTER);
+		initialHelpDialog.show();
+		
+		initialHelp.setOnMouseClicked(e -> initialHelpDialog.close());
+	}
 
 	private void endGame() {
-		// TODO Auto-generated method stub
+		//TODO pasarle a endGameController el tiempo bien y las rondas
+		SolitaireEndGameController endGameController = new SolitaireEndGameController(15, 20, 20);
+		
+		JFXDialogLayout layout = new JFXDialogLayout();
+		layout.setBody(endGameController.getView());
 
+		layout.setId("content");
+		layout.getStylesheets().add(getClass().getResource("/ui/css/DosBoardStyle.css").toExternalForm());
+
+		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+		dialog.setOverlayClose(false);
+
+		JFXButton menu = new JFXButton("Menú");
+		menu.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				dialog.close();
+				ludopp.goMenu();
+			}
+		});
+
+		menu.setId("button");
+		menu.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
+
+		JFXButton exit = new JFXButton("Salir");
+		exit.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				dialog.close();
+				exitAction(null);
+			}
+		});
+
+		exit.setId("button");
+		exit.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
+
+		layout.setActions(menu, exit);
+		dialog.show();
 	}
 
 	@FXML
 	void exitAction(ActionEvent event) {
-		Platform.exit();
+		endGame();
+//		Platform.exit();
 	}
 
 	@FXML

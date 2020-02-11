@@ -83,3 +83,44 @@
 .label{
 	-fx-text-fill: white;
 }
+
+#all{
+	-fx-font-family: segoe-ui;
+	-fx-background-color: #2B2B2B;
+}
+
+#element{
+	-fx-background-color: #C70E0E;
+}
+
+#helpTittle{
+	-fx-font-size: 20pt;
+	-fx-font-weight: bold;
+}
+
+#helpHeader{
+	-fx-font-size: 18pt;
+}
+
+#helpBody{
+	-fx-font-size: 10pt;
+}
+
+#solitaireEnd{
+	-fx-font-size: 20pt;
+}
+
+#one{
+	-fx-font-weight: bold;
+	-fx-text-fill: #A39C56;
+}
+
+#two{
+	-fx-font-weight: bold;
+	-fx-text-fill: #919191;
+}
+
+#three{
+	-fx-font-weight: bold;
+	-fx-text-fill: #94794F;
+}
