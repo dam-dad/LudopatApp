@@ -24,8 +24,6 @@ public class Solitaire extends Game {
 	private boolean isSaved;
 	private Player player;
 
-	
-
 	public Solitaire(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
 		super(deck, gameRules, currentPlayers);
 
@@ -61,14 +59,14 @@ public class Solitaire extends Game {
 		for (ObjectProperty<Card> oCard : cardsInGame) {
 
 			Card currentCard = oCard.get();
-			
+
 			// Cogemos el palo
 			if (currentCard.getSuit() == card.getSuit()) {
 				// Tiene que ser la siguiente carta
-				
+
 				if (card.getCardValue() == currentCard.getCardValue() + 1) {
 					// Entonces puede poner la carta
-					
+
 					card.setPlayable(true);
 					break;
 				}
@@ -110,6 +108,9 @@ public class Solitaire extends Game {
 				break;
 			}
 		}
+		if (isSaved) {
+			checkTable(savedCard);
+		}
 
 	}
 
@@ -120,16 +121,25 @@ public class Solitaire extends Game {
 		}
 	}
 
-	
 	@Override
 	public void dealCards() {
 		// Repartimos 4 cartas al jugador, o las que queden en el mazo
 		Card card;
-		for (int c = 0; c < PLAYERCARDS && deck.getCards().size() > 0; c++) {
+		int c;
+		for (c = 0; c < PLAYERCARDS && deck.getCards().size() > 0; c++) {
 			card = deck.getCards().remove(0);
 			checkTable(card);
 			player.getHand().add(card);
 		}
+		if(c < 3) {
+			reshuffle();
+		}
+		for(int i = c; c < PLAYERCARDS && deck.getCards().size() >0; i++) {
+			card = deck.getCards().remove(0);
+			checkTable(card);
+			player.getHand().add(card);
+		}
+		
 	}
 
 	public void reshuffle() {
@@ -172,6 +182,7 @@ public class Solitaire extends Game {
 	public void setSavedCard(Card savedCard) {
 		this.savedCard = savedCard;
 	}
+
 	public ArrayList<ObjectProperty<Card>> getCardsInGame() {
 		return cardsInGame;
 	}
@@ -179,6 +190,7 @@ public class Solitaire extends Game {
 	public void setCardsInGame(ArrayList<ObjectProperty<Card>> cardsInGame) {
 		this.cardsInGame = cardsInGame;
 	}
+
 	public boolean isSaved() {
 		return isSaved;
 	}

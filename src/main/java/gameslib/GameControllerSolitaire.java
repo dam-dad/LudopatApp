@@ -190,16 +190,23 @@ public class GameControllerSolitaire implements Initializable {
 			i++;
 		}
 		// checkeamos que la guardada sea playable tambien
-		if (solitaireGame.getSavedCard() != null) {
+		if (solitaireGame.isSaved()) {
 			if (solitaireGame.getSavedCard().isPlayable()) {
 				savedCard.setOnMouseClicked(e -> onSelectSavedCard());
 				savedCard.setId("playable");
 				savedCard.setFitWidth(85);
 				savedCard.setFitHeight(135);
 			} else {
-
+				savedCard.setOnMouseClicked(e -> nothing());
+				savedCard.setId("notPlayable");
+				savedCard.setFitWidth(75);
+				savedCard.setFitHeight(125);
 			}
 		}
+	}
+
+	private void nothing() {
+		//este metodo no hace nada
 	}
 
 	private void discardCards() {
@@ -315,8 +322,7 @@ public class GameControllerSolitaire implements Initializable {
 		discardCard.setImage(new Image(getClass().getResource("/ui/images/solitaire/card_back.png").toString()));
 		solitaireGame.dealCards();
 		refreshHand();
-		if(solitaireGame.getDeck().getCards().size() < 4) {
-			solitaireGame.reshuffle();
+		if(solitaireGame.getDiscardedCards().size() < 1) {
 			discardCard.setImage(new Image(getClass().getResource("/ui/images/userNull.png").toString()));
 		}
 	}
