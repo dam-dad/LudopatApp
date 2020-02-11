@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -311,8 +312,13 @@ public class GameControllerSolitaire implements Initializable {
 	@FXML
 	void nextTurnAction(ActionEvent event) {
 		discardCards();
+		discardCard.setImage(new Image(getClass().getResource("/ui/images/solitaire/card_back.png").toString()));
 		solitaireGame.dealCards();
 		refreshHand();
+		if(solitaireGame.getDeck().getCards().size() < 4) {
+			solitaireGame.reshuffle();
+			discardCard.setImage(new Image(getClass().getResource("/ui/images/userNull.png").toString()));
+		}
 	}
 
 	@FXML
