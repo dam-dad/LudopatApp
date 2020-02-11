@@ -236,8 +236,10 @@ public class GameControllerSolitaire implements Initializable {
 		handGrid.getChildren().remove(cardComp);
 
 		// reordena
-		GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size() - 1), col);
-
+		if (handGrid.getChildren().size() > 0) {
+			GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size() - 1), col);
+		}
+		
 		if (solitaireGame.getDeck().getCards().size() < 1 && solitaireGame.getDiscardedCards().size() < 1
 				&& solitaireGame.getPlayer().getHand().size() < 1 && !solitaireGame.isSaved()) {
 			endGame();
@@ -300,8 +302,7 @@ public class GameControllerSolitaire implements Initializable {
 
 	@FXML
 	void exitAction(ActionEvent event) {
-		endGame();
-//		Platform.exit();
+		Platform.exit();
 	}
 
 	@FXML
