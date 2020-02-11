@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import org.dom4j.DocumentException;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDialog.DialogTransition;

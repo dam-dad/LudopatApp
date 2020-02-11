@@ -15,11 +15,11 @@ import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 
 import games.Card;
-import gameslib.endGame.EndGameController;
+
 import gameslib.endGame.SolitaireEndGameController;
 import help.HelpViewContoller;
 import help.InitialSolitaireHelp;
-import javafx.application.Platform;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -151,15 +151,13 @@ public class GameControllerSolitaire implements Initializable {
 	}
 
 	private void onPlayedCard(Card nv, int i) {
-		
-		if (nv != null ) {
-			
+
+		if (nv != null) {
+
 			tableCards.get(i).setImage(solitaireGame.getCardsInGame().get(i).get().getCardImage());
 
 		}
 	}
-
-	
 
 	public void refreshHand() {
 		handGrid.getChildren().clear();
@@ -206,7 +204,7 @@ public class GameControllerSolitaire implements Initializable {
 	}
 
 	private void nothing() {
-		//este metodo no hace nada
+		// este metodo no hace nada
 	}
 
 	private void discardCards() {
@@ -234,7 +232,7 @@ public class GameControllerSolitaire implements Initializable {
 	private void onSelectCard(Card card, CardComponent cardComp) {
 		solitaireGame.throwCard(card);
 		int col = GridPane.getColumnIndex(cardComp);
-		
+
 		handGrid.getChildren().remove(cardComp);
 
 		// reordena
@@ -246,25 +244,25 @@ public class GameControllerSolitaire implements Initializable {
 		}
 		refreshHand();
 	}
-	
+
 	private void showInitialHelp() {
 		InitialSolitaireHelp help = new InitialSolitaireHelp();
-		
+
 		JFXDialogLayout initialHelp = new JFXDialogLayout();
 		initialHelp.setBody(help.getView());
 		initialHelp.setStyle("/ui/css/DosBoardStyle.css");
 		initialHelp.setId("all");
-		
+
 		JFXDialog initialHelpDialog = new JFXDialog(stack, initialHelp, DialogTransition.CENTER);
 		initialHelpDialog.show();
-		
+
 		initialHelp.setOnMouseClicked(e -> initialHelpDialog.close());
 	}
 
 	private void endGame() {
-		//TODO pasarle a endGameController el tiempo bien y las rondas
+		// TODO pasarle a endGameController el tiempo bien y las rondas
 		SolitaireEndGameController endGameController = new SolitaireEndGameController(15, 20, 20);
-		
+
 		JFXDialogLayout layout = new JFXDialogLayout();
 		layout.setBody(endGameController.getView());
 
@@ -321,7 +319,7 @@ public class GameControllerSolitaire implements Initializable {
 		discardCard.setImage(new Image(getClass().getResource("/ui/images/solitaire/card_back.png").toString()));
 		solitaireGame.dealCards();
 		refreshHand();
-		if(solitaireGame.getDiscardedCards().size() < 1) {
+		if (solitaireGame.getDiscardedCards().size() < 1) {
 			discardCard.setImage(new Image(getClass().getResource("/ui/images/userNull.png").toString()));
 		}
 	}

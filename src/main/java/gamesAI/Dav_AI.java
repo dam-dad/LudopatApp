@@ -1,7 +1,6 @@
 package gamesAI;
 
 import games.Game;
-import gameslib.Dos;
 
 /**
  * <b>IA Base</b>
