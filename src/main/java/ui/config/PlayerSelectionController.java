@@ -3,9 +3,14 @@ package ui.config;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXTextField;
+
 import games.PlayerInfo;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +18,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import main.LudopatApp;
 import ui.config.avatar.Avatar;
 import ui.config.avatar.AvatarSelector;
@@ -34,11 +40,15 @@ import ui.config.avatar.AvatarSelector;
 public class PlayerSelectionController extends AnchorPane implements Initializable {
 
 	@FXML
-	GridPane grid;
+	VBox grid;
 	@FXML
 	StackPane stack;
+	@FXML
+	JFXTextField nameField;
 
 	private ArrayList<PlayerInfo> playersInfo = new ArrayList<PlayerInfo>();
+	
+	private StringProperty playerName = new SimpleStringProperty();
 	
 	String[][] avatarsReferences = {
 			{ getClass().getResource("/ui/images/avatar_carpenter.png").toString(), "Carpintero" },
@@ -64,20 +74,8 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			new Avatar(avatarsReferences[7][0], avatarsReferences[7][1])
 	};
 	
-	Avatar[] allAvatars = {
-			new Avatar(avatarsReferences[0][0], avatarsReferences[0][1]),
-			new Avatar(avatarsReferences[1][0], avatarsReferences[1][1]),
-			new Avatar(avatarsReferences[2][0], avatarsReferences[2][1]),
-			new Avatar(avatarsReferences[3][0], avatarsReferences[3][1]),
-			new Avatar(avatarsReferences[4][0], avatarsReferences[4][1]),
-			new Avatar(avatarsReferences[5][0], avatarsReferences[5][1]),
-			new Avatar(avatarsReferences[6][0], avatarsReferences[6][1]),
-			new Avatar(avatarsReferences[7][0], avatarsReferences[7][1]),
-			new Avatar(avatarsReferences[8][0], avatarsReferences[8][1]),
-			new Avatar(avatarsReferences[8][0], avatarsReferences[8][1])
-	};
-	
-	int[] selectedAvatars = new int[4];
+	Avatar selectedAvatar = new Avatar(avatarsReferences[8][0], avatarsReferences[8][1]);
+	int selectedAvatarPos;
 
 	AvatarSelector selector;
 	
@@ -95,6 +93,8 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			
 			this.ludopatApp = ludopatApp;
 			
+			grid.getChildren().add(0, selectedAvatar);
+			
 			addDefaultAvatars();
 
 		} catch (IOException e) {
@@ -106,56 +106,38 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 		
 		nPlayers = ludopatApp.getGameRules().getNumPlayers();
 		
-		selectedAvatars[0] = 0;
-		selectedAvatars[1] = 1;
+		selectedAvatarPos = getRandomNumberInRange(0, 7);
+		selectedAvatar = new Avatar(avatarsReferences[selectedAvatarPos][0], avatarsReferences[selectedAvatarPos][1]);
 		
-		switch (nPlayers) {
-		case 2:
-			selectedAvatars[2] = 8;
-			selectedAvatars[3] = 9;
-			break;
-		case 3:
-			selectedAvatars[2] = 2;
-			selectedAvatars[3] = 9;
-			break;
-		default:
-			selectedAvatars[2] = 2;
-			selectedAvatars[3] = 3;
-			break;
+		reloadImage();
+		
+		this.playerName.set(selectedAvatar.getPlayerName());
+		nameField.setText(playerName.get());
+	}
+	
+	private void setSelectedAvatar() {
+		this.selectedAvatar = new Avatar(avatarsReferences[selectedAvatarPos][0], avatarsReferences[selectedAvatarPos][1]);
+	}
+	
+	private int getRandomNumberInRange(int min, int max) {
+
+		if (min >= max) {
+			throw new IllegalArgumentException("max must be greater than min");
 		}
 
-		reloadImages();
+		Random r = new Random();
+		return r.nextInt((max - min) + 1) + min;
 	}
 
-	private void reloadImages() {
-		grid.getChildren().clear();
+	private void reloadImage() {
+		grid.getChildren().set(0, selectedAvatar);
 		
-		grid.add(allAvatars[selectedAvatars[0]], 0, 0);
-		grid.add(allAvatars[selectedAvatars[1]], 1, 0);
-		grid.add(allAvatars[selectedAvatars[2]], 0, 1);
-		grid.add(allAvatars[selectedAvatars[3]], 1, 1);
-
-		grid.getChildren().get(0).setOnMouseClicked(e -> changeAvatar(0));
-		grid.getChildren().get(1).setOnMouseClicked(e -> changeAvatar(1));
-		
-		if (selectedAvatars[2] == 8) {
-			grid.getChildren().get(2).setDisable(true);
-			grid.getChildren().get(3).setDisable(true);
-		}else {
-			if (selectedAvatars[3] == 9) {
-				grid.getChildren().get(3).setDisable(true);
-			}else {
-				grid.getChildren().get(2).setDisable(false);
-				grid.getChildren().get(3).setDisable(false);
-			}
-		}
-		
-		grid.getChildren().get(2).setOnMouseClicked(e -> changeAvatar(2));
-		grid.getChildren().get(3).setOnMouseClicked(e -> changeAvatar(3));
+		grid.getChildren().get(0).setOnMouseClicked(e -> changeAvatar(selectedAvatarPos));
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
 		// Creamos tantos PlayerInfo como necesitamos
 		for( int i = 0; i < 4; i++ ) {
 			playersInfo.add(new PlayerInfo());
@@ -164,7 +146,7 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 
 	private void changeAvatar(int posPlayer) {
 		
-		selector = new AvatarSelector(posPlayer, availableAvatars, selectedAvatars);
+		selector = new AvatarSelector(posPlayer, availableAvatars);
 
 		stack.getChildren().add(1, selector);
 
@@ -173,11 +155,7 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 
 	public void closeDialog(int pos) {
 		if (pos > -1) {
-			selectedAvatars[pos] = selector.getSelected();
-
-			// Le añadimos esta información al playerInfo
-			playersInfo.get(pos).setPlayerIcon(new Image(allAvatars[selectedAvatars[pos]].getImgName()));
-			playersInfo.get(pos).setPlayerName(allAvatars[selectedAvatars[pos]].getPlayerName());
+			selectedAvatarPos = selector.getSelected();
 		}
 		
 		try {
@@ -196,17 +174,28 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 				};
 		
 		availableAvatars = aux;
-
-		reloadImages();
+		
+		setSelectedAvatar();
+		reloadImage();
 	}
 
 	public void refresh() {
-		addDefaultAvatars();
+		
+		nPlayers = ludopatApp.getGameRules().getNumPlayers();
 		
 		// Ponemos información a los playerInfo
-		for( int i = 0; i < 4; i++ ) {
-			playersInfo.get(i).setPlayerIcon(new Image(allAvatars[selectedAvatars[i]].getImgName()));
-			playersInfo.get(i).setPlayerName(allAvatars[selectedAvatars[i]].getPlayerName());
+		playersInfo.get(0).setPlayerIcon(new Image(selectedAvatar.getImgName()));
+		playerName.set(nameField.getText());
+		playersInfo.get(0).setPlayerName(this.playerName.get());
+		
+		for (int i = 1; i < nPlayers; i++) {
+			playersInfo.get(i).setPlayerIcon(new Image(avatarsReferences[7][0]));
+			playersInfo.get(i).setPlayerName("Dav_IA_" + i);
+		}
+		
+		for (int i = nPlayers; i < playersInfo.size(); i++) {
+			playersInfo.get(i).setPlayerIcon(null);
+			playersInfo.get(i).setPlayerName("");
 		}
 	}
 

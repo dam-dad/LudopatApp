@@ -200,8 +200,8 @@ public class MultiplayerController implements Initializable {
 			
 				break;
 			case ST_CONFIG_PLAYERS:
-				
 				playerConfig.closeDialog(-1);
+				playerConfig.refresh();
 				
 				key = new KeyValue(configPane.getDividers().get(2).positionProperty(), 0);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));

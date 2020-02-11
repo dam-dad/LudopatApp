@@ -21,7 +21,7 @@ public class AvatarSelector extends GridPane implements Initializable {
 	
 	private BooleanProperty finish = new SimpleBooleanProperty(false);
 	
-	public AvatarSelector(int selectedPos, Avatar[] availableAvatars, int[] selectedAvatarsPositions) {
+	public AvatarSelector(int selectedPos, Avatar[] availableAvatars) {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/avatar/AvatarSelector.fxml"));
@@ -30,12 +30,6 @@ public class AvatarSelector extends GridPane implements Initializable {
 			loader.load();
 			
 			this.selected = selectedPos;
-			
-			for (int i = 0; i < selectedAvatarsPositions.length; i++) {
-				if (selectedAvatarsPositions[i] < 8) {
-					availableAvatars[selectedAvatarsPositions[i]].setSelected(true);
-				}
-			}
 			
 			grid.add(availableAvatars[0], 1, 1);
 			grid.add(availableAvatars[1], 3, 1);

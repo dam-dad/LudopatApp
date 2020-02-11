@@ -2,16 +2,25 @@
 	-fx-background-color: #2B2B2B;
 }
 
+#field{
+	-fx-text-fill: white;
+  	-fx-font-weight: bold;
+}
+
+#field:hover{
+	-fx-text-fill: #2B2B2B;
+}
+
 #tittle{
 	-fx-font-family: segoe-ui;
-	-fx-font-size: 30pt;
+	-fx-font-size: 30.0pt;
 	-fx-text-fill: white;
 }
 
 .split-pane-divider{
 	-fx-border-color: #474747;
 	-fx-background-color: #474747;
-	-fx-background-insets: 0;
+	-fx-background-insets: 0.0;
 }
 
 #component{
@@ -28,18 +37,18 @@
 
 .label{
 	-fx-font-family: segoe-ui;
-	-fx-font-size: 10pt;
+	-fx-font-size: 10.0pt;
 }
 
 #labelOne{
 	-fx-font-family: segoe-ui;
-	-fx-font-size: 20pt;
+	-fx-font-size: 20.0pt;
 	-fx-text-fill: white;
 }
 
 #labelTwo{
 	-fx-font-family: segoe-ui;
-	-fx-font-size: 14pt;
+	-fx-font-size: 14.0pt;
 	-fx-text-fill: white;
 }
 
@@ -50,12 +59,12 @@
 .button{
 	-fx-background-color: #C70E0E;
 	-fx-text-fill: white;
-	-fx-font-size: 12pt;
+	-fx-font-size: 12.0pt;
 }
 
 .button:hover{
 	-fx-background-color: #9D1414;
-	-fx-effect: dropshadow(gaussian, #474747, 20, 0.5, 0, 0);
+	-fx-effect: dropshadow(gaussian, #474747, 20.0, 0.5, 0.0, 0.0);
 }
 
 .button:armed{
