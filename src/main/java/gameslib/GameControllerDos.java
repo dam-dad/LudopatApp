@@ -161,7 +161,7 @@ public class GameControllerDos implements Initializable {
 		this.ludopp = app;
 		this.dosGame = (Dos) ludopp.getCurrentGame();
 
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/GameView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/DosGameView.fxml"));
 		loader.setController(this);
 		try {
 			loader.load();
@@ -173,7 +173,7 @@ public class GameControllerDos implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		// En un principio desabilitamos los dos últimos jugadores, puesto
+		// En un principio deshabilitamos los dos últimos jugadores, puesto
 		// que no siempre van a jugar
 		player3.setVisible(false);
 		player4.setVisible(false);
