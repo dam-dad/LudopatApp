@@ -203,7 +203,7 @@ public class GameControllerSolitaire implements Initializable {
 
 	private void discardCards() {
 		int j = solitaireGame.getPlayer().getHand().size() - 1;
-		for (int i = 0; i <= j; i++) {
+		for (int i = j; i >= 0; i--) {
 			Card card = solitaireGame.getPlayer().getHand().remove(i);
 			solitaireGame.getDiscardedCards().add(card);
 		}

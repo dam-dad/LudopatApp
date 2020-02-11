@@ -160,12 +160,12 @@
          <children>
             <ImageView fx:id="discardCard" fitHeight="125.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/dos/card_back.png" />
+                  <Image url="@../images/userNull.png" />
                </image>
             </ImageView>
             <ImageView fx:id="savedCard" fitHeight="125.0" fitWidth="75.0" layoutX="36.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
                <image>
-                  <Image url="@../images/dos/blue/dos_blue_6.png" />
+                  <Image url="@../images/userNull.png" />
                </image>
             </ImageView>
          </children>

@@ -126,11 +126,10 @@ public class Solitaire extends Game {
 		// Repartimos 4 cartas al jugador, o las que queden en el mazo
 		Card card;
 		for (int c = 0; c < PLAYERCARDS && deck.getCards().size() > 0; c++) {
-			card = deck.getCards().remove(c);
+			card = deck.getCards().remove(0);
 			checkTable(card);
 			player.getHand().add(card);
 		}
-
 	}
 
 	public void reshuffle() {
