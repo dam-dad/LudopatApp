@@ -40,9 +40,6 @@ public class Solitaire extends Game {
 			if (opCard.isPresent()) {
 				deck.getCards().remove(opCard.get());
 				cardsInGame.add(new SimpleObjectProperty<Card>(opCard.get()));
-				System.out.println("Cogiendo carta");
-				System.out.println(opCard.get().getSuit().getName());
-				System.out.println(opCard.get().getCardValue());
 			}
 		}
 
