@@ -131,15 +131,9 @@ public class Solitaire extends Game {
 			checkTable(card);
 			player.getHand().add(card);
 		}
-		if(c < 3) {
+		if(deck.getCards().size() < PLAYERCARDS && discardedCards.size() > 0) {
 			reshuffle();
 		}
-		for(int i = c; i < PLAYERCARDS && deck.getCards().size() >0; i++) {
-			card = deck.getCards().remove(0);
-			checkTable(card);
-			player.getHand().add(card);
-		}
-		
 	}
 
 	public void reshuffle() {
