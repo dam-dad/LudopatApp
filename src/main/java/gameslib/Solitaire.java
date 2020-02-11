@@ -105,6 +105,9 @@ public class Solitaire extends Game {
 				break;
 			}
 		}
+		for (Card card2 : player.getHand()) {
+			checkTable(card2);
+		}
 		if (isSaved) {
 			checkTable(savedCard);
 		}
@@ -131,7 +134,7 @@ public class Solitaire extends Game {
 		if(c < 3) {
 			reshuffle();
 		}
-		for(int i = c; c < PLAYERCARDS && deck.getCards().size() >0; i++) {
+		for(int i = c; i < PLAYERCARDS && deck.getCards().size() >0; i++) {
 			card = deck.getCards().remove(0);
 			checkTable(card);
 			player.getHand().add(card);
