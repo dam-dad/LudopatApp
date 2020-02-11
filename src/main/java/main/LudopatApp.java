@@ -4,6 +4,8 @@ import java.awt.Toolkit;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.dom4j.DocumentException;
+
 import games.Deck;
 import games.Game;
 import games.GameRules;
@@ -11,6 +13,8 @@ import games.Player;
 import gamesAI.Dav_IA_DOS;
 import gameslib.Dos;
 import gameslib.GameControllerDos;
+import gameslib.GameControllerSolitaire;
+import gameslib.Solitaire;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -45,6 +49,7 @@ public class LudopatApp extends Application {
 	private MultiplayerController multiplayerController;
 	private MainMenuController mainMenuController;
 	private GameControllerDos gameControllerDos;
+	private GameControllerSolitaire solitaireController;
 	
 	//---------------------------------------------------
 	
@@ -143,7 +148,36 @@ public class LudopatApp extends Application {
 
 	}
 
-	
+	public void initSinglePlayer() {
+		gameRules = new GameRules();
+		gameRules.setGameType("dos");
+		try {
+			gameRules.initGameType();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Deck deck = gameRules.getAvailableDecks().get(0);
+		deck.loadCards("dos");
+		
+		// Creamos los jugadores
+		ArrayList<Player> players = new ArrayList<Player>();
+		// Primero creamos al jugador activo
+		Player player = new Player();
+		player.setId(0);
+		players.add(player);
+		
+		Solitaire solitaireGame = new Solitaire(deck, gameRules, players);
+		
+		//......se inicializa el controller primero
+		currentGame = solitaireGame;
+		
+		solitaireController = new GameControllerSolitaire(this);
+
+		Scene scene = new Scene(solitaireController.getView());
+		mainStage.setScene(scene);
+		alignScreen();
+	}
 
 	public void goMenu() {
 		

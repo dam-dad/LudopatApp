@@ -2,7 +2,8 @@ package gameslib;
 
 import java.io.IOException;
 import java.net.URL;
-
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.fxml.Initializable;
@@ -109,6 +110,8 @@ public class GameControllerSolitaire implements Initializable {
 	@FXML
 	private ImageView deckCard;
 
+	private ArrayList<ImageView> tableCards;
+
 	// variables
 	private LudopatApp ludopp;
 	private Solitaire solitaireGame;
@@ -130,9 +133,27 @@ public class GameControllerSolitaire implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		gameNameLabel.textProperty().bind(solitaireGame.getGameRules().gameTypeProperty());
-
+		tableCards = new ArrayList<ImageView>(Arrays.asList(diamondsImage, clubsImage, heartsImage, spadesImage));
+		int i = 0;
+		for (ImageView image : tableCards) {
+			image.setImage(solitaireGame.getCardsInGame().get(i).get().getCardImage());
+			final int j = i;
+			solitaireGame.getCardsInGame().get(i).addListener((o, ov, nv) -> onPlayedCard(nv, j));
+			i++;
+		}
 		refreshHand();
 	}
+
+	private void onPlayedCard(Card nv, int i) {
+		
+		if (nv != null ) {
+			
+			tableCards.get(i).setImage(solitaireGame.getCardsInGame().get(i).get().getCardImage());
+
+		}
+	}
+
+	
 
 	public void refreshHand() {
 		handGrid.getChildren().clear();
@@ -146,13 +167,19 @@ public class GameControllerSolitaire implements Initializable {
 				cardComp.setId("playable");
 				cardComp.setFitWidth(85);
 				cardComp.setFitHeight(135);
+				cardComp.turn();
 			} else {
-				if (solitaireGame.getSavedCard() == null) {
-					cardComp.setOnMouseClicked(e -> onSaveCard(card, cardComp));
-				}
 				cardComp.setId("notPlayable");
 				cardComp.setFitWidth(75);
 				cardComp.setFitHeight(125);
+				cardComp.turn();
+				if (!solitaireGame.isSaved()) {
+					cardComp.setOnMouseClicked(e -> onSaveCard(card, cardComp));
+					cardComp.setId("saveable");
+					cardComp.setFitWidth(85);
+					cardComp.setFitHeight(135);
+				}
+
 			}
 			i++;
 		}
@@ -169,21 +196,33 @@ public class GameControllerSolitaire implements Initializable {
 		}
 	}
 
+	private void discardCards() {
+		int j = solitaireGame.getPlayer().getHand().size() - 1;
+		for (int i = 0; i <= j; i++) {
+			Card card = solitaireGame.getPlayer().getHand().remove(i);
+			solitaireGame.getDiscardedCards().add(card);
+			
+		}
+	}
+
 	private void onSaveCard(Card card, CardComponent cardComp) {
 		solitaireGame.saveCard(card);
+		solitaireGame.getPlayer().getHand().remove(card);
 		savedCard.setImage(cardComp.getImage());
-
+		refreshHand();
 	}
 
 	private void onSelectSavedCard() {
 		solitaireGame.throwCard(solitaireGame.getSavedCard());
-		solitaireGame.setSavedCard(null);
+		solitaireGame.setSaved(false);
 		savedCard.setImage(null);
+		refreshHand();
 	}
 
 	private void onSelectCard(Card card, CardComponent cardComp) {
 		solitaireGame.throwCard(card);
 		int col = GridPane.getColumnIndex(cardComp);
+		
 		handGrid.getChildren().remove(cardComp);
 
 		// reordena
@@ -193,6 +232,7 @@ public class GameControllerSolitaire implements Initializable {
 				&& solitaireGame.getPlayer().getHand().size() < 1) {
 			endGame();
 		}
+		refreshHand();
 
 	}
 
@@ -217,7 +257,9 @@ public class GameControllerSolitaire implements Initializable {
 
 	@FXML
 	void nextTurnAction(ActionEvent event) {
-
+		discardCards();
+		solitaireGame.dealCards();
+		refreshHand();
 	}
 
 	@FXML
@@ -248,5 +290,9 @@ public class GameControllerSolitaire implements Initializable {
 	@FXML
 	void returnMenuAction(ActionEvent event) {
 		ludopp.goMenu();
+	}
+
+	public GridPane getView() {
+		return view;
 	}
 }

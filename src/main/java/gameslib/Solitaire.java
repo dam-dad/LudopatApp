@@ -21,7 +21,10 @@ public class Solitaire extends Game {
 	private ArrayList<ObjectProperty<Card>> cardsInGame = new ArrayList<ObjectProperty<Card>>();
 	private ArrayList<Card> discardedCards = new ArrayList<Card>();
 	private Card savedCard;
+	private boolean isSaved;
 	private Player player;
+
+	
 
 	public Solitaire(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
 		super(deck, gameRules, currentPlayers);
@@ -39,6 +42,9 @@ public class Solitaire extends Game {
 			if (opCard.isPresent()) {
 				deck.getCards().remove(opCard.get());
 				cardsInGame.add(new SimpleObjectProperty<Card>(opCard.get()));
+				System.out.println("Cogiendo carta");
+				System.out.println(opCard.get().getSuit().getName());
+				System.out.println(opCard.get().getCardValue());
 			}
 		}
 
@@ -55,13 +61,16 @@ public class Solitaire extends Game {
 		for (ObjectProperty<Card> oCard : cardsInGame) {
 
 			Card currentCard = oCard.get();
-
+			
 			// Cogemos el palo
 			if (currentCard.getSuit() == card.getSuit()) {
 				// Tiene que ser la siguiente carta
-				if (currentCard.getCardValue() + 1 == card.getCardValue()) {
+				
+				if (card.getCardValue() == currentCard.getCardValue() + 1) {
 					// Entonces puede poner la carta
+					
 					card.setPlayable(true);
+					break;
 				}
 
 				else {
@@ -97,6 +106,7 @@ public class Solitaire extends Game {
 			if (currentCard.getSuit() == card.getSuit()) {
 				// Cambiamos la carta de la mesa
 				cardsInGame.get(i).set(card);
+				player.getHand().remove(card);
 				break;
 			}
 		}
@@ -104,16 +114,21 @@ public class Solitaire extends Game {
 	}
 
 	public void saveCard(Card card) {
-		if (savedCard == null) {
+		if (!isSaved) {
 			setSavedCard(card);
+			isSaved = true;
 		}
 	}
 
+	
 	@Override
 	public void dealCards() {
 		// Repartimos 4 cartas al jugador, o las que queden en el mazo
+		Card card;
 		for (int c = 0; c < PLAYERCARDS && deck.getCards().size() > 0; c++) {
-			player.getHand().add(deck.getCards().remove(c));
+			card = deck.getCards().remove(c);
+			checkTable(card);
+			player.getHand().add(card);
 		}
 
 	}
@@ -122,6 +137,7 @@ public class Solitaire extends Game {
 		for (int i = 0; i < discardedCards.size() - 1; i++) {
 			deck.getCards().add(discardedCards.get(i));
 		}
+		discardedCards.clear();
 		deck.shuffle();
 	}
 
@@ -157,4 +173,19 @@ public class Solitaire extends Game {
 	public void setSavedCard(Card savedCard) {
 		this.savedCard = savedCard;
 	}
+	public ArrayList<ObjectProperty<Card>> getCardsInGame() {
+		return cardsInGame;
+	}
+
+	public void setCardsInGame(ArrayList<ObjectProperty<Card>> cardsInGame) {
+		this.cardsInGame = cardsInGame;
+	}
+	public boolean isSaved() {
+		return isSaved;
+	}
+
+	public void setSaved(boolean isSaved) {
+		this.isSaved = isSaved;
+	}
+
 }

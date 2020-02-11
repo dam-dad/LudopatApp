@@ -100,7 +100,7 @@ public class MainMenuController implements Initializable{
 
     @FXML
     void singlePlayerAction(ActionEvent event) {
-
+    	ludopp.initSinglePlayer();
     }
     void playFadeTransition() {
     	fadeTransition = new FadeTransition();
