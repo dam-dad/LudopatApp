@@ -206,7 +206,6 @@ public class GameControllerSolitaire implements Initializable {
 		for (int i = 0; i <= j; i++) {
 			Card card = solitaireGame.getPlayer().getHand().remove(i);
 			solitaireGame.getDiscardedCards().add(card);
-			
 		}
 	}
 
@@ -234,7 +233,7 @@ public class GameControllerSolitaire implements Initializable {
 		GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size() - 1), col);
 
 		if (solitaireGame.getDeck().getCards().size() < 1 && solitaireGame.getDiscardedCards().size() < 1
-				&& solitaireGame.getPlayer().getHand().size() < 1) {
+				&& solitaireGame.getPlayer().getHand().size() < 1 && !solitaireGame.isSaved()) {
 			endGame();
 		}
 		refreshHand();
