@@ -19,7 +19,7 @@ import games.Card;
 import gameslib.endGame.SolitaireEndGameController;
 import help.HelpViewContoller;
 import help.InitialSolitaireHelp;
-
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
