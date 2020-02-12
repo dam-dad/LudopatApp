@@ -59,7 +59,10 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			{ getClass().getResource("/ui/images/avatar_potat.png").toString(), "Potat" },
 			{ getClass().getResource("/ui/images/avatar_travolta.png").toString(), "Travolta" },
 			{ getClass().getResource("/ui/images/avatar_davIA.png").toString(), "Dav_IA.sad" },
-			{ getClass().getResource("/ui/images/userNull.png").toString(), "" }
+			{ getClass().getResource("/ui/images/userNull.png").toString(), "" },
+			{ getClass().getResource("/ui/images/avatar_not_davIA.png").toString(), "Not_Dav_IA" },
+			{ getClass().getResource("/ui/images/avatar_francoisIA.png").toString(), "François_IA" },
+			{ getClass().getResource("/ui/images/avatr_pirateIA.png").toString(), "Pirate_IA" }
 	};
 
 	// TODO Añadir imagenes y nombres de avatar finales.
@@ -188,10 +191,7 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 		playerName.set(nameField.getText());
 		playersInfo.get(0).setPlayerName(this.playerName.get());
 		
-		for (int i = 1; i < nPlayers; i++) {
-			playersInfo.get(i).setPlayerIcon(new Image(avatarsReferences[7][0]));
-			playersInfo.get(i).setPlayerName("Dav_IA_" + i);
-		}
+		addAIAvatars();
 		
 		for (int i = nPlayers; i < playersInfo.size(); i++) {
 			playersInfo.get(i).setPlayerIcon(null);
@@ -207,6 +207,13 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			players.add(playersInfo.get(i));
 		}
 		return playersInfo;
+	}
+	
+	private void addAIAvatars() {
+		for (int i = 1; i < nPlayers; i++) {
+			playersInfo.get(i).setPlayerIcon(new Image(avatarsReferences[8+i][0]));
+			playersInfo.get(i).setPlayerName(avatarsReferences[8+i][0]);
+		}
 	}
 
 }
