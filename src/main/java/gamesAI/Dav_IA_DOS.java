@@ -28,7 +28,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 	 * Jugador que representa esta IA
 	 */
 	private Player player;
-	
+
 	private boolean playableBlueCards = false;
 	private boolean playableYellowCards = false;
 	private boolean playableWhiteCards = false;
@@ -61,17 +61,17 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 
 					// Comprobamos las cartas que puede jugar
 					for (Card card : player.getHand()) {
-						//Comprobamos el color
+						// Comprobamos el color
 						if (card.isPlayable() && card.getSuit() != null) {
 							if (card.getSuit().getName().contentEquals("blue")) {
 								playableBlueCards = true;
-							}else {
+							} else {
 								if (card.getSuit().getName().contentEquals("yellow")) {
 									playableYellowCards = true;
-								}else {
+								} else {
 									if (card.getSuit().getName().contentEquals("white")) {
 										playableWhiteCards = true;
-									}else {
+									} else {
 										if (card.getSuit().getName().contentEquals("green")) {
 											playableGreenCards = true;
 										}
@@ -92,16 +92,16 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 						if (onlySpecials(cards)) {
 							throwRandomCard(cards);
 						} else {
-							//Puede reservar las especiales
+							// Puede reservar las especiales
 							// Obtenemos el palo con más cartas
 							// 0 = blue
 							// 1 = yellow
 							// 2 = white
 							// 3 = green
 							int[] codes = checkNumberOfCards(cardsPerSuit);
-							
+
 							int throwableSuit = -1;
-							
+
 							switch (codes[0]) {
 							case 0:
 								if (playableBlueCards) {
@@ -124,7 +124,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 								}
 								break;
 							}
-							
+
 							if (throwableSuit == -1) {
 								switch (codes[1]) {
 								case 0:
@@ -149,12 +149,12 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 									break;
 								}
 							}
-							
-							//Si podemos lanzar una carta del palo con más cartas 
-							//o del segundo la lanzamos y si no, aleatoria
+
+							// Si podemos lanzar una carta del palo con más cartas
+							// o del segundo la lanzamos y si no, aleatoria
 							if (throwableSuit == -1) {
 								throwRandomCard(cards);
-							}else {
+							} else {
 								throwSuitCard(throwableSuit, cards);
 							}
 						}
@@ -163,7 +163,9 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 						Platform.runLater(new Runnable() {
 							@Override
 							public void run() {
+
 								baseGame.drawCard();
+
 							}
 						});
 					}
@@ -177,7 +179,12 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 					Platform.runLater(new Runnable() {
 						@Override
 						public void run() {
-							baseGame.nextTurn();
+							if (player.getHand().size() > 0) {
+								baseGame.nextTurn();
+							} else {
+
+								baseGame.controller.endGame();
+							}
 						}
 					});
 				}
@@ -196,7 +203,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 	}
 
 	private int[] groupCards() {
-		int[] cardsPerSuit = {0, 0, 0, 0};
+		int[] cardsPerSuit = { 0, 0, 0, 0 };
 
 		for (Card card : player.getHand()) {
 			if (card.getSuit() != null) {
@@ -242,17 +249,17 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 	}
 
 	private int[] checkNumberOfCards(int[] cardsPerSuit) {
-		SortArrays sortArrays = new SortArrays(cardsPerSuit);		// Nos creamos el objeto de la clase SortArray
-		sortArrays = sortArrays.decreasingOrderInt();				// Llamamos al método que ordena el array de mayor a menor
-		int codes [] = sortArrays.getIndexArray();					// Obtengo los indices del array tras ordenarlos
+		SortArrays sortArrays = new SortArrays(cardsPerSuit); // Nos creamos el objeto de la clase SortArray
+		sortArrays = sortArrays.decreasingOrderInt(); // Llamamos al método que ordena el array de mayor a menor
+		int codes[] = sortArrays.getIndexArray(); // Obtengo los indices del array tras ordenarlos
 		return codes;
 	}
-	
+
 	private void throwSuitCard(int throwableSuit, ArrayList<Card> cards) {
 
 		int i = 0;
 		String suitName = null;
-		
+
 		switch (throwableSuit) {
 		case 0:
 			suitName = "blue";
@@ -267,13 +274,14 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 			suitName = "green";
 			break;
 		}
-		while (cards.get(i).getCardValue() >= SPECIALS_MIN_VALUE || !cards.get(i).getSuit().getName().contentEquals(suitName)) {
+		while (cards.get(i).getCardValue() >= SPECIALS_MIN_VALUE
+				|| !cards.get(i).getSuit().getName().contentEquals(suitName)) {
 			i++;
 		}
-		
+
 		int pos = i;
-		
-		//Lanzamos la carta
+
+		// Lanzamos la carta
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -282,7 +290,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 			}
 		});
 	}
-	
+
 	private void refreshHand() {
 		baseGame.refreshHand();
 	}

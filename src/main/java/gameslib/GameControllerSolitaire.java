@@ -201,6 +201,10 @@ public class GameControllerSolitaire implements Initializable {
 				savedCard.setFitHeight(125);
 			}
 		}
+		if (solitaireGame.getDeck().getCards().size() < 1 && solitaireGame.getDiscardedCards().size() < 1
+				&& solitaireGame.getPlayer().getHand().size() < 1 && !solitaireGame.isSaved()) {
+			endGame();
+		}
 	}
 
 	private void nothing() {
@@ -240,10 +244,6 @@ public class GameControllerSolitaire implements Initializable {
 			GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size() - 1), col);
 		}
 		
-		if (solitaireGame.getDeck().getCards().size() < 1 && solitaireGame.getDiscardedCards().size() < 1
-				&& solitaireGame.getPlayer().getHand().size() < 1 && !solitaireGame.isSaved()) {
-			endGame();
-		}
 		refreshHand();
 	}
 
