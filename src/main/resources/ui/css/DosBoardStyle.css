@@ -77,7 +77,7 @@
 	-fx-effect: dropshadow(gaussian, #1A1A1A, 20, 0.5, 0, 0);
 }
 #saveable{
-	-fx-effect: dropshadow(gaussian, #A6BC00, 20, 0.5, 0, 0);
+	-fx-effect: dropshadow(gaussian, #378000, 20, 0.5, 0, 0);
 }
 
 .label{

@@ -95,7 +95,8 @@ public class MainMenuController implements Initializable{
 
     @FXML
     void multiPlayerAction(ActionEvent event) {
-    	ludopp.goMultiplayerMenu();
+    	ludopp.goMPSelectionMode();
+//    	ludopp.goMultiplayerMenu();
     }
 
     @FXML
