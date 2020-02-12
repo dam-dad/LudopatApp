@@ -24,9 +24,9 @@ public class InitialSolitaireHelp {
 			loader.setController(this);
 			loader.load();
 			
-			CardComponent playableCard = new CardComponent(new Image(getClass().getResource("/ui/images/solitaire/card_back.png").toExternalForm()));
+			CardComponent playableCard = new CardComponent(new Image(getClass().getResource("/ui/images/poker/card_back.png").toExternalForm()));
 			playableCard.setId("playable");
-			CardComponent saveableCard = new CardComponent(new Image(getClass().getResource("/ui/images/solitaire/card_back.png").toExternalForm()));
+			CardComponent saveableCard = new CardComponent(new Image(getClass().getResource("/ui/images/poker/card_back.png").toExternalForm()));
 			saveableCard.setId("saveable");
 			
 			grid1.add(playableCard, 0, 0);

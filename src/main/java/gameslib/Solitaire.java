@@ -133,16 +133,12 @@ public class Solitaire extends Game {
 			}
 
 			if (deck.getCards().size() == 0) {
-				System.out.println("reshuffle");
-				System.out.println("deck" + deck.getCards().size());
-				System.out.println("discard" + discardedCards.size());
 				reshuffle();
 			} else {
 				card = deck.getCards().remove(0);
 				checkTable(card);
 				player.getHand().add(card);
 				c++;
-				System.out.println("get");
 			}
 		}
 	}

@@ -150,15 +150,15 @@ public class LudopatApp extends Application {
 
 	public void initSinglePlayer() {
 		gameRules = new GameRules();
-		gameRules.setGameType("dos");
+		//TODO el XML debe llamarse poker ya que es la baraja pero el juego debe ser solitario
+		gameRules.setGameType("poker");
 		try {
 			gameRules.initGameType();
 		} catch (DocumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Deck deck = gameRules.getAvailableDecks().get(0);
-		deck.loadCards("dos");
+		deck.loadCards("poker");
 		
 		// Creamos los jugadores
 		ArrayList<Player> players = new ArrayList<Player>();

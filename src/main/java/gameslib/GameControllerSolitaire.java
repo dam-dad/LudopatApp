@@ -317,7 +317,7 @@ public class GameControllerSolitaire implements Initializable {
 	@FXML
 	void nextTurnAction(ActionEvent event) {
 		discardCards();
-		discardCard.setImage(new Image(getClass().getResource("/ui/images/solitaire/card_back.png").toString()));
+		discardCard.setImage(new Image(getClass().getResource("/ui/images/poker/card_back.png").toString()));
 		solitaireGame.dealCards();
 		refreshHand();
 		if (solitaireGame.getDiscardedCards().size() < 1) {
