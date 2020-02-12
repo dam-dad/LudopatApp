@@ -29,7 +29,7 @@ import main.LudopatApp;
  */
 public class Dos extends Game {
 	
-	GameControllerDos controller;
+	public GameControllerDos controller;
 
 	private IntegerProperty cardsToDraw = new SimpleIntegerProperty(1);
 	private ObjectProperty<Player> activePlayer = new SimpleObjectProperty<Player>();
@@ -180,6 +180,10 @@ public class Dos extends Game {
 			} else {
 				setActivePlayer(currentPlayers.get(currentPlayers.indexOf(getActivePlayer()) + 1));
 			}
+		}
+		if(isBlocked) {
+			isBlocked = false;
+			nextTurn();
 		}
 	}
 

@@ -317,7 +317,7 @@ public class GameControllerDos implements Initializable {
 			}
 
 			handGrid.add(cardComp, i, 0);
-
+			
 			if (!dosGame.getActivePlayer().isAI()) {
 				if (card.isPlayable()) {
 					cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
@@ -381,15 +381,20 @@ public class GameControllerDos implements Initializable {
 		if (needsReOrder)
 			GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size() - 1), ourCol);
 
-		// Desabilitamos las cartas del jugador
+		// Deshabilitamos las cartas del jugador
 		handGrid.getChildren().stream().forEach(node -> {
-			node.setDisable(true);
+			CardComponent cc = (CardComponent) node;
+			cc.setDisable(true);
+			cc.setId("notPlayable");
+			cc.setFitWidth(75);
+			cc.setFitHeight(125);
 		});
 
 		drawButton.setDisable(true);
 		nextButton.setDisable(false);
 
 		if (dosGame.getActivePlayer().getHand().size() < 1) {
+			nextButton.setDisable(true);
 			endGame();
 		}
 	}
@@ -423,6 +428,7 @@ public class GameControllerDos implements Initializable {
 	}
 
 	public void endGame() {
+		updateCardCounters();
 		dosGame.endGame();
 
 		// Desactiva el juego
@@ -468,6 +474,12 @@ public class GameControllerDos implements Initializable {
 		dialog.show();
 	}
 
+	private void updateCardCounters() {
+		for (int i = 0; i < playersNumCards.size(); i++) {
+			playersNumCards.get(i).setText(String.format("Número de cartas: %d", dosGame.getCurrentPlayers().get(i).getHand().size()));
+		}
+	}
+
 	@FXML
 	void drawCardAction(ActionEvent event) {
 		if (!dosGame.getDeck().getCards().isEmpty()) {
@@ -490,7 +502,11 @@ public class GameControllerDos implements Initializable {
 
 		// El jugador no puede hacer nada más
 		handGrid.getChildren().stream().forEach(node -> {
-			node.setDisable(true);
+			CardComponent cc = (CardComponent) node;
+			cc.setDisable(true);
+			cc.setId("notPlayable");
+			cc.setFitWidth(75);
+			cc.setFitHeight(125);
 		});
 		drawButton.setDisable(true);
 	}
@@ -519,10 +535,10 @@ public class GameControllerDos implements Initializable {
 		dosGame.nextTurn();// esto cambia el jugador activo
 
 		// Si hay un bloqueo activo, saltamos al siguiente
-		if (dosGame.isBlocked()) {
-			dosGame.setBlocked(false);
-			dosGame.nextTurn();
-		}
+//		if (dosGame.isBlocked()) {
+//			dosGame.setBlocked(false);
+//			dosGame.nextTurn();
+//		}
 	}
 
 	@FXML
