@@ -26,13 +26,13 @@
                         </RadioButton>
                         <ImageView fx:id="espDeckImage" fitHeight="62.0" fitWidth="37.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/solitaire/As-de-Espadas-y-As-de-Copas.jpg" />
+                              <Image url="@../images/poker/As-de-Espadas-y-As-de-Copas.jpg" />
                            </image>
                         </ImageView>
                         <RadioButton id="pokerDeck" fx:id="pokerDeck" disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="POKER" textFill="WHITE" toggleGroup="$deckGroup" />
                         <ImageView fx:id="pokerDeckImage" fitHeight="62.0" fitWidth="37.0" opacity="0.25" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/solitaire/26864993-el-as-de-espadas-con-una-representación-de-la-muerte-establecido-en-el-motivo-de-la-tarjeta-todos-los-a.jpg" />
+                              <Image url="@../images/poker/card_back.png" />
                            </image>
                         </ImageView>
                         <RadioButton id="dosDeck" fx:id="dosDeck" disable="true" layoutX="39.0" layoutY="10.0" mnemonicParsing="false" text="DOS" textFill="WHITE" toggleGroup="$deckGroup" />
