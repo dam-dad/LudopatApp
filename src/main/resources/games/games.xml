@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<games>
+	<game name="solitario" displayName="Soliario">
+		<deckRef>pokerDeck</deckRef>
+	</game>
+	
+	<game name="dos" displayName="DOS">
+		<deckRef>dosDeck</deckRef>
+	</game>
+</games>

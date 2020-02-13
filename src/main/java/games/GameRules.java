@@ -82,12 +82,14 @@ public class GameRules {
 	 * 
 	 * @throws DocumentException
 	 */
-	public void initGameType() throws DocumentException {
+	public void initGameType(String gameName) throws DocumentException {
 
 		// Necesitamos cargar los elementos del XML para obtener la baraja
-		parser = new XMLGameParser(gameType.get());
-		
+		parser = new XMLGameParser();
+		String[] decks = parser.getGameDecks(gameName);
+		parser.readAvailableDecks(decks);
 		availableDecks = parser.getAvailableDecks();	
+		
 	}
 
 	public ArrayList<Deck> getAvailableDecks() {

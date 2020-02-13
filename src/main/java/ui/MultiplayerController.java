@@ -160,7 +160,7 @@ public class MultiplayerController implements Initializable {
 				
 				try {
 					// Cargamos los ajustes para el juego seleccionado
-					ludopp.getGameRules().initGameType();
+					ludopp.getGameRules().initGameType(ludopp.getGameRules().getGameType());
 					
 				} catch (DocumentException e) {
 					e.printStackTrace();

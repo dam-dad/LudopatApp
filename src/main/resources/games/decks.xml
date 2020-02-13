@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <decks>
+	<deck name="pokerDeck" displayName="Poker">
+		<numCards>48</numCards>
+		<cardsPerSuit>12</cardsPerSuit>
+		<suits>
+			<suit>
+				<name>clubs</name>
+				<imgPrefix>poker_clubs</imgPrefix>
+			</suit>
+			<suit>
+				<name>diamonds</name>
+				<imgPrefix>poker_diamonds</imgPrefix>
+			</suit>
+			<suit>
+				<name>hearts</name>
+				<imgPrefix>poker_hearts</imgPrefix>
+			</suit>
+			<suit>
+				<name>spades</name>
+				<imgPrefix>poker_spades</imgPrefix>
+			</suit>
+		</suits>
+	</deck>
+
 	<deck name="dosDeck" displayName="DOS">
 		<numCards>54</numCards>
 		<cardsPerSuit>10</cardsPerSuit>

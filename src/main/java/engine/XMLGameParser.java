@@ -37,14 +37,39 @@ public class XMLGameParser {
 	 */
 	
 	private Element root;
+	private String[] decks;;
 	
-	public XMLGameParser(String gameName) throws DocumentException {
-
+	
+	public void readAvailableDecks(String[] decks) throws DocumentException {
+		
+		this.decks = decks;
+		
 		SAXReader reader = new SAXReader();
-		Document xml = reader.read(getClass().getResource("/games/"+gameName+".xml"));
+		Document xml = reader.read(getClass().getResource("/games/decks.xml"));
 		
 		root = xml.getRootElement();
 
+	}
+	
+	@SuppressWarnings("unchecked")
+	public String[] getGameDecks(String gameName) throws DocumentException {
+		
+		// Necesitamos devolver la lista de barajas disponibles
+		
+		SAXReader reader = new SAXReader();
+		Document xml = reader.read(getClass().getResource("/games/games.xml"));
+		
+		Element rootNode = xml.getRootElement();
+		
+		List<Element> decksRefs = rootNode.selectNodes("//game[@name='"+gameName+"']/deckRef");
+		
+		String[] str = new String[decksRefs.size()];
+		
+		for( int i = 0; i < decksRefs.size(); i++ ) {
+			str[i] = "'" + decksRefs.get(i).getStringValue() + "'";
+		}
+		
+		return str;
 	}
 	
 	/**
@@ -55,7 +80,14 @@ public class XMLGameParser {
 	@SuppressWarnings("unchecked")
 	public ArrayList<Deck> getAvailableDecks() {
 			
-		List<Element> decksNodes = root.selectNodes("//deck");
+		StringBuilder condition = new StringBuilder("(");
+		int i = 0;
+		for( i = 0; i < decks.length-1; i++ ) {
+			condition.append(decks[i] + ",");
+		}
+		condition.append(decks[i] + ")");
+
+		List<Element> decksNodes = root.selectNodes("//deck[@name="+condition + "]");
 
 		ArrayList<Deck> decks = new ArrayList<Deck>();
 		
