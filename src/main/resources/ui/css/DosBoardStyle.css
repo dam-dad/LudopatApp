@@ -13,6 +13,10 @@
 	-fx-background-color: #2B2B2B;
 }
 
+#message{
+	-fx-background-color: #C70E0E;
+}
+
 #appNameLabel{
 	-fx-background-color: #C70E0E;
 	-fx-font-size: 28pt;
@@ -41,6 +45,12 @@
 
 #actions:hover{
 	-fx-background-color: #A50E0E;
+}
+
+#actionsChat{
+	-fx-prompt: green;
+	-fx-text-fill: white;
+	-fx-background-color: #C70E0E;
 }
 
 #players{
@@ -123,4 +133,15 @@
 #three{
 	-fx-font-weight: bold;
 	-fx-text-fill: #94794F;
+}
+
+#chatButton{
+	-fx-background-color: #1F1F1F;
+	-fx-font-size: 10pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+}
+
+#chatButton:hover{
+	-fx-background-color: #0F0F0F;
 }
