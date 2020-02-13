@@ -2,6 +2,7 @@ package gameslib;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -19,7 +20,11 @@ import games.Card;
 import gameslib.endGame.SolitaireEndGameController;
 import help.HelpViewContoller;
 import help.InitialSolitaireHelp;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,8 +37,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import main.LudopatApp;
 import ui.CardComponent;
+import util.Stopwatch;
 
 public class GameControllerSolitaire implements Initializable {
 
@@ -121,6 +128,10 @@ public class GameControllerSolitaire implements Initializable {
 	private LudopatApp ludopp;
 	private Solitaire solitaireGame;
 	private HelpViewContoller help;
+	private IntegerProperty round = new SimpleIntegerProperty(1);
+
+	private LocalTime start;
+	private Timeline timeline;
 
 	public GameControllerSolitaire(LudopatApp app) {
 		this.ludopp = app;
@@ -137,8 +148,11 @@ public class GameControllerSolitaire implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		start= LocalTime.now();
+		currentTimeLabel.setText("00:00");
 		gameNameLabel.textProperty().bind(solitaireGame.getGameRules().gameTypeProperty());
 		tableCards = new ArrayList<ImageView>(Arrays.asList(diamondsImage, clubsImage, heartsImage, spadesImage));
+		currentRoundLabel.textProperty().bind(round.asString());
 		int i = 0;
 		for (ImageView image : tableCards) {
 			image.setImage(solitaireGame.getCardsInGame().get(i).get().getCardImage());
@@ -148,6 +162,18 @@ public class GameControllerSolitaire implements Initializable {
 		}
 		refreshHand();
 		showInitialHelp();
+		
+		timeline = new Timeline(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+            	String time = Stopwatch.handle(0, start);
+            	currentTimeLabel.setText(time);
+            	
+			}
+		}));
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.setAutoReverse(false);
+		timeline.play();
 	}
 
 	private void onPlayedCard(Card nv, int i) {
@@ -262,9 +288,29 @@ public class GameControllerSolitaire implements Initializable {
 	}
 
 	private void endGame() {
-		// TODO pasarle a endGameController el tiempo bien y las rondas
-		SolitaireEndGameController endGameController = new SolitaireEndGameController(15, 20, 20);
+		
+		//Recoge los segundos
+		String minutesStr = "";
+		for (int i = 0; i < 2; i++) {
+			minutesStr += currentTimeLabel.getText().charAt(i);
+		}
+		int minutes = Integer.parseInt(minutesStr);
+		
+		//Recoge los segundos
+		String secondsStr = "";
+		for (int i = 3; i < 5; i++) {
+			secondsStr += currentTimeLabel.getText().charAt(i);
+		}
+		int seconds = Integer.parseInt(secondsStr);
+		
+		//Recoge las rondas
+		int rounds = Integer.parseInt(currentRoundLabel.getText());
+		
+		//End game
+		SolitaireEndGameController endGameController = new SolitaireEndGameController(currentTimeLabel.getText(), minutes, seconds, rounds);
 
+		timeline.pause();
+		
 		JFXDialogLayout layout = new JFXDialogLayout();
 		layout.setBody(endGameController.getView());
 
@@ -323,6 +369,7 @@ public class GameControllerSolitaire implements Initializable {
 		if (solitaireGame.getDiscardedCards().size() < 1) {
 			discardCard.setImage(new Image(getClass().getResource("/ui/images/userNull.png").toString()));
 		}
+		round.set(round.get()+1);
 	}
 
 	@FXML

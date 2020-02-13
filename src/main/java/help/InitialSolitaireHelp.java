@@ -24,10 +24,12 @@ public class InitialSolitaireHelp {
 			loader.setController(this);
 			loader.load();
 			
-			CardComponent playableCard = new CardComponent(new Image(getClass().getResource("/ui/images/poker/card_back.png").toExternalForm()));
+			CardComponent playableCard = new CardComponent(new Image(getClass().getResource("/ui/images/poker/card_back.png").toString()));
 			playableCard.setId("playable");
-			CardComponent saveableCard = new CardComponent(new Image(getClass().getResource("/ui/images/poker/card_back.png").toExternalForm()));
+			playableCard.turn();
+			CardComponent saveableCard = new CardComponent(new Image(getClass().getResource("/ui/images/poker/card_back.png").toString()));
 			saveableCard.setId("saveable");
+			saveableCard.turn();
 			
 			grid1.add(playableCard, 0, 0);
 			grid2.add(saveableCard, 0, 0);

@@ -180,7 +180,7 @@
          <children>
             <ImageView fx:id="deckCard" fitHeight="125.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/dos/card_back.png" />
+                  <Image url="@../images/poker/card_back.png" />
                </image>
             </ImageView>
          </children>
