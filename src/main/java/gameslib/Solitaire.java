@@ -87,7 +87,6 @@ public class Solitaire extends Game {
 	@Override
 	public void endGame() {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override

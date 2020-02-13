@@ -26,13 +26,14 @@ public class SolitaireEndGameController implements Initializable {
     
     private final int SECONDS_PER_ROUND = 5;
     
+    String time;
     String minutes;
     String seconds;
     String rounds;
     int scoreMin;
     int scoreSec;
 	
-	public SolitaireEndGameController(int min, int sec, int rounds) {
+	public SolitaireEndGameController(String time, int min, int sec, int rounds) {
 		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/endGame/SolitaireEndGameComponent.fxml"));
@@ -51,6 +52,7 @@ public class SolitaireEndGameController implements Initializable {
 				handicapSeconds -= 60;
 			}
 			
+			this.time = time;
 			this.scoreMin = min + handicapMinutes;
 			this.scoreSec = sec + handicapSeconds;
 			while (scoreSec >= 60) {
@@ -66,7 +68,7 @@ public class SolitaireEndGameController implements Initializable {
 	}
 	
 	private void setTexts() {
-		timeText.setText(minutes + ":" + seconds);
+		timeText.setText(time);
 		roundsText.setText(rounds);
 		if (scoreMin < 10 && scoreSec < 10) {
 			scoreText.setText("0" + scoreMin + ":0" + scoreSec);
@@ -84,21 +86,21 @@ public class SolitaireEndGameController implements Initializable {
 	
 	private void setStyles() {
 		//Tiempo
-		if (Integer.parseInt(minutes) < 10) {
+		if (Integer.parseInt(minutes) < 2) {
 			timeText.setId("two");
-		}if (Integer.parseInt(minutes) < 5) {
+		}if (Integer.parseInt(minutes) < 1) {
 			timeText.setId("one");
 		}
 		//Rondas
-		if (Integer.parseInt(rounds) < 25) {
+		if (Integer.parseInt(rounds) < 40) {
 			roundsText.setId("two");
-		}if (Integer.parseInt(rounds) < 15) {
+		}if (Integer.parseInt(rounds) < 30) {
 			roundsText.setId("one");
 		}
 		//Puntuación
-		if (scoreMin < 12) {
+		if (scoreMin < 5) {
 			scoreText.setId("two");
-		}if (scoreMin < 8) {
+		}if (scoreMin < 4) {
 			scoreText.setId("one");
 		}
 	}

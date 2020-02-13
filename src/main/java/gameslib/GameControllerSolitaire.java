@@ -166,7 +166,7 @@ public class GameControllerSolitaire implements Initializable {
 		timeline = new Timeline(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-            	String time =Stopwatch.handle(0, start);
+            	String time = Stopwatch.handle(0, start);
             	currentTimeLabel.setText(time);
             	
 			}
@@ -288,9 +288,29 @@ public class GameControllerSolitaire implements Initializable {
 	}
 
 	private void endGame() {
-		// TODO pasarle a endGameController el tiempo bien y las rondas
-		SolitaireEndGameController endGameController = new SolitaireEndGameController(15, 20, 20);
+		
+		//Recoge los segundos
+		String minutesStr = "";
+		for (int i = 0; i < 2; i++) {
+			minutesStr += currentTimeLabel.getText().charAt(i);
+		}
+		int minutes = Integer.parseInt(minutesStr);
+		
+		//Recoge los segundos
+		String secondsStr = "";
+		for (int i = 3; i < 5; i++) {
+			secondsStr += currentTimeLabel.getText().charAt(i);
+		}
+		int seconds = Integer.parseInt(secondsStr);
+		
+		//Recoge las rondas
+		int rounds = Integer.parseInt(currentRoundLabel.getText());
+		
+		//End game
+		SolitaireEndGameController endGameController = new SolitaireEndGameController(currentTimeLabel.getText(), minutes, seconds, rounds);
 
+		timeline.pause();
+		
 		JFXDialogLayout layout = new JFXDialogLayout();
 		layout.setBody(endGameController.getView());
 
