@@ -45,7 +45,7 @@ public class MPSelectionModeController {
 
     @FXML
     void toJoinAction(ActionEvent event) {
-
+    	ludopp.goClientConfig();
     }
     
     @FXML

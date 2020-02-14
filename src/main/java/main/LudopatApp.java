@@ -29,6 +29,7 @@ import ui.MPSelectionModeController;
 import ui.MainMenuController;
 import ui.MultiplayerController;
 import ui.SplashController;
+import uinet.ClientConfigController;
 import uinet.ServerConfigController;
 
 /**
@@ -47,24 +48,25 @@ import uinet.ServerConfigController;
 public class LudopatApp extends Application {
 
 	// Controladores
-	//---------------------------------------------------
-	
+	// ---------------------------------------------------
+
 	private MultiplayerController multiplayerController;
 	private ServerConfigController serverConfigController;
 	private MainMenuController mainMenuController;
 	private GameControllerDos gameControllerDos;
 	private GameControllerSolitaire solitaireController;
-	
+	private ClientConfigController clientConfigController;
+
 	private MPSelectionModeController mpSelectionModeController;
-	
-	//---------------------------------------------------
-	
+
+	// ---------------------------------------------------
+
 	// Variables de la App
-	//---------------------------------------------------
-	
+	// ---------------------------------------------------
+
 	private GameRules gameRules;
 	private Stage mainStage;
-	
+
 	public Stage getMainStage() {
 		return mainStage;
 	}
@@ -72,24 +74,22 @@ public class LudopatApp extends Application {
 	public void setMainStage(Stage mainStage) {
 		this.mainStage = mainStage;
 	}
-	
+
 	private Game currentGame;
-	
+
 	private final int DOS_SCREEN_WIDTH_REQUIRED = 1250;
 	private final int DOS_SCREEN_HEIGHT_REQUIRED = 700;
-	
+
 	private final int MENU_SCREEN_WIDTH_REQUIRED = 800;
 	private final int MENU_SCREEN_HEIGHT_REQUIRED = 600;
-	//-------- -------------------------------------------
-
-
+	// -------- -------------------------------------------
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
-		
+
 		// Inicamos la aplicación, el SplashScreen
 //		initApp();
 		goMenu();
@@ -97,27 +97,27 @@ public class LudopatApp extends Application {
 		primaryStage.getIcons().add(new Image(getClass().getResource("/ui/images/Noframe.png").toString()));
 
 		primaryStage.show();
-		
+
 	}
 
 	// Métodos llamados desde vistas
 	// -------------------------------------------------------------------
-	
+
 	public void goMPSelectionMode() {
 		mpSelectionModeController = new MPSelectionModeController(this);
-		
+
 		Scene scene = new Scene(mpSelectionModeController.getView(), 800, 600);
 
 		fadeTransition(mainMenuController.getView(), scene);
 	}
-	
+
 	public void goServerConfig() {
-		
+
 		try {
 
 			gameRules = new GameRules();
 			serverConfigController = new ServerConfigController(this);
-			
+
 			Scene scene = new Scene(serverConfigController.getView(), 800, 600);
 			fadeTransition(mpSelectionModeController.getView(), scene);
 
@@ -125,15 +125,23 @@ public class LudopatApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	public void goClientConfig() {
+		gameRules = new GameRules();
+		clientConfigController = new ClientConfigController(this);
+
+		Scene scene = new Scene(clientConfigController.getView(), 800, 600);
+		fadeTransition(mpSelectionModeController.getView(), scene);
+
+	}
+
 	public void goAIMenu() {
 
 		try {
 
 			gameRules = new GameRules();
 			multiplayerController = new MultiplayerController(this);
-			
+
 			Scene scene = new Scene(multiplayerController.getView(), 800, 600);
 			fadeTransition(mpSelectionModeController.getView(), scene);
 
@@ -141,9 +149,9 @@ public class LudopatApp extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void fadeTransition(Node view, Scene scene) {
-		
+
 		FadeTransition fadeTransition = new FadeTransition();
 		fadeTransition.setFromValue(1);
 		fadeTransition.setToValue(0);
@@ -162,18 +170,18 @@ public class LudopatApp extends Application {
 
 		Timeline timelineOut = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransitionOut.play()));
 		timelineOut.play();
-		
+
 		alignScreenMenu();
 	}
 
 	public void initApp() {
-		
+
 		try {
 			SplashController splashController = new SplashController(this);
 
 			Scene scene = new Scene(splashController.getView(), 800, 600);
 			mainStage.setScene(scene);
-			
+
 			alignScreenMenu();
 
 		} catch (IOException e) {
@@ -183,31 +191,31 @@ public class LudopatApp extends Application {
 	}
 
 	public void initSinglePlayer() {
-		
+
 		gameRules = new GameRules();
 		gameRules.setGameType("solitario");
-		
+
 		try {
 			gameRules.initGameType(gameRules.getGameType());
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
-		
+
 		Deck deck = gameRules.getAvailableDecks().get(0);
 		deck.loadCards("poker");
-		
+
 		// Creamos los jugadores
 		ArrayList<Player> players = new ArrayList<Player>();
 		// Primero creamos al jugador activo
 		Player player = new Player();
 		player.setId(0);
 		players.add(player);
-		
+
 		Solitaire solitaireGame = new Solitaire(deck, gameRules, players);
-		
-		//......se inicializa el controller primero
+
+		// ......se inicializa el controller primero
 		currentGame = solitaireGame;
-		
+
 		solitaireController = new GameControllerSolitaire(this);
 
 		Scene scene = new Scene(solitaireController.getView());
@@ -216,13 +224,13 @@ public class LudopatApp extends Application {
 	}
 
 	public void goMenu() {
-		
+
 		try {
 			mainMenuController = new MainMenuController(this);
 
 			Scene scene = new Scene(mainMenuController.getView(), 800, 600);
 			mainStage.setScene(scene);
-			
+
 			alignScreenMenu();
 
 		} catch (IOException e) {
@@ -234,33 +242,33 @@ public class LudopatApp extends Application {
 	public void initGame() {
 
 		String gameType = gameRules.getGameType();
-		
+
 		switch (gameType) {
 
-			case "dos":
-				initDosGame();
-				break;
-			default:
-				break;
+		case "dos":
+			initDosGame();
+			break;
+		default:
+			break;
 		}
-		
+
 		alignScreen();
 	}
-	
+
 	private void alignScreen() {
 		double screenWidthCenter = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
 		double screenHeightCenter = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
-		
-		mainStage.setX(screenWidthCenter - DOS_SCREEN_WIDTH_REQUIRED/2);
-		mainStage.setY(screenHeightCenter - DOS_SCREEN_HEIGHT_REQUIRED/2);
+
+		mainStage.setX(screenWidthCenter - DOS_SCREEN_WIDTH_REQUIRED / 2);
+		mainStage.setY(screenHeightCenter - DOS_SCREEN_HEIGHT_REQUIRED / 2);
 	}
-	
+
 	private void alignScreenMenu() {
 		double screenWidthCenter = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
 		double screenHeightCenter = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
-		
-		mainStage.setX(screenWidthCenter - MENU_SCREEN_WIDTH_REQUIRED/2);
-		mainStage.setY(screenHeightCenter - MENU_SCREEN_HEIGHT_REQUIRED/2);
+
+		mainStage.setX(screenWidthCenter - MENU_SCREEN_WIDTH_REQUIRED / 2);
+		mainStage.setY(screenHeightCenter - MENU_SCREEN_HEIGHT_REQUIRED / 2);
 	}
 
 	// -------------------------------------------------------------------
@@ -268,21 +276,21 @@ public class LudopatApp extends Application {
 	public GameRules getGameRules() {
 		return gameRules;
 	}
-	
+
 	// Lógica distintos juegos
-	//-----------------------------------------------------------
-	
+	// -----------------------------------------------------------
+
 	public void initDosGame() {
 
 		Deck deck = gameRules.getDeckType();
 		deck.loadCards("dos");
-		
+
 		Dos.loadSpecialCards(deck, this.getClass());
-		if( deck.isDoubleDeck() ) {
+		if (deck.isDoubleDeck()) {
 			// Si hay doble baraja, cargamos más
 			Dos.loadSpecialCards(deck, this.getClass());
 		}
-		
+
 		// Creamos los jugadores
 		ArrayList<Player> players = new ArrayList<Player>();
 		// Primero creamos al jugador activo
@@ -291,21 +299,21 @@ public class LudopatApp extends Application {
 		player.setPlayerInfo(getGameRules().getPlayersInfo().get(0));
 		players.add(player);
 		// Ahora añadimos a la IA
-		for( int i = 1; i < getGameRules().getNumPlayers(); i++ ) {
+		for (int i = 1; i < getGameRules().getNumPlayers(); i++) {
 			Player AIPlayer = new Player();
 			AIPlayer.setId(i);
 			AIPlayer.setAI(true);
 			AIPlayer.setAIController(new Dav_IA_DOS(AIPlayer));
-			AIPlayer.setPlayerInfo(getGameRules().getPlayersInfo().get(i));	
+			AIPlayer.setPlayerInfo(getGameRules().getPlayersInfo().get(i));
 			players.add(AIPlayer);
 		}
-		
+
 		Dos dosGame = new Dos(deck, gameRules, players);
-		
-		for( int i = 1; i < getGameRules().getNumPlayers(); i++ ) {
+
+		for (int i = 1; i < getGameRules().getNumPlayers(); i++) {
 			players.get(i).getAIController().setBaseGame(dosGame);
 		}
-		//......se inicializa el controller primero
+		// ......se inicializa el controller primero
 		currentGame = dosGame;
 		dosGame.initGame();
 		gameControllerDos = new GameControllerDos(this);
@@ -313,21 +321,21 @@ public class LudopatApp extends Application {
 		Scene scene = new Scene(gameControllerDos.getView());
 		mainStage.setScene(scene);
 	}
-	
+
 	@Override
 	public void stop() throws Exception {
-		
+
 		// Hay que asegurarse de eliminar todos los hilos
-		if( currentGame != null ) {
-			for( Player p : currentGame.getCurrentPlayers() ) {
-				if( p.isAI() ) {
+		if (currentGame != null) {
+			for (Player p : currentGame.getCurrentPlayers()) {
+				if (p.isAI()) {
 					p.getAIController().setStopAI(true);
 				}
 			}
 		}
 	}
-	
-	//-----------------------------------------------------------
+
+	// -----------------------------------------------------------
 	public Game getCurrentGame() {
 		return currentGame;
 	}
@@ -335,6 +343,7 @@ public class LudopatApp extends Application {
 	public void setCurrentGame(Game currentGame) {
 		this.currentGame = currentGame;
 	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

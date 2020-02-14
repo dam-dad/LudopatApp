@@ -98,7 +98,7 @@ public class ServerConfigController implements Initializable {
 	private Timeline timeline;
 
 	private final String INIT = "Iniciar";
-	private final String CONTINUE = "Contnuar";
+	private final String CONTINUE = "Continuar";
 
 	private HelpViewContoller help;
 
