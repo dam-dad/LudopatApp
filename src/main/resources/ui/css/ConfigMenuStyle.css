@@ -7,6 +7,16 @@
   	-fx-font-weight: bold;
 }
 
+#progress > .track {
+  -fx-background-color: #2B2B2B;
+}
+
+#progress .bar { 
+    -fx-padding: 2px; 
+    -fx-background-insets: 0;
+    -fx-background-color: #C70E0E;
+}
+
 #field:hover{
 	-fx-text-fill: #2B2B2B;
 }
@@ -91,6 +101,21 @@
 #jfxButton2:hover{
 	-fx-background-color: #0F0F0F;
 	-fx-effect: dropshadow(gaussian, #474747, 20.0, 0.5, 0.0, 0.0);
+}
+
+#grid{
+	-fx-background-color: #2B2B2B;
+}
+
+#playerCod{
+	-fx-text-fill: white;
+	-fx-font-size: 14pt;
+	-fx-font-weight: bold;
+}
+
+#playerName{
+	-fx-text-fill: white;
+	-fx-font-size: 14pt;
 }
 
 #configPane{

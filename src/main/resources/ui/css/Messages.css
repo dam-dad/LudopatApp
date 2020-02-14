@@ -1,0 +1,25 @@
+.root{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 10pt;
+}
+
+#bg{
+	-fx-background-color: #2B2B2B;
+}
+
+#receivedMessage{
+	-fx-background-color: #C70E0E;
+}
+
+#sentMessage{
+	-fx-background-color: #BE3334;
+}
+
+#playerName{
+	-fx-font-weight: bold;
+	-fx-background-color: #A50E0E;
+}
+
+#messageBody{
+	-fx-text-fill: white;
+}
