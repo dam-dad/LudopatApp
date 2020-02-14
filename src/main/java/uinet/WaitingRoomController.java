@@ -106,11 +106,11 @@ public class WaitingRoomController extends AnchorPane implements Initializable {
 	public void refresh(ArrayList<PlayerInfo> players) {
 		
 		// Refrescamos la vista con los usuarios conectados
-		usersBox.stream().forEach( c -> c.setVisible(false)); // Cambiar a set style
+		usersBox.stream().forEach( c -> c.setId("disable")); // Cambiar a set style
 		
 		for( int i = 0; i < players.size(); i++ ) {
 			
-			usersBox.get(i).setVisible(true); // Cambiar a set style
+			usersBox.get(i).setId("grid"); // Cambiar a set style
 			usersImage.get(i).setImage(players.get(i).getPlayerIcon());
 			usersName.get(i).setText(players.get(i).getPlayerName());
 		}

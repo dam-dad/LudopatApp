@@ -10,7 +10,7 @@
    <children>
       <StackPane fx:id="stack" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox fx:id="grid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0">
+            <VBox id="content" fx:id="grid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0">
                <children>
                   <JFXTextField id="field" fx:id="nameField" focusColor="#c70e0e" unFocusColor="#2b2b2b" VBox.vgrow="NEVER">
                      <VBox.margin>

@@ -13,7 +13,7 @@
                <children>
                   <JFXButton id="jfxButton" fx:id="vsAIButton" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#toAIconfig" prefHeight="75.0" prefWidth="250.0" ripplerFill="#ee0e0e" text="Vs Dav IA" />
                   <JFXButton id="jfxButton3" fx:id="createButton" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#toOnlineConfig" prefHeight="75.0" prefWidth="250.0" ripplerFill="#ee0e0e" text="Crear partida" />
-                  <JFXButton id="jfxButton3" fx:id="joinButton" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#toOnlineConfig" prefHeight="75.0" prefWidth="250.0" ripplerFill="#ee0e0e" text="Unirse a partida" />
+                  <JFXButton id="jfxButton3" fx:id="joinButton" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#toJoinAction" prefHeight="75.0" prefWidth="250.0" ripplerFill="#ee0e0e" text="Unirse a partida" />
                </children>
             </VBox>
             <JFXButton id="jfxButton2" fx:id="onlineButton1" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#toMenu" prefHeight="50.0" prefWidth="150.0" ripplerFill="#474747" text="Menú" StackPane.alignment="BOTTOM_LEFT">
