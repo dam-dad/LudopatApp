@@ -475,7 +475,7 @@ public class GameControllerDos implements Initializable {
 	}
 
 	private void updateCardCounters() {
-		for (int i = 0; i < playersNumCards.size(); i++) {
+		for (int i = 0; i < dosGame.getCurrentPlayers().size(); i++) {
 			playersNumCards.get(i).setText(String.format("Número de cartas: %d", dosGame.getCurrentPlayers().get(i).getHand().size()));
 		}
 	}
