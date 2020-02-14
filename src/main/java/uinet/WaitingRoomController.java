@@ -1,6 +1,8 @@
 package uinet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,6 +96,22 @@ public class WaitingRoomController extends AnchorPane implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		String systemipaddress = ""; 
+        try
+        { 
+            URL url_name = new URL("http://bot.whatismyipaddress.com"); 
+  
+            BufferedReader sc = 
+            new BufferedReader(new InputStreamReader(url_name.openStream())); 
+  
+            // reads system IPAddress 
+            systemipaddress = sc.readLine().trim(); 
+        } 
+        catch (Exception e) 
+        { 
+            systemipaddress = "Cannot Execute Properly"; 
+        } 
+        ipLabel.setText(systemipaddress);
 
 		usersImage.addAll( Arrays.asList(player1Image, player2Image, player3Image, player4Image));
 		usersName.addAll( Arrays.asList(player1Name, player2Name, player3Name, player4Name));
