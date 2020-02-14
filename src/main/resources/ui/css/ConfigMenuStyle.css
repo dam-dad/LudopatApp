@@ -32,8 +32,7 @@
 }
 
 .split-pane-divider{
-	-fx-border-color: #474747;
-	-fx-background-color: #474747;
+	-fx-opacity: 0;
 	-fx-background-insets: 0.0;
 }
 

@@ -95,7 +95,6 @@ public class ClientConfigController implements Initializable {
 		try {
 			loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -116,7 +115,7 @@ public class ClientConfigController implements Initializable {
 		waitingRoom.setMaxWidth(0);
 
 		// añadir los datos
-		configPane.getItems().addAll(playerSelection, ipConfig, waitingRoom);
+		configPane.getItems().setAll(playerSelection, ipConfig, waitingRoom);
 		configPane.getItems().set(0, playerSelection);
 		configPane.getItems().set(1, ipConfig);
 		configPane.getItems().set(2, waitingRoom);
@@ -144,11 +143,11 @@ public class ClientConfigController implements Initializable {
 		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 		timeline.play();
 
-		key = new KeyValue(playerSelection.maxWidthProperty(), 0);
+		key = new KeyValue(ipConfig.maxWidthProperty(), 0);
 		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 		timeline.play();
 
-		key = new KeyValue(ipConfig.maxWidthProperty(), ANCHOR_WIDTH);
+		key = new KeyValue(playerSelection.maxWidthProperty(), ANCHOR_WIDTH);
 		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 		timeline.play();
 		
@@ -200,11 +199,11 @@ public class ClientConfigController implements Initializable {
 			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 			timeline.play();
 
-			key = new KeyValue(waitingRoom.maxWidthProperty(), 0);
+			key = new KeyValue(ipConfig.maxWidthProperty(), 0);
 			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 			timeline.play();
 
-			key = new KeyValue(ipConfig.maxWidthProperty(), ANCHOR_WIDTH);
+			key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
 			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 			timeline.play();
 			
