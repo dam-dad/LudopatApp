@@ -143,7 +143,7 @@ public class ServerConfigController implements Initializable {
 		// Precargamos los paneles y los ponemos en posición
 		configPane.setDividerPositions(1, 1, 1);
 
-		backButton.disableProperty().bind(currentPage.isEqualTo(1));
+		backButton.setDisable(true);
 
 		currentStage = e_menuStages.ST_CONFIG_GAME;
 		currentPage.setValue(1);
@@ -242,6 +242,7 @@ public class ServerConfigController implements Initializable {
 			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 			timeline.play();
 
+			backButton.setDisable(true);
 			break;
 		case ST_CONFIG_PLAYERS:
 			playerConfig.closeDialog(-1);
@@ -284,6 +285,8 @@ public class ServerConfigController implements Initializable {
 			backButton.setDisable(true);
 			continueButton.setId("disable");
 			backButton.setId("disable");
+		} else {
+			backButton.setDisable(false);
 		}
 	}
 
