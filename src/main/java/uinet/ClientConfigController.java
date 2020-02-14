@@ -125,12 +125,30 @@ public class ClientConfigController implements Initializable {
 
 	@FXML
 	void onBackAction(ActionEvent event) {
+		currentPage.setValue(currentPage.getValue()-1);
+		previousStage();
+	}
 
+	private void previousStage() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@FXML
 	void onContinueAction(ActionEvent event) {
+		currentPage.setValue(currentPage.getValue()+1);
+		nextStage();
+		if( currentPage.getValue() == 3 ) {
+			continueButton.setDisable(true);
+			backButton.setDisable(true);
+			continueButton.setId("disable");
+			backButton.setId("disable");
+		} 
+	}
 
+	private void nextStage() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@FXML
