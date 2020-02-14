@@ -49,7 +49,7 @@ import ui.config.SummaryController;
  * @author Kevin Rodriguez Morales
  *
  */
-public class MultiplayerNETController implements Initializable {
+public class ServerConfigController implements Initializable {
 	
 	// FXML : View
 	//--------------------------------------------------
@@ -91,7 +91,7 @@ public class MultiplayerNETController implements Initializable {
 	private GameConfigController gameConfig;
 	private DeckConfigController deckConfig;
 	private PlayerSelectionController playerConfig;
-	private SummaryController summary;
+	private WaitingRoomController waitingRoom;
 	
 	private LudopatApp ludopp;
 	
@@ -101,7 +101,7 @@ public class MultiplayerNETController implements Initializable {
 	private Timeline timeline;
 	
 	private final String INIT = "Iniciar";
-	private final String PLAY = "Jugar";
+	private final String CONTINUE = "Contnuar";
 
 	private HelpViewContoller help;
 	
@@ -110,7 +110,7 @@ public class MultiplayerNETController implements Initializable {
 	// Model
 	private IntegerProperty currentPage = new SimpleIntegerProperty();
 	
-	public MultiplayerNETController(LudopatApp app) throws IOException {
+	public ServerConfigController(LudopatApp app) throws IOException {
 		
 		this.ludopp = app;
 		
@@ -128,20 +128,20 @@ public class MultiplayerNETController implements Initializable {
 		gameConfig = new GameConfigController(ludopp);
 		deckConfig = new DeckConfigController(ludopp);
 		playerConfig = new PlayerSelectionController(ludopp);
-		summary = new SummaryController(ludopp);
+		waitingRoom = new WaitingRoomController(ludopp);
 		
 		// Para evitar que el usuario pueda arrastrar las ventanas
 		gameConfig.setMaxWidth(ANCHOR_WIDTH);
 		deckConfig.setMaxWidth(0);
 		playerConfig.setMaxWidth(0);
-		summary.setMaxWidth(0);
+		waitingRoom.setMaxWidth(0);
 		
 		// Añadimos los datos de configuración
-		configPane.getItems().setAll(gameConfig, deckConfig, playerConfig, summary);
+		configPane.getItems().setAll(gameConfig, deckConfig, playerConfig, waitingRoom);
 		configPane.getItems().set(0, gameConfig);
 		configPane.getItems().set(1, deckConfig);
 		configPane.getItems().set(2, playerConfig);
-		configPane.getItems().set(3, summary);
+		configPane.getItems().set(3, waitingRoom);
 		
 		// Precargamos los paneles y los ponemos en posición
 		configPane.setDividerPositions(1, 1, 1);
@@ -196,6 +196,8 @@ public class MultiplayerNETController implements Initializable {
 				key = new KeyValue(playerConfig.maxWidthProperty(), ANCHOR_WIDTH);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
+	            
+	            continueButton.setText(INIT);
 			
 				break;
 			case ST_CONFIG_PLAYERS:
@@ -210,15 +212,12 @@ public class MultiplayerNETController implements Initializable {
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
 
-				key = new KeyValue(summary.maxWidthProperty(), ANCHOR_WIDTH);
+				key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
 	          
 	            // Ponemos los jugadores
 	            ludopp.getGameRules().setPlayersInfo(playerConfig.getPlayersInfo());
-	            
-	            summary.initSummary();
-	            continueButton.setText(PLAY);
 	            
 				break;
 			default:
@@ -261,6 +260,8 @@ public class MultiplayerNETController implements Initializable {
 				key = new KeyValue(deckConfig.maxWidthProperty(), ANCHOR_WIDTH);
 	            timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 	            timeline.play();
+	            
+	            continueButton.setText(CONTINUE);
 	            
 				break;
 			default:
