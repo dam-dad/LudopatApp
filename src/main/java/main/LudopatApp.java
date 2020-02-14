@@ -10,6 +10,7 @@ import games.Deck;
 import games.Game;
 import games.GameRules;
 import games.Player;
+import games.PlayerInfo;
 import gamesAI.Dav_IA_DOS;
 import gameslib.Dos;
 import gameslib.GameControllerDos;
@@ -25,6 +26,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import net.Client;
+import net.Server;
+import net.User;
 import ui.MPSelectionModeController;
 import ui.MainMenuController;
 import ui.MultiplayerController;
@@ -56,9 +60,18 @@ public class LudopatApp extends Application {
 	private GameControllerDos gameControllerDos;
 	private GameControllerSolitaire solitaireController;
 	private ClientConfigController clientConfigController;
-
+	
 	private MPSelectionModeController mpSelectionModeController;
 
+	// ---------------------------------------------------
+	
+	// Variables online
+	// ---------------------------------------------------
+	
+	private User userClient;
+	private Client connectionClient;
+	private Server connectionServer;
+	
 	// ---------------------------------------------------
 
 	// Variables de la App
@@ -115,6 +128,9 @@ public class LudopatApp extends Application {
 
 		try {
 
+			// Creamos el usuario
+			userClient = new User();
+			
 			gameRules = new GameRules();
 			serverConfigController = new ServerConfigController(this);
 
@@ -127,6 +143,10 @@ public class LudopatApp extends Application {
 	}
 
 	public void goClientConfig() {
+		
+		// Creamos el usuario
+		userClient = new User();
+		
 		gameRules = new GameRules();
 		clientConfigController = new ClientConfigController(this);
 
@@ -333,9 +353,58 @@ public class LudopatApp extends Application {
 				}
 			}
 		}
+		
+		if( connectionServer != null ) {
+			connectionServer.closeRoom();
+		}
 	}
 
 	// -----------------------------------------------------------
+	
+	// NET Related
+	// -----------------------------------------------------------
+	
+	/**
+	 * Lanzamos vista de la sala de espera o la actualizamos
+	 */
+    public void refreshRoomView(ArrayList<PlayerInfo> players) {
+    	
+    	// Cambiamos la interfaz para mostrar los clientes conectados
+    	
+    	if( connectionServer != null ) {
+    		// Entonces somos el host
+    		serverConfigController.showWaitingRoom();
+     	} else {
+     		clientConfigController.showWaitingRoom();
+     	}
+    	
+    }
+    
+    /**
+     * Iniciamos el servidor
+     */
+    public void initServer() {
+    	
+    	connectionServer = new Server(this, null);
+    	new Thread(connectionServer).start();
+    }
+    
+    /**
+     * Iniciamos el cliente y conectamos con la
+     * ip
+     */
+    public void initClient(String ip) {
+    	
+    	if( connectionServer != null ) 
+    		connectionClient = new Client(this, userClient.getPlayerInfo());
+    	else 
+    		connectionClient = new Client(this, ip, userClient.getPlayerInfo());
+    	
+    	new Thread(connectionClient).start();
+    }
+    
+    // -----------------------------------------------------------
+    
 	public Game getCurrentGame() {
 		return currentGame;
 	}
@@ -346,6 +415,14 @@ public class LudopatApp extends Application {
 
 	public static void main(String[] args) {
 		launch(args);
+	}
+
+	public User getUserClient() {
+		return userClient;
+	}
+
+	public void setUserClient(User userClient) {
+		this.userClient = userClient;
 	}
 
 }

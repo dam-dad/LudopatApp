@@ -74,7 +74,6 @@ public class GameRules {
 		this.numPlayers = numPlayers;
 	}
 	
-	
 
 	/**
 	 * Iniciamos los ajustes para el juego seleccionado

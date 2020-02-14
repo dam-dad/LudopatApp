@@ -76,6 +76,8 @@ public class ServerConfigController implements Initializable {
 	// Variables
 	// --------------------------------------------------
 
+	private boolean inServer;
+	
 	private static final int ANCHOR_WIDTH = 800;
 
 	enum e_menuStages {
@@ -149,6 +151,35 @@ public class ServerConfigController implements Initializable {
 		currentPage.setValue(1);
 	}
 
+	public void showWaitingRoom() {
+	
+		
+		if( !inServer ) {
+			playerConfig.closeDialog(-1);
+			playerConfig.refresh();
+			playerConfig.closeDialog(-1);
+			playerConfig.refresh();
+			ludopp.getUserClient().setPlayerInfo(playerConfig.getPlayersInfo().get(0));
+			
+			key = new KeyValue(configPane.getDividers().get(2).positionProperty(), 0);
+			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+			timeline.play();
+	
+			key = new KeyValue(playerConfig.maxWidthProperty(), 0);
+			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+			timeline.play();
+	
+			key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
+			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+			timeline.play();
+		} else {
+			
+		}
+		
+		if( !inServer )
+			inServer = true;
+	}
+	
 	private void nextStage() {
 
 		switch (currentStage) {
@@ -195,27 +226,6 @@ public class ServerConfigController implements Initializable {
 			timeline.play();
 
 			continueButton.setText(INIT);
-
-			break;
-		case ST_CONFIG_PLAYERS:
-			playerConfig.closeDialog(-1);
-			playerConfig.refresh();
-
-			key = new KeyValue(configPane.getDividers().get(2).positionProperty(), 0);
-			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-			timeline.play();
-
-			key = new KeyValue(playerConfig.maxWidthProperty(), 0);
-			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-			timeline.play();
-
-			key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
-			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-			timeline.play();
-
-			// Ponemos los jugadores
-			ludopp.getGameRules().setPlayersInfo(playerConfig.getPlayersInfo());
-
 			break;
 		default:
 			break;
@@ -278,8 +288,16 @@ public class ServerConfigController implements Initializable {
 	@FXML
 	void onContinueAction(ActionEvent event) {
 
+		if( currentPage.getValue() == 3 ) {
+			// Entonces iniciamos el servidor
+			ludopp.getUserClient().setPlayerInfo(playerConfig.getPlayersInfo().get(0));
+			ludopp.initServer();
+			ludopp.initClient("");
+		}
+		
 		currentPage.setValue(currentPage.getValue() + 1);
 		nextStage();
+		
 		if (currentPage.getValue() == 4) {
 			continueButton.setDisable(true);
 			backButton.setDisable(true);

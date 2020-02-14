@@ -131,6 +131,23 @@ public class ClientConfigController implements Initializable {
 		currentPage.setValue(1);
 	}
 
+	public void showWaitingRoom() {
+		
+		playerSelection.refresh();
+
+		key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 0);
+		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+		timeline.play();
+
+		key = new KeyValue(ipConfig.maxWidthProperty(), 0);
+		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+		timeline.play();
+
+		key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
+		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+		timeline.play();
+	}
+	
 	@FXML
 	void onBackAction(ActionEvent event) {
 		currentPage.setValue(currentPage.getValue() - 1);
@@ -187,28 +204,10 @@ public class ClientConfigController implements Initializable {
 			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 			timeline.play();
 			backButton.setDisable(false);
-			// Ponemos los jugadores
-			// ludopp.getGameRules().setPlayersInfo(playerSelection.getPlayersInfo());
-
-			break;
-		case ST_CONFIG_IP:
-
-			playerSelection.refresh();
-
-			key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 0);
-			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-			timeline.play();
-
-			key = new KeyValue(ipConfig.maxWidthProperty(), 0);
-			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-			timeline.play();
-
-			key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
-			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-			timeline.play();
 			
-			break;
+			ludopp.getUserClient().setPlayerInfo(playerSelection.getPlayersInfo().get(0));
 
+			break;
 		default:
 			break;
 		}
