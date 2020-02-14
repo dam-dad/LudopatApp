@@ -103,6 +103,17 @@
 	-fx-effect: dropshadow(gaussian, #474747, 20.0, 0.5, 0.0, 0.0);
 }
 
+#jfxButton3{
+	-fx-background-color: #C70E0E;
+	-fx-text-fill: white;
+	-fx-font-size: 22pt;
+}
+
+#jfxButton3:hover{
+	-fx-background-color: #9D1414;
+	-fx-effect: dropshadow(gaussian, #474747, 20.0, 0.5, 0.0, 0.0);
+}
+
 #grid{
 	-fx-background-color: #2B2B2B;
 }
