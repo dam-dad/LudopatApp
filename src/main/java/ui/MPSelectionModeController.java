@@ -19,6 +19,9 @@ public class MPSelectionModeController {
     private JFXButton vsAIButton;
 
     @FXML
+    private JFXButton joinButton;
+    
+    @FXML
     private JFXButton onlineButton;
     
     LudopatApp ludopp;
@@ -41,8 +44,13 @@ public class MPSelectionModeController {
     }
 
     @FXML
+    void toJoinAction(ActionEvent event) {
+
+    }
+    
+    @FXML
     void toOnlineConfig(ActionEvent event) {
-    	System.out.println("online");
+    	ludopp.goServerConfig();
     }
 
     @FXML

@@ -19,6 +19,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -28,6 +29,7 @@ import ui.MPSelectionModeController;
 import ui.MainMenuController;
 import ui.MultiplayerController;
 import ui.SplashController;
+import uinet.ServerConfigController;
 
 /**
  * 
@@ -48,6 +50,7 @@ public class LudopatApp extends Application {
 	//---------------------------------------------------
 	
 	private MultiplayerController multiplayerController;
+	private ServerConfigController serverConfigController;
 	private MainMenuController mainMenuController;
 	private GameControllerDos gameControllerDos;
 	private GameControllerSolitaire solitaireController;
@@ -105,27 +108,24 @@ public class LudopatApp extends Application {
 		
 		Scene scene = new Scene(mpSelectionModeController.getView(), 800, 600);
 
-		FadeTransition fadeTransition = new FadeTransition();
-		fadeTransition.setFromValue(1);
-		fadeTransition.setToValue(0);
-		fadeTransition.setDuration(Duration.millis(375));
-		fadeTransition.setNode(mainMenuController.getView());
-		fadeTransition.setOnFinished(ae -> mainStage.setScene(scene));
-
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransition.play()));
-		timeline.play();
-
-		FadeTransition fadeTransitionOut = new FadeTransition();
-		fadeTransitionOut.setFromValue(1);
-		fadeTransitionOut.setToValue(0);
-		fadeTransitionOut.setDuration(Duration.millis(375));
-		fadeTransitionOut.setNode(mainMenuController.getView());
-
-		Timeline timelineOut = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransitionOut.play()));
-		timelineOut.play();
-		
-		alignScreenMenu();
+		fadeTransition(mainMenuController.getView(), scene);
 	}
+	
+	public void goServerConfig() {
+		
+		try {
+
+			gameRules = new GameRules();
+			serverConfigController = new ServerConfigController(this);
+			
+			Scene scene = new Scene(serverConfigController.getView(), 800, 600);
+			fadeTransition(mpSelectionModeController.getView(), scene);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void goAIMenu() {
 
@@ -135,31 +135,35 @@ public class LudopatApp extends Application {
 			multiplayerController = new MultiplayerController(this);
 			
 			Scene scene = new Scene(multiplayerController.getView(), 800, 600);
-
-			FadeTransition fadeTransition = new FadeTransition();
-			fadeTransition.setFromValue(1);
-			fadeTransition.setToValue(0);
-			fadeTransition.setDuration(Duration.millis(375));
-			fadeTransition.setNode(mpSelectionModeController.getView());
-			fadeTransition.setOnFinished(ae -> mainStage.setScene(scene));
-
-			Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransition.play()));
-			timeline.play();
-
-			FadeTransition fadeTransitionOut = new FadeTransition();
-			fadeTransitionOut.setFromValue(1);
-			fadeTransitionOut.setToValue(0);
-			fadeTransitionOut.setDuration(Duration.millis(375));
-			fadeTransitionOut.setNode(mpSelectionModeController.getView());
-
-			Timeline timelineOut = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransitionOut.play()));
-			timelineOut.play();
-			
-			alignScreenMenu();
+			fadeTransition(mpSelectionModeController.getView(), scene);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void fadeTransition(Node view, Scene scene) {
+		
+		FadeTransition fadeTransition = new FadeTransition();
+		fadeTransition.setFromValue(1);
+		fadeTransition.setToValue(0);
+		fadeTransition.setDuration(Duration.millis(375));
+		fadeTransition.setNode(view);
+		fadeTransition.setOnFinished(ae -> mainStage.setScene(scene));
+
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransition.play()));
+		timeline.play();
+
+		FadeTransition fadeTransitionOut = new FadeTransition();
+		fadeTransitionOut.setFromValue(1);
+		fadeTransitionOut.setToValue(0);
+		fadeTransitionOut.setDuration(Duration.millis(375));
+		fadeTransitionOut.setNode(view);
+
+		Timeline timelineOut = new Timeline(new KeyFrame(Duration.millis(1), ae -> fadeTransitionOut.play()));
+		timelineOut.play();
+		
+		alignScreenMenu();
 	}
 
 	public void initApp() {
