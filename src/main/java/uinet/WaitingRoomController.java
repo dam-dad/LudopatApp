@@ -1,6 +1,8 @@
 package uinet;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import main.LudopatApp;
+import util.ipSearch;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -94,6 +97,9 @@ public class WaitingRoomController extends AnchorPane implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		String systemipaddress= ipSearch.ip();
+		
+        ipLabel.setText(systemipaddress);
 
 		usersImage.addAll( Arrays.asList(player1Image, player2Image, player3Image, player4Image));
 		usersName.addAll( Arrays.asList(player1Name, player2Name, player3Name, player4Name));
