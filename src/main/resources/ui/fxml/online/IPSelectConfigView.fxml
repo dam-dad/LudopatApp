@@ -16,7 +16,7 @@
                   <Label id="labelOne" text="Introduce la IP del servidor:" />
                   <HBox alignment="CENTER_LEFT" spacing="20.0">
                      <children>
-                        <JFXTextField id="labelTwo" focusColor="#c70e0e" maxWidth="1.7976931348623157E308" unFocusColor="WHITE" HBox.hgrow="ALWAYS" />
+                        <JFXTextField id="labelTwo" fx:id="ipText" focusColor="#c70e0e" maxWidth="1.7976931348623157E308" unFocusColor="WHITE" HBox.hgrow="ALWAYS" />
                      </children>
                   </HBox>
                </children>
