@@ -218,7 +218,7 @@
                   </HBox>
                </children>
             </VBox>
-            <JFXButton id="chatButton" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openChat" prefHeight="30.0" prefWidth="175.0" ripplerFill="#c70e0e" text="CHAT" textAlignment="CENTER" StackPane.alignment="BOTTOM_CENTER" />
+            <JFXButton id="chatButton" fx:id="chatButton" alignment="CENTER" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#openChat" prefHeight="30.0" prefWidth="175.0" ripplerFill="#c70e0e" text="CHAT" textAlignment="CENTER" StackPane.alignment="BOTTOM_CENTER" />
          </children>
       </StackPane>
       <VBox id="table" fx:id="table" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="1000.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">

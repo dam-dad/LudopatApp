@@ -40,107 +40,131 @@ public class GameControllerDosNET implements Initializable {
 	// FXML : View
 	// ----------------------------------------------------------
 
-	@FXML
-	private GridPane view;
+    @FXML
+    private GridPane view;
 
-	@FXML
-	private Label appNameLabel;
+    @FXML
+    private Label appNameLabel;
 
-	@FXML
-	private HBox header;
+    @FXML
+    private HBox header;
 
-	@FXML
-	private Label gameNameLabel;
+    @FXML
+    private Label gameNameLabel;
 
-	@FXML
-	private HBox actualColor;
+    @FXML
+    private ImageView helpImage;
 
-	@FXML
-	private ImageView color;
+    @FXML
+    private HBox actualColor;
 
-	@FXML
-	private HBox actualNumber;
+    @FXML
+    private ImageView color;
 
-	@FXML
-	private Label numberLabel;
+    @FXML
+    private HBox actualNumber;
 
-	@FXML
-	private JFXButton exitButton;
+    @FXML
+    private Label numberLabel;
 
-	@FXML
-	private VBox players;
+    @FXML
+    private JFXButton exitButton;
 
-	@FXML
-	private HBox player1;
+    @FXML
+    private JFXButton closeButton;
 
-	@FXML
-	private ImageView player1Image;
+    @FXML
+    private JFXButton fullScreenButton;
 
-	@FXML
-	private Label player1Name, player1Cards;
+    @FXML
+    private StackPane chatStack;
 
-	@FXML
-	private HBox player2;
+    @FXML
+    private JFXButton chatButton;
 
-	@FXML
-	private ImageView player2Image;
+    @FXML
+    private VBox players;
 
-	@FXML
-	private Label player2Name, player2Cards;
+    @FXML
+    private HBox player1;
 
-	@FXML
-	private HBox player3;
+    @FXML
+    private ImageView player1Image;
 
-	@FXML
-	private ImageView player3Image;
+    @FXML
+    private ImageView player1Crown;
 
-	@FXML
-	private Label player3Name, player3Cards;
+    @FXML
+    private Label player1Name;
 
-	@FXML
-	private HBox player4;
+    @FXML
+    private Label player1Cards;
 
-	@FXML
-	private ImageView player4Image;
+    @FXML
+    private HBox player2;
 
-	@FXML
-	private Label player4Name, player4Cards;
+    @FXML
+    private ImageView player2Image;
 
-	@FXML
-	private VBox table;
+    @FXML
+    private ImageView player2Crown;
 
-	@FXML
-	private ImageView currentCard;
+    @FXML
+    private Label player2Name;
 
-	@FXML
-	private ImageView currentCard1;
+    @FXML
+    private Label player2Cards;
 
-	@FXML
-	private JFXButton nextButton;
+    @FXML
+    private HBox player3;
 
-	@FXML
-	private JFXButton drawButton;
+    @FXML
+    private ImageView player3Image;
 
-	@FXML
-	private GridPane handGrid;
+    @FXML
+    private ImageView player3Crown;
 
-	@FXML
-	private StackPane stack;
+    @FXML
+    private Label player3Name;
 
-	@FXML
-	private ImageView player1Crown;
+    @FXML
+    private Label player3Cards;
 
-	@FXML
-	private ImageView player2Crown;
+    @FXML
+    private HBox player4;
 
-	@FXML
-	private ImageView player3Crown;
+    @FXML
+    private ImageView player4Image;
 
-	@FXML
-	private ImageView player4Crown;
+    @FXML
+    private ImageView player4Crown;
 
-	@FXML
-	private ImageView helpImage;
+    @FXML
+    private Label player4Name;
+
+    @FXML
+    private Label player4Cards;
+
+    @FXML
+    private VBox table;
+
+    @FXML
+    private StackPane stack;
+
+    @FXML
+    private ImageView currentCard;
+
+    @FXML
+    private ImageView deckCard;
+
+    @FXML
+    private JFXButton nextButton;
+
+    @FXML
+    private JFXButton drawButton;
+
+    @FXML
+    private GridPane handGrid;
 
 	// ----------------------------------------------------------
 	// Variables used by controller
@@ -166,7 +190,7 @@ public class GameControllerDosNET implements Initializable {
 		this.dosGame = (Dos) ludopp.getCurrentGame();
 		setGameType(gameType);
 		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/DosGameView.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/online/OnlineDosGameView.fxml"));
 		loader.setController(this);
 		try {
 			loader.load();
@@ -500,6 +524,11 @@ public class GameControllerDosNET implements Initializable {
 
 		dialog.show();
 	}
+	
+    @FXML
+    void openChat(ActionEvent event) {
+    	System.out.println("Chat abierto");
+    }
 
 	public GridPane getView() {
 		return view;
