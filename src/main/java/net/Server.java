@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import games.GameRules;
 import games.PlayerInfo;
+import javafx.application.Platform;
 import main.LudopatApp;
 import net.objects.NET_GameRules;
 import net.objects.NET_PlayerInfo;
@@ -26,19 +27,17 @@ public class Server implements Runnable {
 
 	public final static int PORT = 5555;
 	
-	private ArrayList<ServerClient> clients;
+	private ArrayList<ServerClient> clients = new ArrayList<ServerClient>();
 	private ArrayList<PlayerInfo> currentPlayers = new ArrayList<PlayerInfo>();
 	private String serverIP;
-	
 	private GameRules serverGameRules;
-	
 	private ServerSocket svSocket;
-	
 	private int clientID;
-	
 	private boolean exit;
+	private final int countdownTimer = 3000; // 3 segundos antes de empezar la partuda
 	
 	private LudopatApp app;
+	
 	
 	public Server(LudopatApp app, String serverIP) {
 		this.app = app;
@@ -47,17 +46,39 @@ public class Server implements Runnable {
 	}
 	
 	/**
-	 * Cierre del servidor para no permitir más conexiones
+	 * Desconectamos a los clientes del servidor.
+	 * Este método es llamado cuando se cierra
+	 * el servidor por el host o se produce un
+	 * error
 	 */
-	public void closeRoom() {
+	public void disconnectClients() {
+		
+		for( ServerClient c : clients ) {
+			c.disconnectClient();
+		}
+	}
+	
+	/**
+	 * Cierre del servidor para no permitir más conexiones.
+	 * @param bForce True cuando se ha producido un error
+	 */
+	public void closeRoom(boolean bForce) {
+		
 		this.exit = true;
 		
 		if( !svSocket.isClosed() ) {
 			
 			try {
+				
 				svSocket.close();
+				
 			} catch (IOException e) {
+				e.printStackTrace();
 			}
+		}
+		
+		if( bForce ) {
+			disconnectClients();
 		}
 	}
 	
@@ -70,7 +91,6 @@ public class Server implements Runnable {
 		// Arrancamos el servidor
 		svSocket = null;
 		InetSocketAddress addr = new InetSocketAddress(PORT);
-		clients = new ArrayList<>();
 	    clientID = 0; // Nos indica además el orden de este cliente
 		
 		try {
@@ -79,32 +99,46 @@ public class Server implements Runnable {
 			svSocket.bind(addr);
 			
 			while( !exit ) {
-				
+					
 				// Esperamos a que alguien se conecte
 				Socket clientSocket = svSocket.accept();
+
+				// Por si se queda arriba esperando....
+				if( exit ) {
+					break;
+				}
 				
 				// Creamos el enlace con este usuario
 				ServerClient client = new ServerClient(clientSocket, this, app);
-				clients.add(client);
-				client.setUserID(clientID++);
-				
 				// Empezamos a escuchar a este cliente
+				client.setUserID(clientID++);
+				clients.add(client);
+				
+
 				new Thread(client).start();
 			}
 			
 		} catch (Exception e) {
+			
+			// Entonces se ha producido un error
+			if( !exit ) {
+				disconnectClients();
+			}
+			
 		} finally {
 			
 			if( svSocket != null && !svSocket.isClosed() ) {
 				try {
 					svSocket.close();
+					
 				} catch (IOException e1) {
 				}
 			}
 		}
+		
 	}
 	
-	// Interacción con el cliente
+	// Interacción con los clientes
 	//---------------------------------------------------------------
 	
 	/**
@@ -116,61 +150,67 @@ public class Server implements Runnable {
 		// Añadimos la información de este jugador al servidor
 		currentPlayers.add(client.getPlayerInfo());
 		
-		for (ServerClient c : clients) {
-
-			// Refrescamos los datos de los clientes, volvemos a enviar la informacion
-			// a todos para que puedan refrescar la interfaz.
-			
-			ArrayList<NET_PlayerInfo> netPlayers = new ArrayList<NET_PlayerInfo>();
-			currentPlayers.stream().forEach(p -> {
-					netPlayers.add(new NET_PlayerInfo(p.getPlayerName(), p.getUrlResourceImage(), p.getUserID()));
-			});
-			
-			NET_GameRules rules = new NET_GameRules(netPlayers, serverIP);
+		NET_GameRules rules = getRoomInfo();
+		
+		for( ServerClient c : clients ) {
 			c.send_clientsInfo(rules);
 		}
 		
 		// Cuando lleguemos al máximo de jugadores
 		if( currentPlayers.size() == serverGameRules.getNumPlayers() ) {
-			System.out.println("Sala llena");
-		//	closeRoom();
+			closeRoom(false);
 			
-			/*
-			Platform.runLater(new Runnable() {
-				@Override
-				public void run() {
-					app.room_startGame(currentPlayers, clients);		
-				}
-			});
-			*/
-			
-		}
-	}
-	
-	public synchronized void clientDisconnected(ServerClient client) {
-		
-		// Eliminamos el cliente de la lista
-		clients.remove(client);
-
-		currentPlayers.remove(client.getPlayerInfo());
-		
-		clientID--;
-		
-		// Verificamos que hay clientes
-		if( clients.size() <= 0 ) {
-			// ADD : Tenemos que cerrar las conexiones con los clientes
-			// para avisar de que se ha cerrado la sala
-			closeRoom(); // Cerramos la sala
-			
-		} else {
-			
-			// Informamos al resto de clientes
-			for( ServerClient c : clients ) {
-				c.send_clientDisconnect(client.getUserID());
+			try {
+				
+				Thread.sleep(countdownTimer);
+				
+				// Empezamos el servidor de juego
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						app.server_initGame(currentPlayers, clients);		
+					}
+				});
+				
+			} catch (InterruptedException e) {
 			}
 		}
 	}
 	
+	/**
+	 * Desconexión de un cliente
+	 * @param client Cliente que se ha desconectado
+	 */
+	public synchronized void clientDisconnected(ServerClient client) {
+		
+		// Eliminamos el cliente de la lista
+		clients.remove(client);
+		currentPlayers.remove(client.getPlayerInfo());
+		clientID--;
+
+		// Refrescamos la información, se la enviamos a todos los clientes
+		NET_GameRules rules = getRoomInfo();
+		
+		for( ServerClient c : clients ) {
+			c.send_clientsInfo(rules);
+		}
+		
+	}
+
 	//---------------------------------------------------------------
+	
+	/**
+	 * Información de la sala
+	 * @return Información de la sala de espera del servidor
+	 */
+	private NET_GameRules getRoomInfo() {
+
+		ArrayList<NET_PlayerInfo> netPlayers = new ArrayList<NET_PlayerInfo>();
+		currentPlayers.stream().forEach(p -> {
+			netPlayers.add(new NET_PlayerInfo(p.getPlayerName(), p.getAvatarIndex(), p.getUserID()));
+		});
+
+		return new NET_GameRules(netPlayers, serverIP);
+	}
 
 }

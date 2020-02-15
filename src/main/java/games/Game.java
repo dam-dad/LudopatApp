@@ -2,6 +2,8 @@ package games;
 
 import java.util.ArrayList;
 
+import net.Client;
+
 /**
  * <b>Juego</b>
  * <br><br>
@@ -42,11 +44,33 @@ public abstract class Game {
 	 */
 	protected ArrayList<Card> cartasMesa = new ArrayList<Card>();
 	
+	/**
+	 * Constructor por defecto
+	 */
+	public Game() {}
+	
+	/**
+	 * Constructor del juego principal
+	 * @param deck Mazo sobre la mesa
+	 * @param gameRules Reglas de juego
+	 * @param currentPlayers Jugadores en el juego
+	 */
 	public Game(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
 		this.deck = deck;
 		this.gameRules = gameRules;
 		this.currentPlayers = currentPlayers;
 	}
+	
+	/**
+	 * Constructor del juego para el cliente 
+	 * @param currentPlayers Jugadores en el juego
+	 * @param tableCard Carta sobre la mesa
+	 * @param currentPlayerID Actual turno del jugador
+	 * @param localPlayerID Juegador local, esto es, de esta máquina
+	 * @param clientThread Hilo de procesamiento del cliente
+	 */
+	public Game(ArrayList<Player> currentPlayers, Card tableCard, int currentPlayerID, int localPlayerID, Client clientThread) 
+	{}
 
 	/**
 	 * Se inicia el juego, se cargan los 

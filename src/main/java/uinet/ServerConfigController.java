@@ -2,12 +2,16 @@ package uinet;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import org.dom4j.DocumentException;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+
+import games.PlayerInfo;
+
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 
 import help.HelpViewContoller;
@@ -151,15 +155,9 @@ public class ServerConfigController implements Initializable {
 		currentPage.setValue(1);
 	}
 
-	public void showWaitingRoom() {
+	public void showWaitingRoom(ArrayList<PlayerInfo> players) {
 	
-		
 		if( !inServer ) {
-			playerConfig.closeDialog(-1);
-			playerConfig.refresh();
-			playerConfig.closeDialog(-1);
-			playerConfig.refresh();
-			ludopp.getUserClient().setPlayerInfo(playerConfig.getPlayersInfo().get(0));
 			
 			key = new KeyValue(configPane.getDividers().get(2).positionProperty(), 0);
 			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
@@ -172,12 +170,11 @@ public class ServerConfigController implements Initializable {
 			key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
 			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
 			timeline.play();
-		} else {
-			
-		}
-		
-		if( !inServer )
 			inServer = true;
+		}
+			
+		waitingRoom.refresh(players);
+			
 	}
 	
 	private void nextStage() {
@@ -289,22 +286,23 @@ public class ServerConfigController implements Initializable {
 	void onContinueAction(ActionEvent event) {
 
 		if( currentPage.getValue() == 3 ) {
-			// Entonces iniciamos el servidor
+			
+			// Entonces iniciamos el servidor y nuestro cliente
+			playerConfig.closeDialog(-1);
+			playerConfig.refresh();
 			ludopp.getUserClient().setPlayerInfo(playerConfig.getPlayersInfo().get(0));
 			ludopp.initServer();
 			ludopp.initClient("");
-		}
-		
-		currentPage.setValue(currentPage.getValue() + 1);
-		nextStage();
-		
-		if (currentPage.getValue() == 4) {
 			continueButton.setDisable(true);
 			backButton.setDisable(true);
 			continueButton.setId("disable");
 			backButton.setId("disable");
-		} else {
-			backButton.setDisable(false);
+		}
+		
+		else {
+			currentPage.setValue(currentPage.getValue() + 1);
+			nextStage();
+			backButton.setDisable(false);	
 		}
 	}
 

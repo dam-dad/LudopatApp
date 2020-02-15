@@ -2,10 +2,14 @@ package uinet;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
+
+import games.PlayerInfo;
+
 import com.jfoenix.controls.JFXDialog.DialogTransition;
 
 import help.HelpViewContoller;
@@ -83,7 +87,8 @@ public class ClientConfigController implements Initializable {
 	// utilidades
 	private KeyValue key;
 	private Timeline timeline;
-
+	private boolean inServer;
+	
 	// variables
 	private IntegerProperty currentPage = new SimpleIntegerProperty();
 
@@ -106,6 +111,7 @@ public class ClientConfigController implements Initializable {
 
 		// inicializar controladores
 		playerSelection = new PlayerSelectionController(ludopp);
+		playerSelection.setNetworkClient(true); // Somos usuarios online
 		ipConfig = new IpConfigController(ludopp);
 		waitingRoom = new WaitingRoomController(ludopp);
 
@@ -131,21 +137,27 @@ public class ClientConfigController implements Initializable {
 		currentPage.setValue(1);
 	}
 
-	public void showWaitingRoom() {
+	public void showWaitingRoom(ArrayList<PlayerInfo> players, String serverIP) {
+
+		if( !inServer ) {
+			
+			key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 0);
+			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+			timeline.play();
+	
+			key = new KeyValue(ipConfig.maxWidthProperty(), 0);
+			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+			timeline.play();
+	
+			key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
+			timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
+			timeline.play();
+			
+			waitingRoom.setWaitingRoomIP(serverIP); // Ponemos la IP del servidor
+			inServer = true;
+		}
 		
-		playerSelection.refresh();
-
-		key = new KeyValue(configPane.getDividers().get(1).positionProperty(), 0);
-		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-		timeline.play();
-
-		key = new KeyValue(ipConfig.maxWidthProperty(), 0);
-		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-		timeline.play();
-
-		key = new KeyValue(waitingRoom.maxWidthProperty(), ANCHOR_WIDTH);
-		timeline = new Timeline(new KeyFrame(Duration.millis(TRANSITION_TIME), key));
-		timeline.play();
+		waitingRoom.refresh(players);
 	}
 	
 	@FXML
@@ -175,14 +187,26 @@ public class ClientConfigController implements Initializable {
 
 	@FXML
 	void onContinueAction(ActionEvent event) {
-		currentPage.setValue(currentPage.getValue() + 1);
-		nextStage();
-		if (currentPage.getValue() == 3) {
+		
+		if( currentPage.getValue() == 2 ) {
+			
+			// Entonces conectamos con el cliente
+			playerSelection.closeDialog(-1);
+			playerSelection.refresh();
+			ludopp.getUserClient().setPlayerInfo(playerSelection.getPlayersInfo().get(0));
+			ludopp.initClient(ipConfig.getIp());
 			continueButton.setDisable(true);
 			backButton.setDisable(true);
 			continueButton.setId("disable");
 			backButton.setId("disable");
 		}
+		
+		else {
+			
+			currentPage.setValue(currentPage.getValue() + 1);
+			nextStage();
+		}
+		
 	}
 
 	private void nextStage() {

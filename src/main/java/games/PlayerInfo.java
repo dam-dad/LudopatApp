@@ -22,6 +22,21 @@ import net.objects.NET_PlayerInfo;
  */
 public class PlayerInfo {
 
+	String[][] avatarsReferences = {
+			{ getClass().getResource("/ui/images/avatar_carpenter.png").toString(), "Carpintero" },
+			{ getClass().getResource("/ui/images/avatar_doctor.png").toString(), "Doctor" },
+			{ getClass().getResource("/ui/images/avatar_lawyer.png").toString(), "Abogado" },
+			{ getClass().getResource("/ui/images/avatar_programmer.png").toString(), "Hacker" },
+			{ getClass().getResource("/ui/images/avatar_dab.png").toString(), "Dab niño" },
+			{ getClass().getResource("/ui/images/avatar_potat.png").toString(), "Potat" },
+			{ getClass().getResource("/ui/images/avatar_travolta.png").toString(), "Travolta" },
+			{ getClass().getResource("/ui/images/avatar_davIA.png").toString(), "Dav_IA.sad" },
+			{ getClass().getResource("/ui/images/userNull.png").toString(), "" },
+			{ getClass().getResource("/ui/images/avatar_not_davIA.png").toString(), "Not_Dav_IA" },
+			{ getClass().getResource("/ui/images/avatar_francoisIA.png").toString(), "François_IA" },
+			{ getClass().getResource("/ui/images/avatar_pirateIA.png").toString(), "Pirate_IA" }
+	};
+	
 	/**
 	 * Icono del jugador
 	 */
@@ -43,6 +58,11 @@ public class PlayerInfo {
 	 */
 	private int userID;
 	
+	/**
+	 * Índice del avatar
+	 */
+	private int avatarIndex;
+	
 	public PlayerInfo() {}
 	
 	/**
@@ -51,8 +71,8 @@ public class PlayerInfo {
 	 */
 	public PlayerInfo(NET_PlayerInfo netPlayer) {
 		setPlayerName(netPlayer.getPlayerName());
-		setUrlResourceImage(netPlayer.getUrlImage());
-		setPlayerIcon(new Image(getClass().getResource(netPlayer.getUrlImage()).toString()));
+		setAvatarIndex(netPlayer.getAvatarIndex());
+		setPlayerIcon(new Image(avatarsReferences[netPlayer.getAvatarIndex()][0]));
 		setUserID(netPlayer.getUserID());
 	}
 	
@@ -94,5 +114,13 @@ public class PlayerInfo {
 
 	public void setUserID(int userID) {
 		this.userID = userID;
+	}
+
+	public int getAvatarIndex() {
+		return avatarIndex;
+	}
+
+	public void setAvatarIndex(int avatarIndex) {
+		this.avatarIndex = avatarIndex;
 	}
 }

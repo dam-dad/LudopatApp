@@ -7,6 +7,7 @@ import org.dom4j.DocumentException;
 import engine.XMLGameParser;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import net.objects.NET_GameRules;
 
 /**
  * <b>Reglas del juego</b>

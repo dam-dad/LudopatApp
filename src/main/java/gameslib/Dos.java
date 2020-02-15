@@ -11,6 +11,7 @@ import games.Deck;
 import games.Game;
 import games.GameRules;
 import games.Player;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,6 +20,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.image.Image;
 import main.LudopatApp;
+import net.Client;
+import net.GameServer;
 
 /**
  * @author David Fernández Nieves
@@ -55,11 +58,72 @@ public class Dos extends Game {
 	private StringProperty currentColor = new SimpleStringProperty();
 	private ObjectProperty<Card> lastCard = new SimpleObjectProperty<Card>();
 	
-
+	// NET
+	private LudopatApp app;
+	private Player localPlayer;
+	private GameServer gameServer;
+	private Client clientThread;
+	private GameControllerDosNET NETHud;
+	
+	/**
+	 * Constructor del juego principal
+	 * @param deck Mazo sobre la mesa
+	 * @param gameRules Reglas de juego
+	 * @param currentPlayers Jugadores en el juego
+	 */
 	public Dos(Deck deck, GameRules gameRules, ArrayList<Player> currentPlayers) {
 		super(deck, gameRules, currentPlayers);
 	}
-
+	
+	// NET Related
+	// -----------------------------------------------------
+	
+	/**
+	 * Constructor del juego para el cliente 
+	 * @param currentPlayers Jugadores en el juego
+	 * @param tableCard Carta sobre la mesa
+	 * @param currentPlayerID Actual turno del jugador
+	 * @param localPlayerID Juegador local, esto es, de esta máquina
+	 * @param clientThread Hilo de procesamiento del cliente de esta máquina
+	 */
+	public Dos(ArrayList<Player> currentPlayers, Card tableCard, int currentPlayerID, int localPlayerID, Client clientThread)
+	{
+		setCurrentPlayers(currentPlayers);
+		setLastCard(tableCard);
+		setClientThread(clientThread);
+		setLocalPlayer(currentPlayers.stream().filter( p -> p.getPlayerInfo().getUserID() == localPlayerID ).findFirst().get());
+		
+		// Si no ha salido una carta especial, cambiamos valor y color
+		if( tableCard.getCardValue() < SPECIAL_CARDS ) {
+			setCurrentColor(tableCard.getSuit().getName());
+			setCurrentValue(tableCard.getCardValue());
+		}
+		
+		// Vemos a que jugador le toca jugar
+		for( Player p : currentPlayers ) {
+			if( p.getPlayerInfo().getUserID() == currentPlayerID ) {
+				setActivePlayer(p);
+				break;
+			}
+		}
+	}
+	
+	public void initGameServer(LudopatApp app) {
+		this.app = app;
+		
+		gameServer = app.getGameServer();
+		
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				gameServer.sendInitialInfo(getCurrentPlayers(), lastCard.get(), activePlayer.get().getId(), app.getGameRules().getGameType() );
+				
+			}
+		});
+	}
+	
+	// -----------------------------------------------------
+	
 	// Métodos genéricos
 	// -----------------------------------------------------
 
@@ -236,7 +300,7 @@ public class Dos extends Game {
 	@Override
 	public void dealCards() {
 		//TODO 1 para pruebas, 7 para partida
-		int numCartas = 1;
+		int numCartas = 7;
 		
 		for (Player p : currentPlayers) {
 
@@ -353,76 +417,87 @@ public class Dos extends Game {
 		// Cargamos las cartas especiales
 		ArrayList<Card> deckCards = deck.getCards();
 
+		String urlImage = "/ui/images/dos/special/dos_special_changeblue.png";
 		for (int i = 0; i < 2; i++) {
 
 			Card card = new Card();
 			card.setCardValue(Dos.SPECIAL_CHANGE_BLUE);
 			card.setCardImage(
-					new Image(class1.getResource("/ui/images/dos/special/dos_special_changeblue.png").toString()));
+					new Image(class1.getResource(urlImage).toString()));
 
+			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		urlImage = "/ui/images/dos/special/dos_special_changegreen.png";
 		for (int i = 0; i < 2; i++) {
 
 			Card card = new Card();
 			card.setCardValue(Dos.SPECIAL_CHANGE_GREEN);
 			card.setCardImage(
-					new Image(class1.getResource("/ui/images/dos/special/dos_special_changegreen.png").toString()));
+					new Image(class1.getResource(urlImage).toString()));
 
+			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		urlImage = "/ui/images/dos/special/dos_special_changewhite.png";
 		for (int i = 0; i < 2; i++) {
 
 			Card card = new Card();
 			card.setCardValue(Dos.SPECIAL_CHANGE_WHITE);
 			card.setCardImage(
-					new Image(class1.getResource("/ui/images/dos/special/dos_special_changewhite.png").toString()));
+					new Image(class1.getResource(urlImage).toString()));
 
+			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		urlImage = "/ui/images/dos/special/dos_special_changeyellow.png";
 		for (int i = 0; i < 2; i++) {
 
 			Card card = new Card();
 			card.setCardValue(Dos.SPECIAL_CHANGE_YELLOW);
 			card.setCardImage(new Image(
-					class1.getResource("/ui/images/dos/special/dos_special_changeyellow.png").toString()));
+					class1.getResource(urlImage).toString()));
 
+			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		urlImage = "/ui/images/dos/special/dos_special_block.png";
 		for (int i = 0; i < 2; i++) {
 
 			Card card = new Card();
 			card.setCardValue(Dos.SPECIAL_BLOCK);
 			card.setCardImage(
-					new Image(class1.getResource("/ui/images/dos/special/dos_special_block.png").toString()));
+					new Image(class1.getResource(urlImage).toString()));
 
+			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		urlImage = "/ui/images/dos/special/dos_special_inverse.png";
 		for (int i = 0; i < 2; i++) {
 
 			Card card = new Card();
 			card.setCardValue(Dos.SPECIAL_INVERSE);
 			card.setCardImage(
-					new Image(class1.getResource("/ui/images/dos/special/dos_special_inverse.png").toString()));
+					new Image(class1.getResource(urlImage).toString()));
 
+			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		urlImage = "/ui/images/dos/special/dos_special_plusone.png";
 		for (int i = 0; i < 2; i++) {
 
 			Card card = new Card();
 			card.setCardValue(Dos.SPECIAL_PLUSONE);
 			card.setCardImage(
-					new Image(class1.getResource("/ui/images/dos/special/dos_special_plusone.png").toString()));
+					new Image(class1.getResource(urlImage).toString()));
 
-			deckCards.stream().forEach(node -> {
-
-			});
+			card.getCardMap().put(card.getCardValue(), urlImage);
 			
 			deckCards.add(card);
 		}
@@ -435,6 +510,30 @@ public class Dos extends Game {
 	@Override
 	public void refreshHand() {
 		controller.refreshIAHand();
+	}
+
+	public Player getLocalPlayer() {
+		return localPlayer;
+	}
+
+	public void setLocalPlayer(Player localPlayer) {
+		this.localPlayer = localPlayer;
+	}
+
+	public Client getClientThread() {
+		return clientThread;
+	}
+
+	public void setClientThread(Client clientThread) {
+		this.clientThread = clientThread;
+	}
+
+	public GameControllerDosNET getNETHud() {
+		return NETHud;
+	}
+
+	public void setNETHud(GameControllerDosNET nETHud) {
+		NETHud = nETHud;
 	}
 	
 	

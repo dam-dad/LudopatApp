@@ -7,6 +7,8 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import net.objects.NET_Card;
+import net.objects.NET_Player;
 
 /**
  * 
@@ -54,6 +56,16 @@ public class Player {
 	private int id;
 	
 	public Player() {}
+	
+	public Player(NET_Player nPlayer) {
+		
+		for( NET_Card card : nPlayer.getHand() ) {
+			hand.add(new Card(card));
+		}
+		
+		setId(nPlayer.getId());
+		setPlayerInfo(new PlayerInfo(nPlayer.getPlayerInfo()));
+	}
 	
 	public ArrayList<Card> getHand() {
 		return hand;

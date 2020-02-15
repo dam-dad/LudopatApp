@@ -107,6 +107,15 @@ public class WaitingRoomController extends AnchorPane implements Initializable {
 	}
 	
 	/**
+	 * IP del servidor de la sala de espera
+	 * Normalmente este método es llamado 
+	 * una vez por el cliente 
+	 */
+	public void setWaitingRoomIP(String ip) {
+		ipLabel.setText(ip);
+	}
+	
+	/**
 	 * Refrescamos la interfaz con los jugadores presentes
 	 * @param players
 	 */

@@ -2,6 +2,9 @@ package net.objects;
 
 import java.io.Serializable;
 
+import games.Card;
+import games.Suit;
+
 
 public class NET_Card implements Serializable {
 
@@ -13,28 +16,27 @@ public class NET_Card implements Serializable {
 	private int cardValue;
 	
 	/**
-	 * URL de la imagen de la cartas
-	 */
-	private String urlImage;
-	
-	/**
 	 * Palo o color de la carta
 	 */
 	private Suit suit;
 	
+	/**
+	 * Localización de la imagen en la carpeta de recursos
+	 */
+	private String urlResourceImage;
+	
 	public NET_Card() {}
 	
 	
-	public NET_Card(int cardValue, String urlImage, Suit suit) {
+	public NET_Card(int cardValue, Suit suit) {
 		this.cardValue = cardValue;
 		this.suit = suit;
-		this.urlImage = urlImage;
 	}
 	
 	public NET_Card(Card card) {
+		setUrlResourceImage(card.getCardMap().get(card.getCardValue()));
 		setCardValue(card.getCardValue());
 		setSuit(card.getSuit());
-		setUrlImage(card.getUrlResourceImage());
 	}
 	
 	public int getCardValue() {
@@ -45,8 +47,6 @@ public class NET_Card implements Serializable {
 		this.cardValue = cardValue;
 	}
 
-	
-
 	public Suit getSuit() {
 		return suit;
 	}
@@ -56,12 +56,12 @@ public class NET_Card implements Serializable {
 	}
 
 
-	public String getUrlImage() {
-		return urlImage;
+	public String getUrlResourceImage() {
+		return urlResourceImage;
 	}
 
 
-	public void setUrlImage(String urlImage) {
-		this.urlImage = urlImage;
+	public void setUrlResourceImage(String urlResourceImage) {
+		this.urlResourceImage = urlResourceImage;
 	}
 }

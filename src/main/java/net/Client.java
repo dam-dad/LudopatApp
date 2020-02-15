@@ -8,14 +8,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import games.Card;
-import games.Game;
-import games.GameRules;
 import games.Player;
 import games.PlayerInfo;
-import gameslib.Dos;
 import javafx.application.Platform;
 import main.LudopatApp;
 import net.objects.NET_GameRules;
+import net.objects.NET_Player;
 import net.objects.NET_PlayerInfo;
 
 public class Client implements Runnable {
@@ -25,7 +23,7 @@ public class Client implements Runnable {
 	private PlayerInfo clientInfo;
 	private int clientID;
 	private Socket socket;
-	
+	private boolean exit;
 	private ObjectInputStream dataIn;
 	private ObjectOutputStream dataOut;
 	
@@ -51,6 +49,29 @@ public class Client implements Runnable {
 		this.ip = ip;
 	}
 	
+	/**
+	 * Desconexión de este cliente con el servidor
+	 */
+	public void disconnectClient() {
+		exit = true;
+		
+		if( socket != null && !socket.isClosed() ) {
+			
+			try {
+				
+				// Notificamos al servidor de que nos desconectamos
+				dataOut.writeObject(new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
+				
+			} catch (IOException e1) {
+			}
+			
+			try {
+				socket.close();
+			} catch (IOException e) {
+			}
+		}
+	}
+	
 	@Override
 	public void run() {
 		
@@ -68,14 +89,16 @@ public class Client implements Runnable {
 			
 			socket.connect(addr);
 		   
-		    dataIn = new ObjectInputStream(socket.getInputStream());
 		    dataOut = new ObjectOutputStream(socket.getOutputStream());
 		    
 		    NET_PlayerInfo netInfo = new NET_PlayerInfo(clientInfo);
 		    InfoPackage infoPkg = new InfoPackage(InfoPackage.CLIENT_CONNECT, netInfo);
 		    dataOut.writeObject(infoPkg);	    
 		    
-		    while( true ) {
+		    dataIn = new ObjectInputStream(socket.getInputStream());
+		    
+		    while( !exit ) {
+		    	
 		    	
 		    	InfoPackage inPkg = (InfoPackage)dataIn.readObject();
 		    	
@@ -88,28 +111,60 @@ public class Client implements Runnable {
 						@Override
 						public void run() {
 							
-							@SuppressWarnings("unchecked")
-							ArrayList<NET_PlayerInfo> netPlayers = (ArrayList<NET_PlayerInfo>)inPkg.getInfoObject();
+							NET_GameRules rules = (NET_GameRules)inPkg.getInfoObject();
+							ArrayList<NET_PlayerInfo> netPlayers = rules.getPlayersInfo();
 							ArrayList<PlayerInfo> players = new ArrayList<PlayerInfo>();
 							for( NET_PlayerInfo np : netPlayers ) {
 								players.add(new PlayerInfo(np));
 							}
 						
-							app.refreshRoomView(players);	
+							app.refreshRoomView(players, rules.getIp());	
+						}
+					});
+		    	} 
+		    	
+		    	else if( inPkg.getInfoByte() == InfoPackage.CLIENT_INITIALINFO ) {
+		    		
+		    		setClientID(inPkg.getUserID());
+		    		
+		    		Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							
+							// Entonces podemos empezar con el juego
+							InitialInfoPackage iPkg = (InitialInfoPackage)inPkg.getInfoObject();
+							
+							ArrayList<Player> players = new ArrayList<Player>();
+							for( NET_Player p : iPkg.getPlayers() ) {
+								players.add(new Player(p));
+							}
+							
+							app.client_startGame(players,
+												new Card(iPkg.getCardInTable()),
+												iPkg.getActivePlayer(), 
+												inPkg.getUserID(),
+												iPkg.getGameType());
 						}
 					});
 		    	}
+		    	
+		    	
 		    }
 			
 		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
+			
+			if( !exit ) {
+				disconnectClient();	
+			}
+			
 		} finally {
 			
 			if( socket != null && !socket.isClosed() ) {
 				try {
 					socket.close();
+					
 				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 		}

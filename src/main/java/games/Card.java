@@ -1,10 +1,13 @@
 package games;
 
+import java.util.HashMap;
+
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.Image;
+import net.objects.NET_Card;
 
 
 /**
@@ -22,7 +25,13 @@ import javafx.scene.image.Image;
  */
 
 public class Card {
-
+	
+	/**
+	 * Relación entre el valor de la carta y su ubicación
+	 * en la carpeta de recursos
+	 */
+	private HashMap<Integer, String> cardMap = new HashMap<>();
+	
 	/**
 	 * Valor de la carta en el juego
 	 */
@@ -47,17 +56,21 @@ public class Card {
 	
 	
 	public Card(int cardValue, Image cardImage) {
-		super();
 		this.cardValue = cardValue;
 		this.cardImage.set(cardImage);
 	}
 
 	
 	public Card(int cardValue, Image cardImage, Suit suit) {
-		super();
 		this.cardValue = cardValue;
 		this.cardImage.set(cardImage);
 		this.suit = suit;
+	}
+	
+	public Card(NET_Card card) {
+		setCardValue(card.getCardValue());
+		setSuit(card.getSuit());
+		setCardImage(new Image(getClass().getResource(card.getUrlResourceImage()).toString()));
 	}
 	
 	public int getCardValue() {
@@ -108,6 +121,16 @@ public class Card {
 
 	public final void setCardImage(final Image cardImage) {
 		this.cardImageProperty().set(cardImage);
+	}
+
+
+	public HashMap<Integer, String> getCardMap() {
+		return cardMap;
+	}
+
+
+	public void setCardMap(HashMap<Integer, String> cardMap) {
+		this.cardMap = cardMap;
 	}
 	
 	

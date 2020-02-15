@@ -1,6 +1,10 @@
 package games;
 
-public class Suit {
+import java.io.Serializable;
+
+public class Suit implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	private String name;
 	

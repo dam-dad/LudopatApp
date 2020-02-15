@@ -48,6 +48,11 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 
 	private ArrayList<PlayerInfo> playersInfo = new ArrayList<PlayerInfo>();
 	
+	/**
+	 * Si es usuario online tiene distinto comportamiento
+	 */
+	private boolean isNetworkClient;
+	
 	private StringProperty playerName = new SimpleStringProperty();
 	
 	String[][] avatarsReferences = {
@@ -189,13 +194,16 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 		// Ponemos información a los playerInfo
 		playersInfo.get(0).setPlayerIcon(new Image(selectedAvatar.getImgName()));
 		playerName.set(nameField.getText());
+		playersInfo.get(0).setAvatarIndex(selectedAvatarPos);
 		playersInfo.get(0).setPlayerName(this.playerName.get());
 		
-		addAIAvatars();
-		
-		for (int i = nPlayers; i < playersInfo.size(); i++) {
-			playersInfo.get(i).setPlayerIcon(null);
-			playersInfo.get(i).setPlayerName("");
+		if( !isNetworkClient ) {
+			addAIAvatars();
+			
+			for (int i = nPlayers; i < playersInfo.size(); i++) {
+				playersInfo.get(i).setPlayerIcon(null);
+				playersInfo.get(i).setPlayerName("");
+			}	
 		}
 	}
 
@@ -214,6 +222,14 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			playersInfo.get(i).setPlayerIcon(new Image(avatarsReferences[8+i][0]));
 			playersInfo.get(i).setPlayerName(avatarsReferences[8+i][1]);
 		}
+	}
+
+	public boolean isNetworkClient() {
+		return isNetworkClient;
+	}
+
+	public void setNetworkClient(boolean isNetworkClient) {
+		this.isNetworkClient = isNetworkClient;
 	}
 
 }

@@ -3,11 +3,13 @@ package net.objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import games.Card;
+import games.Player;
+
 public class NET_Player implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	
 	private NET_PlayerInfo playerInfo;
 	private ArrayList<NET_Card> hand = new ArrayList<NET_Card>();
 	private int id;

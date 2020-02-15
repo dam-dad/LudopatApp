@@ -82,9 +82,10 @@ public class Deck {
 				String urlImage = String.format("/ui/images/%s/%s/%s_%d.png", gameType, suit.getName(),
 						suit.getImgPrefix(), i);
 
-				Card card = new Card();
+				Card card = new Card();	
 				card.setCardImage(new Image(getClass().getResource(urlImage).toString()));
 				card.setCardValue(i);
+				card.getCardMap().put(card.getCardValue(), urlImage);
 				card.setSuit(suit);
 				cards.add(card);
 			}

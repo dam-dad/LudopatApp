@@ -20,21 +20,22 @@ public class NET_PlayerInfo implements Serializable {
 	private String playerName;
 	private String urlImage;
 	private int userID;
+	private int avatarIndex;
 	
-	public NET_PlayerInfo(String playerName, String urlImage) {
+	public NET_PlayerInfo(String playerName, int avatarIndex) {
 		this.playerName = playerName;
-		this.urlImage = urlImage;
+		this.avatarIndex = avatarIndex;
 	}
 	
-	public NET_PlayerInfo(String playerName, String urlImage, int userID) {
+	public NET_PlayerInfo(String playerName, int avatarIndex, int userID) {
 		this.playerName = playerName;
-		this.urlImage = urlImage;
 		this.userID = userID;
+		this.avatarIndex = avatarIndex;
 	}
 	
 	public NET_PlayerInfo(PlayerInfo playerInfo) {
 		setPlayerName(playerInfo.getPlayerName());
-		setUrlImage(playerInfo.getUrlResourceImage());
+		setAvatarIndex(playerInfo.getAvatarIndex());
 		setUserID(playerInfo.getUserID());
 	}
 	
@@ -60,6 +61,14 @@ public class NET_PlayerInfo implements Serializable {
 
 	public void setUserID(int userID) {
 		this.userID = userID;
+	}
+
+	public int getAvatarIndex() {
+		return avatarIndex;
+	}
+
+	public void setAvatarIndex(int avatarIndex) {
+		this.avatarIndex = avatarIndex;
 	}
 	
 }
