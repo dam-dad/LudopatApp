@@ -4,6 +4,8 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -13,7 +15,10 @@
    <children>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="300.0" prefWidth="250.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
         <content>
-            <VBox fx:id="content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" />
+            <VBox fx:id="content" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="250.0" spacing="5.0">
+               <padding>
+                  <Insets bottom="10.0" top="10.0" />
+               </padding></VBox>
         </content>
       </ScrollPane>
       <StackPane fx:id="actionsStack" VBox.vgrow="NEVER">
@@ -33,14 +38,28 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                      <children>
-                        <JFXButton id="chatButton" fx:id="emojiButton" buttonType="RAISED" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="40.0" ripplerFill="#c70e0e" text="E" />
-                        <JFXButton id="chatButton" fx:id="sendButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="40.0" ripplerFill="#c70e0e" text="S" />
+                        <JFXButton id="chatButton" fx:id="emojiButton" alignment="CENTER" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#emoteAction" prefHeight="40.0" prefWidth="40.0" ripplerFill="#c70e0e">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/chat/emotes/emotesSample.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></JFXButton>
+                        <JFXButton id="chatButton" fx:id="sendButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#sendButton" prefHeight="80.0" prefWidth="40.0" ripplerFill="#c70e0e">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../images/chat/send.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></JFXButton>
                      </children>
                   </VBox>
                </children>
             </HBox>
          </children>
       </StackPane>
-      <JFXButton id="chatButton" fx:id="chatButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="175.0" ripplerFill="#c70e0e" text="CHAT" />
+      <JFXButton id="chatButton" fx:id="chatButton" buttonType="RAISED" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#closeChat" prefHeight="30.0" prefWidth="175.0" ripplerFill="#c70e0e" text="CHAT" />
    </children>
 </VBox>
