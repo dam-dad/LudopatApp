@@ -33,6 +33,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import main.LudopatApp;
+import net.Chat;
 import ui.CardComponent;
 
 public class GameControllerDosNET implements Initializable {
@@ -180,6 +181,7 @@ public class GameControllerDosNET implements Initializable {
 	private StringProperty gameType = new SimpleStringProperty();
 	
 	private HelpViewContoller help;
+	private Chat chat;
 
 	// ----------------------------------------------------------
 
@@ -241,7 +243,7 @@ public class GameControllerDosNET implements Initializable {
 			drawButton.setDisable(true);
 			nextButton.setDisable(true);
 		}
-
+		chat = new Chat();
 		// Visualizamos la primera mano del jugador
 		initHand();
 	}
@@ -527,7 +529,12 @@ public class GameControllerDosNET implements Initializable {
 	
     @FXML
     void openChat(ActionEvent event) {
-    	System.out.println("Chat abierto");
+    	if(stack.getChildren().isEmpty()) {
+    		stack.getChildren().add(chat.getView());
+    	}else {
+    		stack.getChildren().clear();
+    	}
+    	
     }
 
 	public GridPane getView() {
