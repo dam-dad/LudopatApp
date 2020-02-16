@@ -79,7 +79,7 @@ public class Chat implements Initializable {
 	private void identifyMessage(String message, int fromId) {
 		String nextSixChars = "";
 
-		if (message.length() > 8) {
+		if (message.length() >= 7) {
 			for (int i = 1; i <= 6; i++) {
 				nextSixChars += message.charAt(i);
 			}
