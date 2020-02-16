@@ -243,7 +243,7 @@ public class GameControllerDosNET implements Initializable {
 			drawButton.setDisable(true);
 			nextButton.setDisable(true);
 		}
-		chat = new Chat();
+		chat = new Chat(dosGame);
 		// Visualizamos la primera mano del jugador
 		initHand();
 	}
