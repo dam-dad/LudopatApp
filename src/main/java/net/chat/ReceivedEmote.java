@@ -32,6 +32,10 @@ public class ReceivedEmote extends VBox implements Initializable{
 			loader.load();
 			
 			this.emoteCode = emoteCode;
+			
+			this.IssuerNameLabel.setText(this.issuer);
+			Image emote = new Image(getClass().getResource("ui/images/chat/emotes/" + emoteCode + ".png").toString());
+			this.emoteImage.setImage(emote);
 			this.issuer = issuer;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -40,9 +44,7 @@ public class ReceivedEmote extends VBox implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.IssuerNameLabel.setText(this.issuer);
-		Image emote = new Image(getClass().getResource("ui/images/chat/emotes/" + emoteCode + ".png").toString());
-		this.emoteImage.setImage(emote);
+
 	}
 	
 }

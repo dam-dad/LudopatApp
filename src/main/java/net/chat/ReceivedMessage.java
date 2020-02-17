@@ -30,6 +30,8 @@ public class ReceivedMessage extends VBox implements Initializable{
 			
 			this.message = message;
 			this.issuer = issuer;
+			this.IssuerNameLabel.setText(this.issuer);
+			this.messageLabel.setText(this.message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -37,8 +39,7 @@ public class ReceivedMessage extends VBox implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		this.IssuerNameLabel.setText(this.issuer);
-		this.messageLabel.setText(this.message);
+
 	}
 	
 }

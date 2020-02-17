@@ -25,13 +25,14 @@ public class SentEmote extends VBox implements Initializable{
 			loader.load();
 			
 			this.emoteCode = emoteCode;
+			Image emote = new Image(getClass().getResource("ui/images/chat/emotes/" + emoteCode + ".png").toString());
+			this.emoteImage.setImage(emote);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		Image emote = new Image(getClass().getResource("ui/images/chat/emotes/" + emoteCode + ".png").toString());
-		this.emoteImage.setImage(emote);
+
 	}
 }
