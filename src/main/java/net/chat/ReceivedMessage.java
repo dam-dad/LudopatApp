@@ -18,8 +18,7 @@ public class ReceivedMessage extends VBox implements Initializable{
     @FXML
     private Label messageLabel;
     
-	String message;
-	String issuer;
+	
 	
 	public ReceivedMessage(String message, String issuer) {
 		try {
@@ -28,10 +27,8 @@ public class ReceivedMessage extends VBox implements Initializable{
 			loader.setRoot(this);
 			loader.load();
 			
-			this.message = message;
-			this.issuer = issuer;
-			this.IssuerNameLabel.setText(this.issuer);
-			this.messageLabel.setText(this.message);
+			IssuerNameLabel.setText(issuer);
+			messageLabel.setText(message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
