@@ -549,5 +549,10 @@ public class GameControllerDosNET implements Initializable {
 	public final void setGameType(final String gameType) {
 		this.gameTypeProperty().set(gameType);
 	}
+
+	public void closeChat() {
+		chatStack.getChildren().remove(1);
+		
+	}
 	
 }
