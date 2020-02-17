@@ -13,8 +13,6 @@ import javafx.scene.layout.VBox;
 public class SentMessage extends VBox implements Initializable{
 	@FXML
     private Label messageLabel;
-
-	String message;
 	
 	public SentMessage(String message) {
 		try {
@@ -23,7 +21,6 @@ public class SentMessage extends VBox implements Initializable{
 			loader.setRoot(this);
 			loader.load();
 			
-			this.message = message;
 			messageLabel.setText(message);
 			
 		} catch (IOException e) {

@@ -277,9 +277,10 @@ public class Chat implements Initializable {
 			@Override
 			public void run() {
 				dosGame.getClientThread().sendMessage(messageArea.getText());
+				messageArea.setText("");
 			}
 		});
-		messageArea.setText("");
+		
 	}
 
 	public VBox getView() {
