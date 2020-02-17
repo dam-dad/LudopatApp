@@ -529,10 +529,10 @@ public class GameControllerDosNET implements Initializable {
 	
     @FXML
     void openChat(ActionEvent event) {
-    	if(stack.getChildren().isEmpty()) {
-    		stack.getChildren().add(chat.getView());
+    	if(chatStack.getChildren().isEmpty()) {
+    		chatStack.getChildren().add(chat.getView());
     	}else {
-    		stack.getChildren().clear();
+    		chatStack.getChildren().clear();
     	}
     	
     }
