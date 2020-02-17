@@ -271,7 +271,6 @@ public class Chat implements Initializable {
 	@FXML
 	void sendButton(ActionEvent event) {
 		Platform.runLater(new Runnable() {
-			
 			@Override
 			public void run() {
 				dosGame.getClientThread().sendMessage(messageArea.getText());
