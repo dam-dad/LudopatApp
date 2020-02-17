@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import games.Card;
 import games.Player;
 import games.PlayerInfo;
+import gameslib.Dos;
 import javafx.application.Platform;
 import main.LudopatApp;
 import net.objects.NET_GameRules;
@@ -147,6 +148,10 @@ public class Client implements Runnable {
 												iPkg.getGameType());
 						}
 					});
+		    	}else if (inPkg.getInfoByte() == InfoPackage.CLIENT_SENDMESSAGE ) {
+		    		String message  = (String)inPkg.getInfoObject();
+		    		int senderID = inPkg.getUserID();
+		    		((Dos)app.getCurrentGame()).getNETHud().getChat().getMessage(message, senderID);
 		    	}
 		    	
 		    	
@@ -176,6 +181,16 @@ public class Client implements Runnable {
 
 	public void setClientID(int clientID) {
 		this.clientID = clientID;
+	}
+
+	public void sendMessage(String text) {
+		InfoPackage message = new InfoPackage(InfoPackage.CLIENT_SENDMESSAGE, text);
+		try {
+			dataOut.writeObject(message);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

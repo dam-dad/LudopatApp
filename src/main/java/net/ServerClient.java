@@ -31,9 +31,14 @@ public class ServerClient implements Runnable {
 	private int userID;
 	private PlayerInfo playerInfo;
 	private boolean exit;
+	private GameServer gameServer;
+	
 	
 //	private LudopatApp app;
 	
+	
+
+
 	public ServerClient(Socket socket, Server roomServer, LudopatApp app) {
 		this.socket = socket;
 		this.roomServer = roomServer;
@@ -131,6 +136,9 @@ public class ServerClient implements Runnable {
 				notify_clientConnected();
 			}
 			break;
+		case InfoPackage.CLIENT_SENDMESSAGE:
+			gameServer.broadcastMessage((String) pkgIn.getInfoObject(), userID);
+			break;
 			default:
 				// Reservados para casos propios de cada juego
 				break;
@@ -139,6 +147,7 @@ public class ServerClient implements Runnable {
 		return true;
 		
 	}
+	
 	
 	// Notificaciones al servidor
 	//---------------------------------------------------------------
@@ -153,7 +162,15 @@ public class ServerClient implements Runnable {
 	
 	// Envio a los clientes
 	//---------------------------------------------------------------
-	
+	public void receiveMessage(String message, int id) {
+		InfoPackage packageMessage = new InfoPackage(InfoPackage.CLIENT_SENDMESSAGE, message, id);
+		try {
+			dataOut.writeObject(packageMessage);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * Envio del paquete de información de la sala del servidor al cliente
 	 * @param rules Reglas del servidor
@@ -213,6 +230,14 @@ public class ServerClient implements Runnable {
 
 	public void setPlayerInfo(PlayerInfo playerInfo) {
 		this.playerInfo = playerInfo;
+	}
+	public GameServer getGameServer() {
+		return gameServer;
+	}
+
+
+	public void setGameServer(GameServer gameServer) {
+		this.gameServer = gameServer;
 	}
 
 }

@@ -14,6 +14,7 @@ public class InfoPackage implements Serializable {
 	public static final byte CLIENT_THROWCARD = 5;
 	public static final byte CLIENT_NEXTTURN = 6;
 	public static final byte CLIENT_DRAWCARD = 7;
+	public static final byte CLIENT_SENDMESSAGE = 8;
 	
 	private byte infoByte;
 	

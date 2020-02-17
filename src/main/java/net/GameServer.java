@@ -13,6 +13,9 @@ public class GameServer {
 
 	public GameServer(ArrayList<ServerClient> clients) {
 		this.clients = clients;
+		for(ServerClient serverClient : clients) {
+			serverClient.setGameServer(this);
+		}
 	}
 	
 	protected ArrayList<NET_Player> getNETPlayersConversion(ArrayList<Player> players)  {
@@ -31,6 +34,12 @@ public class GameServer {
 		NET_Card currentNETCard = new NET_Card(currentCard);
 		for( ServerClient c : clients ) {
 			c.gameSend_initialInfo(getNETPlayersConversion(players), currentNETCard, currentPlayer, gameType);
+		}
+	}
+
+	public synchronized void broadcastMessage(String message, int id) {
+		for(ServerClient client : clients) {
+			client.receiveMessage(message, id);
 		}
 	}
 }

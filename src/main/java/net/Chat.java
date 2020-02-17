@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 
 import gameslib.Dos;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -267,10 +268,21 @@ public class Chat implements Initializable {
 
 	@FXML
 	void sendButton(ActionEvent event) {
-
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				dosGame.getClientThread().sendMessage(messageArea.getText());
+			}
+		});
+		
 	}
 
 	public VBox getView() {
 		return view;
+	}
+
+	public void getMessage(String message, int senderID) {
+		identifyMessage(message, senderID);
 	}
 }

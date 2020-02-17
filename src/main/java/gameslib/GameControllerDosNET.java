@@ -180,6 +180,8 @@ public class GameControllerDosNET implements Initializable {
 	private Dos dosGame;
 	private StringProperty gameType = new SimpleStringProperty();
 	
+	
+
 	private HelpViewContoller help;
 	private Chat chat;
 
@@ -551,8 +553,14 @@ public class GameControllerDosNET implements Initializable {
 	}
 
 	public void closeChat() {
-		chatStack.getChildren().remove(1);
-		
+		chatStack.getChildren().remove(chat.getView());
+	}
+	public Chat getChat() {
+		return chat;
+	}
+
+	public void setChat(Chat chat) {
+		this.chat = chat;
 	}
 	
 }
