@@ -22,8 +22,9 @@ import javafx.application.Platform;
  *
  */
 public class Dav_IA_DOS extends Dav_AI implements Runnable {
-
-	private final int SPECIALS_MIN_VALUE = 11;
+	
+	//Para salvar los cambios de color que si que tienen suit
+	private final int SPECIALS_MIN_VALUE = 15;
 	/**
 	 * Jugador que representa esta IA
 	 */
@@ -274,8 +275,10 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 			suitName = "green";
 			break;
 		}
-		while (cards.get(i).getCardValue() >= SPECIALS_MIN_VALUE
-				|| !cards.get(i).getSuit().getName().contentEquals(suitName)) {
+		
+		//La primera condición es en caso de fallo mayor que tire la última carta
+		while (i < cards.size() & (cards.get(i).getCardValue() >= SPECIALS_MIN_VALUE
+				|| !cards.get(i).getSuit().getName().contentEquals(suitName))) {
 			i++;
 		}
 
