@@ -23,3 +23,27 @@
 #messageBody{
 	-fx-text-fill: white;
 }
+
+/* Message Styles */
+#bold{
+	-fx-font-weight: bold;
+}
+
+#italic{
+	-fx-font-weight: italic;
+}
+
+#black{
+	-fx-font-weight: bold;
+	-fx-text-fill: black;
+}
+
+#gold{
+	-fx-font-weight: bold;
+	-fx-text-fill: #A39C56;
+}
+
+#private{
+	-fx-background-color: #6AFF66;
+	-fx-text-fill: black;
+}

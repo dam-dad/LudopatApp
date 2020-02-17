@@ -251,7 +251,6 @@ public class Chat implements Initializable {
 		} else {
 			// Se trata de un mensaje de salida
 //			SentMessage sent = new SentMessage(messageOK);
-//			sent.setId(styleCode);
 //			content.getChildren().add(sent);
 		}
 	}
