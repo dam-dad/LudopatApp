@@ -61,7 +61,7 @@ public class Chat implements Initializable {
 
 	@FXML
 	void closeChat(ActionEvent event) {
-		dosGame.closeChat();
+		dosGame.getNETHud().closeChat();
 	}
 
 	public Chat(Dos dosGame) {
