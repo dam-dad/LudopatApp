@@ -186,6 +186,9 @@ public class Chat implements Initializable {
 							}
 						}
 					}
+				}else {
+					//Se trata de un mensaje normal
+					showNormalMessage(message, fromId);
 				}
 			}else {
 				//Se trata de un mensaje normal
@@ -271,13 +274,12 @@ public class Chat implements Initializable {
 	@FXML
 	void sendButton(ActionEvent event) {
 		Platform.runLater(new Runnable() {
-			
 			@Override
 			public void run() {
 				dosGame.getClientThread().sendMessage(messageArea.getText());
 			}
 		});
-		
+		messageArea.setText("");
 	}
 
 	public VBox getView() {

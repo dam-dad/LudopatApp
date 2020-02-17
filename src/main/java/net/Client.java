@@ -149,9 +149,15 @@ public class Client implements Runnable {
 						}
 					});
 		    	}else if (inPkg.getInfoByte() == InfoPackage.CLIENT_SENDMESSAGE ) {
-		    		String message  = (String)inPkg.getInfoObject();
-		    		int senderID = inPkg.getUserID();
-		    		((Dos)app.getCurrentGame()).getNETHud().getChat().getMessage(message, senderID);
+		    		Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							String message  = (String)inPkg.getInfoObject();
+				    		int senderID = inPkg.getUserID();
+				    		((Dos)app.getCurrentGame()).getNETHud().getChat().getMessage(message, senderID);
+						}
+					});
 		    	}
 		    	
 		    	
@@ -188,7 +194,6 @@ public class Client implements Runnable {
 		try {
 			dataOut.writeObject(message);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

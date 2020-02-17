@@ -30,7 +30,7 @@
 }
 
 #italic{
-	-fx-font-weight: italic;
+    -fx-font-style: italic; 
 }
 
 #black{
