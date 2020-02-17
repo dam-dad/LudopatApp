@@ -24,8 +24,8 @@ public class SentMessage extends VBox implements Initializable{
 			loader.load();
 			
 			this.message = message;
-			
 			messageLabel.setText(message);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
