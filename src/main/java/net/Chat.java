@@ -72,6 +72,7 @@ public class Chat implements Initializable {
 
 			this.dosGame = dosGame;
 		} catch (IOException e) {
+			
 			e.printStackTrace();
 		}
 	}
