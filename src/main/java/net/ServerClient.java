@@ -7,10 +7,13 @@ import java.net.Socket;
 import java.util.ArrayList;
 import games.PlayerInfo;
 import main.LudopatApp;
+import net.objects.InfoPackage;
+import net.objects.InitialInfoPackage;
 import net.objects.NET_Card;
 import net.objects.NET_GameRules;
 import net.objects.NET_Player;
 import net.objects.NET_PlayerInfo;
+import net.objects.ServerNewCard;
 
 /**
  * Hilo del cliente del servidor que escuchará y enviará la
@@ -122,26 +125,36 @@ public class ServerClient implements Runnable {
 	private boolean checkByteID(InfoPackage pkgIn) {
 		
 		switch(pkgIn.getInfoByte()) {
-		// El usuario se ha desconectado
-		case InfoPackage.CLIENT_DISCONNECT:
-			return false;
-		case InfoPackage.CLIENT_CONNECT:
-			// Ponemos la información de este usuario
-			if( this.playerInfo == null ) {
-				// Creamos al usuario
-				NET_PlayerInfo netInfo = (NET_PlayerInfo)pkgIn.getInfoObject();
-				PlayerInfo player = new PlayerInfo(netInfo);
-				player.setUserID(userID);
-				setPlayerInfo(player);
-				notify_clientConnected();
-			}
-			break;
-		case InfoPackage.CLIENT_SENDMESSAGE:
-			gameServer.broadcastMessage((String) pkgIn.getInfoObject(), userID);
-			break;
-			default:
-				// Reservados para casos propios de cada juego
+		
+			// El usuario se ha desconectado
+			case InfoPackage.CLIENT_DISCONNECT:
+				return false;
+			case InfoPackage.CLIENT_CONNECT:
+				// Ponemos la información de este usuario
+				if( this.playerInfo == null ) {
+					// Creamos al usuario
+					NET_PlayerInfo netInfo = (NET_PlayerInfo)pkgIn.getInfoObject();
+					PlayerInfo player = new PlayerInfo(netInfo);
+					player.setUserID(userID);
+					setPlayerInfo(player);
+					notify_clientConnected();
+				}
 				break;
+			case InfoPackage.CLIENT_SENDMESSAGE:
+				gameServer.broadcastMessage((String) pkgIn.getInfoObject(), userID);
+				break;
+				default:
+					// Reservados para casos propios de cada juego
+					break;
+					
+			case InfoPackage.CLIENT_THROWCARD:
+					gameServer.clientThrowedCard((int)pkgIn.getInfoObject());
+					break;
+			
+			case InfoPackage.CLIENT_DRAWCARD:
+				gameServer.clientTakenCard();
+				break;
+			
 		}
 		
 		return true;
@@ -210,6 +223,39 @@ public class ServerClient implements Runnable {
 			e.printStackTrace();
 		}		
 		
+	}
+	
+	/**
+	 * Envío a los clientes de la nueva carta en la mesa
+	 * @param newHand Nueva mano para el jugador que lanzó la carta
+	 * @param cardInTable Nueva carta sobre la mesa
+	 */
+	public void gameSend_newTableCard(ArrayList<NET_Card> newHand, NET_Card cardInTable) {
+		
+		ServerNewCard newCardPkg = new ServerNewCard(newHand, cardInTable);
+		
+		try {
+			
+			dataOut.writeObject(new InfoPackage(InfoPackage.CLIENT_THROWCARD, newCardPkg));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * El cliente ha robado cartas
+	 * @param newHand Nueva mano para este cliente
+	 */
+	public void gameSend_clientCardTaken(ArrayList<NET_Card> newHand) {
+		
+		try {
+			
+			dataOut.writeObject(new InfoPackage(InfoPackage.CLIENT_DRAWCARD, newHand));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//---------------------------------------------------------------

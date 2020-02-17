@@ -78,6 +78,7 @@ public class LudopatApp extends Application {
 	private Client connectionClient;
 	private Server connectionServer;
 	private GameServer gameServer;
+	private Game serverCurrentGame;
 	
 	// ---------------------------------------------------
 
@@ -452,9 +453,10 @@ public class LudopatApp extends Application {
  		}
 		
 		// Ahora necesitamos empezar la conexión con los clientes en el juego
-		gameServer = new GameServer(clients);
+		gameServer = new GameServer(clients, this);
 
 		Dos dosGame = new Dos(deck, gameRules, gamePlayers);
+		serverCurrentGame = dosGame;
 		dosGame.initGame();
 		
 		dosGame.initGameServer(this);
@@ -508,6 +510,10 @@ public class LudopatApp extends Application {
 
 	public void setGameServer(GameServer gameServer) {
 		this.gameServer = gameServer;
+	}
+
+	public Game getServerCurrentGame() {
+		return serverCurrentGame;
 	}
 
 }

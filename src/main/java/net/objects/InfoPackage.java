@@ -1,4 +1,4 @@
-package net;
+package net.objects;
 
 import java.io.Serializable;
 

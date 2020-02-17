@@ -13,10 +13,26 @@ import games.PlayerInfo;
 import gameslib.Dos;
 import javafx.application.Platform;
 import main.LudopatApp;
+import net.objects.InfoPackage;
+import net.objects.InitialInfoPackage;
+import net.objects.NET_Card;
 import net.objects.NET_GameRules;
 import net.objects.NET_Player;
 import net.objects.NET_PlayerInfo;
+import net.objects.ServerNewCard;
 
+/**
+ * 
+ * Cliente asociado a la máquina que se conecta al servidor
+ * a través de la red, se conecta a su hilo correspondiente
+ * en el servidor a través de ServerClient.
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class Client implements Runnable {
 
 	private LudopatApp app;
@@ -73,6 +89,10 @@ public class Client implements Runnable {
 		}
 	}
 	
+	/**
+	 * Ejecuta la lectura de los mensajes enviados por 
+	 * el servidor
+	 */
 	@Override
 	public void run() {
 		
@@ -158,6 +178,9 @@ public class Client implements Runnable {
 				    		((Dos)app.getCurrentGame()).getNETHud().getChat().getMessage(message, senderID);
 						}
 					});
+		    		
+		    	} else {
+		    		checkSpecificCases(inPkg);
 		    	}
 		    	
 		    	
@@ -181,14 +204,101 @@ public class Client implements Runnable {
 		}
 	}
 
-	public int getClientID() {
-		return clientID;
+	// Métodos exclusivos de cada juego
+	//----------------------------------------------------------------------------
+	
+	/**
+	 * Revisa las acciones a tomar por parte del mensaje recibido
+	 * que sean específicas de cada juego.
+	 * 
+	 * @param pkg Paquete recibido del servidor
+	 */
+	private void checkSpecificCases(InfoPackage pkg) {
+		
+		switch( pkg.getInfoByte() ) {
+		
+			case InfoPackage.CLIENT_THROWCARD:
+				
+				Platform.runLater(new Runnable() {	
+					@Override
+					public void run() {
+						
+						ServerNewCard newInfo = (ServerNewCard)pkg.getInfoObject();
+						
+						ArrayList<Card> newHand = new ArrayList<Card>();
+						for( NET_Card nCard : newInfo.getCards()) {
+							newHand.add(new Card(nCard));
+						}
+						
+						((Dos)app.getCurrentGame()).client_receiveThrowedCard(newHand, new Card(newInfo.getCardInTable()));
+					}
+				});
+				
+				break;
+				
+			case InfoPackage.CLIENT_DRAWCARD:
+				
+				Platform.runLater(new Runnable() {
+					
+					@SuppressWarnings("unchecked")
+					@Override
+					public void run() {
+						
+						ArrayList<Card> newHand = new ArrayList<Card>();
+						for( NET_Card nCard : ((ArrayList<NET_Card>)pkg.getInfoObject()) ) {
+							newHand.add(new Card(nCard));
+						}
+						
+						((Dos)app.getCurrentGame()).client_receiveDrawCard(newHand);
+					}
+				});
+				
+				break;
+				
+			default:
+					break;
+		}
 	}
+	
+	//----------------------------------------------------------------------------
 
-	public void setClientID(int clientID) {
-		this.clientID = clientID;
+	// Envios al servidor
+	//----------------------------------------------------------------------------
+	
+	/**
+	 * Solicitud del cliente para robar cartas
+	 */
+	public void sendDrawCard() {
+	
+		InfoPackage outPkg = new InfoPackage(InfoPackage.CLIENT_DRAWCARD, null);
+		
+		try {
+			
+			dataOut.writeObject(outPkg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-
+	
+	/**
+	 * Solicitud del cliente para tirar la carta
+	 * @param indexOfCard Índice de la carta seleccionada de su mano
+	 */ 
+	public void sendThrowCard(int indexOfCard) {
+		
+		InfoPackage outPkg = new InfoPackage(InfoPackage.CLIENT_THROWCARD, indexOfCard);
+		
+		try {
+			dataOut.writeObject(outPkg);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	/**
+	 * Envío de mensaje por parte del chat
+	 * @param text Contenido del mensaje
+	 */
 	public void sendMessage(String text) {
 		InfoPackage message = new InfoPackage(InfoPackage.CLIENT_SENDMESSAGE, text);
 		try {
@@ -196,6 +306,17 @@ public class Client implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//----------------------------------------------------------------------------
+	
+
+	public int getClientID() {
+		return clientID;
+	}
+
+	public void setClientID(int clientID) {
+		this.clientID = clientID;
 	}
 
 }

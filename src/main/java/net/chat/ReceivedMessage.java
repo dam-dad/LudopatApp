@@ -27,16 +27,9 @@ public class ReceivedMessage extends VBox implements Initializable{
 			loader.setRoot(this);
 			loader.load();
 			
-<<<<<<< HEAD
-			this.message = message;
-			this.issuer = issuer;
-			this.IssuerNameLabel.setText(this.issuer);
-			this.messageLabel.setText(this.message);
-			
-=======
+
 			IssuerNameLabel.setText(issuer);
 			messageLabel.setText(message);
->>>>>>> 6c5d55f1f4d7ccd6e53b046e609148001903414c
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

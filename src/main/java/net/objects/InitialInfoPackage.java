@@ -1,10 +1,7 @@
-package net;
+package net.objects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import net.objects.NET_Card;
-import net.objects.NET_Player;
 
 public class InitialInfoPackage implements Serializable {
 

@@ -11,6 +11,7 @@ import games.Deck;
 import games.Game;
 import games.GameRules;
 import games.Player;
+import games.Suit;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -75,9 +76,9 @@ public class Dos extends Game {
 		super(deck, gameRules, currentPlayers);
 	}
 	
-	// NET Related
+	// ***************** NET Related***********************
 	// -----------------------------------------------------
-	
+	// -----------------------------------------------------
 	/**
 	 * Constructor del juego para el cliente 
 	 * @param currentPlayers Jugadores en el juego
@@ -122,6 +123,113 @@ public class Dos extends Game {
 		});
 	}
 	
+	/**
+	 * El cliente quiere robar cartas
+	 */
+	public void client_drawCard() {
+		
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				clientThread.sendDrawCard();
+				
+			}
+		});
+	}
+	/**
+	 * El cliente quiere lanzar carta
+ 	 * @param indexOfCard Índice de la carta en su mano
+	 */
+	public void client_throwCard(int indexOfCard) {
+		
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				clientThread.sendThrowCard(indexOfCard);
+			}
+		});
+	}
+	
+	/**
+	 * Un jugador ha lanzado una carta
+	 * @param indexOfCard Índice de la carta en su mano
+	 */
+	public void server_throwCard(int indexOfCard) {
+		
+		// Modificamos la mano del jugador activo y lanzamos la carta
+		Card card = getActivePlayer().getHand().get(indexOfCard);
+		throwCard(card);
+		
+		// Noficiamos al resto de clientes de la nueva carta sobre la mesa
+		if( gameServer != null ) {
+			gameServer.sendNewCardTable(getActivePlayer().getHand(), getLastCard());
+		}
+	}
+	
+	/**
+	 * Un jugador ha decidido robar cartas
+	 */
+	public void sever_drawCard() {
+		drawCard();
+		
+		if( gameServer != null ) {
+			gameServer.sendCardTaken(getActivePlayer().getHand());
+		}
+	}
+	
+	/**
+	 * El cliente recibe la notificación de que ha robado cartas.
+	 * En caso de ser el cliente que lo pidió actualizamos su mano,
+	 * que será el jugador activo
+	 * @param newHand Nuevo mano del jugador activo
+	 */
+	public void client_receiveDrawCard(ArrayList<Card> newHand) {
+		
+		// Ahora actualizamos la mano del jugador activo
+		getActivePlayer().setHand(newHand);
+		
+		// Actualizamos la interfaz
+		if( getLocalPlayer().getPlayerInfo().getUserID() == getActivePlayer().getPlayerInfo().getUserID() ) {
+			NETHud.checkUpdatedHand(newHand); // Para el usuario activo con su nueva mano
+		} 
+		
+		// Para todos los usuarios actualizar el número de cartas
+		NETHud.updateCardCounters();
+	}
+	
+	/**
+	 * El cliente recibe la notificación de una nueva carta lanzada
+	 * @param newHand Nueva mano para el jugador actual
+	 * @param cardInTable Nueva carta sobre la mesa
+	 */
+	public void client_receiveThrowedCard(ArrayList<Card> newHand, Card cardInTable) {
+		
+		// Cambiamos la carta sobre la mesa
+		if( cardInTable.getCardValue() < SPECIAL_CARDS ) {
+			setCurrentValue(cardInTable.getCardValue());
+		}
+		
+		if( cardInTable.getCardValue() <= SPECIAL_CHANGE_GREEN ) {
+			setCurrentColor(cardInTable.getSuit().getName());
+		}
+		
+		setLastCard(cardInTable);
+		
+		// Ahora actualizamos la mano del jugador activo
+		getActivePlayer().setHand(newHand);
+		
+		// Actualizamos la interfaz
+		if( getLocalPlayer().getPlayerInfo().getUserID() == getActivePlayer().getPlayerInfo().getUserID() ) {
+			NETHud.checkUpdatedHand(newHand); // Para el usuario activo con su nueva mano
+		} 
+		
+		// Para todos los usuarios actualizar el número de cartas
+		NETHud.updateCardCounters();
+	}
+	
+	// ***************** NET Related***********************
+	// -----------------------------------------------------
 	// -----------------------------------------------------
 	
 	// Métodos genéricos
@@ -245,9 +353,12 @@ public class Dos extends Game {
 				setActivePlayer(currentPlayers.get(currentPlayers.indexOf(getActivePlayer()) + 1));
 			}
 		}
+		
 		if(isBlocked) {
+			
 			isBlocked = false;
 			nextTurn();
+			
 		}
 	}
 
@@ -417,6 +528,9 @@ public class Dos extends Game {
 		// Cargamos las cartas especiales
 		ArrayList<Card> deckCards = deck.getCards();
 
+		// Para las cartas especiales de cambio de color
+		Suit s = new Suit();
+		s.setName("blue");
 		String urlImage = "/ui/images/dos/special/dos_special_changeblue.png";
 		for (int i = 0; i < 2; i++) {
 
@@ -425,10 +539,14 @@ public class Dos extends Game {
 			card.setCardImage(
 					new Image(class1.getResource(urlImage).toString()));
 
+
+			card.setSuit(s);
 			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		s = new Suit();
+		s.setName("green");
 		urlImage = "/ui/images/dos/special/dos_special_changegreen.png";
 		for (int i = 0; i < 2; i++) {
 
@@ -437,10 +555,13 @@ public class Dos extends Game {
 			card.setCardImage(
 					new Image(class1.getResource(urlImage).toString()));
 
+			card.setSuit(s);
 			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		s = new Suit();
+		s.setName("white");
 		urlImage = "/ui/images/dos/special/dos_special_changewhite.png";
 		for (int i = 0; i < 2; i++) {
 
@@ -449,10 +570,13 @@ public class Dos extends Game {
 			card.setCardImage(
 					new Image(class1.getResource(urlImage).toString()));
 
+			card.setSuit(s);
 			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}
 
+		s = new Suit();
+		s.setName("yellow");
 		urlImage = "/ui/images/dos/special/dos_special_changeyellow.png";
 		for (int i = 0; i < 2; i++) {
 
@@ -461,6 +585,7 @@ public class Dos extends Game {
 			card.setCardImage(new Image(
 					class1.getResource(urlImage).toString()));
 
+			card.setSuit(s);
 			card.getCardMap().put(card.getCardValue(), urlImage);
 			deckCards.add(card);
 		}

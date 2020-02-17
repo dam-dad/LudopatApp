@@ -179,8 +179,6 @@ public class GameControllerDosNET implements Initializable {
 	private LudopatApp ludopp;
 	private Dos dosGame;
 	private StringProperty gameType = new SimpleStringProperty();
-	
-	
 
 	private HelpViewContoller help;
 	private Chat chat;
@@ -220,6 +218,27 @@ public class GameControllerDosNET implements Initializable {
 		for (int p = 0; p < dosGame.getCurrentPlayers().size(); p++) {
 
 			Player player = dosGame.getCurrentPlayers().get(p);
+			Image crown = new Image(getClass().getResourceAsStream("/ui/images/crown.png"));
+
+			if( player == dosGame.getLocalPlayer() ) {
+				
+				switch (p) {
+				
+				case 0:
+					player1Crown.setImage(crown);
+					break;
+				case 1:
+					player2Crown.setImage(crown);
+					break;
+				case 2:
+					player3Crown.setImage(crown);
+					break;
+				case 3:
+					player4Crown.setImage(crown);
+					break;
+				}
+			}
+			
 			playersNumCards.get(p).setText(String.format("Número de cartas: %d", player.getHand().size()));
 			playersName.get(p).textProperty().bind(player.getPlayerInfo().playerNameProperty());
 			playersImage.get(p).imageProperty().bind(player.getPlayerInfo().playerIconProperty());
@@ -240,16 +259,64 @@ public class GameControllerDosNET implements Initializable {
 		onChangedImageColor(dosGame.getCurrentColor());
 		onChangedPlayer(null, dosGame.getActivePlayer());
 		
+		// Inicializamos el chat
+		chat = new Chat(dosGame);
+		
+		// Visualizamos la primera mano del jugador
+		initHand();
+		
 		if( dosGame.getLocalPlayer() != dosGame.getActivePlayer() ) {
 			// Desactivamos los botones de pasar turno y robar
 			drawButton.setDisable(true);
 			nextButton.setDisable(true);
-		}
-		chat = new Chat(dosGame);
-		// Visualizamos la primera mano del jugador
+			disableHand();
+		} 
+	}
+	
+	/**
+	 * Desactivar las funcionalidades para este jugador
+	 */
+	private void disableHand() {
+		
+		drawButton.setDisable(true);
+		nextButton.setDisable(true);
+		
+		handGrid.getChildren().stream().forEach(node -> {
+			node.setDisable(true);
+			node.setId("notPlayable");
+		});
+	}
+	
+	/**
+	 * Activamos las funcionalidades para este jugador.
+	 * Normalmente llamado cuando es el turno del jugador
+	 */
+	private void enableHand() {
+		
+		drawButton.setDisable(false);
+		
+		handGrid.getChildren().stream().forEach(node -> {
+			node.setDisable(false);
+		});
+		
 		initHand();
 	}
-
+	
+	/**
+	 * Actualiza la mano del jugador y habilita el pasar turno
+	 * @param newHand Nueva mano del jugador
+	 */
+	public void checkUpdatedHand(ArrayList<Card> newHand) {
+		
+		// Actualizamos la mano del jugador
+		refreshHand();
+		disableHand();
+		
+		// Pasar turno ahora está disponible
+		nextButton.setDisable(false);
+		
+	}
+	
 	private void onChangedPlayer(Player ov, Player nv) {
 
 		// Quitamos el estilo a uno y se lo ponemos a otro
@@ -298,7 +365,8 @@ public class GameControllerDosNET implements Initializable {
 			handGrid.add(cardComp, i, 0);
 
 			if (card.isPlayable()) {
-				cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
+				final int pos = i;
+				cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp, pos));
 				cardComp.setId("playable");
 				cardComp.setFitWidth(85);
 				cardComp.setFitHeight(135);
@@ -320,48 +388,12 @@ public class GameControllerDosNET implements Initializable {
 		refreshHand();
 	}
 
-	private void onSelectCard(Card card, CardComponent cmp) {
-		/*
-		dosGame.throwCard(card);
-
-		playersNumCards.get(dosGame.getPlayerPosition(dosGame.getActivePlayer()))
-				.setText(String.format("Número de cartas: %d", dosGame.getActivePlayer().getHand().size()));
-
-		int ourCol = GridPane.getColumnIndex(cmp);
-		boolean needsReOrder = false;
-
-		// Si no ha sido la última carta del jugador y
-		// no era la última de la mano, reordenamos el
-		// grid
-		if (dosGame.getActivePlayer().getHand().size() > 0 && ourCol != handGrid.getChildren().size() - 1) {
-
-			needsReOrder = true;
-		}
-
-		// Eliminamos la carta
-		handGrid.getChildren().remove(cmp);
-
-		// Si necesitamos reordenar
-		if (needsReOrder)
-			GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size() - 1), ourCol);
-
-		// Deshabilitamos las cartas del jugador
-		handGrid.getChildren().stream().forEach(node -> {
-			CardComponent cc = (CardComponent) node;
-			cc.setDisable(true);
-			cc.setId("notPlayable");
-			cc.setFitWidth(75);
-			cc.setFitHeight(125);
-		});
-
-		drawButton.setDisable(true);
-		nextButton.setDisable(false);
-
-		if (dosGame.getActivePlayer().getHand().size() < 1) {
-			nextButton.setDisable(true);
-			endGame();
-		}
-		*/
+	private void onSelectCard(Card card, CardComponent cmp, int indexInHand) {
+		
+		dosGame.client_throwCard(indexInHand);
+		
+		// Desabilitamos la mano del jugador
+		disableHand();
 	}
 
 	private void onChangedImageColor(String nv) {
@@ -430,43 +462,19 @@ public class GameControllerDosNET implements Initializable {
 		*/
 	}
 
-	private void updateCardCounters() {
-		for (int i = 0; i < playersNumCards.size(); i++) {
+	public void updateCardCounters() {
+		for (int i = 0; i < dosGame.getCurrentPlayers().size(); i++) {
 			playersNumCards.get(i).setText(String.format("Número de cartas: %d", dosGame.getCurrentPlayers().get(i).getHand().size()));
 		}
 	}
 
 	@FXML
 	void drawCardAction(ActionEvent event) {
-		/*
-		if (!dosGame.getDeck().getCards().isEmpty()) {
-			dosGame.drawCard();
-
-			// Volvemos a habilitar el pasar turno
-			nextButton.setDisable(false);
-			// Actualizamos el número de cartas del jugador
-			playersNumCards.get(dosGame.getPlayerPosition(dosGame.getActivePlayer()))
-					.setText(String.format("Número de cartas: %d", dosGame.getActivePlayer().getHand().size()));
-
-			// Ahora tenemos que añadir las cartas robadas
-			refreshHand();
-			showHand();
-
-			if (dosGame.getDeck().getCards().isEmpty()) {
-				endGame();
-			}
-		}
-
-		// El jugador no puede hacer nada más
-		handGrid.getChildren().stream().forEach(node -> {
-			CardComponent cc = (CardComponent) node;
-			cc.setDisable(true);
-			cc.setId("notPlayable");
-			cc.setFitWidth(75);
-			cc.setFitHeight(125);
-		});
-		drawButton.setDisable(true);
-		*/
+		
+		dosGame.client_drawCard();
+		
+		// Desactivamos la mano del jugador
+		disableHand();
 	}
 
 	@FXML

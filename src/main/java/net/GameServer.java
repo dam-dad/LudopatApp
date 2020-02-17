@@ -4,15 +4,21 @@ import java.util.ArrayList;
 
 import games.Card;
 import games.Player;
+import gameslib.Dos;
+import javafx.application.Platform;
+import main.LudopatApp;
 import net.objects.NET_Card;
 import net.objects.NET_Player;
 
 public class GameServer {
 
 	private ArrayList<ServerClient> clients;
-
-	public GameServer(ArrayList<ServerClient> clients) {
+	private LudopatApp app;
+	
+	public GameServer(ArrayList<ServerClient> clients, LudopatApp app) {
 		this.clients = clients;
+		this.app = app;
+		
 		for(ServerClient serverClient : clients) {
 			serverClient.setGameServer(this);
 		}
@@ -29,6 +35,16 @@ public class GameServer {
 		return netPlayers;
 	}
 	
+	// Envios por parte del servidor
+	//-----------------------------------------------------------------------------
+	
+	/**
+	 * Envío de información inicial de la mesa
+	 * @param players Jugadores actuales en la mesa
+	 * @param currentCard Carta actual sobre la mesa
+	 * @param currentPlayer Primer turno
+	 * @param gameType Modo de juego
+	 */
 	public synchronized void sendInitialInfo(ArrayList<Player> players, Card currentCard, int currentPlayer, String gameType) {
 		
 		NET_Card currentNETCard = new NET_Card(currentCard);
@@ -37,9 +53,85 @@ public class GameServer {
 		}
 	}
 
+	/**
+	 * Replica el mensaje enviado por un cliente a los demás
+	 * clientes
+	 * @param message Mensaje recibido del cliente
+	 * @param id ID del cliente que envió el mensaje
+	 */
 	public synchronized void broadcastMessage(String message, int id) {
 		for(ServerClient client : clients) {
 			client.receiveMessage(message, id);
 		}
 	}
+	
+	/**
+	 * Envío a los clientes la nueva carta sobre la mesa
+	 * y al cliente que lanzó la carta su nueva mano
+	 * @param newHand Nueva mano del cliente que lanzó la carta
+	 * @param newCard Nueva carta sobre la mesa
+	 */
+	public synchronized void sendNewCardTable(ArrayList<Card> newHand, Card newCard) {
+		
+		ArrayList<NET_Card> newNETHand = new ArrayList<NET_Card>();
+		for( Card card : newHand ) {
+			newNETHand.add(new NET_Card(card));
+		}
+		
+		for( ServerClient c : clients ) {
+			c.gameSend_newTableCard(newNETHand, new NET_Card(newCard));
+		}
+	}
+	
+	/**
+	 * El cliente ha podido robar cartas
+	 * @param newHand Nueva mano para el cliente que ha robado cartas
+	 */
+	public synchronized void sendCardTaken(ArrayList<Card> newHand) {
+		
+		
+		ArrayList<NET_Card> newNETHand = new ArrayList<NET_Card>();
+		for( Card card : newHand ) {
+			newNETHand.add(new NET_Card(card));
+		}
+		
+		for( ServerClient c : clients ) {
+			c.gameSend_clientCardTaken(newNETHand);
+		}
+	}
+	
+	//-----------------------------------------------------------------------------
+	
+	// Recepciones en el servidor
+	//-----------------------------------------------------------------------------
+	
+	/**
+	 * Carta lanzada por el cliente
+	 * @param cardInHand Índice de la carta en su mano
+	 */
+	public synchronized void clientThrowedCard(int cardInHand) {
+		
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				((Dos)app.getServerCurrentGame()).server_throwCard(cardInHand);
+			}
+		});
+		
+	}
+	
+	public synchronized void clientTakenCard() {
+		
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				((Dos)app.getServerCurrentGame()).sever_drawCard();
+				
+			}
+		});
+	}
+	
+	//-----------------------------------------------------------------------------
 }
