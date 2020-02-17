@@ -9,8 +9,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
-public class SentEmote implements Initializable{
+public class SentEmote extends VBox implements Initializable{
 	@FXML
     private ImageView emoteImage;
 	

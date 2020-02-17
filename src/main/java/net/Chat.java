@@ -16,6 +16,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import net.chat.ReceivedEmote;
+import net.chat.ReceivedMessage;
+import net.chat.SentEmote;
+import net.chat.SentMessage;
 
 public class Chat implements Initializable {
 
@@ -73,6 +77,7 @@ public class Chat implements Initializable {
 
 			this.dosGame = dosGame;
 		} catch (IOException e) {
+			
 			e.printStackTrace();
 		}
 	}
@@ -92,11 +97,11 @@ public class Chat implements Initializable {
 				// 49 es el int de '1' y 48 el de '0'
 				if (message.charAt(1) >= 49 && message.charAt(1) <= dosGame.getCurrentPlayers().size() + 48) {
 					// Mensaje privado
-					if (dosGame.getActivePlayer().getId() == fromId) {
+					if (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == fromId) {
 						// Mensaje privado escrito por el jugador
 						showPrivateMessage(message, fromId);
 					} else {
-						if (dosGame.getActivePlayer().getId() == message.charAt(1) - 48) {
+						if (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == message.charAt(1) - 48) {
 							// Destinatario del mensaje
 							showPrivateMessage(message, fromId);
 						}
@@ -171,11 +176,11 @@ public class Chat implements Initializable {
 					// 49 es el int de '1' y 48 el de '0'
 					if (message.charAt(1) >= 49 && message.charAt(1) <= dosGame.getCurrentPlayers().size() + 48) {
 						// Mensaje privado
-						if (dosGame.getActivePlayer().getId() == fromId) {
+						if (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == fromId) {
 							// Mensaje privado escrito por el jugador
 							showPrivateMessage(message, fromId);
 						} else {
-							if (dosGame.getActivePlayer().getId() == message.charAt(1) - 48) {
+							if (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == message.charAt(1) - 48) {
 								// Destinatario del mensaje
 								showPrivateMessage(message, fromId);
 							}
@@ -195,30 +200,28 @@ public class Chat implements Initializable {
 		for (int i = 3; i < message.length(); i++) {
 			messageOK += message.charAt(i);
 		}
-		// TODO controlador mensaje
-		if (fromCode != dosGame.getActivePlayer().getId()) {
+		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
 			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
-//			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
-//			received.setId("private");
-//			content.getChildren().add(received);
+			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
+			received.setId("private");
+			content.getChildren().add(received);
 		} else {
 			// Se trata de un mensaje de salida
-//			SentMessage sent = new SentMessage(messageOK);
-//			sent.setId("private");
-//			content.getChildren().add(sent);
+			SentMessage sent = new SentMessage(messageOK);
+			sent.setId("private");
+			content.getChildren().add(sent);
 		}
 	}
 
 	private void showEmote(String emoteCode, int fromCode) {
-		// TODO controlador emote
-		if (fromCode != dosGame.getActivePlayer().getId()) {
+		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
 			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
-//			content.getChildren().add(new ReceivedEmote(emoteCode, issuer));
+			content.getChildren().add(new ReceivedEmote(emoteCode, issuer));
 		} else {
 			// Se trata de un mensaje de salida
-//			content.getChildren().add(new SentEmote(emoteCode));	
+			content.getChildren().add(new SentEmote(emoteCode));	
 		}
 	}
 
@@ -227,32 +230,31 @@ public class Chat implements Initializable {
 		for (int i = 8; i < message.length(); i++) {
 			messageOK += message.charAt(i);
 		}
-		// TODO controlador mensaje
-		if (fromCode != dosGame.getActivePlayer().getId()) {
+		
+		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
 			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
-//			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
-//			received.setId(styleCode);
-//			content.getChildren().add(received);
+			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
+			received.setId(styleCode);
+			content.getChildren().add(received);
 		} else {
 			// Se trata de un mensaje de salida
-//			SentMessage sent = new SentMessage(messageOK);
-//			sent.setId(styleCode);
-//			content.getChildren().add(sent);
+			SentMessage sent = new SentMessage(messageOK);
+			sent.setId(styleCode);
+			content.getChildren().add(sent);
 		}
 	}
 
 	private void showNormalMessage(String message, int fromCode) {
-		// TODO controlador mensaje
-		if (fromCode != dosGame.getActivePlayer().getId()) {
+		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
 			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
-//			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
-//			content.getChildren().add(received);
+			ReceivedMessage received = new ReceivedMessage(message, issuer);
+			content.getChildren().add(received);
 		} else {
 			// Se trata de un mensaje de salida
-//			SentMessage sent = new SentMessage(messageOK);
-//			content.getChildren().add(sent);
+			SentMessage sent = new SentMessage(message);
+			content.getChildren().add(sent);
 		}
 	}
 
