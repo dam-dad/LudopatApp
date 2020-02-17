@@ -23,8 +23,7 @@ import javafx.application.Platform;
  */
 public class Dav_IA_DOS extends Dav_AI implements Runnable {
 	
-	//Para salvar los cambios de color que si que tienen suit
-	private final int SPECIALS_MIN_VALUE = 15;
+	private final int SPECIALS_MIN_VALUE = 11;
 	/**
 	 * Jugador que representa esta IA
 	 */
@@ -63,7 +62,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 					// Comprobamos las cartas que puede jugar
 					for (Card card : player.getHand()) {
 						// Comprobamos el color
-						if (card.isPlayable() && card.getSuit() != null) {
+						if (card.isPlayable() && card.getCardValue() < SPECIALS_MIN_VALUE) {
 							if (card.getSuit().getName().contentEquals("blue")) {
 								playableBlueCards = true;
 							} else {
@@ -128,6 +127,56 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 
 							if (throwableSuit == -1) {
 								switch (codes[1]) {
+								case 0:
+									if (playableBlueCards) {
+										throwableSuit = 0;
+									}
+									break;
+								case 1:
+									if (playableYellowCards) {
+										throwableSuit = 1;
+									}
+									break;
+								case 2:
+									if (playableWhiteCards) {
+										throwableSuit = 2;
+									}
+									break;
+								case 3:
+									if (playableGreenCards) {
+										throwableSuit = 3;
+									}
+									break;
+								}
+							}
+
+							if (throwableSuit == -1) {
+								switch (codes[2]) {
+								case 0:
+									if (playableBlueCards) {
+										throwableSuit = 0;
+									}
+									break;
+								case 1:
+									if (playableYellowCards) {
+										throwableSuit = 1;
+									}
+									break;
+								case 2:
+									if (playableWhiteCards) {
+										throwableSuit = 2;
+									}
+									break;
+								case 3:
+									if (playableGreenCards) {
+										throwableSuit = 3;
+									}
+									break;
+								}
+							}
+
+							if (throwableSuit == -1) {
+								switch (codes[3]) {
 								case 0:
 									if (playableBlueCards) {
 										throwableSuit = 0;
