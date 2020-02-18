@@ -88,6 +88,11 @@
                            <children>
                               <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0">
                                  <children>
+                                    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label id="playerName" fx:id="player1ID" text="#" />
+                                       </children>
+                                    </HBox>
                                     <ImageView fx:id="player1Crown" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </HBox>
@@ -125,6 +130,11 @@
                            <children>
                               <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0">
                                  <children>
+                                    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label id="playerName" fx:id="player2ID" text="#" />
+                                       </children>
+                                    </HBox>
                                     <ImageView fx:id="player2Crown" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </HBox>
@@ -159,6 +169,11 @@
                            <children>
                               <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0">
                                  <children>
+                                    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label id="playerName" fx:id="player3ID" text="#" />
+                                       </children>
+                                    </HBox>
                                     <ImageView fx:id="player3Crown" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </HBox>
@@ -193,6 +208,11 @@
                            <children>
                               <HBox alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="20.0" prefWidth="20.0">
                                  <children>
+                                    <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <Label id="playerName" fx:id="player4ID" text="#" />
+                                       </children>
+                                    </HBox>
                                     <ImageView fx:id="player4Crown" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </HBox>

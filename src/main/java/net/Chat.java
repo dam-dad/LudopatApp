@@ -23,21 +23,6 @@ import net.chat.SentMessage;
 
 public class Chat implements Initializable {
 
-	public enum Style {
-		BOLD("bold--"), ITALIC("italic"), BLACK("black-"), GOLD("gold--");
-
-		String code;
-
-		Style(String code) {
-			this.code = code;
-		}
-
-		public String getCode() {
-			return this.code;
-		}
-
-	}
-
 	@FXML
 	private VBox view;
 
@@ -145,17 +130,17 @@ public class Chat implements Initializable {
 			case '*':
 				// Si es '*' puede tratarse de un estilo
 				// Si es igual a algún Style code se trata de un estilo
-				switch (nextSixChars) {
-				case "bold--":
+				switch (message.charAt(1)) {
+				case 'b':
 					showMessage(message, "bold", fromId);
 					return;
-				case "italic":
+				case 'i':
 					showMessage(message, "italic", fromId);
 					return;
-				case "black-":
+				case 'd':
 					showMessage(message, "black", fromId);
 					return;
-				case "gold--":
+				case 'g':
 					showMessage(message, "gold", fromId);
 					return;
 				default:
@@ -187,8 +172,30 @@ public class Chat implements Initializable {
 						}
 					}
 				}else {
-					//Se trata de un mensaje normal
-					showNormalMessage(message, fromId);
+					if (message.charAt(0) == '*') {
+						// Si es '*' puede tratarse de un estilo
+						// Si es igual a algún Style code se trata de un estilo
+						switch (message.charAt(1)) {
+						case 'b':
+							showMessage(message, "bold", fromId);
+							return;
+						case 'i':
+							showMessage(message, "italic", fromId);
+							return;
+						case 'd':
+							showMessage(message, "black", fromId);
+							return;
+						case 'g':
+							showMessage(message, "gold", fromId);
+							return;
+						default:
+							// Si no es ninguno no es un estilo y por consiguiente no tiene modificador
+							break;
+						}
+					}else {
+						//Se trata de un mensaje normal
+						showNormalMessage(message, fromId);
+					}
 				}
 			}else {
 				//Se trata de un mensaje normal

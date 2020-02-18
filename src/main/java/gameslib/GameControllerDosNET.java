@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+import javax.naming.Binding;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
@@ -16,7 +18,8 @@ import games.Card;
 import games.Player;
 import help.HelpViewContoller;
 import javafx.application.Platform;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -166,12 +169,23 @@ public class GameControllerDosNET implements Initializable {
 
     @FXML
     private GridPane handGrid;
+    
+    //ID de los jugadores
+    @FXML
+    private Label player1ID;
+    @FXML
+    private Label player2ID;
+    @FXML
+    private Label player3ID;
+    @FXML
+    private Label player4ID;
 
 	// ----------------------------------------------------------
 	// Variables used by controller
 	// ----------------------------------------------------------
 
 	private ArrayList<HBox> playersBox;
+	private ArrayList<Label> playersID;
 	private ArrayList<Label> playersName;
 	private ArrayList<Label> playersNumCards;
 	private ArrayList<ImageView> playersImage;
@@ -211,6 +225,7 @@ public class GameControllerDosNET implements Initializable {
 
 		// Añadimos los datos de los jugadores
 		playersBox = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
+		playersID = new ArrayList<>(Arrays.asList(player1ID, player2ID, player3ID, player4ID));
 		playersName = new ArrayList<>(Arrays.asList(player1Name, player2Name, player3Name, player4Name));
 		playersNumCards = new ArrayList<>(Arrays.asList(player1Cards, player2Cards, player3Cards, player4Cards));
 		playersImage = new ArrayList<>(Arrays.asList(player1Image, player2Image, player3Image, player4Image));
@@ -240,6 +255,7 @@ public class GameControllerDosNET implements Initializable {
 			}
 			
 			playersNumCards.get(p).setText(String.format("Número de cartas: %d", player.getHand().size()));
+			playersID.get(p).setText(String.valueOf(player.getId()));
 			playersName.get(p).textProperty().bind(player.getPlayerInfo().playerNameProperty());
 			playersImage.get(p).imageProperty().bind(player.getPlayerInfo().playerIconProperty());
 			playersBox.get(p).setVisible(true);
