@@ -69,7 +69,7 @@ public class Client implements Runnable {
 	/**
 	 * Desconexión de este cliente con el servidor
 	 */
-	public void disconnectClient() {
+	public void disconnectClient(boolean bFromMenu) {
 		
 		if( socket != null && !socket.isClosed() ) {
 			
@@ -80,6 +80,15 @@ public class Client implements Runnable {
 				
 			} catch (IOException e1) {
 			}
+		}
+		
+		// Si se ha llamado desde el menú, vamos al menú
+		try {
+			
+			exit = true;
+			socket.close();
+			
+		} catch (IOException e) {
 		}
 	}
 	

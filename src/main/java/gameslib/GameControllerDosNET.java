@@ -252,7 +252,7 @@ public class GameControllerDosNET implements Initializable {
 			}
 			
 			playersNumCards.get(p).setText(String.format("Número de cartas: %d", player.getHand().size()));
-			playersID.get(p).setText(String.valueOf(player.getId()));
+			playersID.get(p).setText("#" + String.valueOf(player.getId()));
 			playersName.get(p).textProperty().bind(player.getPlayerInfo().playerNameProperty());
 			playersImage.get(p).imageProperty().bind(player.getPlayerInfo().playerIconProperty());
 			playersBox.get(p).setVisible(true);
@@ -299,8 +299,10 @@ public class GameControllerDosNET implements Initializable {
 			node.setId("notPlayable");
 		});
 	}
+	
 	public void nextTurn() {
-		initHand();
+		
+		enableHand();
 		
 	}
 	
@@ -517,7 +519,7 @@ public class GameControllerDosNET implements Initializable {
 
 	@FXML
 	void returnMenuAction(ActionEvent event) {
-		ludopp.goMenu();
+		ludopp.onlineGoMenu();
 	}
 
 	@FXML
