@@ -112,17 +112,17 @@ public class Chat implements Initializable {
 				case '*':
 					String style = message.substring(0, 2);
 					switch (style) {
-					case "*b ":
-						showMessage(message, style, fromId);
+					case "*b":
+						showMessage(message, "bold", fromId);
 						break;
-					case "*i ":
-						showMessage(message, style, fromId);
+					case "*i":
+						showMessage(message, "italic", fromId);
 						break;
-					case "*d ":
-						showMessage(message, style, fromId);
+					case "*d":
+						showMessage(message, "black", fromId);
 						break;
-					case "*g ":
-						showMessage(message, style, fromId);
+					case "*g":
+						showMessage(message, "gold", fromId);
 						break;
 					}
 					break;
@@ -210,7 +210,8 @@ public class Chat implements Initializable {
 		}
 		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
-			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
+			String issuer = dosGame.getCurrentPlayers().stream().filter(p -> p.getPlayerInfo().getUserID() == fromCode)
+					.findFirst().get().getPlayerInfo().getPlayerName();
 			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
 			received.setId("private");
 			content.getChildren().add(received);
@@ -225,7 +226,8 @@ public class Chat implements Initializable {
 	private void showEmote(String emoteCode, int fromCode) {
 		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
-			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
+			String issuer = dosGame.getCurrentPlayers().stream().filter(p -> p.getPlayerInfo().getUserID() == fromCode)
+					.findFirst().get().getPlayerInfo().getPlayerName();
 			content.getChildren().add(new ReceivedEmote(emoteCode, issuer));
 		} else {
 			// Se trata de un mensaje de salida
@@ -235,13 +237,14 @@ public class Chat implements Initializable {
 
 	private void showMessage(String message, String styleCode, int fromCode) {
 		String messageOK = "";
-		for (int i = 8; i < message.length(); i++) {
+		for (int i = 3; i < message.length(); i++) {
 			messageOK += message.charAt(i);
 		}
 
 		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
-			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
+			String issuer = dosGame.getCurrentPlayers().stream().filter(p -> p.getPlayerInfo().getUserID() == fromCode)
+					.findFirst().get().getPlayerInfo().getPlayerName();
 			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
 			received.setId(styleCode);
 			content.getChildren().add(received);
@@ -256,7 +259,8 @@ public class Chat implements Initializable {
 	private void showNormalMessage(String message, int fromCode) {
 		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
-			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
+			String issuer = dosGame.getCurrentPlayers().stream().filter(p -> p.getPlayerInfo().getUserID() == fromCode)
+					.findFirst().get().getPlayerInfo().getPlayerName();
 			ReceivedMessage received = new ReceivedMessage(message, issuer);
 			content.getChildren().add(received);
 		} else {
