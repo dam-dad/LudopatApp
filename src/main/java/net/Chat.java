@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import net.chat.EmoteSelector;
 import net.chat.ReceivedEmote;
 import net.chat.ReceivedMessage;
 import net.chat.SentEmote;
@@ -49,14 +50,12 @@ public class Chat implements Initializable {
 
 	private Dos dosGame;
 
-	@FXML
-	void closeChat(ActionEvent event) {
-		dosGame.getNETHud().closeChat();
-	}
+	private EmoteSelector emoteSelector;
 
 	public Chat(Dos dosGame) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/online/chat/MPChatView.fxml"));
 		loader.setController(this);
+
 		try {
 			loader.load();
 
@@ -67,10 +66,18 @@ public class Chat implements Initializable {
 		}
 	}
 
-	private void identifyMessage(String message, int fromId) {
-		String nextSixChars = "";
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		emoteSelector = new EmoteSelector(this);
+	}
 
-		if (message.length() <= 4) {
+	@FXML
+	void closeChat(ActionEvent event) {
+		dosGame.getNETHud().closeChat();
+	}
+
+	private void identifyMessage(String message, int fromId) {
+		if (message.length() < 4) {
 			showNormalMessage(message, fromId);
 		} else {
 			if (message.length() == 7 && message.charAt(0) == '/') {
@@ -133,8 +140,12 @@ public class Chat implements Initializable {
 								showPrivateMessage(message, fromId);
 							}
 						}
-						break;
 					}
+					break;
+				default:
+					// Se trata de un mensaje normal
+					showNormalMessage(message, fromId);
+					break;
 				}
 			}
 		}
@@ -255,14 +266,9 @@ public class Chat implements Initializable {
 		}
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-	}
-
 	@FXML
 	void emoteAction(ActionEvent event) {
-
+		actionsStack.getChildren().add(emoteSelector);
 	}
 
 	@FXML
@@ -274,7 +280,11 @@ public class Chat implements Initializable {
 				messageArea.setText("");
 			}
 		});
+	}
 
+	public void appendEmote(String emoteCode) {
+		messageArea.setText(emoteCode);
+		sendButton(null);
 	}
 
 	public VBox getView() {
@@ -283,5 +293,13 @@ public class Chat implements Initializable {
 
 	public void getMessage(String message, int senderID) {
 		identifyMessage(message, senderID);
+	}
+
+	public StackPane getActionsStack() {
+		return actionsStack;
+	}
+
+	public void setActionsStack(StackPane actionsStack) {
+		this.actionsStack = actionsStack;
 	}
 }

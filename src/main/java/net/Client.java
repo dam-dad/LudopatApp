@@ -69,7 +69,7 @@ public class Client implements Runnable {
 	/**
 	 * Desconexión de este cliente con el servidor
 	 */
-	public void disconnectClient(boolean bFromMenu) {
+	public void disconnectClient() {
 		
 		if( socket != null && !socket.isClosed() ) {
 			
@@ -82,7 +82,7 @@ public class Client implements Runnable {
 			}
 		}
 		
-		// Si se ha llamado desde el menú, vamos al menú
+		// Desconectamos a este cliente
 		try {
 			
 			exit = true;
@@ -212,7 +212,11 @@ public class Client implements Runnable {
 					
 					@Override
 					public void run() {
-						app.goMenu();	
+						
+						if( app.getCurrentGame() == null )
+							app.goMenu();	 // No estamos en el juego
+						else 
+							((Dos)app.getCurrentGame()).client_receiveDisconnect(); // El cliente recibe una notificación
 					}
 				});
 	    		
