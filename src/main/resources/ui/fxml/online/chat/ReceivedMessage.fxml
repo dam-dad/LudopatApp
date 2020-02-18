@@ -7,7 +7,7 @@
 
 <fx:root id="bg" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="250.0" spacing="2.0" stylesheets="@../../../css/Messages.css" type="VBox" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox fx:id="messageBox" alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="200.0">
+      <VBox alignment="CENTER_LEFT" maxWidth="-Infinity" prefWidth="200.0">
          <children>
             <HBox id="playerName" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity">
                <children>
@@ -21,7 +21,7 @@
                   <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
                </padding>
             </HBox>
-            <HBox id="receivedMessage" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+            <HBox id="receivedMessage" fx:id="messageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
                   <Label id="messageBody" fx:id="messageLabel" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Default MESSAGE" wrapText="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>
