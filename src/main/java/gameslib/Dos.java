@@ -151,6 +151,26 @@ public class Dos extends Game {
 		});
 	}
 	
+	public void client_nextTurn() {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				clientThread.sendNextTurn();
+				
+			}
+			
+			
+		});
+		
+	}
+	
+	public void server_nextTurn() {
+		nextTurn();
+		if (gameServer != null) {
+		gameServer.sendNextTurn(getActivePlayer().getPlayerInfo().getUserID(), cardsToDraw.get());
+		}
+	}
 	/**
 	 * Un jugador ha lanzado una carta
 	 * @param indexOfCard Índice de la carta en su mano
@@ -176,6 +196,15 @@ public class Dos extends Game {
 		if( gameServer != null ) {
 			gameServer.sendCardTaken(getActivePlayer().getHand());
 		}
+	}
+	
+	public void client_receiveNextTurn(int id , int draws) {
+		
+		setActivePlayer( getCurrentPlayers().stream().filter(p -> 
+		p.getPlayerInfo().getUserID()==id).findFirst().get());
+		setCardsToDraw(draws);
+		NETHud.nextTurn();
+		
 	}
 	
 	/**

@@ -138,6 +138,10 @@ public class ServerClient implements Runnable {
 				gameServer.clientTakenCard();
 				break;
 			
+			case InfoPackage.CLIENT_NEXTTURN:
+				gameServer.ClientNextTurn();
+				break;
+			
 		}
 		
 	}
@@ -179,6 +183,19 @@ public class ServerClient implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	public void gameSend_nextTurn(int id,int draws) {
+		
+		InfoPackage packageNextTurn = new InfoPackage(InfoPackage.CLIENT_NEXTTURN, draws, id);
+		
+		try {
+			dataOut.writeObject(packageNextTurn);
+		} catch (IOException e) {
+		
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Envio del paquete de información de la sala del servidor al cliente
 	 * @param rules Reglas del servidor

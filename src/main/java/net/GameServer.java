@@ -100,6 +100,13 @@ public class GameServer {
 		}
 	}
 	
+	public synchronized void sendNextTurn(int playerId,int cardDraws) {
+		
+		for(ServerClient c : clients) {
+			c.gameSend_nextTurn(playerId, cardDraws);
+		}
+	}
+	
 	//-----------------------------------------------------------------------------
 	
 	// Recepciones en el servidor
@@ -111,7 +118,17 @@ public class GameServer {
 		}
 	}
 	
-	
+	public synchronized void ClientNextTurn() {
+		
+		Platform.runLater(new Runnable() {
+			
+			@Override
+			public void run() {
+				((Dos)app.getServerCurrentGame()).server_nextTurn();
+				
+			}
+		});
+	}
 	/**
 	 * Carta lanzada por el cliente
 	 * @param cardInHand Índice de la carta en su mano

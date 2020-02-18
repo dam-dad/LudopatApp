@@ -262,6 +262,19 @@ public class Client implements Runnable {
 				
 				break;
 				
+			case InfoPackage.CLIENT_NEXTTURN:
+				Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						
+						int draws = (int)pkg.getInfoObject();
+						int id = pkg.getUserID();
+						
+						((Dos)app.getCurrentGame()).client_receiveNextTurn(id, draws);	
+					}
+				});
+				
 			default:
 					break;
 		}
@@ -313,6 +326,16 @@ public class Client implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void sendNextTurn() {
+		InfoPackage nextTPkg = new InfoPackage(InfoPackage.CLIENT_NEXTTURN, null);
+		try {
+			dataOut.writeObject(nextTPkg);
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+		
 	}
 	
 	//----------------------------------------------------------------------------

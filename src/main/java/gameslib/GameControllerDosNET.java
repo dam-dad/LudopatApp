@@ -299,6 +299,10 @@ public class GameControllerDosNET implements Initializable {
 			node.setId("notPlayable");
 		});
 	}
+	public void nextTurn() {
+		initHand();
+		
+	}
 	
 	/**
 	 * Activamos las funcionalidades para este jugador.
@@ -506,17 +510,9 @@ public class GameControllerDosNET implements Initializable {
 	}
 
 	@FXML
-	void nextTurnAction(ActionEvent event) {
-		/*
-		drawButton.setDisable(false);
-
-		dosGame.nextTurn();// esto cambia el jugador activo
-*/
-		// Si hay un bloqueo activo, saltamos al siguiente
-//		if (dosGame.isBlocked()) {
-//			dosGame.setBlocked(false);
-//			dosGame.nextTurn();
-//		}
+	void nextTurnAction(ActionEvent event) {	
+		dosGame.client_nextTurn();
+		disableHand();
 	}
 
 	@FXML
