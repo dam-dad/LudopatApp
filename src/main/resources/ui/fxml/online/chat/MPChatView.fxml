@@ -46,7 +46,7 @@
                                  </image>
                               </ImageView>
                            </graphic></JFXButton>
-                        <JFXButton id="chatButton" fx:id="sendButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#sendButton" prefHeight="80.0" prefWidth="40.0" ripplerFill="#c70e0e">
+                        <JFXButton id="chatButton" fx:id="sendButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#sendButton" prefHeight="80.0" prefWidth="40.0" ripplerFill="#c70e0e">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

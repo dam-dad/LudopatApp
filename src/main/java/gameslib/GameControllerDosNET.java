@@ -28,6 +28,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -624,5 +626,16 @@ public class GameControllerDosNET implements Initializable {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
+
+    @FXML
+    void keyChat(KeyEvent event) {
+    	if(event.getCode() == KeyCode.C) {
+    		if (chatStack.getChildren().size() == 2) {
+    			openChat(null);
+    		}else {
+    			closeChat();
+    		}
+    	}
+    }
 	
 }
