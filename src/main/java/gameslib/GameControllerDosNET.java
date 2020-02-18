@@ -549,7 +549,16 @@ public class GameControllerDosNET implements Initializable {
 			
 			@Override
 			public void run() {
-				ludopp.goMenu();
+				
+				Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						ludopp.goMenu();
+						
+					}
+				});
+				
 			}
 			
 		} ,3000);

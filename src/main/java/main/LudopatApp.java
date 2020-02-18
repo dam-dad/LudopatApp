@@ -281,17 +281,8 @@ public class LudopatApp extends Application {
 	 */
 	public void onlineGoMenu() {
 		
-		if( connectionServer != null ) {
-			connectionServer.closeRoom(true);
-		}
-		
-		else {
-			// Avisamos a los clientes de que este cliente se va a desconectar
-			if( connectionClient != null )
-				connectionClient.disconnectClient();
-			else
-				goMenu(); // Vamos directamente al menú si no hemos entrado en la sala de espera
-		}
+		// Avisamos a los clientes de que este cliente se va a desconectar
+		connectionClient.disconnectClient();
 	}
 
 	public void initGame() {
@@ -389,16 +380,16 @@ public class LudopatApp extends Application {
 			}
 		}
 		
-		
-		if( connectionClient != null && connectionServer == null  ) {
-			connectionClient.disconnectClient(); // Cerramos el servicio del cliente, avisamos al servidor
+		if( connectionServer != null && connectionServer.isActive() ) {
+			connectionServer.closeRoom(true); // Forzamos el cierre del servidor, además del Host
 		}
 		
-		else if( connectionServer != null ) {
-			connectionServer.closeRoom(true); // Forzamos el cierre del servidor
+		else if( connectionClient != null && gameServer != null ) {
+			connectionClient.disconnectClient(); // Cerramos el servicio del cliente
+			
+		} else if( gameServer != null ) {
+			gameServer.sendClientDisconneced();
 		}
-
-		
 	}
 
 	// -----------------------------------------------------------
