@@ -86,6 +86,8 @@ public class Client implements Runnable {
 		try {
 			
 			exit = true;
+			dataIn.close();
+			dataOut.close();
 			socket.close();
 			
 		} catch (IOException e) {
