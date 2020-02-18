@@ -7,8 +7,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import javax.naming.Binding;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialog.DialogTransition;
@@ -19,7 +17,6 @@ import games.Player;
 import help.HelpViewContoller;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
-import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
