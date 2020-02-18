@@ -159,8 +159,6 @@ public class Dos extends Game {
 				clientThread.sendNextTurn();
 				
 			}
-			
-			
 		});
 		
 	}
@@ -196,6 +194,13 @@ public class Dos extends Game {
 		if( gameServer != null ) {
 			gameServer.sendCardTaken(getActivePlayer().getHand());
 		}
+	}
+	
+	/**
+	 * Desconectamos a este cliente
+	 */
+	public void client_receiveDisconnect() {
+		NETHud.notifyDisconnectDialog();
 	}
 	
 	public void client_receiveNextTurn(int id , int draws) {

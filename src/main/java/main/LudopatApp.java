@@ -288,7 +288,7 @@ public class LudopatApp extends Application {
 		else {
 			// Avisamos a los clientes de que este cliente se va a desconectar
 			if( connectionClient != null )
-				connectionClient.disconnectClient(true);
+				connectionClient.disconnectClient();
 			else
 				goMenu(); // Vamos directamente al menú si no hemos entrado en la sala de espera
 		}
@@ -391,11 +391,11 @@ public class LudopatApp extends Application {
 		
 		
 		if( connectionClient != null && connectionServer == null  ) {
-			connectionClient.disconnectClient(false); // Cerramos el servicio del cliente, avisamos al servidor
+			connectionClient.disconnectClient(); // Cerramos el servicio del cliente, avisamos al servidor
 		}
 		
-		if( connectionServer != null ) {
-			connectionServer.closeRoom(true); // Forzamos el cierre del servidor, además del Host
+		else if( connectionServer != null ) {
+			connectionServer.closeRoom(true); // Forzamos el cierre del servidor
 		}
 
 		

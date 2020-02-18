@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
@@ -520,6 +522,38 @@ public class GameControllerDosNET implements Initializable {
 		ludopp.goMenu();
 	}
 
+	public void notifyDisconnectDialog() {
+		
+		Label disconnectLabel = new Label("Cliente desconectado");
+		disconnectLabel.setMaxWidth(800);
+		disconnectLabel.setId("tittle");
+		
+		HBox tittleBox = new HBox(disconnectLabel);
+		tittleBox.setPrefWidth(800);
+		tittleBox.setAlignment(Pos.CENTER);
+		
+		JFXDialogLayout layout = new JFXDialogLayout();
+		layout.setHeading(tittleBox);
+		layout.setBody(new Label("Saliendo al menú principal...."));
+		layout.setId("content");
+		
+		layout.maxHeight(200);
+		
+		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+		dialog.show();
+		Timer timer = new Timer();
+		
+		timer.schedule( new TimerTask() {
+			
+			@Override
+			public void run() {
+				ludopp.goMenu();
+			}
+			
+		} ,3000);
+		
+	}
+	
 	@FXML
 	void openHelp(MouseEvent event) {
 
