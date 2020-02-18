@@ -297,7 +297,7 @@ public class Chat implements Initializable {
 	}
 
 	public void appendEmote(String emoteCode) {
-		messageArea.textProperty().set(emoteCode);
+		messageArea.setText(emoteCode);
 		sendButton(null);
 	}
 
