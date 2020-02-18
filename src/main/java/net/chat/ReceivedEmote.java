@@ -34,7 +34,7 @@ public class ReceivedEmote extends VBox implements Initializable{
 			this.emoteCode = emoteCode;
 			this.issuer = issuer;
 			this.IssuerNameLabel.setText(this.issuer);
-			Image emote = new Image(getClass().getResource("ui/images/chat/emotes/" + emoteCode + ".png").toString());
+			Image emote = new Image(getClass().getResource("/ui/images/chat/emotes/" + emoteCode + ".png").toString());
 			this.emoteImage.setImage(emote);
 			
 		} catch (IOException e) {
