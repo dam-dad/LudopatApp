@@ -16,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import net.chat.EmoteSelector;
 import net.chat.ReceivedEmote;
 import net.chat.ReceivedMessage;
 import net.chat.SentEmote;
@@ -49,22 +50,32 @@ public class Chat implements Initializable {
 
 	private Dos dosGame;
 
-	@FXML
-	void closeChat(ActionEvent event) {
-		dosGame.getNETHud().closeChat();
-	}
+	private EmoteSelector emoteSelector;
+
+	
 
 	public Chat(Dos dosGame) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/online/chat/MPChatView.fxml"));
 		loader.setController(this);
+
 		try {
 			loader.load();
 
 			this.dosGame = dosGame;
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		emoteSelector = new EmoteSelector(this);
+	}
+
+	@FXML
+	void closeChat(ActionEvent event) {
+		dosGame.getNETHud().closeChat();
 	}
 
 	private void identifyMessage(String message, int fromId) {
@@ -171,7 +182,7 @@ public class Chat implements Initializable {
 							}
 						}
 					}
-				}else {
+				} else {
 					if (message.charAt(0) == '*') {
 						// Si es '*' puede tratarse de un estilo
 						// Si es igual a algún Style code se trata de un estilo
@@ -192,13 +203,13 @@ public class Chat implements Initializable {
 							// Si no es ninguno no es un estilo y por consiguiente no tiene modificador
 							break;
 						}
-					}else {
-						//Se trata de un mensaje normal
+					} else {
+						// Se trata de un mensaje normal
 						showNormalMessage(message, fromId);
 					}
 				}
-			}else {
-				//Se trata de un mensaje normal
+			} else {
+				// Se trata de un mensaje normal
 				showNormalMessage(message, fromId);
 			}
 		}
@@ -231,7 +242,7 @@ public class Chat implements Initializable {
 			content.getChildren().add(new ReceivedEmote(emoteCode, issuer));
 		} else {
 			// Se trata de un mensaje de salida
-			content.getChildren().add(new SentEmote(emoteCode));	
+			content.getChildren().add(new SentEmote(emoteCode));
 		}
 	}
 
@@ -240,7 +251,7 @@ public class Chat implements Initializable {
 		for (int i = 8; i < message.length(); i++) {
 			messageOK += message.charAt(i);
 		}
-		
+
 		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
 			String issuer = dosGame.getCurrentPlayers().get(fromCode).getPlayerInfo().getPlayerName();
@@ -268,14 +279,9 @@ public class Chat implements Initializable {
 		}
 	}
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-
-	}
-
 	@FXML
 	void emoteAction(ActionEvent event) {
-
+		actionsStack.getChildren().add(emoteSelector);
 	}
 
 	@FXML
@@ -287,7 +293,12 @@ public class Chat implements Initializable {
 				messageArea.setText("");
 			}
 		});
-		
+
+	}
+
+	public void appendEmote(String emoteCode) {
+		messageArea.textProperty().set(emoteCode);
+		sendButton(null);
 	}
 
 	public VBox getView() {
@@ -296,5 +307,12 @@ public class Chat implements Initializable {
 
 	public void getMessage(String message, int senderID) {
 		identifyMessage(message, senderID);
+	}
+	public StackPane getActionsStack() {
+		return actionsStack;
+	}
+
+	public void setActionsStack(StackPane actionsStack) {
+		this.actionsStack = actionsStack;
 	}
 }

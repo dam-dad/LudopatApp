@@ -14,27 +14,27 @@
             <Insets />
          </VBox.margin>
          <children>
-            <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="250.0" spacing="5.0">
+            <HBox fx:id="box1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="250.0" spacing="5.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
                <children>
-                  <ImageView fx:id="emote1" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="emote2" fitHeight="45.0" fitWidth="45.0" layoutX="15.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="15.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="emote3" fitHeight="45.0" fitWidth="45.0" layoutX="50.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="50.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="emote4" fitHeight="45.0" fitWidth="45.0" layoutX="85.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="85.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
@@ -44,24 +44,24 @@
                   <Insets left="5.0" right="5.0" />
                </padding>
             </HBox>
-            <HBox alignment="CENTER" layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="250.0" spacing="5.0">
+            <HBox fx:id="box2" alignment="CENTER" layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="45.0" prefWidth="250.0" spacing="5.0">
                <children>
-                  <ImageView fx:id="emote5" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="emote6" fitHeight="45.0" fitWidth="45.0" layoutX="15.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="15.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="emote7" fitHeight="45.0" fitWidth="45.0" layoutX="50.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="50.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
                   </ImageView>
-                  <ImageView fx:id="emote8" fitHeight="45.0" fitWidth="45.0" layoutX="85.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="45.0" fitWidth="45.0" layoutX="85.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../images/chat/emotes/emotesSample.png" />
                      </image>
