@@ -203,7 +203,9 @@ public class Dos extends Game {
 		setActivePlayer( getCurrentPlayers().stream().filter(p -> 
 		p.getPlayerInfo().getUserID()==id).findFirst().get());
 		setCardsToDraw(draws);
-		NETHud.nextTurn();
+		
+		if( getActivePlayer() == getLocalPlayer() )
+			NETHud.nextTurn();
 		
 	}
 	
