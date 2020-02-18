@@ -299,8 +299,10 @@ public class GameControllerDosNET implements Initializable {
 			node.setId("notPlayable");
 		});
 	}
+	
 	public void nextTurn() {
-		initHand();
+		
+		enableHand();
 		
 	}
 	
@@ -517,7 +519,7 @@ public class GameControllerDosNET implements Initializable {
 
 	@FXML
 	void returnMenuAction(ActionEvent event) {
-		ludopp.goMenu();
+		ludopp.onlineGoMenu();
 	}
 
 	@FXML
