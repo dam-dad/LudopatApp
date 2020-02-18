@@ -70,7 +70,6 @@ public class Client implements Runnable {
 	 * Desconexión de este cliente con el servidor
 	 */
 	public void disconnectClient() {
-		exit = true;
 		
 		if( socket != null && !socket.isClosed() ) {
 			
@@ -80,11 +79,6 @@ public class Client implements Runnable {
 				dataOut.writeObject(new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
 				
 			} catch (IOException e1) {
-			}
-			
-			try {
-				socket.close();
-			} catch (IOException e) {
 			}
 		}
 	}
@@ -122,6 +116,11 @@ public class Client implements Runnable {
 		    	
 		    	
 		    	InfoPackage inPkg = (InfoPackage)dataIn.readObject();
+		    	
+		    	if( inPkg.getInfoByte() == InfoPackage.CLIENT_DISCONNECT ) {
+		    		exit = true;
+		    		break;
+		    	}
 		    	
 		    	if( inPkg.getInfoByte() == InfoPackage.CLIENT_SERVERROOMINFO ) {
 		    		
@@ -187,12 +186,8 @@ public class Client implements Runnable {
 		    }
 			
 		} catch (IOException | ClassNotFoundException e) {
-			
-			if( !exit ) {
-				disconnectClient();	
-			}
-			
 		} finally {
+			
 			
 			if( socket != null && !socket.isClosed() ) {
 				try {
@@ -200,6 +195,18 @@ public class Client implements Runnable {
 					
 				} catch (IOException e) {
 				}
+			}
+			
+			if( exit ) {
+				
+				Platform.runLater(new Runnable() {
+					
+					@Override
+					public void run() {
+						app.goMenu();	
+					}
+				});
+	    		
 			}
 		}
 	}

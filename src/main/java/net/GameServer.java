@@ -104,6 +104,13 @@ public class GameServer {
 	
 	// Recepciones en el servidor
 	//-----------------------------------------------------------------------------
+	public synchronized void sendClientDisconneced() {
+		
+		for( ServerClient c : clients ) {
+			c.sendDisconnected();
+		}
+	}
+	
 	
 	/**
 	 * Carta lanzada por el cliente

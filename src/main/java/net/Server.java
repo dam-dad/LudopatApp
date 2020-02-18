@@ -46,19 +46,6 @@ public class Server implements Runnable {
 	}
 	
 	/**
-	 * Desconectamos a los clientes del servidor.
-	 * Este método es llamado cuando se cierra
-	 * el servidor por el host o se produce un
-	 * error
-	 */
-	public void disconnectClients() {
-		
-		for( ServerClient c : clients ) {
-			c.disconnectClient();
-		}
-	}
-	
-	/**
 	 * Cierre del servidor para no permitir más conexiones.
 	 * @param bForce True cuando se ha producido un error
 	 */
@@ -78,8 +65,18 @@ public class Server implements Runnable {
 		}
 		
 		if( bForce ) {
-			disconnectClients();
+			
+			for( ServerClient c : clients ) {
+				c.sendDisconnected();
+			}
 		}
+	}
+	
+	/**
+	 * Si el servidor sigue aceptando conexiones o no
+	 */
+	public boolean isActive() {
+		return !exit;
 	}
 	
 	/**
@@ -119,18 +116,14 @@ public class Server implements Runnable {
 			}
 			
 		} catch (Exception e) {
-			
-			// Entonces se ha producido un error
-			if( !exit ) {
-				disconnectClients();
-			}
+
 			
 		} finally {
 			
 			if( svSocket != null && !svSocket.isClosed() ) {
 				try {
 					svSocket.close();
-					
+					exit = true;
 				} catch (IOException e1) {
 				}
 			}
@@ -188,6 +181,12 @@ public class Server implements Runnable {
 		currentPlayers.remove(client.getPlayerInfo());
 		clientID--;
 
+		// Entonces hemos acabado
+		if( clients.size() <= 0 ) {
+			closeRoom(false);
+			return;
+		}
+		
 		// Refrescamos la información, se la enviamos a todos los clientes
 		NET_GameRules rules = getRoomInfo();
 		

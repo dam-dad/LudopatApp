@@ -255,14 +255,11 @@ public class LudopatApp extends Application {
 
 		try {
 			
-			// Si el host ha decidido salir de la sala de espera, cerramos la conexión
-			if( connectionServer != null ) { 
-				connectionServer.closeRoom(true);		
-			}
+			if(currentGame != null) 
+				currentGame = null;
 			
-			else if( connectionClient != null ) {
-				connectionClient.disconnectClient(); // Desconectamos al cliente si decide salir de la sala de espera
-			}
+			if(serverCurrentGame != null)
+				serverCurrentGame = null;
 			
 			mainMenuController = new MainMenuController(this);
 
@@ -275,6 +272,23 @@ public class LudopatApp extends Application {
 			e.printStackTrace();
 		}
 
+	}
+	
+	/**
+	 * Llamado desde el modo online, para asegurarse
+	 * de cerrar las conexiones con los clientes
+	 * y el servidor
+	 */
+	public void onlineGoMenu() {
+		
+		if( connectionServer != null ) {
+			connectionServer.closeRoom(true);
+		}
+		
+		else {
+			// Avisamos a los clientes de que este cliente se va a desconectar
+			connectionClient.disconnectClient();
+		}
 	}
 
 	public void initGame() {
@@ -372,13 +386,16 @@ public class LudopatApp extends Application {
 			}
 		}
 		
+		
+		if( connectionClient != null && connectionServer == null  ) {
+			connectionClient.disconnectClient(); // Cerramos el servicio del cliente, avisamos al servidor
+		}
+		
 		if( connectionServer != null ) {
 			connectionServer.closeRoom(true); // Forzamos el cierre del servidor, además del Host
 		}
+
 		
-		else if( connectionClient != null ) {
-			connectionClient.disconnectClient(); // Cerramos el servicio del cliente
-		}
 	}
 
 	// -----------------------------------------------------------

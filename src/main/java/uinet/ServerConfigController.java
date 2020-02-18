@@ -308,7 +308,7 @@ public class ServerConfigController implements Initializable {
 
 	@FXML
 	void onMenuAction(ActionEvent event) {
-		ludopp.goMenu();
+		ludopp.onlineGoMenu();
 	}
 
 	@FXML

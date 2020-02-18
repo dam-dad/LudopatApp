@@ -38,8 +38,6 @@ public class ServerClient implements Runnable {
 	
 	
 //	private LudopatApp app;
-	
-	
 
 
 	public ServerClient(Socket socket, Server roomServer, LudopatApp app) {
@@ -55,25 +53,6 @@ public class ServerClient implements Runnable {
 		}
 	}
 	
-
-	/**
-	 * Desconexión de este cliente con el servidor.
-	 * Método llamado desde el propio servidor
-	 */
-	public void disconnectClient() {
-		
-		exit = true;
-		
-		if( socket != null && !socket.isClosed() ) {
-			
-			try {
-				socket.close();
-				
-			} catch (IOException e) {
-			}
-		}
-	}
-	
 	/**
 	 * Lee información que le proporciona el cliente mientras está
 	 * conectado con el servidor
@@ -82,17 +61,14 @@ public class ServerClient implements Runnable {
 	public void run() {
 		
 		// Este cliente escuchará todo el tiempo lo que le llega del usuario
+		// El cierre de la conexión se hace por parte del cliente al 
+		// cerrar el socket
 		try {
 			
-			while(!exit) {
+			while(true) {
 				
-				InfoPackage pkg = (InfoPackage)dataIn.readObject();
-				
-				// Ahora necesitamos ver que nos ha enviado el cliente
-				if( !checkByteID(pkg) ) {
-					// Si ha llegado hasta aquí indica que debemos terminar
-					break;
-				}
+				InfoPackage pkg = (InfoPackage)dataIn.readObject();	
+				checkByteID(pkg);
 			}
 			
 		} catch (ClassNotFoundException e) {
@@ -122,13 +98,20 @@ public class ServerClient implements Runnable {
 	 * @param pkgIn Paquete recibido
 	 * @return True si es correcto, False implica el cierre de conexión
 	 */
-	private boolean checkByteID(InfoPackage pkgIn) {
+	private void checkByteID(InfoPackage pkgIn) {
 		
 		switch(pkgIn.getInfoByte()) {
 		
 			// El usuario se ha desconectado
 			case InfoPackage.CLIENT_DISCONNECT:
-				return false;
+				if(roomServer.isActive() ) {
+					roomServer.clientDisconnected(this);
+				}
+				
+				if( gameServer != null ) {
+					gameServer.sendClientDisconneced();
+				}
+				
 			case InfoPackage.CLIENT_CONNECT:
 				// Ponemos la información de este usuario
 				if( this.playerInfo == null ) {
@@ -157,8 +140,6 @@ public class ServerClient implements Runnable {
 			
 		}
 		
-		return true;
-		
 	}
 	
 	
@@ -175,6 +156,20 @@ public class ServerClient implements Runnable {
 	
 	// Envio a los clientes
 	//---------------------------------------------------------------
+	/**
+	 * Desconectamos al cliente
+	 */
+	public void sendDisconnected() {
+	
+		try {
+			
+			dataOut.writeObject( new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public void receiveMessage(String message, int id) {
 		InfoPackage packageMessage = new InfoPackage(InfoPackage.CLIENT_SENDMESSAGE, message, id);
 		try {
@@ -201,6 +196,20 @@ public class ServerClient implements Runnable {
 			e.printStackTrace();
 		}
 	}	
+	
+	/**
+	 * Mandamos la señal de desconexión, por lo que
+	 * este cliente va al menú principal.
+	 */
+	public void send_disconnectClient() {
+		
+		try {
+			dataOut.writeObject(new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * Envio de los datos de inicio de juego al cliente
