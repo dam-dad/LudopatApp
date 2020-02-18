@@ -129,7 +129,7 @@ public class Chat implements Initializable {
 				case '@':
 					// Si es '@' puede tratarse de un mensaje privado a x
 					// 49 es el int de '1' y 48 el de '0'
-					if (message.charAt(1) > 48 && message.charAt(1) < dosGame.getCurrentPlayers().size() + 48) {
+					if (message.charAt(1) >= 48 && message.charAt(1) < dosGame.getCurrentPlayers().size() + 48) {
 						// Mensaje privado
 						if (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == fromId) {
 							// Mensaje privado escrito por el jugador
