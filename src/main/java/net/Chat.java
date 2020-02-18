@@ -213,12 +213,14 @@ public class Chat implements Initializable {
 			String issuer = dosGame.getCurrentPlayers().stream().filter(p -> p.getPlayerInfo().getUserID() == fromCode)
 					.findFirst().get().getPlayerInfo().getPlayerName();
 			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
-			received.setId("private");
+			received.getMessageLabel().setId("black");
+			received.getMessageBox().setId("private");
 			content.getChildren().add(received);
 		} else {
 			// Se trata de un mensaje de salida
 			SentMessage sent = new SentMessage(messageOK);
-			sent.setId("private");
+			sent.getMessageLabel().setId("black");
+			sent.getMessageBox().setId("private");
 			content.getChildren().add(sent);
 		}
 	}
@@ -246,12 +248,12 @@ public class Chat implements Initializable {
 			String issuer = dosGame.getCurrentPlayers().stream().filter(p -> p.getPlayerInfo().getUserID() == fromCode)
 					.findFirst().get().getPlayerInfo().getPlayerName();
 			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
-			received.setId(styleCode);
+			received.getMessageLabel().setId(styleCode);
 			content.getChildren().add(received);
 		} else {
 			// Se trata de un mensaje de salida
 			SentMessage sent = new SentMessage(messageOK);
-			sent.setId(styleCode);
+			sent.getMessageLabel().setId(styleCode);
 			content.getChildren().add(sent);
 		}
 	}

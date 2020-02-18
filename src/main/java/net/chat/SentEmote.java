@@ -9,11 +9,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class SentEmote extends VBox implements Initializable{
 	@FXML
     private ImageView emoteImage;
+    
+    @FXML
+    private HBox messageBox;
 	
 	String emoteCode;
 	
@@ -25,7 +29,7 @@ public class SentEmote extends VBox implements Initializable{
 			loader.load();
 			
 			this.emoteCode = emoteCode;
-			Image emote = new Image(getClass().getResource("ui/images/chat/emotes/" + emoteCode + ".png").toString());
+			Image emote = new Image(getClass().getResource("/ui/images/chat/emotes/" + emoteCode + ".png").toString());
 			this.emoteImage.setImage(emote);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -34,5 +38,9 @@ public class SentEmote extends VBox implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+	}
+	
+	public HBox getMessageBox() {
+		return this.messageBox;
 	}
 }
