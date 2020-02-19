@@ -52,6 +52,8 @@ public class Chat implements Initializable {
 	@FXML
 	private ScrollPane scroll;
 
+	
+
 	private Dos dosGame;
 
 	private EmoteSelector emoteSelector;
@@ -263,5 +265,8 @@ public class Chat implements Initializable {
 
 	public void setActionsStack(StackPane actionsStack) {
 		this.actionsStack = actionsStack;
+	}
+	public ScrollPane getScroll() {
+		return scroll;
 	}
 }

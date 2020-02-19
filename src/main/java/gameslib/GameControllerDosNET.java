@@ -287,9 +287,14 @@ public class GameControllerDosNET implements Initializable {
 			drawButton.setDisable(true);
 			nextButton.setDisable(true);
 			disableHand();
-		} 
+		}
+		chat.getScroll().heightProperty().addListener((o, ov, nv) -> chatNotification());
 	}
 	
+	private void chatNotification() {
+		chatButton.setId("notification");
+	}
+
 	/**
 	 * Desactivar las funcionalidades para este jugador
 	 */
@@ -595,6 +600,7 @@ public class GameControllerDosNET implements Initializable {
 	
     @FXML
     void openChat(ActionEvent event) {
+    	chatButton.setId("chatButton");
     	chatStack.getChildren().add(chat.getView());
     }
 
