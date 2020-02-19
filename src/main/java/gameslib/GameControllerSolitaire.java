@@ -23,6 +23,7 @@ import help.InitialSolitaireHelp;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -32,6 +33,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -152,7 +154,7 @@ public class GameControllerSolitaire implements Initializable {
 		currentTimeLabel.setText("00:00");
 		gameNameLabel.textProperty().bind(solitaireGame.getGameRules().gameTypeProperty());
 		tableCards = new ArrayList<ImageView>(Arrays.asList(diamondsImage, clubsImage, heartsImage, spadesImage));
-		currentRoundLabel.textProperty().bind(round.asString());
+		currentRoundLabel.textProperty().bind(Bindings.concat("Ronda ", round.asString()));
 		int i = 0;
 		for (ImageView image : tableCards) {
 			image.setImage(solitaireGame.getCardsInGame().get(i).get().getCardImage());
@@ -304,7 +306,7 @@ public class GameControllerSolitaire implements Initializable {
 		int seconds = Integer.parseInt(secondsStr);
 		
 		//Recoge las rondas
-		int rounds = Integer.parseInt(currentRoundLabel.getText());
+		int rounds = round.get();
 		
 		//End game
 		SolitaireEndGameController endGameController = new SolitaireEndGameController(currentTimeLabel.getText(), minutes, seconds, rounds);

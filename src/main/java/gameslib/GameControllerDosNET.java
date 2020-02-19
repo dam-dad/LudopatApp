@@ -628,14 +628,24 @@ public class GameControllerDosNET implements Initializable {
 	}
 
     @FXML
-    void keyChat(KeyEvent event) {
-    	if(event.getCode() == KeyCode.C) {
-    		if (chatStack.getChildren().size() == 2) {
+    void keys(KeyEvent event) {
+    	switch (event.getCode()) {
+		case C:
+			//C presionada, acción de abrir y cerrar el chat.
+			if (chatStack.getChildren().size() == 2) {
     			openChat(null);
     		}else {
     			closeChat();
     		}
-    	}
+			break;
+		case F:
+			//F presionada, acción de pantalla completa.
+			fullscreenAction(null);
+			break;
+		default:
+			//Acción no controlada.
+			break;
+		}
     }
 	
 }
