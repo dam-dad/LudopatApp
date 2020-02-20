@@ -43,7 +43,18 @@ import javafx.util.Duration;
 import main.LudopatApp;
 import ui.CardComponent;
 import util.Stopwatch;
-
+/**
+ * <b>GameControllerSolitaire</b> <br>
+ * <br>
+ * 
+ * Controlador del Solitario
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class GameControllerSolitaire implements Initializable {
 
 	@FXML
@@ -186,7 +197,9 @@ public class GameControllerSolitaire implements Initializable {
 
 		}
 	}
-
+	/**
+	 * Refresca la mano del jugador
+	 */
 	public void refreshHand() {
 		handGrid.getChildren().clear();
 		int i = 0;
@@ -234,11 +247,17 @@ public class GameControllerSolitaire implements Initializable {
 			endGame();
 		}
 	}
-
+	/**
+	 * Este metodo no hace nada (usado para eliminar cómodamente acciones
+	 * de botones)
+	 */
 	private void nothing() {
 		// este metodo no hace nada
 	}
-
+	/**
+	 * Descarta las cartas de la mano y
+	 * las mueve al monton de descarte
+	 */
 	private void discardCards() {
 		int j = solitaireGame.getPlayer().getHand().size() - 1;
 		for (int i = j; i >= 0; i--) {
@@ -246,21 +265,31 @@ public class GameControllerSolitaire implements Initializable {
 			solitaireGame.getDiscardedCards().add(card);
 		}
 	}
-
+	/**
+	 * Guarda una carta en la sección de guardadas
+	 * @param card
+	 * @param cardComp
+	 */
 	private void onSaveCard(Card card, CardComponent cardComp) {
 		solitaireGame.saveCard(card);
 		solitaireGame.getPlayer().getHand().remove(card);
 		savedCard.setImage(cardComp.getImage());
 		refreshHand();
 	}
-
+	/**
+	 * Lanza la carta guardada
+	 */
 	private void onSelectSavedCard() {
 		solitaireGame.throwCard(solitaireGame.getSavedCard());
 		solitaireGame.setSaved(false);
 		savedCard.setImage(null);
 		refreshHand();
 	}
-
+	/**
+	 * Lanza ua carta de mano
+	 * @param card
+	 * @param cardComp
+	 */
 	private void onSelectCard(Card card, CardComponent cardComp) {
 		solitaireGame.throwCard(card);
 		int col = GridPane.getColumnIndex(cardComp);
@@ -274,7 +303,9 @@ public class GameControllerSolitaire implements Initializable {
 		
 		refreshHand();
 	}
-
+	/**
+	 * Muestra la ayuda inicial del solitario
+	 */
 	private void showInitialHelp() {
 		InitialSolitaireHelp help = new InitialSolitaireHelp();
 
@@ -288,7 +319,9 @@ public class GameControllerSolitaire implements Initializable {
 
 		initialHelp.setOnMouseClicked(e -> initialHelpDialog.close());
 	}
-
+	/**
+	 * Finaliza la partida
+	 */
 	private void endGame() {
 		
 		//Recoge los segundos
@@ -347,12 +380,18 @@ public class GameControllerSolitaire implements Initializable {
 		layout.setActions(menu, exit);
 		dialog.show();
 	}
-
+	/**
+	 * Sale del juego
+	 * @param event
+	 */
 	@FXML
 	void exitAction(ActionEvent event) {
 		Platform.exit();
 	}
-
+	/**
+	 * Pone el juego en pantalla completa
+	 * @param event
+	 */
 	@FXML
 	void fullscreenAction(ActionEvent event) {
 		if (!ludopp.getMainStage().isFullScreen()) {
@@ -361,7 +400,10 @@ public class GameControllerSolitaire implements Initializable {
 			ludopp.getMainStage().setFullScreen(false);
 		}
 	}
-
+	/**
+	 * Pasa turno
+	 * @param event
+	 */
 	@FXML
 	void nextTurnAction(ActionEvent event) {
 		discardCards();
@@ -373,7 +415,10 @@ public class GameControllerSolitaire implements Initializable {
 		}
 		round.set(round.get()+1);
 	}
-
+	/**
+	 * Abre la ayuda del juego actual
+	 * @param event
+	 */
 	@FXML
 	void openHelp(MouseEvent event) {
 		Label helpLabel = new Label("Ayuda");
@@ -398,7 +443,10 @@ public class GameControllerSolitaire implements Initializable {
 
 		dialog.show();
 	}
-
+	/**
+	 * Vuelve al menub principal
+	 * @param event
+	 */
 	@FXML
 	void returnMenuAction(ActionEvent event) {
 		ludopp.goMenu();

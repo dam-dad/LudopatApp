@@ -25,7 +25,18 @@ import javafx.scene.layout.StackPane;
 
 import javafx.util.Duration;
 import main.LudopatApp;
-
+/**
+ * <b>MainMenuController</b> <br>
+ * <br>
+ * 
+ * Controlador de la vista del menu principal
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class MainMenuController implements Initializable{
 
 	@FXML
@@ -65,7 +76,10 @@ public class MainMenuController implements Initializable{
 		loader.load();
 	}
 	
-
+	/**
+	 * Muestra la documentacion y ayuda basica del juego
+	 * @param event
+	 */
 	@FXML
     void documentationAction(ActionEvent event) {
 		Label helpLabel = new Label("Ayuda");
@@ -87,12 +101,12 @@ public class MainMenuController implements Initializable{
 		
 		dialog.show();
     }
-
+	
     @FXML
     void exitAction(ActionEvent event) {
     	Platform.exit();
     }
-
+    
     @FXML
     void multiPlayerAction(ActionEvent event) {
     	ludopp.goMPSelectionMode();

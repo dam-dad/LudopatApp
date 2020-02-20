@@ -11,14 +11,27 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+/**
+ * <b>SentEmote</b> <br>
+ * <br>
+ * 
+ * Componente de emoticono enviado
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class SentEmote extends VBox implements Initializable{
 	@FXML
     private ImageView emoteImage;
     
     @FXML
     private HBox messageBox;
-	
+	/**
+	 * Codigo de emoticono
+	 */
 	String emoteCode;
 	
 	public SentEmote (String emoteCode){

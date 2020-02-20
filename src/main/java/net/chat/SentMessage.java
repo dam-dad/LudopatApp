@@ -10,7 +10,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+/**
+ * <b>SentMessage</b> <br>
+ * <br>
+ * 
+ * Componente de mensaje enviado
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class SentMessage extends VBox implements Initializable{
 	@FXML
     private Label messageLabel;

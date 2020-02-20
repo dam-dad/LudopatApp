@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * 
- * <b>Palo</b>
+ * <b>Suit</b>
  * </br></br>
  * Palo dentro de una baraja en el juego
  * 

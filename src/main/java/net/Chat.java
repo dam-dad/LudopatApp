@@ -22,7 +22,19 @@ import net.chat.ReceivedEmote;
 import net.chat.ReceivedMessage;
 import net.chat.SentEmote;
 import net.chat.SentMessage;
-
+/**
+ * <b>Chat</b> <br>
+ * <br>
+ * 
+ * Aplicación de chat incluida en la aplicación base
+ * que permite la comunicación entre usuarios
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class Chat implements Initializable {
 
 	@FXML
@@ -74,12 +86,19 @@ public class Chat implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		emoteSelector = new EmoteSelector(this);
 	}
-
+	/**
+	 * Cierra el chat
+	 * @param event
+	 */
 	@FXML
 	void closeChat(ActionEvent event) {
 		dosGame.getNETHud().closeChat();
 	}
-
+	/**
+	 * Identifica el mensaje entrante para su posterior impresión en la interfaz
+	 * @param message Mensaje recibido
+	 * @param fromId Identificador del usuario que envia el mensaje
+	 */
 	private void identifyMessage(String message, int fromId) {
 		if (message.length() < 4) {
 			showNormalMessage(message, fromId);
@@ -156,7 +175,11 @@ public class Chat implements Initializable {
 		scroll.layout();
 		scroll.setVvalue(1.0d);
 	}
-
+	/**
+	 * Muestra a un usuario particular un mensaje privado 
+	 * @param message
+	 * @param fromCode
+	 */
 	private void showPrivateMessage(String message, int fromCode) {
 		String messageOK = "";
 		for (int i = 3; i < message.length(); i++) {
@@ -180,7 +203,11 @@ public class Chat implements Initializable {
 		}
 		
 	}
-
+	/**
+	 * Muestra un emote en la ventana de chat
+	 * @param emoteCode
+	 * @param fromCode
+	 */
 	private void showEmote(String emoteCode, int fromCode) {
 		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
@@ -194,7 +221,12 @@ public class Chat implements Initializable {
 		}
 		
 	}
-
+	/**
+	 * Muestra un mensaje en la ventana de chat
+	 * @param message
+	 * @param styleCode
+	 * @param fromCode
+	 */
 	private void showMessage(String message, String styleCode, int fromCode) {
 		String messageOK = "";
 		for (int i = 3; i < message.length(); i++) {
@@ -217,7 +249,11 @@ public class Chat implements Initializable {
 		}
 		
 	}
-
+	/**
+	 * Muestra un mensaje normal en la ventana de chat
+	 * @param message
+	 * @param fromCode
+	 */
 	private void showNormalMessage(String message, int fromCode) {
 		if (fromCode != dosGame.getLocalPlayer().getPlayerInfo().getUserID()) {
 			// Se trata de un mensaje de entrada
@@ -253,7 +289,10 @@ public class Chat implements Initializable {
 			});
 		}
 	}
-
+	/**
+	 * Añade un codigo de emoticono al chat y lo envia
+	 * @param emoteCode
+	 */
 	public void appendEmote(String emoteCode) {
 		messageArea.setText(emoteCode);
 		sendButton(null);

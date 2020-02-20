@@ -11,7 +11,13 @@ import games.GameRules;
 import games.Player;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-
+/**
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class Solitaire extends Game {
 
 	GameControllerSolitaire controller;
@@ -49,7 +55,10 @@ public class Solitaire extends Game {
 		// Se reparten las 4 cartas
 		dealCards();
 	}
-
+	/**
+	 * Comprobacion de las cartas actualmente en mesa
+	 * @param card
+	 */
 	public void checkTable(Card card) {
 
 		// Tenemos que comprobar las 4 zonas
@@ -88,7 +97,9 @@ public class Solitaire extends Game {
 	public void endGame() {
 		// TODO Auto-generated method stub
 	}
-
+	/**
+	 * Lanza una carta a ser posible
+	 */
 	@Override
 	public void throwCard(Card card) {
 
@@ -112,14 +123,20 @@ public class Solitaire extends Game {
 		}
 
 	}
-
+	/**
+	 * Guarda una carta no jugable de la mano
+	 * si no hay ninguna guardada ya
+	 * @param card
+	 */
 	public void saveCard(Card card) {
 		if (!isSaved) {
 			setSavedCard(card);
 			isSaved = true;
 		}
 	}
-
+	/**
+	 * Reparte las cartas inicialmente al jugador
+	 */
 	@Override
 	public void dealCards() {
 		// Repartimos 4 cartas al jugador, o las que queden en el mazo
@@ -141,7 +158,9 @@ public class Solitaire extends Game {
 			}
 		}
 	}
-
+	/**
+	 * Vuelve a barajar las cartas del monton de descarte a la baraja
+	 */
 	public void reshuffle() {
 		for (int i = 0; i <= discardedCards.size() - 1; i++) {
 			deck.getCards().add(discardedCards.get(i));

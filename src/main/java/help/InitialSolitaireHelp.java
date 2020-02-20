@@ -8,7 +8,18 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import ui.CardComponent;
-
+/**
+ * <b>InitialSolitaireHelp</b> <br>
+ * <br>
+ * 
+ * Ayuda inicial del solitario que se muestra al principio de cada partida
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class InitialSolitaireHelp {
 	
 	@FXML

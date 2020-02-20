@@ -2,7 +2,18 @@ package util;
 
 import java.time.Duration;
 import java.time.LocalTime;
-
+/**
+ * <b>Stopwatch</b> <br>
+ * <br>
+ * 
+ * Cronometro utilizado para contar el tiempo de ronda en juegos
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class Stopwatch extends Thread {
 
 	private static LocalTime startTime;

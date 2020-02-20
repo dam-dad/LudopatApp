@@ -154,7 +154,10 @@ public class ServerConfigController implements Initializable {
 		currentStage = e_menuStages.ST_CONFIG_GAME;
 		currentPage.setValue(1);
 	}
-
+	/**
+	 * Muestra al servidor la sala de espera
+	 * @param players Lista de jugadores
+	 */
 	public void showWaitingRoom(ArrayList<PlayerInfo> players) {
 	
 		if( !inServer ) {
@@ -176,7 +179,9 @@ public class ServerConfigController implements Initializable {
 		waitingRoom.refresh(players);
 			
 	}
-	
+	/**
+	 * Lleva al usuario a la siguiente seccion de la pantalla de configuracion
+	 */
 	private void nextStage() {
 
 		switch (currentStage) {
@@ -230,7 +235,9 @@ public class ServerConfigController implements Initializable {
 
 		currentStage = e_menuStages.values()[currentPage.get() - 1];
 	}
-
+	/**
+	 * Lleva al usuario a la anterior sección de la configuracion
+	 */
 	private void previousStage() {
 
 		switch (currentStage) {
@@ -281,7 +288,10 @@ public class ServerConfigController implements Initializable {
 		currentPage.setValue(currentPage.getValue() - 1);
 		previousStage();
 	}
-
+	/**
+	 * Inicia al servidor y acepta clientes
+	 * @param event
+	 */
 	@FXML
 	void onContinueAction(ActionEvent event) {
 

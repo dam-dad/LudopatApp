@@ -9,7 +9,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.VBox;
 import main.LudopatApp;
-
+/**
+ * <b>MPSelectionModeController</b> <br>
+ * <br>
+ * 
+ * Controlador de la vista de seleccion de modo multijugador
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class MPSelectionModeController {
 
     @FXML

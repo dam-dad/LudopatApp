@@ -13,7 +13,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import main.LudopatApp;
-
+/**
+ * <b>IPConfigController</b> <br>
+ * <br>
+ * 
+ * Controlador de la vista de selección de ip para juego online
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class IpConfigController extends AnchorPane implements Initializable {
 
 	@FXML

@@ -14,7 +14,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 import main.LudopatApp;
-
+/**
+ * <b>SplashController</b> <br>
+ * <br>
+ * 
+ * Controlador de la splash screen inicial
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class SplashController implements Initializable {
 	@FXML
 	private BorderPane view;
@@ -36,6 +47,9 @@ public class SplashController implements Initializable {
 		loader.setController(this);
 		loader.load();
 	}
+	/**
+	 * Crea la transicion de fade
+	 */
 	private void setFade() {
 		fadeTransition = new FadeTransition();
 		fadeTransition.setFromValue(1);
@@ -43,12 +57,18 @@ public class SplashController implements Initializable {
 		fadeTransition.setDuration(Duration.seconds(0.5));
 		fadeTransition.setNode(view);
 	}
+	/**
+	 * Espera 3 segundos con el logo en pantalla
+	 */
 	private void waitSplash() {
 		timeline = new Timeline(new KeyFrame(Duration.millis(4000), ae -> fadeTransition.play()));
 		timeline.play();
 		fadeTransition.setOnFinished(ae -> ludopp.goMenu());
 	}
-
+	/**
+	 * Accion para saltarse la espera del splash 
+	 * @param event
+	 */
 	@FXML
 	void skipSplashClick(MouseEvent event) {
 		timeline.stop();

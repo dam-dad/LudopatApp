@@ -18,7 +18,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-
+/**
+ * <b>WaitingRoomController</b> <br>
+ * <br>
+ * 
+ * Controlador de la vista de la sala de espera
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class WaitingRoomController extends AnchorPane implements Initializable {
 
 

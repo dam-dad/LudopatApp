@@ -11,7 +11,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.layout.GridPane;
-
+/**
+ * <b>AvatarSelector</b> <br>
+ * <br>
+ * 
+ * Componente selector de avatares que permite al usuario elegir uno de los 8 
+ * posibles avatares de jugador
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class AvatarSelector extends GridPane implements Initializable {
 	
 	@FXML

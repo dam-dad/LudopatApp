@@ -7,7 +7,18 @@ import javafx.fxml.FXMLLoader;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
-
+/**
+ * <b>HelpViewController</b> <br>
+ * <br>
+ * 
+ * Controlador del WebView de la ayuda básica del juego
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class HelpViewContoller {
 	
 	@FXML
@@ -30,7 +41,9 @@ public class HelpViewContoller {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Carga el contenido inicial
+	 */
 	private void loadInitialContent() {
 		//TODO cambiar el contenido inicial al requerido por el generationCode.
 

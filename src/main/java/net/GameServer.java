@@ -9,7 +9,18 @@ import javafx.application.Platform;
 import main.LudopatApp;
 import net.objects.NET_Card;
 import net.objects.NET_Player;
-
+/**
+ * <b>GameServer</b> <br>
+ * <br>
+ * 
+ * Servidor de partida donde se aloja la informacion
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class GameServer {
 
 	private ArrayList<ServerClient> clients;

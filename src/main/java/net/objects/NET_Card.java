@@ -5,7 +5,18 @@ import java.io.Serializable;
 import games.Card;
 import games.Suit;
 
-
+/**
+ * <b>NET_Card</b> <br>
+ * <br>
+ * 
+ * Elemento carta, similar al base pero usado en el juego online (ver Card)
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class NET_Card implements Serializable {
 
 	private static final long serialVersionUID = 1L;

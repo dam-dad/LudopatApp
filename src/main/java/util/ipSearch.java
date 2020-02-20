@@ -3,9 +3,23 @@ package util;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-
+/**
+ * <b>ipSearch</b> <br>
+ * <br>
+ * 
+ * Método de busqueda de la IP del usuario
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class ipSearch {
-	
+	/**
+	 * Busca la ip del usuario
+	 * @return IP del usuario
+	 */
 	public static String ip() {
 		
 		String systemipaddress = ""; 

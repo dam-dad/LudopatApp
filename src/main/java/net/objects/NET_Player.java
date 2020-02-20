@@ -5,7 +5,19 @@ import java.util.ArrayList;
 
 import games.Card;
 import games.Player;
-
+/**
+ * <b>NET_Player</b> <br>
+ * <br>
+ * 
+ * Personaje jugable dentro del juego que tiene información basica sobre 
+ * el estado de la partida
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class NET_Player implements Serializable {
 	
 	private static final long serialVersionUID = 1L;

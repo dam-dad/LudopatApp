@@ -10,7 +10,18 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+/**
+ * <b>ReceiveMessage</b> <br>
+ * <br>
+ * 
+ * Componente de mensaje recibido
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class ReceivedMessage extends VBox implements Initializable{
 
     @FXML

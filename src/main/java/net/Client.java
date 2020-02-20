@@ -335,7 +335,9 @@ public class Client implements Runnable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Notifica de el paso de turno a un jugador
+	 */
 	public void sendNextTurn() {
 		InfoPackage nextTPkg = new InfoPackage(InfoPackage.CLIENT_NEXTTURN, null);
 		try {

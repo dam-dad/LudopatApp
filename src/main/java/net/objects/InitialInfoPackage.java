@@ -2,7 +2,18 @@ package net.objects;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-
+/**
+ * <b>InitialInfoPackage</b> <br>
+ * <br>
+ * 
+ * Paquete de informacion inicial, de principio de partida
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class InitialInfoPackage implements Serializable {
 
 	private static final long serialVersionUID = 1L;

@@ -35,7 +35,18 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 import main.LudopatApp;
 import ui.config.PlayerSelectionController;
-
+/**
+ * <b>ClientConfigController</b> <br>
+ * <br>
+ * 
+ * Controlador de la vista de configuracion de cliente multijugador
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class ClientConfigController implements Initializable {
 
 	@FXML
@@ -68,7 +79,7 @@ public class ClientConfigController implements Initializable {
 	// parametros
 	private static final int ANCHOR_WIDTH = 800;
 	private final int TRANSITION_TIME = 500;
-
+	
 	enum e_menuStages {
 
 		ST_CONFIG_PLAYERS, ST_CONFIG_IP, ST_CONFIG_WAITING
@@ -136,7 +147,11 @@ public class ClientConfigController implements Initializable {
 		currentStage = e_menuStages.ST_CONFIG_PLAYERS;
 		currentPage.setValue(1);
 	}
-
+	/**
+	 * Muestra la sala de espera a los usuarios
+	 * @param players Lista de jugadores
+	 * @param serverIP Ip del servidor
+	 */
 	public void showWaitingRoom(ArrayList<PlayerInfo> players, String serverIP) {
 
 		if( !inServer ) {
@@ -165,7 +180,9 @@ public class ClientConfigController implements Initializable {
 		currentPage.setValue(currentPage.getValue() - 1);
 		previousStage();
 	}
-
+	/**
+	 * Lleva al usuario a la anterior sección de la configuracion
+	 */
 	private void previousStage() {
 
 		key = new KeyValue(configPane.getDividers().get(0).positionProperty(), 1);
@@ -184,7 +201,10 @@ public class ClientConfigController implements Initializable {
 		currentStage = e_menuStages.values()[currentPage.get() - 1];
 
 	}
-
+	/**
+	 * Conecta al usuario con el cliente
+	 * @param event
+	 */
 	@FXML
 	void onContinueAction(ActionEvent event) {
 		
@@ -208,7 +228,9 @@ public class ClientConfigController implements Initializable {
 		}
 		
 	}
-
+	/**
+	 * Lleva al usuario a la siguiente seccion de la pantalla de configuracion
+	 */
 	private void nextStage() {
 		switch (currentStage) {
 

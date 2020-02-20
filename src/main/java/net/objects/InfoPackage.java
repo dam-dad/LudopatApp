@@ -1,7 +1,18 @@
 package net.objects;
 
 import java.io.Serializable;
-
+/**
+ * <b>InfoPackage</b> <br>
+ * <br>
+ * 
+ * Paquete de información serializable enviado por la aplicación en red
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class InfoPackage implements Serializable {
 
 	private static final long serialVersionUID = 1;
@@ -16,10 +27,17 @@ public class InfoPackage implements Serializable {
 	public static final byte CLIENT_DRAWCARD = 7;
 	public static final byte CLIENT_SENDMESSAGE = 8;
 	
+	/**
+	 * Byte utilizado para informar de que tipo de paquete se trata
+	 */
 	private byte infoByte;
-	
+	/**
+	 * Objeto de información a enviar
+	 */
 	private Object infoObject;
-
+	/*
+	 * Identificacion del usuario que envía el paquete
+	 */
 	private int userID;
 	
 	public InfoPackage(byte infoByte, Object infoObject) {

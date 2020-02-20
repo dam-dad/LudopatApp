@@ -43,7 +43,7 @@ import util.ipSearch;
 
 /**
  * 
- * <b>Aplicación LudtopatApp</b> <br>
+ * <b>Aplicación LudopatApp</b> <br>
  * <br>
  * 
  * Aplicación principal del gestor de juegos de cartas
@@ -123,7 +123,9 @@ public class LudopatApp extends Application {
 
 	// Métodos llamados desde vistas
 	// -------------------------------------------------------------------
-
+	/**
+	 * Lleva al usuario a la pantalla de selección de Multijugador
+	 */
 	public void goMPSelectionMode() {
 		mpSelectionModeController = new MPSelectionModeController(this);
 
@@ -131,7 +133,9 @@ public class LudopatApp extends Application {
 
 		fadeTransition(mainMenuController.getView(), scene);
 	}
-
+	/**
+	 * Lleva al usuario a la configuración de servidor de partida
+	 */
 	public void goServerConfig() {
 
 		try {
@@ -149,7 +153,9 @@ public class LudopatApp extends Application {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Lleva al usuario a la configuracion de cliente de partida
+	 */
 	public void goClientConfig() {
 		
 		// Creamos el usuario
@@ -162,7 +168,9 @@ public class LudopatApp extends Application {
 		fadeTransition(mpSelectionModeController.getView(), scene);
 
 	}
-
+	/**
+	 * Lleva al usuario al menú de partida contra IA
+	 */
 	public void goAIMenu() {
 
 		try {
@@ -177,7 +185,11 @@ public class LudopatApp extends Application {
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * Transición de fade entre menús
+	 * @param view
+	 * @param scene
+	 */
 	private void fadeTransition(Node view, Scene scene) {
 
 		FadeTransition fadeTransition = new FadeTransition();
@@ -201,7 +213,9 @@ public class LudopatApp extends Application {
 
 		alignScreenMenu();
 	}
-
+	/**
+	 * Inicio de la app que muestra la splash screen
+	 */
 	public void initApp() {
 
 		try {
@@ -217,7 +231,9 @@ public class LudopatApp extends Application {
 		}
 
 	}
-
+	/**
+	 * Inicia una partida de 1 solo jugador (Solitario)
+	 */
 	public void initSinglePlayer() {
 
 		gameRules = new GameRules();
@@ -250,7 +266,9 @@ public class LudopatApp extends Application {
 		mainStage.setScene(scene);
 		alignScreen();
 	}
-
+	/**
+	 * Lleva al usuario al menu principal
+	 */
 	public void goMenu() {
 
 		try {
@@ -298,7 +316,9 @@ public class LudopatApp extends Application {
 		goMenu();
 
 	}
-
+	/**
+	 * Inicia la partida con las reglas elegidas
+	 */
 	public void initGame() {
 
 		String gameType = gameRules.getGameType();
@@ -314,7 +334,9 @@ public class LudopatApp extends Application {
 
 		alignScreen();
 	}
-
+	/**
+	 * Alinea la ventana al centro de la pantalla
+	 */
 	private void alignScreen() {
 		double screenWidthCenter = Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
 		double screenHeightCenter = Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
@@ -339,7 +361,9 @@ public class LudopatApp extends Application {
 
 	// Lógica distintos juegos
 	// -----------------------------------------------------------
-
+	/**
+	 * Inicia la baraja del DOS, los jugadores, reparte y lanza la partida
+	 */
 	public void initDosGame() {
 
 		Deck deck = gameRules.getDeckType();
@@ -381,7 +405,9 @@ public class LudopatApp extends Application {
 		Scene scene = new Scene(gameControllerDos.getView());
 		mainStage.setScene(scene);
 	}
-
+	/**
+	 * Elimina todos los hilos y cierra la aplicación
+	 */
 	@Override
 	public void stop() throws Exception {
 
