@@ -407,6 +407,8 @@ public class LudopatApp extends Application {
 			// Avisamos a los clientes de que este cliente se va a desconectar
 			connectionClient.disconnectClient();
 		}
+		
+		System.exit(0);
 	}
 
 	// -----------------------------------------------------------
