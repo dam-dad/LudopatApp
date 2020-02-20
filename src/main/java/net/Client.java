@@ -40,7 +40,7 @@ public class Client implements Runnable {
 	private PlayerInfo clientInfo;
 	private int clientID;
 	private Socket socket;
-	private boolean exit;
+	private boolean serverExit;
 	private ObjectInputStream dataIn;
 	private ObjectOutputStream dataOut;
 	
@@ -71,26 +71,17 @@ public class Client implements Runnable {
 	 */
 	public void disconnectClient() {
 		
-		if( socket != null && !socket.isClosed() ) {
-			
+		if (socket != null && !socket.isClosed()) {
+
+			// Desconectamos a este cliente
 			try {
-				
-				// Notificamos al servidor de que nos desconectamos
-				dataOut.writeObject(new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
-				
-			} catch (IOException e1) {
+
+				dataIn.close();
+				dataOut.close();
+				socket.close();
+
+			} catch (IOException e) {
 			}
-		}
-		
-		// Desconectamos a este cliente
-		try {
-			
-			exit = true;
-			dataIn.close();
-			dataOut.close();
-			socket.close();
-			
-		} catch (IOException e) {
 		}
 	}
 	
@@ -123,13 +114,13 @@ public class Client implements Runnable {
 		    
 		    dataIn = new ObjectInputStream(socket.getInputStream());
 		    
-		    while( !exit ) {
+		    while( true ) {
 		    	
 		    	
 		    	InfoPackage inPkg = (InfoPackage)dataIn.readObject();
 		    	
 		    	if( inPkg.getInfoByte() == InfoPackage.CLIENT_DISCONNECT ) {
-		    		exit = true;
+		    		serverExit = true;
 		    		break;
 		    	}
 		    	
@@ -201,14 +192,16 @@ public class Client implements Runnable {
 			
 			
 			if( socket != null && !socket.isClosed() ) {
+				
 				try {
+					
 					socket.close();
 					
 				} catch (IOException e) {
 				}
 			}
 			
-			if( exit ) {
+			if( serverExit ) {
 				
 				Platform.runLater(new Runnable() {
 					
@@ -216,7 +209,7 @@ public class Client implements Runnable {
 					public void run() {
 						
 						if( app.getCurrentGame() == null )
-							app.goMenu();	 // No estamos en el juego
+							app.goMenu();	 // No estamos en el juego, estamos en la sala de espera
 						else 
 							((Dos)app.getCurrentGame()).client_receiveDisconnect(); // El cliente recibe una notificación
 					}

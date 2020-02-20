@@ -36,18 +36,17 @@ public class ServerClient implements Runnable {
 	private boolean exit;
 	private GameServer gameServer;
 	
-	
-//	private LudopatApp app;
 
 
 	public ServerClient(Socket socket, Server roomServer, LudopatApp app) {
 		this.socket = socket;
 		this.roomServer = roomServer;
-	//	this.app = app;
 		
 		try {
+			
 			this.dataIn = new ObjectInputStream(socket.getInputStream());
 			this.dataOut = new ObjectOutputStream(socket.getOutputStream());
+			
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -76,6 +75,7 @@ public class ServerClient implements Runnable {
 		} finally {
 			
 			if( !exit ) {
+				
 				// Debemos cerrar la conexión
 				roomServer.clientDisconnected(this);
 			}
@@ -175,6 +175,7 @@ public class ServerClient implements Runnable {
 		
 	}
 	public void receiveMessage(String message, int id) {
+		
 		InfoPackage packageMessage = new InfoPackage(InfoPackage.CLIENT_SENDMESSAGE, message, id);
 		try {
 			dataOut.writeObject(packageMessage);

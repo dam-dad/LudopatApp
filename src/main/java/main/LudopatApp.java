@@ -281,8 +281,16 @@ public class LudopatApp extends Application {
 	 */
 	public void onlineGoMenu() {
 		
-		// Avisamos a los clientes de que este cliente se va a desconectar
-		connectionClient.disconnectClient();
+		// Hacemos una acción u otra dependiendo de si es el Host o no
+		if( connectionServer != null ) {
+			connectionServer.closeRoom(true); // Forzamos el cierre del servidor
+		}
+		
+		else if( connectionClient != null ) {
+			// Avisamos a los clientes de que este cliente se va a desconectar
+			connectionClient.disconnectClient();
+		}
+
 	}
 
 	public void initGame() {
@@ -380,15 +388,14 @@ public class LudopatApp extends Application {
 			}
 		}
 		
-		if( connectionServer != null && connectionServer.isActive() ) {
-			connectionServer.closeRoom(true); // Forzamos el cierre del servidor, además del Host
+		// Hacemos una acción u otra dependiendo de si es el Host o no
+		if( connectionServer != null ) {
+			connectionServer.closeRoom(true); // Forzamos el cierre del servidor
 		}
 		
-		else if( connectionClient != null && gameServer != null ) {
-			connectionClient.disconnectClient(); // Cerramos el servicio del cliente
-			
-		} else if( gameServer != null ) {
-			gameServer.sendClientDisconneced();
+		else if( connectionClient != null ) {
+			// Avisamos a los clientes de que este cliente se va a desconectar
+			connectionClient.disconnectClient();
 		}
 	}
 
@@ -465,7 +472,8 @@ public class LudopatApp extends Application {
 		
 		// Ahora necesitamos empezar la conexión con los clientes en el juego
 		gameServer = new GameServer(clients, this);
-
+		connectionServer = null; // Limpiamos la referencia a connectionServer, ya ha terminado su funcionalidad
+		
 		Dos dosGame = new Dos(deck, gameRules, gamePlayers);
 		serverCurrentGame = dosGame;
 		dosGame.initGame();
