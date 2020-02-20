@@ -34,7 +34,19 @@ import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import main.LudopatApp;
 import ui.CardComponent;
-
+/**
+ * <b>GameControllerDos</b> <br>
+ * <br>
+ * 
+ * Controlador base de el juego del DOS
+ * 
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class GameControllerDos implements Initializable {
 
 	// FXML : View
@@ -232,7 +244,7 @@ public class GameControllerDos implements Initializable {
 		initHand();
 		showHand();
 	}
-
+	
 	private void onChangedPlayer(Player ov, Player nv) {
 
 		if (ov != null && ov.isAI()) {
@@ -303,7 +315,9 @@ public class GameControllerDos implements Initializable {
 			currentCard.setImage(nv.getCardImage());
 		}
 	}
-
+	/**
+	 * Refresca la interfaz de la mano después de una acciónr
+	 */
 	public void refreshHand() {
 
 		// Limpiamos la mano actual del jugador y la actualizamos
@@ -335,7 +349,9 @@ public class GameControllerDos implements Initializable {
 		}
 
 	}
-
+	/**
+	 * Refresca la mano de una IA despues de una acción
+	 */
 	public void refreshIAHand() {
 		// Limpiamos la mano actual del jugador y la actualizamos
 		handGrid.getChildren().clear();
@@ -349,7 +365,9 @@ public class GameControllerDos implements Initializable {
 			i++;
 		}
 	}
-
+	/**
+	 * Inicializa la mano, activando y desactivando los botones necesarios
+	 */
 	private void initHand() {
 		// Número de cartas a robar
 		drawButton.setText("Robar (" + dosGame.getCardsToDraw() + ")");

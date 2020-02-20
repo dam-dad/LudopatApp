@@ -108,7 +108,10 @@ public class Dos extends Game {
 			}
 		}
 	}
-	
+	/**
+	 * Inicia el servidor de juego
+	 * @param app La propia app
+	 */
 	public void initGameServer(LudopatApp app) {
 		this.app = app;
 		
@@ -150,7 +153,9 @@ public class Dos extends Game {
 			}
 		});
 	}
-	
+	/**
+	 * El cliente pasa turno
+	 */
 	public void client_nextTurn() {
 		Platform.runLater(new Runnable() {
 
@@ -162,7 +167,9 @@ public class Dos extends Game {
 		});
 		
 	}
-	
+	/**
+	 * El servidor avisa del paso de turno al siguiente jugador
+	 */
 	public void server_nextTurn() {
 		nextTurn();
 		if (gameServer != null) {
@@ -202,7 +209,11 @@ public class Dos extends Game {
 	public void client_receiveDisconnect() {
 		NETHud.notifyDisconnectDialog();
 	}
-	
+	/**
+	 * El cliente recibe el paso de turno del servidor
+	 * @param id Identificador del jugador
+	 * @param draws Numero de cartas a robar 
+	 */
 	public void client_receiveNextTurn(int id , int draws) {
 		
 		setActivePlayer( getCurrentPlayers().stream().filter(p -> 
@@ -364,13 +375,17 @@ public class Dos extends Game {
 
 	// Métodos personalizados
 	// -----------------------------------------------------
-
+	/**
+	 * Desordena a los jugadores
+	 */
 	private void sortPlayers() {
 		Collections.shuffle(this.currentPlayers);
 		setActivePlayer(currentPlayers.get(0));
 	}
 
-
+	/**
+	 * Paso de turno
+	 */
 	public void nextTurn() {
 		
 		if (inverse) {
@@ -397,7 +412,9 @@ public class Dos extends Game {
 			
 		}
 	}
-
+	/**
+	 * Robo de carta
+	 */
 	public void drawCard() {
 		int i = 0;
 		while (deck.getCards().size() > 0 && getActivePlayer().getHand().size() < 10 && i < getCardsToDraw()) {
@@ -412,14 +429,19 @@ public class Dos extends Game {
 			endGame();
 		}
 	}
-
+	/**
+	 * Comienzo de turno
+	 */
 	public void startTurn() {
 		//Comprobar carta a carta y reemplazarla.
 		for( Card card : getActivePlayer().getHand() ) {
 			checkTable(card);
 		}
 	}
-
+	/**
+	 * Comprobacion de la mesa
+	 * @param currentCard Carta en mesa actualmente
+	 */
 	public void checkTable(Card currentCard) {
 		
 		if( currentCard.getCardValue() >= this.SPECIAL_CARDS ) {
@@ -443,10 +465,12 @@ public class Dos extends Game {
 		}
 	}
 	// -----------------------------------------------------
-
+	/** 
+	 * Reparto inicial de cartas
+	 */
 	@Override
 	public void dealCards() {
-		//TODO 1 para pruebas, 7 para partida
+		//TIP 1 para pruebas, 7 para partida
 		int numCartas = 7;
 		
 		for (Player p : currentPlayers) {

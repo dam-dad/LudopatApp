@@ -9,7 +9,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-
+/**
+ * <b>SolitaireEndGameController</b> <br>
+ * <br>
+ * 
+ * Controlador de la pantalla de final de juego de solitario
+ * que contiene los datos finales, diferentes a un juego multijugador
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class SolitaireEndGameController implements Initializable {
 	
     @FXML
@@ -66,7 +78,9 @@ public class SolitaireEndGameController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Establece los textos del diálogo de fin de partida
+	 */
 	private void setTexts() {
 		timeText.setText(time);
 		roundsText.setText(rounds);
@@ -83,7 +97,9 @@ public class SolitaireEndGameController implements Initializable {
 		}
 		setStyles();
 	}
-	
+	/**
+	 * Establece los estilos de los textos de fin de partida
+	 */
 	private void setStyles() {
 		//Tiempo
 		if (Integer.parseInt(minutes) < 2) {

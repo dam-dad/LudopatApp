@@ -6,7 +6,7 @@ import games.Game;
  * <b>IA Base</b>
  * <br><br>
  * 
- * Inteligencia artifical que representa a un jugador en el juego.
+ * Inteligencia artificial que representa a un jugador en el juego.
  * 
  * @author David Fernández Nieves
  * @author Pablo Daniel Urtiaga Pinto

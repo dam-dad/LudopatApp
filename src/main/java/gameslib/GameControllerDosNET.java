@@ -39,7 +39,18 @@ import javafx.util.converter.NumberStringConverter;
 import main.LudopatApp;
 import net.Chat;
 import ui.CardComponent;
-
+/**
+ * <b>GameControllerDosNET</b> <br>
+ * <br>
+ * 
+ * Controlador del Dos Online
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class GameControllerDosNET implements Initializable {
 
 	// FXML : View
@@ -202,6 +213,7 @@ public class GameControllerDosNET implements Initializable {
 
 	// DAVID: Aún necesita más adaptaciones para la versión online,
 	// como el lanzamiento de carta, el pasar turno y el robo
+	// DAVID: Así como dato también decir que soy un patata
 	public GameControllerDosNET(LudopatApp app, String gameType) {
 		this.ludopp = app;
 		this.dosGame = (Dos) ludopp.getCurrentGame();
@@ -290,7 +302,9 @@ public class GameControllerDosNET implements Initializable {
 		}
 		
 	}
-	
+	/**
+	 * Notificación del chat cuando llega un mensaje
+	 */
 	public void chatNotification() {
 		if(chatStack.getChildren().size() > 1) {
 			chatButton.setId("notification");
@@ -381,7 +395,9 @@ public class GameControllerDosNET implements Initializable {
 			currentCard.setImage(nv.getCardImage());
 		}
 	}
-
+	/**
+	 * Refresca la mano del jugador después de acciones
+	 */
 	public void refreshHand() {
 
 		// Limpiamos la mano actual del jugador y la actualizamos
@@ -409,7 +425,9 @@ public class GameControllerDosNET implements Initializable {
 		}
 
 	}
-
+	/**
+	 * Inicializa la mano y los botones del jugador
+	 */
 	private void initHand() {
 		// Número de cartas a robar
 		drawButton.setText("Robar (" + dosGame.getCardsToDraw() + ")");
@@ -442,7 +460,9 @@ public class GameControllerDosNET implements Initializable {
 			break;
 		}
 	}
-
+	/**
+	 * Finaliza la partida
+	 */
 	public void endGame() {
 		/*
 		updateCardCounters();
@@ -491,7 +511,10 @@ public class GameControllerDosNET implements Initializable {
 		dialog.show();
 		*/
 	}
-
+	/**
+	 * Actualiza los contadores de cartas al final de la partida
+	 */
+	//Joel: Usenlo en el endgame o el ultimo que tire carta se va a quedar con 1 en el label potats
 	public void updateCardCounters() {
 		for (int i = 0; i < dosGame.getCurrentPlayers().size(); i++) {
 			playersNumCards.get(i).setText(String.format("Número de cartas: %d", dosGame.getCurrentPlayers().get(i).getHand().size()));
@@ -532,7 +555,9 @@ public class GameControllerDosNET implements Initializable {
 	void returnMenuAction(ActionEvent event) {
 		ludopp.onlineGoMenu();
 	}
-
+	/**
+	 * Notifica a los jugadores de la desconexion de otro de los jugadores y vuelve al menu
+	 */
 	public void notifyDisconnectDialog() {
 		
 		Label disconnectLabel = new Label("Cliente desconectado");
@@ -573,7 +598,11 @@ public class GameControllerDosNET implements Initializable {
 		} ,3000);
 		
 	}
-	
+	/**
+	 * 
+	 * Abre la ayuda 
+	 * @param event
+	 */
 	@FXML
 	void openHelp(MouseEvent event) {
 
@@ -599,7 +628,10 @@ public class GameControllerDosNET implements Initializable {
 
 		dialog.show();
 	}
-	
+	/**
+	 * Abre el chat
+	 * @param event
+	 */
     @FXML
     void openChat(ActionEvent event) {
     	chatButton.setId("chatButton");

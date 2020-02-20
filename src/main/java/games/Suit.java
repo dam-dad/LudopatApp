@@ -2,12 +2,29 @@ package games;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * <b>Palo</b>
+ * </br></br>
+ * Palo dentro de una baraja en el juego
+ * 
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ * 
+ */
 public class Suit implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	/**
+	 * Nombre del palo
+	 */
 	private String name;
-	
+	/**
+	 * Prefijo usado para la asignacion de imagen
+	 */
 	private String imgPrefix;
 
 	public String getName() {

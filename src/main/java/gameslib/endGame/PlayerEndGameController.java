@@ -11,7 +11,19 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-
+/**
+ * <b>PlayerEndGameController</b> <br>
+ * <br>
+ * 
+ * Controlador de la tabla de jugadores para el final de la partida
+ * 
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class PlayerEndGameController extends HBox implements Initializable {
 	
 	@FXML

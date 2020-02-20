@@ -12,7 +12,7 @@ import javafx.application.Platform;
  * <b>IA</b> <br>
  * <br>
  * 
- * Inteligencia artifical que representa a un jugador en el juego. Su
+ * Inteligencia artificial que representa a un jugador en el juego. Su
  * implementación es básica. Está adecuado al juego del DOS
  * 
  * @author David Fernández Nieves
