@@ -48,11 +48,9 @@ public class Chat implements Initializable {
 
 	@FXML
 	private JFXButton chatButton;
-	
+
 	@FXML
 	private ScrollPane scroll;
-
-	
 
 	private Dos dosGame;
 
@@ -172,6 +170,7 @@ public class Chat implements Initializable {
 			received.getMessageLabel().setId("black");
 			received.getMessageBox().setId("private");
 			content.getChildren().add(received);
+			dosGame.getNETHud().chatNotification();
 		} else {
 			// Se trata de un mensaje de salida
 			SentMessage sent = new SentMessage(messageOK);
@@ -179,6 +178,7 @@ public class Chat implements Initializable {
 			sent.getMessageBox().setId("private");
 			content.getChildren().add(sent);
 		}
+		
 	}
 
 	private void showEmote(String emoteCode, int fromCode) {
@@ -191,6 +191,7 @@ public class Chat implements Initializable {
 			// Se trata de un mensaje de salida
 			content.getChildren().add(new SentEmote(emoteCode));
 		}
+		dosGame.getNETHud().chatNotification();
 	}
 
 	private void showMessage(String message, String styleCode, int fromCode) {
@@ -212,6 +213,7 @@ public class Chat implements Initializable {
 			sent.getMessageLabel().setId(styleCode);
 			content.getChildren().add(sent);
 		}
+		dosGame.getNETHud().chatNotification();
 	}
 
 	private void showNormalMessage(String message, int fromCode) {
@@ -226,6 +228,9 @@ public class Chat implements Initializable {
 			SentMessage sent = new SentMessage(message);
 			content.getChildren().add(sent);
 		}
+
+		dosGame.getNETHud().chatNotification();
+
 	}
 
 	@FXML
@@ -266,6 +271,7 @@ public class Chat implements Initializable {
 	public void setActionsStack(StackPane actionsStack) {
 		this.actionsStack = actionsStack;
 	}
+
 	public ScrollPane getScroll() {
 		return scroll;
 	}
