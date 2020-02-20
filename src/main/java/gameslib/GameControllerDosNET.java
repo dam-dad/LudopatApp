@@ -292,7 +292,7 @@ public class GameControllerDosNET implements Initializable {
 	}
 	
 	public void chatNotification() {
-		if(chatStack.getChildren().size() > 2) {
+		if(chatStack.getChildren().size() > 1) {
 			chatButton.setId("notification");
 		}
 	}
