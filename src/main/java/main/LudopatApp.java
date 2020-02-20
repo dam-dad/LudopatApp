@@ -293,7 +293,9 @@ public class LudopatApp extends Application {
 		else if( connectionClient != null ) {
 			// Avisamos a los clientes de que este cliente se va a desconectar
 			connectionClient.disconnectClient();
-		}
+		} 
+		
+		goMenu();
 
 	}
 
