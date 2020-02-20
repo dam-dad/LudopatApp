@@ -625,6 +625,7 @@ public class GameControllerDosNET implements Initializable {
 	}
 
 	public void closeChat() {
+		chatButton.setId("chatButton");
 		chatStack.getChildren().remove(chat.getView());
 	}
 	public Chat getChat() {
