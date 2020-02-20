@@ -77,7 +77,14 @@ public class ServerClient implements Runnable {
 			if( !exit ) {
 				
 				// Debemos cerrar la conexión
-				roomServer.clientDisconnected(this);
+				if( gameServer != null ) {
+					gameServer.sendClientDisconnected(this);
+				}
+				
+				else {
+					roomServer.clientDisconnected(this);
+				}
+				
 			}
 			
 			try {
@@ -96,21 +103,10 @@ public class ServerClient implements Runnable {
 	/**
 	 * Identificación del paquete recibido y procesamiento
 	 * @param pkgIn Paquete recibido
-	 * @return True si es correcto, False implica el cierre de conexión
 	 */
 	private void checkByteID(InfoPackage pkgIn) {
 		
 		switch(pkgIn.getInfoByte()) {
-		
-			// El usuario se ha desconectado
-			case InfoPackage.CLIENT_DISCONNECT:
-				if(roomServer.isActive() ) {
-					roomServer.clientDisconnected(this);
-				}
-				
-				if( gameServer != null ) {
-					gameServer.sendClientDisconneced();
-				}
 				
 			case InfoPackage.CLIENT_CONNECT:
 				// Ponemos la información de este usuario
@@ -167,6 +163,7 @@ public class ServerClient implements Runnable {
 	
 		try {
 			
+			exit = true;
 			dataOut.writeObject( new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
 			
 		} catch (IOException e) {

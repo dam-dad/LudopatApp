@@ -35,6 +35,17 @@ public class GameServer {
 		return netPlayers;
 	}
 	
+	/**
+	 * El host ha cerrado el servidor, enviamos
+	 * a los clientes la desconexión con el servidor
+	 */
+	public void closeServer() {
+		
+		for( ServerClient c : clients ) {
+			c.sendDisconnected();
+		}
+	}
+	
 	// Envios por parte del servidor
 	//-----------------------------------------------------------------------------
 	
@@ -111,7 +122,9 @@ public class GameServer {
 	
 	// Recepciones en el servidor
 	//-----------------------------------------------------------------------------
-	public synchronized void sendClientDisconneced() {
+	public synchronized void sendClientDisconnected(ServerClient client) {
+		
+		clients.remove(client);
 		
 		for( ServerClient c : clients ) {
 			c.sendDisconnected();
