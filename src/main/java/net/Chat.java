@@ -187,11 +187,12 @@ public class Chat implements Initializable {
 			String issuer = dosGame.getCurrentPlayers().stream().filter(p -> p.getPlayerInfo().getUserID() == fromCode)
 					.findFirst().get().getPlayerInfo().getPlayerName();
 			content.getChildren().add(new ReceivedEmote(emoteCode, issuer));
+			dosGame.getNETHud().chatNotification();
 		} else {
 			// Se trata de un mensaje de salida
 			content.getChildren().add(new SentEmote(emoteCode));
 		}
-		dosGame.getNETHud().chatNotification();
+		
 	}
 
 	private void showMessage(String message, String styleCode, int fromCode) {
@@ -207,13 +208,14 @@ public class Chat implements Initializable {
 			ReceivedMessage received = new ReceivedMessage(messageOK, issuer);
 			received.getMessageLabel().setId(styleCode);
 			content.getChildren().add(received);
+			dosGame.getNETHud().chatNotification();
 		} else {
 			// Se trata de un mensaje de salida
 			SentMessage sent = new SentMessage(messageOK);
 			sent.getMessageLabel().setId(styleCode);
 			content.getChildren().add(sent);
 		}
-		dosGame.getNETHud().chatNotification();
+		
 	}
 
 	private void showNormalMessage(String message, int fromCode) {
@@ -223,13 +225,14 @@ public class Chat implements Initializable {
 					.findFirst().get().getPlayerInfo().getPlayerName();
 			ReceivedMessage received = new ReceivedMessage(message, issuer);
 			content.getChildren().add(received);
+			dosGame.getNETHud().chatNotification();
 		} else {
 			// Se trata de un mensaje de salida
 			SentMessage sent = new SentMessage(message);
 			content.getChildren().add(sent);
 		}
 
-		dosGame.getNETHud().chatNotification();
+		
 
 	}
 
