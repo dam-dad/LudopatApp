@@ -28,6 +28,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -285,9 +287,14 @@ public class GameControllerDosNET implements Initializable {
 			drawButton.setDisable(true);
 			nextButton.setDisable(true);
 			disableHand();
-		} 
+		}
+		chat.getScroll().heightProperty().addListener((o, ov, nv) -> chatNotification());
 	}
 	
+	private void chatNotification() {
+		chatButton.setId("notification");
+	}
+
 	/**
 	 * Desactivar las funcionalidades para este jugador
 	 */
@@ -593,6 +600,7 @@ public class GameControllerDosNET implements Initializable {
 	
     @FXML
     void openChat(ActionEvent event) {
+    	chatButton.setId("chatButton");
     	chatStack.getChildren().add(chat.getView());
     }
 
@@ -624,5 +632,26 @@ public class GameControllerDosNET implements Initializable {
 	public void setChat(Chat chat) {
 		this.chat = chat;
 	}
+
+    @FXML
+    void keys(KeyEvent event) {
+    	switch (event.getCode()) {
+		case C:
+			//C presionada, acción de abrir y cerrar el chat.
+			if (chatStack.getChildren().size() == 2) {
+    			openChat(null);
+    		}else {
+    			closeChat();
+    		}
+			break;
+		case F:
+			//F presionada, acción de pantalla completa.
+			fullscreenAction(null);
+			break;
+		default:
+			//Acción no controlada.
+			break;
+		}
+    }
 	
 }

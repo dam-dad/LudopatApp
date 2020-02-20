@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -47,6 +48,11 @@ public class Chat implements Initializable {
 
 	@FXML
 	private JFXButton chatButton;
+	
+	@FXML
+	private ScrollPane scroll;
+
+	
 
 	private Dos dosGame;
 
@@ -149,58 +155,8 @@ public class Chat implements Initializable {
 				}
 			}
 		}
-
-		/*
-		 * OLD if (message.length() >= 7) { for (int i = 1; i <= 6; i++) { nextSixChars
-		 * += message.charAt(i); }
-		 * 
-		 * // Comprobamos el primer caracter el mensaje switch (message.charAt(0)) {
-		 * case '@': // Si es '@' puede tratarse de un mensaje privado a x // 49 es el
-		 * int de '1' y 48 el de '0' if (message.charAt(1) >= 49 && message.charAt(1) <=
-		 * dosGame.getCurrentPlayers().size() + 48) { // Mensaje privado if
-		 * (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == fromId) { // Mensaje
-		 * privado escrito por el jugador showPrivateMessage(message, fromId); } else {
-		 * if (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == message.charAt(1)
-		 * - 48) { // Destinatario del mensaje showPrivateMessage(message, fromId); } }
-		 * } break; case '/': // Si es '/' puede tratarse de un emote // Si es igual a
-		 * algún emote code se trata de un emote switch (nextSixChars) { case "emote1":
-		 * showEmote(nextSixChars, fromId); return; case "emote2":
-		 * showEmote(nextSixChars, fromId); return; case "emote3":
-		 * showEmote(nextSixChars, fromId); return; case "emote4":
-		 * showEmote(nextSixChars, fromId); return; case "emote5":
-		 * showEmote(nextSixChars, fromId); return; case "emote6":
-		 * showEmote(nextSixChars, fromId); return; case "emote7":
-		 * showEmote(nextSixChars, fromId); return; case "emote8":
-		 * showEmote(nextSixChars, fromId); return; default: // No es un emote break; }
-		 * 
-		 * break; case '*': // Si es '*' puede tratarse de un estilo // Si es igual a
-		 * algún Style code se trata de un estilo switch (message.charAt(1)) { case 'b':
-		 * showMessage(message, "bold", fromId); return; case 'i': showMessage(message,
-		 * "italic", fromId); return; case 'd': showMessage(message, "black", fromId);
-		 * return; case 'g': showMessage(message, "gold", fromId); return; default: //
-		 * Si no es ninguno no es un estilo y por consiguiente no tiene modificador
-		 * break; }
-		 * 
-		 * break; default: // No tiene modificador showNormalMessage(message, fromId);
-		 * break; } } else { if (message.length() > 3) { if (message.charAt(0) == '@') {
-		 * // Si es '@' puede tratarse de un mensaje privado a x // 49 es el int de '1'
-		 * y 48 el de '0' if (message.charAt(1) >= 49 && message.charAt(1) <=
-		 * dosGame.getCurrentPlayers().size() + 48) { // Mensaje privado if
-		 * (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == fromId) { // Mensaje
-		 * privado escrito por el jugador showPrivateMessage(message, fromId); } else {
-		 * if (dosGame.getLocalPlayer().getPlayerInfo().getUserID() == message.charAt(1)
-		 * - 48) { // Destinatario del mensaje showPrivateMessage(message, fromId); } }
-		 * } }else { if (message.charAt(0) == '*') { // Si es '*' puede tratarse de un
-		 * estilo // Si es igual a algún Style code se trata de un estilo switch
-		 * (message.charAt(1)) { case 'b': showMessage(message, "bold", fromId); return;
-		 * case 'i': showMessage(message, "italic", fromId); return; case 'd':
-		 * showMessage(message, "black", fromId); return; case 'g': showMessage(message,
-		 * "gold", fromId); return; default: // Si no es ninguno no es un estilo y por
-		 * consiguiente no tiene modificador break; } }else { //Se trata de un mensaje
-		 * normal showNormalMessage(message, fromId); } } }else { //Se trata de un
-		 * mensaje normal showNormalMessage(message, fromId); } }
-		 */
-
+		scroll.layout();
+		scroll.setVvalue(1.0d);
 	}
 
 	private void showPrivateMessage(String message, int fromCode) {
@@ -279,13 +235,15 @@ public class Chat implements Initializable {
 
 	@FXML
 	void sendButton(ActionEvent event) {
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				dosGame.getClientThread().sendMessage(messageArea.getText());
-				messageArea.setText("");
-			}
-		});
+		if (messageArea.getText().trim().length() > 0) {
+			Platform.runLater(new Runnable() {
+				@Override
+				public void run() {
+					dosGame.getClientThread().sendMessage(messageArea.getText());
+					messageArea.setText("");
+				}
+			});
+		}
 	}
 
 	public void appendEmote(String emoteCode) {
@@ -307,5 +265,8 @@ public class Chat implements Initializable {
 
 	public void setActionsStack(StackPane actionsStack) {
 		this.actionsStack = actionsStack;
+	}
+	public ScrollPane getScroll() {
+		return scroll;
 	}
 }

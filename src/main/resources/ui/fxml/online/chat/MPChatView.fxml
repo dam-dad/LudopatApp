@@ -13,7 +13,7 @@
 
 <VBox fx:id="view" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="250.0" stylesheets="@../../../css/DosBoardStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="300.0" prefWidth="250.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+      <ScrollPane fx:id="scroll" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" pannable="true" prefHeight="300.0" prefWidth="250.0" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
         <content>
             <VBox fx:id="content" fillWidth="false" prefHeight="400.0" prefWidth="250.0" spacing="5.0">
                <padding>
@@ -46,7 +46,7 @@
                                  </image>
                               </ImageView>
                            </graphic></JFXButton>
-                        <JFXButton id="chatButton" fx:id="sendButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#sendButton" prefHeight="80.0" prefWidth="40.0" ripplerFill="#c70e0e">
+                        <JFXButton id="chatButton" fx:id="sendButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" defaultButton="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#sendButton" prefHeight="80.0" prefWidth="40.0" ripplerFill="#c70e0e">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
