@@ -5,6 +5,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import games.Card;
@@ -105,7 +107,7 @@ public class Client implements Runnable {
 		try {
 			
 			socket.connect(addr);
-		   
+			
 		    dataOut = new ObjectOutputStream(socket.getOutputStream());
 		    
 		    NET_PlayerInfo netInfo = new NET_PlayerInfo(clientInfo);
@@ -187,6 +189,16 @@ public class Client implements Runnable {
 		    	
 		    }
 			
+		} catch( SocketException e ) {
+			
+			Platform.runLater(new Runnable() {
+				
+				@Override
+				public void run() {
+					
+					app.client_failConnection();
+				}
+			});
 		} catch (IOException | ClassNotFoundException e) {
 		} finally {
 			

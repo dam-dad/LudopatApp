@@ -163,8 +163,10 @@ public class ServerClient implements Runnable {
 	
 		try {
 			
-			exit = true;
-			dataOut.writeObject( new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
+			if( !socket.isClosed() ) {
+				exit = true;
+				dataOut.writeObject( new InfoPackage(InfoPackage.CLIENT_DISCONNECT, null));
+			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();

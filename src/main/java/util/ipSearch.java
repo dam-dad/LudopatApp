@@ -1,8 +1,7 @@
 package util;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 /**
  * <b>ipSearch</b> <br>
  * <br>
@@ -22,24 +21,14 @@ public class ipSearch {
 	 */
 	public static String ip() {
 		
-		String systemipaddress = ""; 
-        try
-        { 
-        	URL whatismyip = new URL("http://checkip.amazonaws.com");
-        	BufferedReader in = new BufferedReader(new InputStreamReader(
-        	                whatismyip.openStream()));
-
-        	String ip = in.readLine().trim(); //you get the IP as a String
-        	
-        	return ip;
-        } 
-        catch (Exception e) 
-        { 
-        	e.printStackTrace();
-            systemipaddress = "UNKNOWN"; 
-        } 
-        
-		return systemipaddress;
+		try {
+			return InetAddress.getLocalHost().getHostAddress();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "UNKNOWN";
 	}
 
 }

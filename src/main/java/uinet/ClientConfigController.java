@@ -18,6 +18,7 @@ import javafx.geometry.Pos;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -201,6 +202,20 @@ public class ClientConfigController implements Initializable {
 		currentStage = e_menuStages.values()[currentPage.get() - 1];
 
 	}
+	
+	/**
+	 * Ha habido algún error en la conexión, 
+	 * volvemos a restaurar la ventana
+	 */
+	public void resetConnectionStatus() {
+		ipConfig.setConnectionStatus(false);
+
+		continueButton.setDisable(false);
+		backButton.setDisable(false);
+		continueButton.setId("");
+		backButton.setId("");
+	}
+	
 	/**
 	 * Conecta al usuario con el cliente
 	 * @param event
@@ -213,8 +228,9 @@ public class ClientConfigController implements Initializable {
 			// Entonces conectamos con el cliente
 			playerSelection.closeDialog(-1);
 			playerSelection.refresh();
+			ipConfig.setConnectionStatus(true);
 			ludopp.getUserClient().setPlayerInfo(playerSelection.getPlayersInfo().get(0));
-			ludopp.initClient(ipConfig.getIp());
+			ludopp.initClient(ipConfig.getIp());		
 			continueButton.setDisable(true);
 			backButton.setDisable(true);
 			continueButton.setId("disable");

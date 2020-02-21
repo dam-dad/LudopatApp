@@ -4,14 +4,20 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXSpinner;
 import com.jfoenix.controls.JFXTextField;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import main.LudopatApp;
 /**
  * <b>IPConfigController</b> <br>
@@ -32,14 +38,34 @@ public class IpConfigController extends AnchorPane implements Initializable {
 
 	@FXML
 	private JFXTextField ipText;
+	
+    @FXML
+    private HBox connectionBox;
 
+    @FXML
+    private Label connectingLabel;
+
+    @FXML
+    private JFXSpinner connectingSpinner;
+
+    private BooleanProperty connectionValid = new SimpleBooleanProperty(false);
+    
 	LudopatApp ludopp;
 	private StringProperty ip = new SimpleStringProperty();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ip.bind(ipText.textProperty());
-
+		connectingLabel.visibleProperty().bind(connectionValid);
+		connectingSpinner.visibleProperty().bind(connectionValid);
+	}
+	
+	/**
+	 * Visualiza o no el estado de conexión
+	 * @param bConnecting
+	 */
+	public void setConnectionStatus(boolean bConnecting) {
+		connectionValid.set(bConnecting);
 	}
 
 	public IpConfigController(LudopatApp ludopp) {

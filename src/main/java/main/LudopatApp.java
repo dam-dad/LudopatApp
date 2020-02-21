@@ -539,6 +539,17 @@ public class LudopatApp extends Application {
 		((Dos)getCurrentGame()).setNETHud(gameControllerDosNET);
 	}
 	
+	/**
+	 * Si ha fallado la conexión con el servidor
+	 * se avisa a la interfaz
+	 */
+	public void client_failConnection() {
+		
+		connectionClient = null; // No podemos hacer nada más
+		clientConfigController.resetConnectionStatus();
+		
+	}
+	
     // -----------------------------------------------------------
     
 	public Game getCurrentGame() {
