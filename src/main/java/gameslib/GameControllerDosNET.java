@@ -16,6 +16,7 @@ import com.jfoenix.controls.JFXDialogLayout;
 
 import games.Card;
 import games.Player;
+import gameslib.endGame.EndGameController;
 import help.HelpViewContoller;
 import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
@@ -501,23 +502,15 @@ public class GameControllerDosNET implements Initializable {
 		}
 	}
 	/**
-	 * Finaliza la partida
+	 * Finaliza la partida, se muestra la interfaz
 	 */
-	public void endGame() {
-		/*
-		updateCardCounters();
-		dosGame.endGame();
-
+	public void endGame(ArrayList<Player> players) {
+		
 		// Desactiva el juego
-		nextButton.setDisable(true);
-		drawButton.setDisable(true);
-
-		handGrid.getChildren().stream().forEach(node -> {
-			node.setDisable(true);
-		});
+		disableHand();
 
 		JFXDialogLayout layout = new JFXDialogLayout();
-		layout.setBody(new EndGameController(dosGame.getCurrentPlayers()));
+		layout.setBody(new EndGameController(players));
 
 		layout.setId("bg");
 		layout.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
@@ -549,7 +542,7 @@ public class GameControllerDosNET implements Initializable {
 
 		layout.setActions(menu, exit);
 		dialog.show();
-		*/
+		
 	}
 	/**
 	 * Actualiza los contadores de cartas al final de la partida
@@ -601,6 +594,13 @@ public class GameControllerDosNET implements Initializable {
 	 * Notifica a los jugadores de la desconexion de otro de los jugadores y vuelve al menu
 	 */
 	public void notifyDisconnectDialog() {
+		
+		// Desabilitamos todos los controles
+		disableHand();
+		exitButton.setDisable(true);
+		closeButton.setDisable(true);
+		fullScreenButton.setDisable(true);
+		chatButton.setDisable(true);
 		
 		Label disconnectLabel = new Label("Cliente desconectado");
 		disconnectLabel.setMaxWidth(800);

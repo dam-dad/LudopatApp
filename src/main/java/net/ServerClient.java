@@ -284,6 +284,21 @@ public class ServerClient implements Runnable {
 		}
 	}
 	
+	/**
+	 * Se ha acabado el juego, avisamos al cliente
+	 * @param players
+	 */
+	public void gameSend_endGame(ArrayList<NET_Player> players) {
+		
+		try {
+			
+			dataOut.writeObject(new InfoPackage(InfoPackage.SERVER_ENDGAME, players));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	//---------------------------------------------------------------
 	
 	public int getUserID() {

@@ -188,9 +188,18 @@ public class Dos extends Game {
 		
 		// Noficiamos al resto de clientes de la nueva carta sobre la mesa
 		if( gameServer != null ) {
-			gameServer.sendNewCardTable(getActivePlayer().getHand(), getLastCard());
+			
+			if( getActivePlayer().getHand().size() <= 0 ) {
+				// Hemos terminado
+				endGame();
+			}
+			
+			else {
+				gameServer.sendNewCardTable(getActivePlayer().getHand(), getLastCard());
+			}
 		}
 	}
+	
 	
 	/**
 	 * Un jugador ha decidido robar cartas
@@ -209,6 +218,15 @@ public class Dos extends Game {
 	public void client_receiveDisconnect() {
 		NETHud.notifyDisconnectDialog();
 	}
+	
+	/**
+	 * Se ha acabado el juego
+	 * @param players Jugadores ordenados según sus posiciones
+	 */
+	public void client_receiveEndGame(ArrayList<Player> players) {
+		NETHud.endGame(players);
+	}
+	
 	/**
 	 * El cliente recibe el paso de turno del servidor
 	 * @param id Identificador del jugador
@@ -320,6 +338,10 @@ public class Dos extends Game {
 		// Ordenar jugadores por numero de cartas y
 		// lo pasa al dialogo.
 		Collections.sort(currentPlayers, new ComparePlayers());
+		
+		if( gameServer != null ) {
+			gameServer.sendEndGame(currentPlayers);
+		}
 	}
 	
 	@Override

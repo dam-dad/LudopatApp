@@ -129,6 +129,22 @@ public class GameServer {
 		}
 	}
 	
+	/**
+	 * Envía a los clientes que se ha acabado el juego
+	 * @param players Jugadores al final de la partida, ordenados por puntuación.
+	 */
+	public synchronized void sendEndGame(ArrayList<Player> players) {
+		
+		ArrayList<NET_Player> netPlayers = new ArrayList<NET_Player>();
+		
+		for( Player p : players ) {
+			netPlayers.add(new NET_Player(p));
+		}
+		
+		for( ServerClient c : clients ) {
+			c.gameSend_endGame(netPlayers);
+		}
+	}
 	//-----------------------------------------------------------------------------
 	
 	// Recepciones en el servidor

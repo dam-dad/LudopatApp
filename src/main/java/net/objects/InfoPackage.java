@@ -26,6 +26,7 @@ public class InfoPackage implements Serializable {
 	public static final byte CLIENT_NEXTTURN = 6;
 	public static final byte CLIENT_DRAWCARD = 7;
 	public static final byte CLIENT_SENDMESSAGE = 8;
+	public static final byte SERVER_ENDGAME = 9;
 	
 	/**
 	 * Byte utilizado para informar de que tipo de paquete se trata
