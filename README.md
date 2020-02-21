@@ -31,7 +31,7 @@
 
 #### Guía de usuario
 
-[docs/userguide.md]()
+[/docs/userguide.md]()
 
 #### Créditos
 
