@@ -21,6 +21,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -62,6 +63,9 @@ public class ServerConfigController implements Initializable {
 	private BorderPane view;
 
 	@FXML
+    private HBox hox;
+	
+	@FXML
 	private Button backButton, continueButton, menuButton;
 
 	@FXML
@@ -76,6 +80,8 @@ public class ServerConfigController implements Initializable {
 	@FXML
 	private StackPane stack;
 
+	private static double xOffset = 0;
+    private static double yOffset = 0;
 	// --------------------------------------------------
 	// Variables
 	// --------------------------------------------------
@@ -153,6 +159,26 @@ public class ServerConfigController implements Initializable {
 
 		currentStage = e_menuStages.ST_CONFIG_GAME;
 		currentPage.setValue(1);
+		setMovingHandler();
+	}
+	/**
+	 * Crea un evento para poder mover la ventana al clickar y arrastrar
+	 */
+	private void setMovingHandler() {
+		hox.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        });
+		hox.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        });	
 	}
 	/**
 	 * Muestra al servidor la sala de espera
@@ -307,6 +333,7 @@ public class ServerConfigController implements Initializable {
 			backButton.setDisable(true);
 			continueButton.setId("disable");
 			backButton.setId("disable");
+			currentPage.setValue(4);
 		}
 		
 		else {

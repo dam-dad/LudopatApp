@@ -12,6 +12,7 @@ import help.HelpViewContoller;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,10 +20,10 @@ import javafx.geometry.Pos;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
-
 import javafx.util.Duration;
 import main.LudopatApp;
 /**
@@ -44,7 +45,10 @@ public class MainMenuController implements Initializable{
 
 	@FXML
 	private Button singlePlayerButton;
-
+	
+	@FXML
+    private HBox hox;
+	
 	@FXML
 	private Button multiPlayerButton;
 
@@ -62,11 +66,17 @@ public class MainMenuController implements Initializable{
 	
 	FadeTransition fadeTransition;
 	
+	private static double xOffset = 0;
+    private static double yOffset = 0;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		playFadeTransition();
+		setMovingHandler();
 	}
 	
+	
+
 	public MainMenuController (LudopatApp app) throws IOException {
 		
 		this.ludopp = app;
@@ -75,7 +85,25 @@ public class MainMenuController implements Initializable{
 		loader.setController(this);
 		loader.load();
 	}
-	
+	/**
+	 * Crea un evento para poder mover la ventana al clickar y arrastrar
+	 */
+	private void setMovingHandler() {
+		hox.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        });
+		hox.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        });	
+	}
 	/**
 	 * Muestra la documentacion y ayuda basica del juego
 	 * @param event

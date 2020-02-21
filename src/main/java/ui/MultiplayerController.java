@@ -17,6 +17,7 @@ import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,6 +65,9 @@ public class MultiplayerController implements Initializable {
 	private Label pageLabel;
 	
 	@FXML
+    private HBox hox;
+	
+	@FXML
 	private SplitPane configPane;
 	
 	@FXML
@@ -104,6 +108,9 @@ public class MultiplayerController implements Initializable {
 	private final String PLAY = "Jugar";
 
 	private HelpViewContoller help;
+	
+	private static double xOffset = 0;
+    private static double yOffset = 0;
 	
 	//--------------------------------------------------
 	
@@ -150,8 +157,28 @@ public class MultiplayerController implements Initializable {
 		
 		currentStage = e_menuStages.ST_CONFIG_GAME;
 		currentPage.setValue(1);
+		setMovingHandler();
 	}
 	
+	/**
+	 * Crea un evento para poder mover la ventana al clickar y arrastrar
+	 */
+	private void setMovingHandler() {
+		hox.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        });
+		hox.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        });	
+	}
 	private void nextStage() {
 		
 		switch (currentStage) {

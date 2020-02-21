@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -15,6 +16,7 @@
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
          </BorderPane.margin>
          <children>
+            <HBox fx:id="hox" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="70.0" prefWidth="800.0" StackPane.alignment="TOP_CENTER" />
             <VBox id="box" alignment="CENTER" maxHeight="275.0" maxWidth="200.0">
                <children>
                   <ImageView id="logo" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true">
