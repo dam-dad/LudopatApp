@@ -7,6 +7,8 @@ import java.util.ArrayList;
  * <br>
  * 
  * Paquete de informacion inicial, de principio de partida
+ * Contiene los jugadores en la partida, la carta sobre la mesa,
+ * el primer turno del jugador y el tipo de juego.
  * 
  * @author David Fernández Nieves
  * @author Pablo Daniel Urtiaga Pinto

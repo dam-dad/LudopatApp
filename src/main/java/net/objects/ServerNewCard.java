@@ -3,6 +3,18 @@ package net.objects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * 
+ * Paquete para cuando un usuario lanza una carta,
+ * que contiene la mano modificada del jugador
+ * y la nueva carta sobre la mesa.
+ * 
+ * @author David Fernández Nieves
+ * @author Pablo Daniel Urtiaga Pinto
+ * @author Joel Rodriguez Martín
+ * @author Kevin Rodriguez Morales
+ *
+ */
 public class ServerNewCard implements Serializable {
 
 	private static final long serialVersionUID = 1L;
