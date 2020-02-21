@@ -1,12 +1,18 @@
 package ui;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LudopatApp;
 /**
@@ -21,10 +27,13 @@ import main.LudopatApp;
  * @author Kevin Rodriguez Morales
  *
  */
-public class MPSelectionModeController {
+public class MPSelectionModeController implements Initializable{
 
     @FXML
     private VBox view;
+    
+    @FXML
+    private HBox hox;
 
     @FXML
     private JFXButton vsAIButton;
@@ -34,6 +43,9 @@ public class MPSelectionModeController {
     
     @FXML
     private JFXButton onlineButton;
+    
+    private static double xOffset = 0;
+    private static double yOffset = 0;
     
     LudopatApp ludopp;
     
@@ -48,6 +60,31 @@ public class MPSelectionModeController {
 			e.printStackTrace();
 		}
 	}
+    @Override
+	public void initialize(URL location, ResourceBundle resources) {
+		setMovingHandler();
+		
+	}
+    /**
+	 * Crea un evento para poder mover la ventana al clickar y arrastrar
+	 */
+	private void setMovingHandler() {
+		hox.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        });
+		hox.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        });	
+	}
+    
 
     @FXML
     void toAIconfig(ActionEvent event) {
@@ -72,5 +109,7 @@ public class MPSelectionModeController {
     public VBox getView() {
 		return this.view;
 	}
+
+	
 
 }
