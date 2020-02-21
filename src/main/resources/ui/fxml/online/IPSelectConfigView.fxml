@@ -29,7 +29,7 @@
             <Insets left="50.0" />
          </padding>
       </VBox>
-      <HBox fx:id="connectionBox" alignment="CENTER" layoutX="396.0" layoutY="336.0" spacing="5.0">
+      <HBox fx:id="connectionBox" alignment="CENTER" layoutX="396.0" layoutY="336.0" spacing="5.0" AnchorPane.rightAnchor="20.0">
          <children>
             <Label id="labelOne" fx:id="connectingLabel" text="Conectando con el servidor...">
                <font>

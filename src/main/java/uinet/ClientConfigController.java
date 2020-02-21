@@ -235,6 +235,27 @@ public class ClientConfigController implements Initializable {
 	 * volvemos a restaurar la ventana
 	 */
 	public void resetConnectionStatus() {
+		
+		Label notFoundLabel = new Label("Error de conexión");
+		notFoundLabel.setMaxWidth(800);
+		notFoundLabel.setId("tittle");
+		
+		HBox tittleBox = new HBox(notFoundLabel);
+		tittleBox.setPrefWidth(800);
+		tittleBox.setAlignment(Pos.CENTER);
+		
+		JFXDialogLayout layout = new JFXDialogLayout();
+		layout.setHeading(tittleBox);
+		layout.setBody(new Label("No ha sido posible conectar con el servidor"));
+		layout.getStylesheets().add(getClass().getResource("/ui/css/DosBoardStyle.css").toString());
+		layout.setPrefHeight(200);
+		layout.setId("content");
+		
+		layout.maxHeight(200);
+		
+		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+		dialog.show();
+		
 		ipConfig.setConnectionStatus(false);
 		menuButton.setDisable(false);
 		continueButton.setDisable(false);
