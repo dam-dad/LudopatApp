@@ -1,4 +1,4 @@
-DOS
+Solitario
 
 - Multijugador: No
 - Número de jugadores: 1
