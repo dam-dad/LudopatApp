@@ -25,6 +25,7 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.*;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -66,20 +67,21 @@ public class LudopatApp extends Application {
 	private GameControllerDosNET gameControllerDosNET;
 	private GameControllerSolitaire solitaireController;
 	private ClientConfigController clientConfigController;
-	
+
 	private MPSelectionModeController mpSelectionModeController;
 
 	// ---------------------------------------------------
-	
+
 	// Variables online
 	// ---------------------------------------------------
-	
+
 	private User userClient;
 	private Client connectionClient;
 	private Server connectionServer;
 	private GameServer gameServer;
 	private Game serverCurrentGame;
-	
+	private MediaPlayer mediaPlayer;
+
 	// ---------------------------------------------------
 
 	// Variables de la App
@@ -112,12 +114,36 @@ public class LudopatApp extends Application {
 		mainStage.setResizable(false);
 
 		// Inicamos la aplicación, el SplashScreen
-//		initApp();
-		goMenu();
+		initApp();
+//		goMenu();
+
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.getIcons().add(new Image(getClass().getResource("/ui/images/Noframe.png").toString()));
 
 		primaryStage.show();
+
+	}
+
+	private void playMusic() {
+		Media sound = new Media(getClass().getResource("/ui/sound/sound.mp3").toString());
+		mediaPlayer = new MediaPlayer(sound);
+		mediaPlayer.setOnEndOfMedia(new Runnable() {
+			@Override
+			public void run() {
+				mediaPlayer.seek(Duration.ZERO);
+				mediaPlayer.play();
+			}
+		});
+
+		mediaPlayer.play();
+	}
+
+	private void stopMusic() {
+		mediaPlayer.pause();
+	}
+
+	private void setMusicVolume(double newVolume) {
+		mediaPlayer.setVolume(newVolume);
 
 	}
 
@@ -133,6 +159,7 @@ public class LudopatApp extends Application {
 
 		fadeTransition(mainMenuController.getView(), scene);
 	}
+
 	/**
 	 * Lleva al usuario a la configuración de servidor de partida
 	 */
@@ -142,7 +169,7 @@ public class LudopatApp extends Application {
 
 			// Creamos el usuario
 			userClient = new User();
-			
+
 			gameRules = new GameRules();
 			serverConfigController = new ServerConfigController(this);
 
@@ -153,14 +180,15 @@ public class LudopatApp extends Application {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Lleva al usuario a la configuracion de cliente de partida
 	 */
 	public void goClientConfig() {
-		
+
 		// Creamos el usuario
 		userClient = new User();
-		
+
 		gameRules = new GameRules();
 		clientConfigController = new ClientConfigController(this);
 
@@ -168,6 +196,7 @@ public class LudopatApp extends Application {
 		fadeTransition(mpSelectionModeController.getView(), scene);
 
 	}
+
 	/**
 	 * Lleva al usuario al menú de partida contra IA
 	 */
@@ -185,8 +214,10 @@ public class LudopatApp extends Application {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * Transición de fade entre menús
+	 * 
 	 * @param view
 	 * @param scene
 	 */
@@ -213,6 +244,7 @@ public class LudopatApp extends Application {
 
 		alignScreenMenu();
 	}
+
 	/**
 	 * Inicio de la app que muestra la splash screen
 	 */
@@ -231,6 +263,7 @@ public class LudopatApp extends Application {
 		}
 
 	}
+
 	/**
 	 * Inicia una partida de 1 solo jugador (Solitario)
 	 */
@@ -266,56 +299,59 @@ public class LudopatApp extends Application {
 		mainStage.setScene(scene);
 		alignScreen();
 	}
+
 	/**
 	 * Lleva al usuario al menu principal
 	 */
 	public void goMenu() {
 
 		try {
-			
-			if(currentGame != null) 
+
+			if (currentGame != null)
 				currentGame = null;
-			
-			if(serverCurrentGame != null)
+
+			if (serverCurrentGame != null)
 				serverCurrentGame = null;
-			
+
 			mainMenuController = new MainMenuController(this);
 
 			Scene scene = new Scene(mainMenuController.getView(), 800, 600);
 			mainStage.setScene(scene);
-
 			alignScreenMenu();
+			if (mediaPlayer == null) {
+				playMusic();
+			}
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	/**
-	 * Llamado desde el modo online, para asegurarse
-	 * de cerrar las conexiones con los clientes
-	 * y el servidor
+	 * Llamado desde el modo online, para asegurarse de cerrar las conexiones con
+	 * los clientes y el servidor
 	 */
 	public void onlineGoMenu() {
-		
+
 		// Hacemos una acción u otra dependiendo de si es el Host o no
-		if( connectionServer != null ) {
+		if (connectionServer != null) {
 			connectionServer.closeRoom(true); // Forzamos el cierre del servidor
 		}
-		
-		else if( gameServer != null ) {
+
+		else if (gameServer != null) {
 			gameServer.closeServer();
 		}
-		
-		else if( connectionClient != null ) {
+
+		else if (connectionClient != null) {
 			// Avisamos a los clientes de que este cliente se va a desconectar
 			connectionClient.disconnectClient();
-		} 
-		
+		}
+
 		goMenu();
 
 	}
+
 	/**
 	 * Inicia la partida con las reglas elegidas
 	 */
@@ -334,6 +370,7 @@ public class LudopatApp extends Application {
 
 		alignScreen();
 	}
+
 	/**
 	 * Alinea la ventana al centro de la pantalla
 	 */
@@ -405,6 +442,7 @@ public class LudopatApp extends Application {
 		Scene scene = new Scene(gameControllerDos.getView());
 		mainStage.setScene(scene);
 	}
+
 	/**
 	 * Elimina todos los hilos y cierra la aplicación
 	 */
@@ -419,139 +457,140 @@ public class LudopatApp extends Application {
 				}
 			}
 		}
-		
+
 		// Hacemos una acción u otra dependiendo de si es el Host o no
-		if( connectionServer != null ) {
+		if (connectionServer != null) {
 			connectionServer.closeRoom(true); // Forzamos el cierre del servidor
 		}
-		
-		else if( gameServer != null ) {
+
+		else if (gameServer != null) {
 			gameServer.closeServer();
 		}
-		
-		else if( connectionClient != null ) {
+
+		else if (connectionClient != null) {
 			// Avisamos a los clientes de que este cliente se va a desconectar
 			connectionClient.disconnectClient();
 		}
-		
+
 		System.exit(0);
 	}
 
 	// -----------------------------------------------------------
-	
+
 	// NET Related
 	// -----------------------------------------------------------
-	
+
 	/**
 	 * Actualización de la interfaz de la sala de espera
 	 */
-    public void refreshRoomView(ArrayList<PlayerInfo> players, String ip) {
-    	
-    	if( connectionServer != null ) {
-    		// Entonces somos el host
-    		serverConfigController.showWaitingRoom(players);
-     	} else {
-     		// Entonces somo el cliente remoto
-     		clientConfigController.showWaitingRoom(players, ip);
-     	}
-    	
-    }
-    
-    /**
-     * Inicio el servidor
-     */
-    public void initServer() {
-    
-    	connectionServer = new Server(this, ipSearch.ip());
-    	new Thread(connectionServer).start();
-    }
-    
-    /**
-     * Se inicia el cliente y se conecta con la
-     * ip
-     */
-    public void initClient(String ip) {
-    	
-    	if( connectionServer != null ) 
-    		connectionClient = new Client(this, userClient.getPlayerInfo()); // Host
-    	else  
-    		connectionClient = new Client(this, ip, userClient.getPlayerInfo()); // Cliente remoto
-    	
-    	new Thread(connectionClient).start();
-    }
-    
-    /**
-     * Inicio del juego en el servidor
-     * @param players Información de los jugadores en la partida
-     */
-    public void server_initGame(ArrayList<PlayerInfo> players, ArrayList<ServerClient> clients) {
-    	
+	public void refreshRoomView(ArrayList<PlayerInfo> players, String ip) {
+
+		if (connectionServer != null) {
+			// Entonces somos el host
+			serverConfigController.showWaitingRoom(players);
+		} else {
+			// Entonces somo el cliente remoto
+			clientConfigController.showWaitingRoom(players, ip);
+		}
+
+	}
+
+	/**
+	 * Inicio el servidor
+	 */
+	public void initServer() {
+
+		connectionServer = new Server(this, ipSearch.ip());
+		new Thread(connectionServer).start();
+	}
+
+	/**
+	 * Se inicia el cliente y se conecta con la ip
+	 */
+	public void initClient(String ip) {
+
+		if (connectionServer != null)
+			connectionClient = new Client(this, userClient.getPlayerInfo()); // Host
+		else
+			connectionClient = new Client(this, ip, userClient.getPlayerInfo()); // Cliente remoto
+
+		new Thread(connectionClient).start();
+	}
+
+	/**
+	 * Inicio del juego en el servidor
+	 * 
+	 * @param players Información de los jugadores en la partida
+	 */
+	public void server_initGame(ArrayList<PlayerInfo> players, ArrayList<ServerClient> clients) {
+
 		getGameRules().setPlayersInfo(players);
-		
+
 		Deck deck = gameRules.getDeckType();
 		deck.loadCards("dos");
-		
+
 		Dos.loadSpecialCards(deck, this.getClass());
-		if( deck.isDoubleDeck() ) {
+		if (deck.isDoubleDeck()) {
 			Dos.loadSpecialCards(deck, this.getClass());
 		}
-		
+
 		ArrayList<Player> gamePlayers = new ArrayList<Player>();
 		int k = 0;
-		for( PlayerInfo p : gameRules.getPlayersInfo() ) {
+		for (PlayerInfo p : gameRules.getPlayersInfo()) {
 			Player player = new Player();
 			player.setId(p.getUserID());
 			player.setPlayerInfo(p);
 			gamePlayers.add(player);
-		
-			if( ++k >= gameRules.getNumPlayers() ) 
+
+			if (++k >= gameRules.getNumPlayers())
 				break;
- 		}
-		
+		}
+
 		// Ahora necesitamos empezar la conexión con los clientes en el juego
 		gameServer = new GameServer(clients, this);
 		connectionServer = null; // Limpiamos la referencia a connectionServer, ya ha terminado su funcionalidad
-		
+
 		Dos dosGame = new Dos(deck, gameRules, gamePlayers);
 		serverCurrentGame = dosGame;
 		dosGame.initGame();
-		
+
 		dosGame.initGameServer(this);
-    }
-    
-    /**
-     * Visualiza el juego para el cliente
-     * @param players Jugadores en la sesión
-     * @param tableCard Carta sobre la mesa
-     * @param currentPlayerID Actual turno del jugador
-     * @param clientID ID del cliente original
-     * @param gameType Modo de juego del servidor
-     */
-	public void client_startGame(ArrayList<Player> players, Card tableCard, int currentPlayerID, int clientID, String gameType) {	
-		
+	}
+
+	/**
+	 * Visualiza el juego para el cliente
+	 * 
+	 * @param players         Jugadores en la sesión
+	 * @param tableCard       Carta sobre la mesa
+	 * @param currentPlayerID Actual turno del jugador
+	 * @param clientID        ID del cliente original
+	 * @param gameType        Modo de juego del servidor
+	 */
+	public void client_startGame(ArrayList<Player> players, Card tableCard, int currentPlayerID, int clientID,
+			String gameType) {
+
 		currentGame = new Dos(players, tableCard, currentPlayerID, clientID, connectionClient);
-		
+
 		gameControllerDosNET = new GameControllerDosNET(this, gameType);
 		Scene scene = new Scene(gameControllerDosNET.getView());
 		mainStage.setScene(scene);
 		alignScreen();
-		
-		((Dos)getCurrentGame()).setNETHud(gameControllerDosNET);
+
+		((Dos) getCurrentGame()).setNETHud(gameControllerDosNET);
 	}
-	
+
 	/**
-	 * Si ha fallado la conexión con el servidor
-	 * se avisa a la interfaz
+	 * Si ha fallado la conexión con el servidor se avisa a la interfaz
 	 */
 	public void client_failConnection() {
-		
+
 		connectionClient = null; // No podemos hacer nada más
 		clientConfigController.resetConnectionStatus();
-		
+
 	}
-	
-    // -----------------------------------------------------------
-    
+
+	// -----------------------------------------------------------
+
 	public Game getCurrentGame() {
 		return currentGame;
 	}
