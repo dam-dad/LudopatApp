@@ -31,7 +31,7 @@
 
 #### Guía de usuario
 
-[Guía usuario](/blob/master/docs/userGuide.md)
+[Guía usuario](docs/userGuide)
 
 #### Créditos
 
