@@ -22,6 +22,7 @@ import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -66,6 +67,9 @@ public class ClientConfigController implements Initializable {
 	private Label pageLabel;
 
 	@FXML
+    private HBox hox;
+	
+	@FXML
 	private SplitPane configPane;
 
 	@FXML
@@ -76,6 +80,9 @@ public class ClientConfigController implements Initializable {
 
 	@FXML
 	private Button continueButton;
+	
+	private static double xOffset = 0;
+    private static double yOffset = 0;
 
 	// parametros
 	private static final int ANCHOR_WIDTH = 800;
@@ -147,6 +154,26 @@ public class ClientConfigController implements Initializable {
 
 		currentStage = e_menuStages.ST_CONFIG_PLAYERS;
 		currentPage.setValue(1);
+		setMovingHandler();
+	}
+	/**
+	 * Crea un evento para poder mover la ventana al clickar y arrastrar
+	 */
+	private void setMovingHandler() {
+		hox.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        });
+		hox.setOnMouseDragged(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        });	
 	}
 	/**
 	 * Muestra la sala de espera a los usuarios
@@ -209,11 +236,13 @@ public class ClientConfigController implements Initializable {
 	 */
 	public void resetConnectionStatus() {
 		ipConfig.setConnectionStatus(false);
-
+		menuButton.setDisable(false);
 		continueButton.setDisable(false);
 		backButton.setDisable(false);
 		continueButton.setId("");
 		backButton.setId("");
+		menuButton.setId("");
+		currentPage.setValue(2);
 	}
 	
 	/**
@@ -235,6 +264,9 @@ public class ClientConfigController implements Initializable {
 			backButton.setDisable(true);
 			continueButton.setId("disable");
 			backButton.setId("disable");
+			menuButton.setDisable(true);
+			menuButton.setId("disable");
+			currentPage.setValue(3);
 		}
 		
 		else {
