@@ -146,6 +146,11 @@ public class GameControllerSolitaire implements Initializable {
 	private LocalTime start;
 	private Timeline timeline;
 
+	private static double xOffset = 0;
+    private static double yOffset = 0;
+    private EventHandler<MouseEvent> click;
+    private EventHandler<MouseEvent> drag;
+    
 	public GameControllerSolitaire(LudopatApp app) {
 		this.ludopp = app;
 		this.solitaireGame = (Solitaire) ludopp.getCurrentGame();
@@ -175,6 +180,7 @@ public class GameControllerSolitaire implements Initializable {
 		}
 		refreshHand();
 		showInitialHelp();
+		setMovingHandler();
 		
 		timeline = new Timeline(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
 			@Override
@@ -187,8 +193,40 @@ public class GameControllerSolitaire implements Initializable {
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.setAutoReverse(false);
 		timeline.play();
+		
 	}
-
+	/**
+	 * Crea un evento para poder mover la ventana al clickar y arrastrar
+	 */
+	private void setMovingHandler() {
+		click = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        };
+		drag = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        };
+        header.setOnMousePressed(click);
+		header.setOnMouseDragged(drag);
+		
+		appNameLabel.setOnMousePressed(click);
+		appNameLabel.setOnMouseDragged(drag);	
+	}
+	private void removeMovingHandler(){
+		header.setOnMousePressed(e -> nothing());
+		header.setOnMouseDragged(e -> nothing());
+		
+		appNameLabel.setOnMousePressed(e -> nothing());
+		appNameLabel.setOnMouseDragged(e -> nothing());
+	}
+	
 	private void onPlayedCard(Card nv, int i) {
 
 		if (nv != null) {
@@ -396,8 +434,10 @@ public class GameControllerSolitaire implements Initializable {
 	void fullscreenAction(ActionEvent event) {
 		if (!ludopp.getMainStage().isFullScreen()) {
 			ludopp.getMainStage().setFullScreen(true);
+			removeMovingHandler();
 		} else {
 			ludopp.getMainStage().setFullScreen(false);
+			setMovingHandler();
 		}
 	}
 	/**

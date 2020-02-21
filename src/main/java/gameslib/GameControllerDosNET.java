@@ -21,6 +21,7 @@ import javafx.application.Platform;
 import javafx.beans.property.StringProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -209,11 +210,15 @@ public class GameControllerDosNET implements Initializable {
 	private HelpViewContoller help;
 	private Chat chat;
 
+	private static double xOffset = 0;
+    private static double yOffset = 0;
+    private EventHandler<MouseEvent> click;
+    private EventHandler<MouseEvent> drag;
+    
 	// ----------------------------------------------------------
 
-	// DAVID: Aún necesita más adaptaciones para la versión online,
-	// como el lanzamiento de carta, el pasar turno y el robo
-	// DAVID: Así como dato también decir que soy un patata
+	
+
 	public GameControllerDosNET(LudopatApp app, String gameType) {
 		this.ludopp = app;
 		this.dosGame = (Dos) ludopp.getCurrentGame();
@@ -293,6 +298,7 @@ public class GameControllerDosNET implements Initializable {
 		
 		// Visualizamos la primera mano del jugador
 		initHand();
+		setMovingHandler();
 		
 		if( dosGame.getLocalPlayer() != dosGame.getActivePlayer() ) {
 			// Desactivamos los botones de pasar turno y robar
@@ -300,6 +306,40 @@ public class GameControllerDosNET implements Initializable {
 			nextButton.setDisable(true);
 			disableHand();
 		}
+		
+	}
+	private void setMovingHandler() {
+		click = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        };
+		drag = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        };
+        header.setOnMousePressed(click);
+		header.setOnMouseDragged(drag);
+		
+		appNameLabel.setOnMousePressed(click);
+		appNameLabel.setOnMouseDragged(drag);	
+	}
+	private void removeMovingHandler(){
+		header.setOnMousePressed(e -> nothing());
+		header.setOnMouseDragged(e -> nothing());
+		
+		appNameLabel.setOnMousePressed(e -> nothing());
+		appNameLabel.setOnMouseDragged(e -> nothing());
+	}
+	/**
+	 * Este metodo no hace nada, sirve para limpiar eventhandlers
+	 */
+	private void nothing() {
 		
 	}
 	/**
@@ -540,8 +580,10 @@ public class GameControllerDosNET implements Initializable {
 	void fullscreenAction(ActionEvent event) {
 		if (!ludopp.getMainStage().isFullScreen()) {
 			ludopp.getMainStage().setFullScreen(true);
+			removeMovingHandler();
 		} else {
 			ludopp.getMainStage().setFullScreen(false);
+			setMovingHandler();
 		}
 	}
 

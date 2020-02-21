@@ -167,6 +167,11 @@ public class GameControllerDos implements Initializable {
 	private Dos dosGame;
 
 	private HelpViewContoller help;
+	
+	private static double xOffset = 0;
+    private static double yOffset = 0;
+    private EventHandler<MouseEvent> click;
+    private EventHandler<MouseEvent> drag;
 
 	// ----------------------------------------------------------
 
@@ -243,8 +248,44 @@ public class GameControllerDos implements Initializable {
 		// Visualizamos la primera mano del jugador
 		initHand();
 		showHand();
+		setMovingHandler();
 	}
 	
+	private void setMovingHandler() {
+		click = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+            }
+        };
+		drag = new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+            }
+        };
+        header.setOnMousePressed(click);
+		header.setOnMouseDragged(drag);
+		
+		appNameLabel.setOnMousePressed(click);
+		appNameLabel.setOnMouseDragged(drag);	
+	}
+	private void removeMovingHandler(){
+		header.setOnMousePressed(e -> nothing());
+		header.setOnMouseDragged(e -> nothing());
+		
+		appNameLabel.setOnMousePressed(e -> nothing());
+		appNameLabel.setOnMouseDragged(e -> nothing());
+	}
+	/**
+	 * Este metodo no hace nada, sirve para limpiar eventhandlers
+	 */
+	private void nothing() {
+		
+	}
+
 	private void onChangedPlayer(Player ov, Player nv) {
 
 		if (ov != null && ov.isAI()) {
@@ -540,8 +581,10 @@ public class GameControllerDos implements Initializable {
 	void fullscreenAction(ActionEvent event) {
 		if (!ludopp.getMainStage().isFullScreen()) {
 			ludopp.getMainStage().setFullScreen(true);
+			removeMovingHandler();
 		} else {
 			ludopp.getMainStage().setFullScreen(false);
+			setMovingHandler();
 		}
 	}
 
