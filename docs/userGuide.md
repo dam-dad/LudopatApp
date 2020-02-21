@@ -4,9 +4,9 @@
 
 ## Juegos un jugador
 
-- Solitario clásico: [solitaire.md]()
+- [Solitario](Solitaire.md)
 
 ## Juegos multijugador
 
-- DOS: [dos.md]()
+- [DOS](DOS.md)
 
