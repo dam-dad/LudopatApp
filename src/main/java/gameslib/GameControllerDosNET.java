@@ -504,13 +504,13 @@ public class GameControllerDosNET implements Initializable {
 	/**
 	 * Finaliza la partida, se muestra la interfaz
 	 */
-	public void endGame() {
+	public void endGame(ArrayList<Player> players) {
 		
 		// Desactiva el juego
 		disableHand();
 
 		JFXDialogLayout layout = new JFXDialogLayout();
-	//	layout.setBody(new EndGameController(dosGame.getCurrentPlayers()));
+		layout.setBody(new EndGameController(players));
 
 		layout.setId("bg");
 		layout.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());

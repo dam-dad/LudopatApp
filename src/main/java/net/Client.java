@@ -43,6 +43,7 @@ public class Client implements Runnable {
 	private int clientID;
 	private Socket socket;
 	private boolean serverExit;
+	private boolean endGame;
 	private ObjectInputStream dataIn;
 	private ObjectOutputStream dataOut;
 	
@@ -91,6 +92,7 @@ public class Client implements Runnable {
 	 * Ejecuta la lectura de los mensajes enviados por 
 	 * el servidor
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void run() {
 		
@@ -146,6 +148,27 @@ public class Client implements Runnable {
 						}
 					});
 		    	} 
+		    	
+		    	else if( inPkg.getInfoByte() == InfoPackage.SERVER_ENDGAME ) {
+		    		
+		    		ArrayList<NET_Player> netPlayers = (ArrayList<NET_Player>)inPkg.getInfoObject();
+		    		ArrayList<Player> players = new ArrayList<Player>();
+		    		
+		    		for( NET_Player nPlayer : netPlayers ) {
+		    			players.add(new Player(nPlayer));
+		    		}
+		    		
+					Platform.runLater(new Runnable() {
+						
+						@Override
+						public void run() {
+							((Dos)app.getCurrentGame()).client_receiveEndGame(players); // El cliente recibe una notificación
+						}
+					});		
+					
+					// El hilo ha acabado su función
+		    		break;
+		    	}
 		    	
 		    	else if( inPkg.getInfoByte() == InfoPackage.CLIENT_INITIALINFO ) {
 		    		
