@@ -22,10 +22,10 @@
 
     
 
-  -  **<u>Jugar LAN:</u>** Jugar contra jugadores que comparten la misma red. En este punto se ofrecen dos pociones:
+  -  **Jugar LAN:** Jugar contra jugadores que comparten la misma red. En este punto se ofrecen dos pociones:
 
-    - <u>Crear servidor:</u> Se pueden configurar las reglas de la partida como el número de jugadores, el juego, el tipo de baraja a usar así como el avatar que quiere usar el usuario. Una vez configurada la partida se iniciará el servidor y el jugador se quedará esperando a que entren más jugadores.
-  - <u>Unirse a servidor:</u> El usuario puede elegir el avatar con el que va a jugar para luego introducir la dirección local del servidor dentro de la red, una vez dentro esperará a que todos los jugadores estén listos para iniciar la partida.
+    - Crear servidor: Se pueden configurar las reglas de la partida como el número de jugadores, el juego, el tipo de baraja a usar así como el avatar que quiere usar el usuario. Una vez configurada la partida se iniciará el servidor y el jugador se quedará esperando a que entren más jugadores.
+  - Unirse a servidor: El usuario puede elegir el avatar con el que va a jugar para luego introducir la dirección local del servidor dentro de la red, una vez dentro esperará a que todos los jugadores estén listos para iniciar la partida.
 
 
 
