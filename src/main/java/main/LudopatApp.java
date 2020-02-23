@@ -1,7 +1,10 @@
 package main;
 
 import java.awt.Toolkit;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 import org.dom4j.DocumentException;
@@ -22,6 +25,10 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -34,6 +41,7 @@ import net.GameServer;
 import net.Server;
 import net.ServerClient;
 import net.User;
+import ui.ConfigMenuController;
 import ui.MPSelectionModeController;
 import ui.MainMenuController;
 import ui.MultiplayerController;
@@ -67,6 +75,7 @@ public class LudopatApp extends Application {
 	private GameControllerDosNET gameControllerDosNET;
 	private GameControllerSolitaire solitaireController;
 	private ClientConfigController clientConfigController;
+	private ConfigMenuController configMenuController;
 
 	private MPSelectionModeController mpSelectionModeController;
 
@@ -105,6 +114,11 @@ public class LudopatApp extends Application {
 
 	private final int MENU_SCREEN_WIDTH_REQUIRED = 800;
 	private final int MENU_SCREEN_HEIGHT_REQUIRED = 600;
+	
+	//Configuración general
+	private BooleanProperty silenced = new SimpleBooleanProperty(false);
+	private DoubleProperty volume = new SimpleDoubleProperty(0.8);
+	private BooleanProperty whiteMode = new SimpleBooleanProperty(false);
 	// -------- -------------------------------------------
 
 	@Override
@@ -113,9 +127,10 @@ public class LudopatApp extends Application {
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
 		
+		loadConfig();
+		
 		// Inicamos la aplicación, el SplashScreen
 		initApp();
-//		goMenu();
 		
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.getIcons().add(new Image(getClass().getResource("/ui/images/Noframe.png").toString()));
@@ -123,8 +138,33 @@ public class LudopatApp extends Application {
 		primaryStage.show();
 		
 	}
+	
+	//Carga la configuración general
+	private void loadConfig() {
+		File file = new File(getClass().getResource("/config/config.dat").getFile());
+		try {
+			RandomAccessFile configFile = new RandomAccessFile(file, "r");
+			//Lee si está silenciado
+			silenced.set(configFile.readBoolean());
+			//Lee el volumen
+			volume.set(configFile.readDouble());
+			//Lee si es modo claro
+			whiteMode.set(configFile.readBoolean());
+			
+			//Cerramos el archivo
+			configFile.close();
+			
+			System.out.println(silenced.get());
+			System.out.println(volume.get());
+			System.out.println(whiteMode.get());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-	private void playMusic() {
+	public void playMusic() {
 		Media sound = new Media(getClass().getResource("/ui/sound/sound.mp3").toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.setOnEndOfMedia(new Runnable() {
@@ -138,11 +178,11 @@ public class LudopatApp extends Application {
 		mediaPlayer.play();
 	}
 
-	private void stopMusic() {
+	public void stopMusic() {
 		mediaPlayer.pause();
 	}
 
-	private void setMusicVolume(double newVolume) {
+	public void setMusicVolume(double newVolume) {
 		mediaPlayer.setVolume(newVolume);
 
 	}
@@ -156,6 +196,16 @@ public class LudopatApp extends Application {
 		mpSelectionModeController = new MPSelectionModeController(this);
 
 		Scene scene = new Scene(mpSelectionModeController.getView(), 800, 600);
+
+		fadeTransition(mainMenuController.getView(), scene);
+	}
+	/**
+	 * Lleva al usuario a la pantalla de configuración general
+	 */
+	public void goConfigMenu() {
+		configMenuController = new ConfigMenuController(this);
+
+		Scene scene = new Scene(configMenuController.getView(), 800, 600);
 
 		fadeTransition(mainMenuController.getView(), scene);
 	}
@@ -320,6 +370,11 @@ public class LudopatApp extends Application {
 			alignScreenMenu();
 			if (mediaPlayer == null) {
 				playMusic();
+				setMusicVolume(volume.get());
+				if (silenced.get()) {
+					stopMusic();
+					
+				}
 			}
 
 		} catch (IOException e) {
@@ -621,6 +676,18 @@ public class LudopatApp extends Application {
 
 	public Game getServerCurrentGame() {
 		return serverCurrentGame;
+	}
+	
+	public boolean isSilenced() {
+		return this.silenced.get();
+	}
+	
+	public Double getVolume() {
+		return this.volume.get() * 100;
+	}
+	
+	public boolean isWhiteMode() {
+		return this.whiteMode.get();
 	}
 
 }

@@ -725,6 +725,10 @@ public class GameControllerDosNET implements Initializable {
 			//F presionada, acción de pantalla completa.
 			fullscreenAction(null);
 			break;
+		case M:
+			//M presionada, acción de silenciar musica.
+			ludopp.stopMusic();
+			break;
 		default:
 			//Acción no controlada.
 			break;

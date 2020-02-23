@@ -56,6 +56,9 @@ public class MainMenuController implements Initializable{
 	private Button documentationButton;
 
 	@FXML
+	private Button configButton;
+
+	@FXML
 	private Button exitButton;
 
 	@FXML
@@ -129,6 +132,14 @@ public class MainMenuController implements Initializable{
 		
 		dialog.show();
     }
+	/**
+	 * Muestra la configuración
+	 * @param event
+	 */
+	@FXML
+    void configAction(ActionEvent event) {
+		ludopp.goConfigMenu();
+    }
 	
     @FXML
     void exitAction(ActionEvent event) {
@@ -138,7 +149,6 @@ public class MainMenuController implements Initializable{
     @FXML
     void multiPlayerAction(ActionEvent event) {
     	ludopp.goMPSelectionMode();
-//    	ludopp.goMultiplayerMenu();
     }
 
     @FXML

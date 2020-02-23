@@ -11,6 +11,21 @@
   	-fx-font-weight: bold;
 }
 
+#slider > .track{
+	-fx-background-color: #474747;
+}
+
+#slider  > .thumb {
+     -fx-background-color: #C70E0E;
+}
+#slider > .colored-track {
+     -fx-background-color: #C70E0E;
+}
+
+#slider > .animated-thumb {
+     -fx-background-color: #C70E0E;
+}
+
 #progress > .track {
   -fx-background-color: #2B2B2B;
 }
