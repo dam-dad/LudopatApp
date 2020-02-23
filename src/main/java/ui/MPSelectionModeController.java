@@ -15,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import main.LudopatApp;
+
 /**
  * <b>MPSelectionModeController</b> <br>
  * <br>
@@ -27,89 +28,101 @@ import main.LudopatApp;
  * @author Kevin Rodriguez Morales
  *
  */
-public class MPSelectionModeController implements Initializable{
+public class MPSelectionModeController implements Initializable {
 
-    @FXML
-    private VBox view;
-    
-    @FXML
-    private HBox hox;
+	@FXML
+	private VBox view;
 
-    @FXML
-    private JFXButton vsAIButton;
+	@FXML
+	private HBox hox;
 
-    @FXML
-    private JFXButton joinButton;
-    
-    @FXML
-    private JFXButton onlineButton;
-    
-    private static double xOffset = 0;
-    private static double yOffset = 0;
-    
-    LudopatApp ludopp;
-    
-    public MPSelectionModeController(LudopatApp ludopp) {
+	@FXML
+	private JFXButton vsAIButton;
+
+	@FXML
+	private JFXButton joinButton;
+
+	@FXML
+	private JFXButton onlineButton;
+
+	private static double xOffset = 0;
+	private static double yOffset = 0;
+
+	LudopatApp ludopp;
+
+	public MPSelectionModeController(LudopatApp ludopp) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/MPSelectionModeView.fxml"));
 			loader.setController(this);
 			loader.load();
-			
+
 			this.ludopp = ludopp;
+			
+			setColors();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-    @Override
+
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		setMovingHandler();
-		
 	}
-    /**
+	
+	private void setColors() {
+		view.getStylesheets().remove(0);
+
+		if (ludopp.isWhiteMode()) {
+			// Modo claro
+			view.getStylesheets().add(getClass().getResource("/ui/css/whiteMode/ConfigMenuStyle.css").toString());
+		} else {
+			// Modo oscurod
+			view.getStylesheets().add(getClass().getResource("/ui/css/ConfigMenuStyle.css").toString());
+		}
+	}
+
+	/**
 	 * Crea un evento para poder mover la ventana al clickar y arrastrar
 	 */
 	private void setMovingHandler() {
 		hox.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
-                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
-            }
-        });
+			@Override
+			public void handle(MouseEvent event) {
+				xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+				yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+			}
+		});
 		hox.setOnMouseDragged(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
-            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
-            }
-        });	
+			@Override
+			public void handle(MouseEvent event) {
+				ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+				ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+			}
+		});
 	}
-    
 
-    @FXML
-    void toAIconfig(ActionEvent event) {
-    	ludopp.goAIMenu();
-    }
+	@FXML
+	void toAIconfig(ActionEvent event) {
+		ludopp.goAIMenu();
+	}
 
-    @FXML
-    void toJoinAction(ActionEvent event) {
-    	ludopp.goClientConfig();
-    }
-    
-    @FXML
-    void toOnlineConfig(ActionEvent event) {
-    	ludopp.goServerConfig();
-    }
+	@FXML
+	void toJoinAction(ActionEvent event) {
+		ludopp.goClientConfig();
+	}
 
-    @FXML
-    void toMenu(ActionEvent event) {
-    	ludopp.goMenu();
-    }
-    
-    public VBox getView() {
+	@FXML
+	void toOnlineConfig(ActionEvent event) {
+		ludopp.goServerConfig();
+	}
+
+	@FXML
+	void toMenu(ActionEvent event) {
+		ludopp.goMenu();
+	}
+
+	public VBox getView() {
 		return this.view;
 	}
-
-	
 
 }

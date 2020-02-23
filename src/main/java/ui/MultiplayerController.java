@@ -25,6 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -124,6 +125,8 @@ public class MultiplayerController implements Initializable {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/MPConfigView.fxml"));
 		loader.setController(this);
 		loader.load();
+		
+		setColors();
 	}
 	
 	@Override
@@ -158,6 +161,20 @@ public class MultiplayerController implements Initializable {
 		currentStage = e_menuStages.ST_CONFIG_GAME;
 		currentPage.setValue(1);
 		setMovingHandler();
+	}
+	
+	private void setColors() {
+		stack.getStylesheets().remove(0);
+
+		if (ludopp.isWhiteMode()) {
+			// Modo claro
+			helpImage.setImage(new Image(getClass().getResource("/ui/images/whiteModeHelp.png").toString()));
+			stack.getStylesheets().add(getClass().getResource("/ui/css/whiteMode/ConfigMenuStyle.css").toString());
+		} else {
+			// Modo oscuro
+			helpImage.setImage(new Image(getClass().getResource("/ui/images/help.png").toString()));
+			stack.getStylesheets().add(getClass().getResource("/ui/css/ConfigMenuStyle.css").toString());
+		}
 	}
 	
 	/**

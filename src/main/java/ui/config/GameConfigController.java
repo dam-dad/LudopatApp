@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 
 /**
  * 
@@ -55,6 +56,8 @@ public class GameConfigController extends AnchorPane implements Initializable {
 			loader.setRoot(this);
 			loader.load();
 			
+			setColors();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -73,6 +76,18 @@ public class GameConfigController extends AnchorPane implements Initializable {
 		// Seleccionamos el primer elemento
 		p2Radio.setSelected(true);
 		dos.setSelected(true);
+	}
+	
+	private void setColors() {
+		this.getStylesheets().remove(0);
+
+		if (ludopp.isWhiteMode()) {
+			// Modo claro
+			this.getStylesheets().add(getClass().getResource("/ui/css/whiteMode/ConfigMenuStyle.css").toString());
+		} else {
+			// Modo oscuro
+			this.getStylesheets().add(getClass().getResource("/ui/css/ConfigMenuStyle.css").toString());
+		}
 	}
 
 	private void onTypeChanged(Toggle nv) {

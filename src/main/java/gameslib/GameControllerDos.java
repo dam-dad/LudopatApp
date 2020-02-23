@@ -183,6 +183,8 @@ public class GameControllerDos implements Initializable {
 		loader.setController(this);
 		try {
 			loader.load();
+			
+			setColors();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -250,6 +252,21 @@ public class GameControllerDos implements Initializable {
 		showHand();
 		setMovingHandler();
 	}
+	
+	private void setColors() {
+		view.getStylesheets().remove(0);
+
+		if (ludopp.isWhiteMode()) {
+			// Modo claro
+			helpImage.setImage(new Image(getClass().getResource("/ui/images/whiteModeHelp.png").toString()));
+			view.getStylesheets().add(getClass().getResource("/ui/css/whiteMode/DosBoardStyle.css").toString());
+		} else {
+			// Modo oscuro
+			helpImage.setImage(new Image(getClass().getResource("/ui/images/help.png").toString()));
+			view.getStylesheets().add(getClass().getResource("/ui/css/DosBoardStyle.css").toString());
+		}
+	}
+	
 	
 	private void setMovingHandler() {
 		click = new EventHandler<MouseEvent>() {

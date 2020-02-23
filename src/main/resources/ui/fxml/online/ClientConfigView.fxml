@@ -24,7 +24,7 @@
                               <Image url="@../../images/noframe.png" />
                            </image>
                         </ImageView>
-                        <Label id="labelOne" text="LudopatApp">
+                        <Label id="tittle" text="LudopatApp">
                            <HBox.margin>
                               <Insets left="10.0" />
                            </HBox.margin>
@@ -39,8 +39,8 @@
                         <Image url="@../../images/help.png" />
                      </image>
                   </ImageView>
-                  <Label id="labelOne" fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
-                  <Label id="labelOne" maxHeight="1.7976931348623157E308" text="/3" />
+                  <Label id="labelTwo" fx:id="pageLabel" maxHeight="1.7976931348623157E308" text="1" HBox.hgrow="NEVER" />
+                  <Label id="labelTwo" maxHeight="1.7976931348623157E308" text="/3" />
                </children>
                <BorderPane.margin>
                   <Insets />

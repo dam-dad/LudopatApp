@@ -153,10 +153,6 @@ public class LudopatApp extends Application {
 			
 			//Cerramos el archivo
 			configFile.close();
-			
-			System.out.println(silenced.get());
-			System.out.println(volume.get());
-			System.out.println(whiteMode.get());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -354,6 +350,8 @@ public class LudopatApp extends Application {
 	 * Lleva al usuario al menu principal
 	 */
 	public void goMenu() {
+		
+		loadConfig();
 
 		try {
 

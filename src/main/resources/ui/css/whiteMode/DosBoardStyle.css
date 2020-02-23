@@ -1,0 +1,159 @@
+.root{
+	-fx-font-family: segoe-ui;
+	-fx-background-color: #DDDDDD;
+}
+
+#tittle{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 30pt;
+	-fx-text-fill: white;
+}
+
+#content{
+	-fx-background-color: #2B2B2B;
+}
+
+#message{
+	-fx-background-color: #C70E0E;
+}
+
+#appNameLabel{
+	-fx-background-color: #C70E0E;
+	-fx-font-size: 28pt;
+}
+
+#header{
+	-fx-background-color: #DDDDDD;
+	-fx-font-size: 14pt;
+}
+
+#exit{
+	-fx-text-fill: white;
+	-fx-background-color: #1f1f1f;
+	-fx-font-size: 14pt;
+}
+
+#exit:hover{
+	-fx-background-color: #0f0f0f;
+}
+
+#actions{
+	-fx-text-fill: white;
+	-fx-background-color: #C70E0E;
+	-fx-font-size: 14pt;
+}
+
+#actions:hover{
+	-fx-background-color: #A50E0E;
+}
+
+#actionsChat{
+	-fx-prompt: green;
+	-fx-text-fill: white;
+	-fx-background-color: #C70E0E;
+}
+
+#players{
+	-fx-text-fill: #2B2B2B;
+	-fx-background-color: #DDDDDD;
+	-fx-font-size: 9pt;
+}
+
+#player{
+	-fx-background-color: #C70E0E;
+	-fx-effect: dropshadow(gaussian, #1A1A1A, 20, 0.5, 0, 0);
+}
+
+#playerName{
+	-fx-font-weight: bold;
+	-fx-font-size: 14pt;
+}
+
+#table{
+	-fx-font-size: 28pt;
+	-fx-background-image: url("../../images/background2.png");
+}
+
+#cards{
+	-fx-background-color: #C70E0E;
+	-fx-font-size: 28pt;
+}
+
+#playable{
+	-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);
+}
+
+#notPlayable{
+	-fx-effect: dropshadow(gaussian, #1A1A1A, 20, 0.5, 0, 0);
+}
+#saveable{
+	-fx-effect: dropshadow(gaussian, #378000, 20, 0.5, 0, 0);
+}
+
+.label{
+	-fx-text-fill: #2B2B2B;
+}
+
+#all{
+	-fx-font-family: segoe-ui;
+	-fx-background-color: #2B2B2B;
+}
+
+#element{
+	-fx-background-color: #C70E0E;
+}
+
+#helpTittle{
+	-fx-font-size: 20pt;
+	-fx-font-weight: bold;
+}
+
+#helpHeader{
+	-fx-font-size: 18pt;
+}
+
+#helpBody{
+	-fx-font-size: 10pt;
+}
+
+#solitaireEnd{
+	-fx-font-size: 20pt;
+}
+
+#one{
+	-fx-font-weight: bold;
+	-fx-text-fill: #A39C56;
+}
+
+#two{
+	-fx-font-weight: bold;
+	-fx-text-fill: #919191;
+}
+
+#three{
+	-fx-font-weight: bold;
+	-fx-text-fill: #94794F;
+}
+
+#chatButton{
+	-fx-background-color: #1F1F1F;
+	-fx-font-size: 10pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+}
+
+#chatButton:hover{
+	-fx-background-color: #0F0F0F;
+}
+#notification{
+	-fx-background-color: #1F1F1F;
+	-fx-font-size: 10pt;
+	-fx-font-weight: bold;
+	-fx-text-fill: white;
+	-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);
+}
+
+#notification:hover{
+	-fx-background-color: #0F0F0F;
+	-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);
+}

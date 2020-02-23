@@ -68,18 +68,19 @@ public class ConfigMenuController extends AnchorPane implements Initializable {
 		silenced.bindBidirectional(silencedCheck.selectedProperty());
 		whiteMode.bindBidirectional(modeToggle.selectedProperty());
 		
-		modeToggle.armedProperty().addListener(e -> changeColors());
+		whiteMode.addListener(e -> changeColors());
 		silenced.addListener(e -> silence());
 		volume.addListener(e -> changeVolume());
 	}
 	
 	private void changeColors() {
-		if (modeToggle.isArmed()) {
+		root.getStylesheets().remove(0);
+		if (whiteMode.get()) {
 			// Modo claro
-			//TODO
+			root.getStylesheets().add(getClass().getResource("/ui/css/whiteMode/ConfigMenuStyle.css").toString());
 		}else {
-			// Modo oscuro
-			//TODO
+			// Modo oscurod
+			root.getStylesheets().add(getClass().getResource("/ui/css/ConfigMenuStyle.css").toString());
 		}
 	}
 	
@@ -111,7 +112,6 @@ public class ConfigMenuController extends AnchorPane implements Initializable {
 			
 			//Cerramos el archivo
 			configFile.close();
-			System.out.println("cerrado");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
