@@ -217,8 +217,9 @@ public class GameControllerSolitaire implements Initializable {
 		header.setOnMouseDragged(drag);
 		
 		appNameLabel.setOnMousePressed(click);
-		appNameLabel.setOnMouseDragged(drag);	
+		appNameLabel.setOnMouseDragged(drag);
 	}
+	
 	private void removeMovingHandler(){
 		header.setOnMousePressed(e -> nothing());
 		header.setOnMouseDragged(e -> nothing());

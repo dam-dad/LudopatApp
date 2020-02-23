@@ -1,8 +1,7 @@
 package gamesAI;
 
 import java.util.ArrayList;
-
-import SortArrays.SortArrays;
+import java.util.Arrays;
 import games.Card;
 import games.Player;
 import gameslib.Dos;
@@ -12,8 +11,8 @@ import javafx.application.Platform;
  * <b>IA</b> <br>
  * <br>
  * 
- * Inteligencia artificial que representa a un jugador en el juego. Su
- * implementación es básica. Está adecuado al juego del DOS
+ * Inteligencia artificial que representa a un jugador en el juego.
+ * Está adecuado al juego DOS.
  * 
  * @author David Fernández Nieves
  * @author Pablo Daniel Urtiaga Pinto
@@ -22,7 +21,7 @@ import javafx.application.Platform;
  *
  */
 public class Dav_IA_DOS extends Dav_AI implements Runnable {
-	
+
 	private final int SPECIALS_MIN_VALUE = 11;
 	/**
 	 * Jugador que representa esta IA
@@ -299,9 +298,7 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 	}
 
 	private int[] checkNumberOfCards(int[] cardsPerSuit) {
-		SortArrays sortArrays = new SortArrays(cardsPerSuit); // Nos creamos el objeto de la clase SortArray
-		sortArrays = sortArrays.decreasingOrderInt(); // Llamamos al método que ordena el array de mayor a menor
-		int codes[] = sortArrays.getIndexArray(); // Obtengo los indices del array tras ordenarlos
+		int codes[] = SortIndex(cardsPerSuit, false);
 		return codes;
 	}
 
@@ -324,8 +321,8 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 			suitName = "green";
 			break;
 		}
-		
-		//La primera condición es en caso de fallo mayor que tire la última carta
+
+		// La primera condición es en caso de fallo mayor que tire la última carta
 		while (i < cards.size() & (cards.get(i).getCardValue() >= SPECIALS_MIN_VALUE
 				|| !cards.get(i).getSuit().getName().contentEquals(suitName))) {
 			i++;
@@ -341,6 +338,59 @@ public class Dav_IA_DOS extends Dav_AI implements Runnable {
 				refreshHand();
 			}
 		});
+	}
+
+	/**
+	 * 
+	 * @param receivedArray int[] received
+	 * @param asc           boolean Ascend order
+	 * @return ordered index array
+	 */
+	public int[] SortIndex(int[] receivedArray, boolean asc) {
+		ArrayList<Integer> aux = new ArrayList<Integer>();
+		int[] pos = new int[receivedArray.length];
+		int[] aux2 = new int[receivedArray.length];
+
+		// RELLENA ARRAYS
+		int[] ordered = new int[receivedArray.length];
+		for (int i = 0; i < ordered.length; i++) {
+			ordered[i] = receivedArray[i];
+			aux2[i] = receivedArray[i];
+		}
+
+		if (asc) {
+			Arrays.sort(ordered);
+		} else {
+			// Ordena el array de forma descendente
+			int f = 0;
+			Arrays.sort(aux2);
+			for (int i = ordered.length - 1; i >= 0; i--) {
+				ordered[f] = aux2[i];
+				f++;
+			}
+		}
+
+		int j = 0;
+
+		// CASOS ESPECIALES
+		switch (receivedArray.length) {
+		case 0:
+			return receivedArray;
+		case 1:
+			ordered[0] = 0;
+			return ordered;
+		}
+
+		// CASOS NORMALES
+		for (int i = 0; i < receivedArray.length; i++) {
+			while (ordered[i] != receivedArray[j] || aux.contains(j)) {
+				j++;
+			}
+			aux.add(j);
+			pos[i] = j;
+			j = 0;
+		}
+		return pos;
 	}
 
 	private void refreshHand() {

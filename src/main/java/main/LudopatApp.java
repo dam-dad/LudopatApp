@@ -109,19 +109,19 @@ public class LudopatApp extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		
 		mainStage = primaryStage;
 		mainStage.setResizable(false);
-
+		
 		// Inicamos la aplicación, el SplashScreen
 		initApp();
 //		goMenu();
-
+		
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.getIcons().add(new Image(getClass().getResource("/ui/images/Noframe.png").toString()));
-
+		
 		primaryStage.show();
-
+		
 	}
 
 	private void playMusic() {

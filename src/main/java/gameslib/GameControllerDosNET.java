@@ -328,7 +328,7 @@ public class GameControllerDosNET implements Initializable {
 		header.setOnMouseDragged(drag);
 		
 		appNameLabel.setOnMousePressed(click);
-		appNameLabel.setOnMouseDragged(drag);	
+		appNameLabel.setOnMouseDragged(drag);
 	}
 	private void removeMovingHandler(){
 		header.setOnMousePressed(e -> nothing());
