@@ -65,6 +65,12 @@
 	-fx-text-fill: white;
 }
 
+#labelThree{
+	-fx-font-family: segoe-ui;
+	-fx-font-size: 12.0pt;
+	-fx-text-fill: #1B1B1B;
+}
+
 #index{
 	-fx-text-fill: #646466;
 }

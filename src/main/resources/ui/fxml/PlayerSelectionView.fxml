@@ -4,9 +4,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -16,18 +14,8 @@
          <children>
             <VBox id="content" fx:id="grid" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="200.0">
                <children>
-                  <GridPane fx:id="grid2" alignment="CENTER" style="-fx-background-color: blue;">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefHeight="300.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Label id="field" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: green;" text="Selecciona un avatar:" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-                     </children>
-                  </GridPane>
+                  <HBox fx:id="avatarBox" alignment="CENTER" />
+                  <Label id="labelThree" alignment="CENTER" contentDisplay="CENTER" minHeight="-Infinity" minWidth="-Infinity" text="Seleccione un avatar" />
                   <JFXTextField id="field" fx:id="nameField" focusColor="#c70e0e" unFocusColor="#2b2b2b" VBox.vgrow="NEVER">
                      <VBox.margin>
                         <Insets top="20.0" />

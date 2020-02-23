@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import main.LudopatApp;
@@ -42,7 +43,7 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 	@FXML
 	VBox grid;
 	@FXML
-    private GridPane grid2;
+    HBox avatarBox;
 	@FXML
 	StackPane stack;
 	@FXML
@@ -102,8 +103,7 @@ public class PlayerSelectionController extends AnchorPane implements Initializab
 			loader.load();
 			
 			this.ludopatApp = ludopatApp;
-			grid2.add(selectedAvatar, 0, 1);
-//			grid.getChildren().add(0, selectedAvatar);
+			avatarBox.getChildren().add(selectedAvatar);
 			
 			addDefaultAvatars();
 
