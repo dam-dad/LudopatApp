@@ -340,7 +340,13 @@ public class GameControllerDos implements Initializable {
 
 		if (nv != null) {
 			int npIndex = dosGame.getPlayerPosition(nv);
-			playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+			
+			if (ludopp.isWhiteMode()) {
+				playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, black, 20, 0.5, 0, 0);");
+			}else {
+				playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+			}
+			
 			initHand();
 			showHand();
 		}

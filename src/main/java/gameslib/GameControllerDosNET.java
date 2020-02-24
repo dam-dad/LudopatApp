@@ -441,7 +441,12 @@ public class GameControllerDosNET implements Initializable {
 			if( nvPlayer.isPresent() ) {
 
 				int npIndex = dosGame.getPlayerPosition(nvPlayer.get());
-				playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				
+				if (ludopp.isWhiteMode()) {
+					playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, black, 20, 0.5, 0, 0);");
+				}else {
+					playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
+				}
 			}
 		}
 	}
