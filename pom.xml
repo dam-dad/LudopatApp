@@ -75,6 +75,9 @@
 							<bundleJre>true</bundleJre>
 							<customizedJre>false</customizedJre>
 							<iconFile>assets/LudopatApp.ico</iconFile>
+							<additionalResources>
+								<param>config.dat</param>
+							</additionalResources>
 						</configuration>
 					</execution>
 				</executions>

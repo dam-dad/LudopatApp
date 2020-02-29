@@ -643,28 +643,30 @@ public class GameControllerDos implements Initializable {
 
 	@FXML
 	void openHelp(MouseEvent event) {
+		if (stack.getChildren().size() == 1) {
+			Label helpLabel = new Label("Ayuda");
+			helpLabel.setMaxWidth(800);
+			helpLabel.setId("tittle");
 
-		Label helpLabel = new Label("Ayuda");
-		helpLabel.setMaxWidth(800);
-		helpLabel.setId("tittle");
+			HBox tittleBox = new HBox(helpLabel);
+			tittleBox.setPrefWidth(800);
+			tittleBox.setAlignment(Pos.CENTER);
 
-		HBox tittleBox = new HBox(helpLabel);
-		tittleBox.setPrefWidth(800);
-		tittleBox.setAlignment(Pos.CENTER);
+			help = new HelpViewContoller("Dos");
 
-		help = new HelpViewContoller("Dos");
+			JFXDialogLayout layout = new JFXDialogLayout();
+			layout.setHeading(tittleBox);
+			layout.setBody(help.getView());
 
-		JFXDialogLayout layout = new JFXDialogLayout();
-		layout.setHeading(tittleBox);
-		layout.setBody(help.getView());
+			JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
 
-		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+			layout.setId("content");
 
-		layout.setId("content");
+			layout.maxHeight(200);
 
-		layout.maxHeight(200);
+			dialog.show();
 
-		dialog.show();
+		}
 	}
 
 	public GridPane getView() {

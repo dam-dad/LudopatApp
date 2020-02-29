@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="view" minHeight="600.0" minWidth="800.0" stylesheets="@../css/mainMenuStyle.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <right>
+   <center>
       <StackPane fx:id="stack" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
@@ -56,5 +56,5 @@
             </VBox>
          </children>
       </StackPane>
-   </right>
+   </center>
 </BorderPane>

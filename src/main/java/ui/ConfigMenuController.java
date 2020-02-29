@@ -99,7 +99,6 @@ public class ConfigMenuController extends AnchorPane implements Initializable {
 	
 	private void saveChanges() {
 //		File file = new File(getClass().getResource("/config/config.dat").getFile());
-
 		File file = new File("config.dat");
 		try {
 			RandomAccessFile configFile = new RandomAccessFile(file, "rw");

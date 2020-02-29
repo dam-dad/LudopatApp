@@ -43,6 +43,7 @@ import javafx.util.Duration;
 import main.LudopatApp;
 import ui.CardComponent;
 import util.Stopwatch;
+
 /**
  * <b>GameControllerSolitaire</b> <br>
  * <br>
@@ -147,10 +148,10 @@ public class GameControllerSolitaire implements Initializable {
 	private Timeline timeline;
 
 	private static double xOffset = 0;
-    private static double yOffset = 0;
-    private EventHandler<MouseEvent> click;
-    private EventHandler<MouseEvent> drag;
-    
+	private static double yOffset = 0;
+	private EventHandler<MouseEvent> click;
+	private EventHandler<MouseEvent> drag;
+
 	public GameControllerSolitaire(LudopatApp app) {
 		this.ludopp = app;
 		this.solitaireGame = (Solitaire) ludopp.getCurrentGame();
@@ -159,7 +160,7 @@ public class GameControllerSolitaire implements Initializable {
 		loader.setController(this);
 		try {
 			loader.load();
-			
+
 			setColors();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -168,7 +169,7 @@ public class GameControllerSolitaire implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		start= LocalTime.now();
+		start = LocalTime.now();
 		currentTimeLabel.setText("00:00");
 		gameNameLabel.textProperty().bind(solitaireGame.getGameRules().gameTypeProperty());
 		tableCards = new ArrayList<ImageView>(Arrays.asList(diamondsImage, clubsImage, heartsImage, spadesImage));
@@ -183,21 +184,21 @@ public class GameControllerSolitaire implements Initializable {
 		refreshHand();
 		showInitialHelp();
 		setMovingHandler();
-		
-		timeline = new Timeline(new KeyFrame(Duration.seconds(1),new EventHandler<ActionEvent>() {
+
+		timeline = new Timeline(new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-            	String time = Stopwatch.handle(0, start);
-            	currentTimeLabel.setText(time);
-            	
+				String time = Stopwatch.handle(0, start);
+				currentTimeLabel.setText(time);
+
 			}
 		}));
 		timeline.setCycleCount(Timeline.INDEFINITE);
 		timeline.setAutoReverse(false);
 		timeline.play();
-		
+
 	}
-	
+
 	private void setColors() {
 		view.getStylesheets().remove(0);
 
@@ -211,40 +212,40 @@ public class GameControllerSolitaire implements Initializable {
 			view.getStylesheets().add(getClass().getResource("/ui/css/DosBoardStyle.css").toString());
 		}
 	}
-	
+
 	/**
 	 * Crea un evento para poder mover la ventana al clickar y arrastrar
 	 */
 	private void setMovingHandler() {
 		click = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
-                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
-            }
-        };
+			@Override
+			public void handle(MouseEvent event) {
+				xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+				yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+			}
+		};
 		drag = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
-            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
-            }
-        };
-        header.setOnMousePressed(click);
+			@Override
+			public void handle(MouseEvent event) {
+				ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+				ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+			}
+		};
+		header.setOnMousePressed(click);
 		header.setOnMouseDragged(drag);
-		
+
 		appNameLabel.setOnMousePressed(click);
 		appNameLabel.setOnMouseDragged(drag);
 	}
-	
-	private void removeMovingHandler(){
+
+	private void removeMovingHandler() {
 		header.setOnMousePressed(e -> nothing());
 		header.setOnMouseDragged(e -> nothing());
-		
+
 		appNameLabel.setOnMousePressed(e -> nothing());
 		appNameLabel.setOnMouseDragged(e -> nothing());
 	}
-	
+
 	private void onPlayedCard(Card nv, int i) {
 
 		if (nv != null) {
@@ -253,6 +254,7 @@ public class GameControllerSolitaire implements Initializable {
 
 		}
 	}
+
 	/**
 	 * Refresca la mano del jugador
 	 */
@@ -303,16 +305,17 @@ public class GameControllerSolitaire implements Initializable {
 			endGame();
 		}
 	}
+
 	/**
-	 * Este metodo no hace nada (usado para eliminar cómodamente acciones
-	 * de botones)
+	 * Este metodo no hace nada (usado para eliminar cómodamente acciones de
+	 * botones)
 	 */
 	private void nothing() {
 		// este metodo no hace nada
 	}
+
 	/**
-	 * Descarta las cartas de la mano y
-	 * las mueve al monton de descarte
+	 * Descarta las cartas de la mano y las mueve al monton de descarte
 	 */
 	private void discardCards() {
 		int j = solitaireGame.getPlayer().getHand().size() - 1;
@@ -321,8 +324,10 @@ public class GameControllerSolitaire implements Initializable {
 			solitaireGame.getDiscardedCards().add(card);
 		}
 	}
+
 	/**
 	 * Guarda una carta en la sección de guardadas
+	 * 
 	 * @param card
 	 * @param cardComp
 	 */
@@ -332,6 +337,7 @@ public class GameControllerSolitaire implements Initializable {
 		savedCard.setImage(cardComp.getImage());
 		refreshHand();
 	}
+
 	/**
 	 * Lanza la carta guardada
 	 */
@@ -341,8 +347,10 @@ public class GameControllerSolitaire implements Initializable {
 		savedCard.setImage(null);
 		refreshHand();
 	}
+
 	/**
 	 * Lanza ua carta de mano
+	 * 
 	 * @param card
 	 * @param cardComp
 	 */
@@ -356,9 +364,10 @@ public class GameControllerSolitaire implements Initializable {
 		if (handGrid.getChildren().size() > 0) {
 			GridPane.setColumnIndex(handGrid.getChildren().get(handGrid.getChildren().size() - 1), col);
 		}
-		
+
 		refreshHand();
 	}
+
 	/**
 	 * Muestra la ayuda inicial del solitario
 	 */
@@ -375,33 +384,35 @@ public class GameControllerSolitaire implements Initializable {
 
 		initialHelp.setOnMouseClicked(e -> initialHelpDialog.close());
 	}
+
 	/**
 	 * Finaliza la partida
 	 */
 	private void endGame() {
-		
-		//Recoge los segundos
+
+		// Recoge los segundos
 		String minutesStr = "";
 		for (int i = 0; i < 2; i++) {
 			minutesStr += currentTimeLabel.getText().charAt(i);
 		}
 		int minutes = Integer.parseInt(minutesStr);
-		
-		//Recoge los segundos
+
+		// Recoge los segundos
 		String secondsStr = "";
 		for (int i = 3; i < 5; i++) {
 			secondsStr += currentTimeLabel.getText().charAt(i);
 		}
 		int seconds = Integer.parseInt(secondsStr);
-		
-		//Recoge las rondas
+
+		// Recoge las rondas
 		int rounds = round.get();
-		
-		//End game
-		SolitaireEndGameController endGameController = new SolitaireEndGameController(currentTimeLabel.getText(), minutes, seconds, rounds);
+
+		// End game
+		SolitaireEndGameController endGameController = new SolitaireEndGameController(currentTimeLabel.getText(),
+				minutes, seconds, rounds);
 
 		timeline.pause();
-		
+
 		JFXDialogLayout layout = new JFXDialogLayout();
 		layout.setBody(endGameController.getView());
 
@@ -436,26 +447,30 @@ public class GameControllerSolitaire implements Initializable {
 		JFXButton report = new JFXButton("Generar informe");
 		report.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				//Llamada al método de generación del informe
+				// Llamada al método de generación del informe
 			}
 		});
 
 		report.setId("button");
 		report.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
-		
+
 		layout.setActions(report, menu, exit);
 		dialog.show();
 	}
+
 	/**
 	 * Sale del juego
+	 * 
 	 * @param event
 	 */
 	@FXML
 	void exitAction(ActionEvent event) {
 		Platform.exit();
 	}
+
 	/**
 	 * Pone el juego en pantalla completa
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -468,8 +483,10 @@ public class GameControllerSolitaire implements Initializable {
 			setMovingHandler();
 		}
 	}
+
 	/**
 	 * Pasa turno
+	 * 
 	 * @param event
 	 */
 	@FXML
@@ -481,38 +498,44 @@ public class GameControllerSolitaire implements Initializable {
 		if (solitaireGame.getDiscardedCards().size() < 1) {
 			discardCard.setImage(new Image(getClass().getResource("/ui/images/userNull.png").toString()));
 		}
-		round.set(round.get()+1);
+		round.set(round.get() + 1);
 	}
+
 	/**
 	 * Abre la ayuda del juego actual
+	 * 
 	 * @param event
 	 */
 	@FXML
 	void openHelp(MouseEvent event) {
-		Label helpLabel = new Label("Ayuda");
-		helpLabel.setMaxWidth(800);
-		helpLabel.setId("tittle");
+		if (stack.getChildren().size() == 1) {
+			Label helpLabel = new Label("Ayuda");
+			helpLabel.setMaxWidth(800);
+			helpLabel.setId("tittle");
 
-		HBox tittleBox = new HBox(helpLabel);
-		tittleBox.setPrefWidth(800);
-		tittleBox.setAlignment(Pos.CENTER);
+			HBox tittleBox = new HBox(helpLabel);
+			tittleBox.setPrefWidth(800);
+			tittleBox.setAlignment(Pos.CENTER);
 
-		help = new HelpViewContoller("Solitaire");
+			help = new HelpViewContoller("Solitaire");
 
-		JFXDialogLayout layout = new JFXDialogLayout();
-		layout.setHeading(tittleBox);
-		layout.setBody(help.getView());
+			JFXDialogLayout layout = new JFXDialogLayout();
+			layout.setHeading(tittleBox);
+			layout.setBody(help.getView());
 
-		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+			JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
 
-		layout.setId("content");
+			layout.setId("content");
 
-		layout.maxHeight(200);
+			layout.maxHeight(200);
 
-		dialog.show();
+			dialog.show();
+		}
 	}
+
 	/**
 	 * Vuelve al menub principal
+	 * 
 	 * @param event
 	 */
 	@FXML

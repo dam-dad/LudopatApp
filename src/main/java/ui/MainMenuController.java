@@ -113,24 +113,26 @@ public class MainMenuController implements Initializable{
 	 */
 	@FXML
     void documentationAction(ActionEvent event) {
-		Label helpLabel = new Label("Ayuda");
-		helpLabel.setMaxWidth(800);
-		helpLabel.setId("tittle");
-		
-		HBox tittleBox = new HBox(helpLabel);
-		tittleBox.setPrefWidth(800);
-		tittleBox.setAlignment(Pos.CENTER);
-		
-		help = new HelpViewContoller("Index");
-		
-		JFXDialogLayout layout = new JFXDialogLayout();
-		layout.setHeading(tittleBox);
-		layout.setBody(help.getView());
-		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
-		
-		layout.setId("content");
-		
-		dialog.show();
+		if (stack.getChildren().size() == 2) {
+			Label helpLabel = new Label("Ayuda");
+			helpLabel.setMaxWidth(800);
+			helpLabel.setId("tittle");
+			
+			HBox tittleBox = new HBox(helpLabel);
+			tittleBox.setPrefWidth(800);
+			tittleBox.setAlignment(Pos.CENTER);
+			
+			help = new HelpViewContoller("Index");
+			
+			JFXDialogLayout layout = new JFXDialogLayout();
+			layout.setHeading(tittleBox);
+			layout.setBody(help.getView());
+			JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+			
+			layout.setId("content");
+			
+			dialog.show();
+		}
     }
 	/**
 	 * Muestra la configuración
