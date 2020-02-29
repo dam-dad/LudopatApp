@@ -141,7 +141,8 @@ public class LudopatApp extends Application {
 	
 	//Carga la configuración general
 	private void loadConfig() {
-		File file = new File(getClass().getResource("/config/config.dat").getFile());
+//		File file = new File(getClass().getResource("/config/config.dat").getFile());
+		File file = new File("config.dat");
 		try {
 			RandomAccessFile configFile = new RandomAccessFile(file, "r");
 			//Lee si está silenciado

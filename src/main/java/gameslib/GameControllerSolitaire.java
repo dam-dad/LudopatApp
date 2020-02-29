@@ -433,7 +433,17 @@ public class GameControllerSolitaire implements Initializable {
 		exit.setId("button");
 		exit.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
 
-		layout.setActions(menu, exit);
+		JFXButton report = new JFXButton("Generar informe");
+		report.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				//Llamada al método de generación del informe
+			}
+		});
+
+		report.setId("button");
+		report.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
+		
+		layout.setActions(report, menu, exit);
 		dialog.show();
 	}
 	/**

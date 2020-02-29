@@ -72,7 +72,7 @@ public class IpConfigController extends AnchorPane implements Initializable {
 		this.ludopp = ludopp;
 		try {
 
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/online/IpSelectConfigView.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui/fxml/online/IPSelectConfigView.fxml"));
 			loader.setController(this);
 			loader.setRoot(this);
 			loader.load();
