@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import net.objects.NET_Card;
 import net.objects.NET_Player;
+import statistics.PlayerStatistic;
 
 /**
  * 
@@ -54,6 +55,11 @@ public class Player {
 	 * Identificación de turno del jugador
 	 */
 	private int id;
+	
+	/**
+	 * Estadísticas del jugador
+	 */
+	private PlayerStatistic playerStatistics;
 	
 	public Player() {}
 	
@@ -105,6 +111,8 @@ public class Player {
 	
 	public final void setPlayerInfo(final PlayerInfo playerInfo) {
 		this.playerInfoProperty().set(playerInfo);
+		//Creamos el playerStatistics del jugador
+		this.playerStatistics = new PlayerStatistic("#" + this.id, this.playerInfo.get().getPlayerName(), this.playerInfo.get().getPlayerIcon().getUrl());
 	}
 
 	public boolean isAI() {
@@ -121,6 +129,14 @@ public class Player {
 
 	public void setAIController(Dav_AI aIController) {
 		AIController = aIController;
+	}
+	
+	public void setStatistics(int points) {
+		this.playerStatistics.setPoints(points);
+	}
+	
+	public PlayerStatistic getStatistics() {
+		return this.playerStatistics;
 	}
 	
 }
