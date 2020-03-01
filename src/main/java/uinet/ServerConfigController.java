@@ -18,6 +18,7 @@ import help.HelpViewContoller;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -109,6 +110,9 @@ public class ServerConfigController implements Initializable {
 
 	private KeyValue key;
 	private Timeline timeline;
+	
+	private boolean showHelp;
+	private JFXDialog helpDialog;
 
 	private final String INIT = "Iniciar";
 	private final String CONTINUE = "Continuar";
@@ -163,6 +167,31 @@ public class ServerConfigController implements Initializable {
 		currentStage = e_menuStages.ST_CONFIG_GAME;
 		currentPage.setValue(1);
 		setMovingHandler();
+		
+		// Requerimos el foco en el "continuar"
+		Platform.runLater( () -> continueButton.requestFocus() );
+
+		// Ajustamos algunos atajos de teclado
+		getView().setOnKeyPressed(evt -> {
+
+			switch (evt.getCode()) {
+
+			case BACK_SPACE:
+				onBackAction(null);
+				break;
+
+			case M:
+				onMenuAction(null);
+				break;
+
+			case H:
+				openHelp(null);
+				break;
+
+			default:
+				break;
+			}
+		});
 	}
 	
 	private void setColors() {
@@ -329,6 +358,11 @@ public class ServerConfigController implements Initializable {
 
 	@FXML
 	void onBackAction(ActionEvent event) {
+		
+		if( currentPage.get() == 1 || currentPage.get() == 4 ) {
+			return;
+		}
+		
 		currentPage.setValue(currentPage.getValue() - 1);
 		previousStage();
 	}
@@ -339,7 +373,11 @@ public class ServerConfigController implements Initializable {
 	@FXML
 	void onContinueAction(ActionEvent event) {
 
-		if( currentPage.getValue() == 3 ) {
+		if( currentPage.get() == 4 ) {
+			return;
+		}
+		
+		else if( currentPage.getValue() == 3 ) {
 			
 			// Entonces iniciamos el servidor y nuestro cliente
 			playerConfig.closeDialog(-1);
@@ -369,6 +407,14 @@ public class ServerConfigController implements Initializable {
 	@FXML
 	void openHelp(MouseEvent event) {
 
+		if( showHelp ) {
+			showHelp = false;
+			helpDialog.close();
+			return;
+		}
+		
+		showHelp = true;
+		
 		Label helpLabel = new Label("Ayuda");
 		helpLabel.setMaxWidth(800);
 		helpLabel.setId("tittle");
@@ -383,13 +429,13 @@ public class ServerConfigController implements Initializable {
 		layout.setHeading(tittleBox);
 		layout.setBody(help.getView());
 
-		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+		helpDialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
 
 		layout.setId("content2");
 
 		layout.maxHeight(200);
 
-		dialog.show();
+		helpDialog.show();
 	}
 
 	public StackPane getView() {

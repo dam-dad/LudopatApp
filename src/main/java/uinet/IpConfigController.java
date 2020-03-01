@@ -96,5 +96,9 @@ public class IpConfigController extends AnchorPane implements Initializable {
 		this.ipProperty().set(ip);
 	}
 	
+	public JFXTextField getIpText() {
+		return ipText;
+	}
+	
 
 }

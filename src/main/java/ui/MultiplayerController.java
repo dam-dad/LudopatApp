@@ -14,6 +14,8 @@ import help.HelpViewContoller;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.beans.Observable;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -27,6 +29,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -100,6 +104,8 @@ public class MultiplayerController implements Initializable {
 	
 	private LudopatApp ludopp;
 	
+	private boolean showHelp = false;
+	
 	private final int TRANSITION_TIME = 500;
 	
 	private KeyValue key;
@@ -109,6 +115,7 @@ public class MultiplayerController implements Initializable {
 	private final String PLAY = "Jugar";
 
 	private HelpViewContoller help;
+	private JFXDialog helpDialog;
 	
 	private static double xOffset = 0;
     private static double yOffset = 0;
@@ -161,6 +168,31 @@ public class MultiplayerController implements Initializable {
 		currentStage = e_menuStages.ST_CONFIG_GAME;
 		currentPage.setValue(1);
 		setMovingHandler();
+		
+		// Requerimos el foco en el "continuar"
+		Platform.runLater( () -> continueButton.requestFocus() );
+
+		// Ajustamos algunos atajos de teclado
+		getView().setOnKeyPressed(evt -> {
+
+			switch (evt.getCode()) {
+
+			case BACK_SPACE:
+				onBackAction(null);
+				break;
+
+			case M:
+				onMenuAction(null);
+				break;
+
+			case H:
+				openHelp(null);
+				break;
+
+			default:
+				break;
+			}
+		});
 	}
 	
 	private void setColors() {
@@ -334,8 +366,15 @@ public class MultiplayerController implements Initializable {
 	
 	@FXML
 	void onBackAction(ActionEvent event) {
+		
+		if( currentPage.get() == 1 ) {
+			return;
+		}
+		
 		currentPage.setValue(currentPage.getValue()-1);
 		previousStage();
+		
+		Platform.runLater( () -> continueButton.requestFocus() );
 	}
 	
     @FXML
@@ -347,6 +386,8 @@ public class MultiplayerController implements Initializable {
 			currentPage.setValue(currentPage.getValue()+1);
 			nextStage();
 		}
+		
+		Platform.runLater( () -> continueButton.requestFocus() );
 	}
 	
 	@FXML
@@ -357,6 +398,14 @@ public class MultiplayerController implements Initializable {
     @FXML
     void openHelp(MouseEvent event) {
 
+    	if( showHelp ) {
+    		showHelp = false;
+    		helpDialog.close();
+    		return;
+    	}
+    	
+    	showHelp = true;
+    	
 		Label helpLabel = new Label("Ayuda");
 		helpLabel.setMaxWidth(800);
 		helpLabel.setId("tittle");
@@ -371,13 +420,13 @@ public class MultiplayerController implements Initializable {
 		layout.setHeading(tittleBox);
 		layout.setBody(help.getView());
 		
-		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+		helpDialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
 		
 		layout.setId("content2");
 		
 		layout.maxHeight(200);
 		
-		dialog.show();
+		helpDialog.show();
     }
 
 	public StackPane getView() {

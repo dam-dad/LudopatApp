@@ -108,6 +108,8 @@ public class ClientConfigController implements Initializable {
 	private KeyValue key;
 	private Timeline timeline;
 	private boolean inServer;
+	private boolean showHelp;
+	private JFXDialog helpDialog;
 	
 	// variables
 	private IntegerProperty currentPage = new SimpleIntegerProperty();
@@ -158,6 +160,31 @@ public class ClientConfigController implements Initializable {
 		currentStage = e_menuStages.ST_CONFIG_PLAYERS;
 		currentPage.setValue(1);
 		setMovingHandler();
+		
+		// Requerimos el foco en el "continuar"
+		Platform.runLater( () -> continueButton.requestFocus() );
+
+		// Ajustamos algunos atajos de teclado
+		getView().setOnKeyPressed(evt -> {
+
+			switch (evt.getCode()) {
+
+			case BACK_SPACE:
+				onBackAction(null);
+				break;
+
+			case M:
+				onMenuAction(null);
+				break;
+
+			case H:
+				openHelp(null);
+				break;
+
+			default:
+				break;
+			}
+		});
 	}
 	
 	private void setColors() {
@@ -223,8 +250,14 @@ public class ClientConfigController implements Initializable {
 	
 	@FXML
 	void onBackAction(ActionEvent event) {
+		
+		if( currentPage.get() == 1 || currentPage.get() == 3 ) {
+			return;
+		}
+		
 		currentPage.setValue(currentPage.getValue() - 1);
 		previousStage();
+		Platform.runLater( () -> continueButton.requestFocus() );
 	}
 	/**
 	 * Lleva al usuario a la anterior sección de la configuracion
@@ -282,6 +315,8 @@ public class ClientConfigController implements Initializable {
 		backButton.setId("");
 		menuButton.setId("");
 		currentPage.setValue(2);
+		
+		Platform.runLater( () -> ipConfig.getIpText().requestFocus() );
 	}
 	
 	/**
@@ -291,7 +326,11 @@ public class ClientConfigController implements Initializable {
 	@FXML
 	void onContinueAction(ActionEvent event) {
 		
-		if( currentPage.getValue() == 2 ) {
+		if( currentPage.get() == 3 ) {
+			return;
+		}
+		
+		else if( currentPage.getValue() == 2 ) {
 			
 			// Entonces conectamos con el cliente
 			playerSelection.closeDialog(-1);
@@ -312,6 +351,8 @@ public class ClientConfigController implements Initializable {
 			
 			currentPage.setValue(currentPage.getValue() + 1);
 			nextStage();
+			
+			Platform.runLater( () -> continueButton.requestFocus() );
 		}
 		
 	}
@@ -356,6 +397,15 @@ public class ClientConfigController implements Initializable {
 
 	@FXML
 	void openHelp(MouseEvent event) {
+		
+		if( showHelp ) {
+			showHelp = false;
+			helpDialog.close();
+			return;
+		}
+		
+		showHelp = true;
+		
 		Label helpLabel = new Label("Ayuda");
 		helpLabel.setMaxWidth(800);
 		helpLabel.setId("tittle");
@@ -370,13 +420,13 @@ public class ClientConfigController implements Initializable {
 		layout.setHeading(titleBox);
 		layout.setBody(help.getView());
 
-		JFXDialog dialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
-
+		helpDialog = new JFXDialog(stack, layout, DialogTransition.CENTER);
+		
 		layout.setId("content2");
 
 		layout.maxHeight(200);
 
-		dialog.show();
+		helpDialog.show();
 	}
 
 	public StackPane getView() {
