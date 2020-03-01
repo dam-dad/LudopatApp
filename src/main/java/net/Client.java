@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.SocketTimeoutException;
+
 import java.util.ArrayList;
 
 import games.Card;
@@ -43,6 +43,7 @@ public class Client implements Runnable {
 	private int clientID;
 	private Socket socket;
 	private boolean serverExit;
+	@SuppressWarnings("unused")
 	private boolean endGame;
 	private ObjectInputStream dataIn;
 	private ObjectOutputStream dataOut;

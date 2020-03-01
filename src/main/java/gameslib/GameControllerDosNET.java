@@ -30,7 +30,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
+
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -506,7 +506,7 @@ public class GameControllerDosNET implements Initializable {
 	private void onSelectCard(Card card, CardComponent cmp, int indexInHand) {
 
 		dosGame.client_throwCard(indexInHand);
-
+		
 		// Desabilitamos la mano del jugador
 		disableHand();
 	}
@@ -532,7 +532,6 @@ public class GameControllerDosNET implements Initializable {
 	 * Finaliza la partida, se muestra la interfaz
 	 */
 	public void endGame(ArrayList<Player> players) {
-
 		// Desactiva el juego
 		disableHand();
 
@@ -636,7 +635,7 @@ public class GameControllerDosNET implements Initializable {
 	 * al menu
 	 */
 	public void notifyDisconnectDialog() {
-
+		updateCardCounters();
 		// Desabilitamos todos los controles
 		disableHand();
 		exitButton.setDisable(true);

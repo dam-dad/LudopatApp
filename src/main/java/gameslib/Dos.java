@@ -60,6 +60,7 @@ public class Dos extends Game {
 	private ObjectProperty<Card> lastCard = new SimpleObjectProperty<Card>();
 
 	// NET
+	@SuppressWarnings("unused")
 	private LudopatApp app;
 	private Player localPlayer;
 	private GameServer gameServer;
@@ -304,6 +305,7 @@ public class Dos extends Game {
 		}
 
 		// Para todos los usuarios actualizar el número de cartas
+
 		NETHud.updateCardCounters();
 	}
 
@@ -348,7 +350,7 @@ public class Dos extends Game {
 				player.getAIController().setStopAI(true);
 			}
 		}
-
+		
 		// Ordenar jugadores por numero de cartas y
 		// lo pasa al dialogo.
 		Collections.sort(currentPlayers, new ComparePlayers());
@@ -520,7 +522,7 @@ public class Dos extends Game {
 	@Override
 	public void dealCards() {
 		// TIP 1 para pruebas, 7 para partida
-		int numCartas = 7;
+		int numCartas = 1;
 
 		for (Player p : currentPlayers) {
 
