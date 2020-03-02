@@ -46,6 +46,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import statistics.PlayerStatistic;
 import ui.CardComponent;
+
 /**
  * <b>GameControllerDos</b> <br>
  * <br>
@@ -179,13 +180,13 @@ public class GameControllerDos implements Initializable {
 	private Dos dosGame;
 
 	private HelpViewContoller help;
-	
+
 	private static double xOffset = 0;
-    private static double yOffset = 0;
-    private EventHandler<MouseEvent> click;
-    private EventHandler<MouseEvent> drag;
-    
-    public static final String JRXML_FILE = "/ui/reports/result.jrxml";
+	private static double yOffset = 0;
+	private EventHandler<MouseEvent> click;
+	private EventHandler<MouseEvent> drag;
+
+	public static final String JRXML_FILE = "/ui/reports/result.jrxml";
 	public static final String PDF_FILE = "pdf/results.pdf";
 	private EndGameController endgame;
 
@@ -199,7 +200,7 @@ public class GameControllerDos implements Initializable {
 		loader.setController(this);
 		try {
 			loader.load();
-			
+
 			setColors();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -268,7 +269,7 @@ public class GameControllerDos implements Initializable {
 		showHand();
 		setMovingHandler();
 	}
-	
+
 	private void setColors() {
 		view.getStylesheets().remove(0);
 
@@ -282,41 +283,42 @@ public class GameControllerDos implements Initializable {
 			view.getStylesheets().add(getClass().getResource("/ui/css/DosBoardStyle.css").toString());
 		}
 	}
-	
-	
+
 	private void setMovingHandler() {
 		click = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                xOffset = ludopp.getMainStage().getX() - event.getScreenX();
-                yOffset = ludopp.getMainStage().getY() - event.getScreenY();
-            }
-        };
+			@Override
+			public void handle(MouseEvent event) {
+				xOffset = ludopp.getMainStage().getX() - event.getScreenX();
+				yOffset = ludopp.getMainStage().getY() - event.getScreenY();
+			}
+		};
 		drag = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-            	ludopp.getMainStage().setX(event.getScreenX() + xOffset);
-            	ludopp.getMainStage().setY(event.getScreenY() + yOffset);
-            }
-        };
-        header.setOnMousePressed(click);
+			@Override
+			public void handle(MouseEvent event) {
+				ludopp.getMainStage().setX(event.getScreenX() + xOffset);
+				ludopp.getMainStage().setY(event.getScreenY() + yOffset);
+			}
+		};
+		header.setOnMousePressed(click);
 		header.setOnMouseDragged(drag);
-		
+
 		appNameLabel.setOnMousePressed(click);
-		appNameLabel.setOnMouseDragged(drag);	
+		appNameLabel.setOnMouseDragged(drag);
 	}
-	private void removeMovingHandler(){
+
+	private void removeMovingHandler() {
 		header.setOnMousePressed(e -> nothing());
 		header.setOnMouseDragged(e -> nothing());
-		
+
 		appNameLabel.setOnMousePressed(e -> nothing());
 		appNameLabel.setOnMouseDragged(e -> nothing());
 	}
+
 	/**
 	 * Este metodo no hace nada, sirve para limpiar eventhandlers
 	 */
 	private void nothing() {
-		
+
 	}
 
 	private void onChangedPlayer(Player ov, Player nv) {
@@ -356,13 +358,13 @@ public class GameControllerDos implements Initializable {
 
 		if (nv != null) {
 			int npIndex = dosGame.getPlayerPosition(nv);
-			
+
 			if (ludopp.isWhiteMode()) {
 				playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, black, 20, 0.5, 0, 0);");
-			}else {
+			} else {
 				playersBox.get(npIndex).setStyle("-fx-effect: dropshadow(gaussian, white, 20, 0.5, 0, 0);");
 			}
-			
+
 			initHand();
 			showHand();
 		}
@@ -395,6 +397,7 @@ public class GameControllerDos implements Initializable {
 			currentCard.setImage(nv.getCardImage());
 		}
 	}
+
 	/**
 	 * Refresca la interfaz de la mano después de una acciónr
 	 */
@@ -412,7 +415,7 @@ public class GameControllerDos implements Initializable {
 			}
 
 			handGrid.add(cardComp, i, 0);
-			
+
 			if (!dosGame.getActivePlayer().isAI()) {
 				if (card.isPlayable()) {
 					cardComp.setOnMouseClicked(e -> onSelectCard(card, cardComp));
@@ -429,13 +432,14 @@ public class GameControllerDos implements Initializable {
 		}
 
 	}
+
 	/**
 	 * Refresca la mano de una IA despues de una acción
 	 */
 	public void refreshIAHand() {
 		// Limpiamos la mano actual del jugador y la actualizamos
 		handGrid.getChildren().clear();
-		
+
 		int i = 0;
 
 		for (Card card : dosGame.getActivePlayer().getHand()) {
@@ -445,6 +449,7 @@ public class GameControllerDos implements Initializable {
 			i++;
 		}
 	}
+
 	/**
 	 * Inicializa la mano, activando y desactivando los botones necesarios
 	 */
@@ -539,7 +544,7 @@ public class GameControllerDos implements Initializable {
 		});
 
 		JFXDialogLayout layout = new JFXDialogLayout();
-		endgame=new EndGameController(dosGame.getCurrentPlayers());
+		endgame = new EndGameController(dosGame.getCurrentPlayers());
 		layout.setBody(endgame);
 
 		layout.setId("bg");
@@ -576,42 +581,46 @@ public class GameControllerDos implements Initializable {
 				report();
 			}
 
-			
 		});
 
 		report.setId("button");
 		report.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
-		
+
 		layout.setActions(report, menu, exit);
 		dialog.show();
 	}
+
 	private void report() {
 		try {
-			
-			ArrayList<PlayerStatistic> playerSt= new ArrayList<PlayerStatistic>();
-		for(Player p: endgame.getPlayers()) {
-			playerSt.add(p.getStatistics());
-		p.getStatistics().sysoStatistics();
+
+			ArrayList<PlayerStatistic> playerSt = new ArrayList<PlayerStatistic>();
+			for (Player p : endgame.getPlayers()) {
+				playerSt.add(p.getStatistics());
+				p.getStatistics().sysoStatistics();
 			}
 
-			JasperReport jsr= JasperCompileManager.compileReport(GameControllerDos.class.getResourceAsStream(JRXML_FILE));
+			JasperReport jsr = JasperCompileManager
+					.compileReport(GameControllerDos.class.getResourceAsStream(JRXML_FILE));
 			Map<String, Object> parameters = new HashMap<String, Object>();
 			parameters.put("anyo", 2014);// no lo uso, pero se lo paso
-			JasperPrint jprint = JasperFillManager.fillReport(jsr, parameters ,new JRBeanCollectionDataSource(playerSt));
-			JasperExportManager.exportReportToPdfFile(jprint,PDF_FILE);
+			JasperPrint jprint = JasperFillManager.fillReport(jsr, parameters,
+					new JRBeanCollectionDataSource(playerSt));
+			JasperExportManager.exportReportToPdfFile(jprint, PDF_FILE);
 			Desktop.getDesktop().open(new File(PDF_FILE));
-		}  catch (JRException e) {
+		} catch (JRException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	private void updateCardCounters() {
 		for (int i = 0; i < dosGame.getCurrentPlayers().size(); i++) {
-			playersNumCards.get(i).setText(String.format("Número de cartas: %d", dosGame.getCurrentPlayers().get(i).getHand().size()));
+			playersNumCards.get(i).setText(
+					String.format("Número de cartas: %d", dosGame.getCurrentPlayers().get(i).getHand().size()));
 		}
 	}
 

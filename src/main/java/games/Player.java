@@ -113,6 +113,7 @@ public class Player {
 		this.playerInfoProperty().set(playerInfo);
 		//Creamos el playerStatistics del jugador
 		this.playerStatistics = new PlayerStatistic("#" + this.id, this.playerInfo.get().getPlayerName(), this.playerInfo.get().getPlayerIcon().getUrl());
+		this.playerStatistics.setPoints(getHand().size());
 	}
 
 	public boolean isAI() {
