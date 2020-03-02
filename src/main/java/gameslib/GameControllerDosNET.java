@@ -1,9 +1,13 @@
 package gameslib;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.Timer;
@@ -40,6 +44,14 @@ import javafx.scene.layout.VBox;
 import javafx.util.converter.NumberStringConverter;
 import main.LudopatApp;
 import net.Chat;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import statistics.PlayerStatistic;
 import ui.CardComponent;
 
 /**
@@ -216,7 +228,9 @@ public class GameControllerDosNET implements Initializable {
 	private static double yOffset = 0;
 	private EventHandler<MouseEvent> click;
 	private EventHandler<MouseEvent> drag;
-
+	public static final String JRXML_FILE = "/ui/reports/result.jrxml";
+	public static final String PDF_FILE = "pdf/results.pdf";
+	private EndGameController endgame;
 	// ----------------------------------------------------------
 
 	public GameControllerDosNET(LudopatApp app, String gameType) {
@@ -536,7 +550,8 @@ public class GameControllerDosNET implements Initializable {
 		disableHand();
 
 		JFXDialogLayout layout = new JFXDialogLayout();
-		layout.setBody(new EndGameController(players));
+		endgame=new EndGameController(dosGame.getCurrentPlayers());
+		layout.setBody(endgame);
 
 		layout.setId("bg");
 		layout.getStylesheets().add(getClass().getResource("/ui/css/EndGame.css").toExternalForm());
@@ -569,7 +584,7 @@ public class GameControllerDosNET implements Initializable {
 		JFXButton report = new JFXButton("Generar informe");
 		report.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
-				// Llamada al método de generación del informe
+				report();
 			}
 		});
 
@@ -592,7 +607,30 @@ public class GameControllerDosNET implements Initializable {
 					String.format("Número de cartas: %d", dosGame.getCurrentPlayers().get(i).getHand().size()));
 		}
 	}
+	private void report() {
+		try {
+			
+			ArrayList<PlayerStatistic> playerSt= new ArrayList<PlayerStatistic>();
+		for(Player p: endgame.getPlayers()) {
+			playerSt.add(p.getStatistics());
+		p.getStatistics().sysoStatistics();
+			}
 
+			JasperReport jsr= JasperCompileManager.compileReport(GameControllerDos.class.getResourceAsStream(JRXML_FILE));
+			Map<String, Object> parameters = new HashMap<String, Object>();
+			parameters.put("anyo", 2014);// no lo uso, pero se lo paso
+			JasperPrint jprint = JasperFillManager.fillReport(jsr, parameters ,new JRBeanCollectionDataSource(playerSt));
+			JasperExportManager.exportReportToPdfFile(jprint,PDF_FILE);
+			Desktop.getDesktop().open(new File(PDF_FILE));
+		}  catch (JRException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
 	@FXML
 	void drawCardAction(ActionEvent event) {
 

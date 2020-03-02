@@ -8,7 +8,8 @@ public class PlayerStatistic {
 	private String playerName;
 	private String playerImage;
 	private ArrayList<Integer> scorePerRound = new ArrayList<Integer>();
-	private int playerScore;
+	private Integer handCardNumber;
+
 	
 	public PlayerStatistic(String playerID, String playerName, String playerImage) {
 		this.playerID = playerID;
@@ -18,7 +19,7 @@ public class PlayerStatistic {
 	
 	public void setPoints(int score) {
 		this.scorePerRound.add(score);
-		this.playerScore = score;
+		this.handCardNumber = score;
 	}
 	
 
@@ -38,15 +39,15 @@ public class PlayerStatistic {
 		return scorePerRound;
 	}
 
-	public int getPlayerScore() {
-		return playerScore;
+	public Integer getHandCardNumber() {
+		return handCardNumber;
 	}
 	
 	public void sysoStatistics() {
 		System.out.println(this.playerID);
 		System.out.println(this.playerName);
 		System.out.println(this.playerImage);
-		System.out.println("Score: " + this.playerScore);
+		System.out.println("Score: " + this.handCardNumber);
 	}
 	
 }

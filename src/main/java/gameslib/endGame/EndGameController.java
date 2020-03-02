@@ -24,7 +24,11 @@ import javafx.scene.layout.VBox;
  */
 public class EndGameController extends VBox implements Initializable {
 	
-	private ArrayList<Player> players;
+	private static ArrayList<Player> players;
+	
+	public static ArrayList<Player> getPlayers() {
+		return players;
+	}
 	
 	public EndGameController(ArrayList<Player> players) {
 		try {
