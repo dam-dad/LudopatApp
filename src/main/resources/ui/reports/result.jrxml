@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="factura" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a1be1174-10be-4df1-b271-1fbc8431fe7b">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="NO_DATA_ADAPTER"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="playerID" class="java.lang.String">
+		<fieldDescription><![CDATA[playerID]]></fieldDescription>
+	</field>
+	<field name="playerName" class="java.lang.String">
+		<fieldDescription><![CDATA[playerName]]></fieldDescription>
+	</field>
+	<field name="handCardNumber" class="java.lang.Integer">
+		<fieldDescription><![CDATA[handCardNumber]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="340" height="50" uuid="07d340f1-4dba-4057-bd46-81cdc474f96e"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font size="27"/>
+				</textElement>
+				<text><![CDATA[Resultado de la partida]]></text>
+			</staticText>
+			<image>
+				<reportElement x="480" y="0" width="50" height="50" uuid="957f83df-6bfe-4e94-a1a8-1f1841766dc4"/>
+				<imageExpression><![CDATA["Noframe.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="24" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-8" y="0" width="568" height="20" forecolor="#000000" backcolor="#E3E3DE" uuid="b49681a7-1a16-4887-ab0d-5cc4c1038f8d"/>
+				<graphicElement>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="20" uuid="dee8e752-925f-4ada-b196-0c9f2ec78055"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="160" y="0" width="210" height="20" uuid="be2e9d31-15a0-4cc9-8952-e464c91d0bca"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="160" height="20" uuid="4c24bfea-73d8-49bd-a2d8-0a524f9f8139"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cartas en mano]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="6" y="4" width="188" height="30" uuid="d9924562-1e31-4405-b599-15d1965a129f"/>
+				<textFieldExpression><![CDATA[$F{playerID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="2" width="90" height="30" uuid="68cc3423-529f-497a-8505-2ee7226a3f4d"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{playerName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="400" y="2" width="90" height="30" uuid="15c91a2e-0672-46a9-99c9-df60c310a971"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{handCardNumber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="109" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="71"/>
+	</summary>
+</jasperReport>
