@@ -72,8 +72,9 @@
 						</goals>
 						<configuration>
 							<mainClass>main.Main</mainClass>
+							<administratorRequired>true</administratorRequired>
 							<bundleJre>true</bundleJre>
-							<customizedJre>false</customizedJre>
+							<customizedJre>true</customizedJre>
 							<iconFile>assets/LudopatApp.ico</iconFile>
 							<additionalResources>
 								<param>config.dat</param>

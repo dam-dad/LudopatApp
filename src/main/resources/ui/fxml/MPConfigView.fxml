@@ -21,7 +21,7 @@
                      <children>
                         <ImageView fx:id="appImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../images/noframe.png" />
+                              <Image url="@../images/Noframe.png" />
                            </image>
                         </ImageView>
                         <Label id="tittle" text="LudopatApp">
