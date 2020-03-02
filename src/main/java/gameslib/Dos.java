@@ -203,6 +203,11 @@ public class Dos extends Game {
 		if (gameServer != null) {
 
 			if (getActivePlayer().getHand().size() <= 0) {
+				gameServer.sendNewCardTable(getActivePlayer().getHand(), getLastCard());
+				try {
+					Thread.sleep(500);
+				} catch (InterruptedException e) {
+				}
 				// Hemos terminado
 				endGame();
 			}
@@ -237,6 +242,8 @@ public class Dos extends Game {
 	 * @param players Jugadores ordenados según sus posiciones
 	 */
 	public void client_receiveEndGame(ArrayList<Player> players) {
+		NETHud.updateCardCounters();
+		NETHud.refreshHand();
 		NETHud.endGame(players);
 	}
 
@@ -357,9 +364,6 @@ public class Dos extends Game {
 
 		if (gameServer != null) {
 			gameServer.sendEndGame(currentPlayers);
-		}
-		for (Player player : this.getCurrentPlayers()) {
-			player.getStatistics().sysoStatistics();
 		}
 	}
 
