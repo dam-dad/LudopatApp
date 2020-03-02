@@ -18,7 +18,7 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="78" splitType="Stretch">
+		<band height="105" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="340" height="50" uuid="07d340f1-4dba-4057-bd46-81cdc474f96e"/>
 				<textElement textAlignment="Left" verticalAlignment="Top">
@@ -30,32 +30,40 @@
 				<reportElement x="480" y="0" width="50" height="50" uuid="957f83df-6bfe-4e94-a1a8-1f1841766dc4"/>
 				<imageExpression><![CDATA["Noframe.png"]]></imageExpression>
 			</image>
+			<textField>
+				<reportElement x="0" y="50" width="280" height="20" uuid="ca1c26cb-2425-4f15-a975-7021eaa08230"/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yy").format(new Date())]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="290" y="50" width="100" height="30" uuid="1c55f842-e92a-4ff7-a412-0020c5b2e0e5"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="24" splitType="Stretch">
+		<band height="25" splitType="Stretch">
 			<rectangle>
-				<reportElement x="-8" y="0" width="568" height="20" forecolor="#000000" backcolor="#E3E3DE" uuid="b49681a7-1a16-4887-ab0d-5cc4c1038f8d"/>
+				<reportElement x="-8" y="0" width="568" height="20" forecolor="#000000" backcolor="#474747" uuid="b49681a7-1a16-4887-ab0d-5cc4c1038f8d"/>
 				<graphicElement>
 					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
 				</graphicElement>
 			</rectangle>
 			<staticText>
-				<reportElement x="0" y="0" width="200" height="20" uuid="dee8e752-925f-4ada-b196-0c9f2ec78055"/>
+				<reportElement x="0" y="0" width="200" height="20" forecolor="#FFFFFF" uuid="dee8e752-925f-4ada-b196-0c9f2ec78055"/>
 				<textElement verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Id]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="160" y="0" width="210" height="20" uuid="be2e9d31-15a0-4cc9-8952-e464c91d0bca"/>
+				<reportElement x="160" y="0" width="210" height="20" forecolor="#FFFFFF" uuid="be2e9d31-15a0-4cc9-8952-e464c91d0bca"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Nombre]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="360" y="0" width="160" height="20" uuid="4c24bfea-73d8-49bd-a2d8-0a524f9f8139"/>
+				<reportElement x="360" y="0" width="160" height="20" forecolor="#FFFFFF" uuid="4c24bfea-73d8-49bd-a2d8-0a524f9f8139"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="12" isBold="true"/>
 				</textElement>
@@ -85,6 +93,13 @@
 		<band height="109" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="71"/>
+		<band height="71">
+			<rectangle>
+				<reportElement x="-7" y="27" width="568" height="20" forecolor="#000000" backcolor="#474747" uuid="3b63409b-3a99-4c3d-95f2-530e1e01df60"/>
+				<graphicElement>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</graphicElement>
+			</rectangle>
+		</band>
 	</summary>
 </jasperReport>
