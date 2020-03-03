@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>LudopatApp</groupId>
 	<artifactId>LudopatApp</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<name>LudopatApp</name>
 	<description>Gestor de juego de cartas</description>
 
@@ -80,9 +80,13 @@
 							<administratorRequired>true</administratorRequired>
 							<bundleJre>true</bundleJre>
 							<customizedJre>true</customizedJre>
+							<organizationName>LudopaTeam</organizationName>
+							<organizationUrl>https://github.com/dam-dad/LudopatApp</organizationUrl>
+							<url>https://github.com/dam-dad/LudopatApp/blob/master/README.md</url>
 							<iconFile>assets/LudopatApp.ico</iconFile>
 							<additionalResources>
 								<param>config.dat</param>
+								<param>Noframe.png</param>
 							</additionalResources>
 						</configuration>
 					</execution>

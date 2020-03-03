@@ -526,7 +526,7 @@ public class Dos extends Game {
 	@Override
 	public void dealCards() {
 		// TIP 1 para pruebas, 7 para partida
-		int numCartas = 1;
+		int numCartas = 7;
 
 		for (Player p : currentPlayers) {
 
