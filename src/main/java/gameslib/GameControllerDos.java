@@ -4,6 +4,8 @@ import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -185,9 +187,16 @@ public class GameControllerDos implements Initializable {
 	private static double yOffset = 0;
 	private EventHandler<MouseEvent> click;
 	private EventHandler<MouseEvent> drag;
-
+	
+	
+	//Informe
 	public static final String JRXML_FILE = "/ui/reports/result.jrxml";
-	public static final String PDF_FILE = "pdf/results.pdf";
+	private static final String USER_FOLDER = System.getProperty("user.home") + "\\desktop\\LudopatApp_Informes\\";
+	private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	private static final String date = LocalDate.now().format(formatter);
+	public static final String PDF_FILE = USER_FOLDER + "Resultado_" + date;
+	private static String PDF_ROUTE = "";
+	private static final String PDF = ".pdf";
 	private EndGameController endgame;
 
 	// ----------------------------------------------------------
@@ -591,10 +600,33 @@ public class GameControllerDos implements Initializable {
 	}
 
 	private void report() {
+		
+		//Comprueba si tiene creada la carpeta de reportes y si no la crea.
+		File userFolder = new File(USER_FOLDER);
+		if (!userFolder.exists()) {
+			System.out.println("Creando carpeta...");
+			userFolder.mkdirs();
+		}
+		
+		//Comprueba si ya existe otro informe con el mismo nombre
+		PDF_ROUTE = "";
+		File userReportFile = new File(PDF_FILE + PDF);
+		if (userReportFile.exists()) {
+			int i = 0;
+			while(userReportFile.exists()) {
+				i++;
+				userReportFile = new File(PDF_FILE + "(" + i + ")" + PDF);
+			}
+			
+			PDF_ROUTE += PDF_FILE + "(" + i + ")" + PDF;
+		}else {
+			PDF_ROUTE += PDF_FILE + PDF;
+		}
+		
 		try {
 
 			ArrayList<PlayerStatistic> playerSt = new ArrayList<PlayerStatistic>();
-			for (Player p : endgame.getPlayers()) {
+			for (Player p : EndGameController.getPlayers()) {
 				playerSt.add(p.getStatistics());
 				p.getStatistics().sysoStatistics();
 			}
@@ -605,13 +637,11 @@ public class GameControllerDos implements Initializable {
 			parameters.put("anyo", 2014);// no lo uso, pero se lo paso
 			JasperPrint jprint = JasperFillManager.fillReport(jsr, parameters,
 					new JRBeanCollectionDataSource(playerSt));
-			JasperExportManager.exportReportToPdfFile(jprint, PDF_FILE);
-			Desktop.getDesktop().open(new File(PDF_FILE));
+			JasperExportManager.exportReportToPdfFile(jprint, PDF_ROUTE);
+			Desktop.getDesktop().open(new File(PDF_ROUTE));
 		} catch (JRException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
